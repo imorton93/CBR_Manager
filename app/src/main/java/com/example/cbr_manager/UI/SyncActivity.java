@@ -1,14 +1,16 @@
-package com.example.cbr_manager;
+package com.example.cbr_manager.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ClientListActivity extends AppCompatActivity {
+import com.example.cbr_manager.R;
+
+public class SyncActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_list);
+        setContentView(R.layout.activity_sync);
     }
 }

@@ -9,13 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CBR_Manager">
-        <activity android:name=".SyncActivity"></activity>
-        <activity android:name=".ClientInfoActivity" />
-        <activity android:name=".DashboardActivity" />
-        <activity android:name=".ClientListActivity" />
-        <activity android:name=".NewVisitActivity" />
-        <activity android:name=".NewClientActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".UI.SyncActivity"></activity>
+        <activity android:name=".UI.ClientInfoActivity" />
+        <activity android:name=".UI.DashboardActivity" />
+        <activity android:name=".UI.ClientListActivity" />
+        <activity android:name=".UI.NewVisitActivity" />
+        <activity android:name=".UI.NewClientActivity" />
+        <activity android:name=".UI.TaskViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
