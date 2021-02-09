@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">CBR_Manager</string>
+    <string name="community_based_rehab_manager">Community Based Rehab Manager</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_sign_up_here">Don\'t have an account? sign up here.</string>
+    <string name="hopehealthactionlogo">HopeHealthActionLogo</string>
+    <string name="new_client">New Client</string>
+    <string name="new_visit">New Visit</string>
+    <string name="referral">Referral</string>
+    <string name="all_clients">All Clients</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="sync">Sync</string>
 </resources>
