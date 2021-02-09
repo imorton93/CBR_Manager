@@ -45,24 +45,20 @@
         android:layout_height="140dp"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/referral"
-        app:layout_constraintVertical_bias="0.893"
         app:srcCompat="@mipmap/notification_foreground" />
 
     <ImageView
         android:id="@+id/sync"
         android:layout_width="140dp"
         android:layout_height="140dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/allClients"
-        app:layout_constraintVertical_bias="0.872"
         app:srcCompat="@mipmap/sync_foreground" />
 
     <ImageView
