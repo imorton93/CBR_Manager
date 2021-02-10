@@ -6,44 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".UI.TaskViewActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool_bar" />
+
+
     <ImageView
         android:id="@+id/newclient"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/add_user_foreground"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        app:layout_constraintEnd_toStartOf="@+id/newVisit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:srcCompat="@mipmap/add_user_foreground" />
 
     <ImageView
         android:id="@+id/newVisit"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/add_visit_foreground"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/newclient"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:srcCompat="@mipmap/add_visit_foreground" />
 
     <ImageView
         android:id="@+id/allClients"
         android:layout_width="140dp"
         android:layout_height="140dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newVisit"
-        app:srcCompat="@mipmap/list_foreground"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/referral"
+        app:layout_constraintTop_toBottomOf="@+id/newVisit"
+        app:srcCompat="@mipmap/list_foreground" />
 
     <ImageView
         android:id="@+id/dashboard"
@@ -52,24 +66,30 @@
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toStartOf="@+id/sync"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/referral"
-        app:srcCompat="@mipmap/notification_foreground"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:srcCompat="@mipmap/notification_foreground" />
 
     <ImageView
         android:id="@+id/sync"
         android:layout_width="140dp"
         android:layout_height="140dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allClients"
-        app:srcCompat="@mipmap/sync_foreground"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dashboard"
+        app:layout_constraintTop_toBottomOf="@+id/allClients"
+        app:srcCompat="@mipmap/sync_foreground" />
 
     <ImageView
         android:id="@+id/referral"
@@ -78,11 +98,14 @@
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toStartOf="@+id/allClients"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newclient"
-        app:srcCompat="@mipmap/referral_foreground"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:srcCompat="@mipmap/referral_foreground" />
 
     <TextView
         android:id="@+id/textView"
@@ -145,5 +168,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/sync"
         app:layout_constraintEnd_toEndOf="@+id/sync"
         app:layout_constraintStart_toStartOf="@+id/sync" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
