@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CBR_Manager">
-        <activity android:name=".UI.LoginActivity"></activity>
+        <activity android:name=".UI.NewReferralActivity"></activity>
+        <activity android:name=".UI.LoginActivity" />
         <activity android:name=".UI.SyncActivity" />
         <activity android:name=".UI.ClientInfoActivity" />
         <activity android:name=".UI.DashboardActivity" />

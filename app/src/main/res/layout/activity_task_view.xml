@@ -15,7 +15,9 @@
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/add_user_foreground" />
+        app:srcCompat="@mipmap/add_user_foreground"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <ImageView
         android:id="@+id/newVisit"
@@ -26,7 +28,9 @@
         android:layout_marginRight="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/add_visit_foreground" />
+        app:srcCompat="@mipmap/add_visit_foreground"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <ImageView
         android:id="@+id/allClients"
@@ -37,7 +41,9 @@
         android:layout_marginRight="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newVisit"
-        app:srcCompat="@mipmap/list_foreground" />
+        app:srcCompat="@mipmap/list_foreground"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <ImageView
         android:id="@+id/dashboard"
@@ -48,7 +54,9 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/referral"
-        app:srcCompat="@mipmap/notification_foreground" />
+        app:srcCompat="@mipmap/notification_foreground"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <ImageView
         android:id="@+id/sync"
@@ -59,7 +67,9 @@
         android:layout_marginRight="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/allClients"
-        app:srcCompat="@mipmap/sync_foreground" />
+        app:srcCompat="@mipmap/sync_foreground"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <ImageView
         android:id="@+id/referral"
@@ -70,7 +80,9 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newclient"
-        app:srcCompat="@mipmap/referral_foreground" />
+        app:srcCompat="@mipmap/referral_foreground"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <TextView
         android:id="@+id/textView"

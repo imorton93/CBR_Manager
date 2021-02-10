@@ -8,16 +8,16 @@ import android.os.Bundle;
 
 import com.example.cbr_manager.R;
 
-public class SyncActivity extends AppCompatActivity {
+public class NewReferralActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context) {
-        Intent intent =  new Intent(context, SyncActivity.class);
+        Intent intent =  new Intent(context, NewReferralActivity.class);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sync);
+        setContentView(R.layout.activity_new_referral);
     }
 }
