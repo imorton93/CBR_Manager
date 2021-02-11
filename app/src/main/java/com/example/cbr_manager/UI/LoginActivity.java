@@ -19,7 +19,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        buttonsClicked();
 
+    }
+
+    private void buttonsClicked(){
         usernameTextBox = (EditText) findViewById(R.id.usernameTextBox);
         passwordTextBox = (EditText) findViewById(R.id.passwordTextBox);
 
@@ -40,6 +44,5 @@ public class LoginActivity extends AppCompatActivity {
                 // Do something with signup button
             }
         });
-
     }
 }
