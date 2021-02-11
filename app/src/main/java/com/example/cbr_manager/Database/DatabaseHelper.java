@@ -34,13 +34,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean registerUser(String firstName, String lastName, String email, String password) {
+    public boolean registerWorker(CBRWorker cbrWorker) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COL_1, firstName);
-        cv.put(COL_2, lastName);
-        cv.put(COL_3, email);
-        cv.put(COL_4, password);
+        cv.put(COL_1, cbrWorker.getFirstName());
+        cv.put(COL_2, cbrWorker.getLastName());
+        cv.put(COL_3, cbrWorker.getEmail());
+        cv.put(COL_4, cbrWorker.getPassword());
 
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1)
@@ -49,11 +49,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    /*public boolean checkUser(String username, String password){
+    public boolean checkUser(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
-        String [] columns = { COL_1 };
-        String selection = COL_2 + "=?" + " and " + COL_4 + "=?" ;
-        String [] selectionArgs = { username , password};
+        String [] columns = { COL_3 };
+        String selection = COL_3 + "=?" + " and " + COL_4 + "=?" ;
+        String [] selectionArgs = { email , password};
         Cursor cursor = db.query(TABLE_NAME , columns , selection, selectionArgs, null, null, null);
         int count = cursor.getCount();
         db.close();
@@ -64,5 +64,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return false;
 
-    }*/
+    }
 }
