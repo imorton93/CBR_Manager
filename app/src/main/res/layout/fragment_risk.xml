@@ -5,4 +5,40 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.RiskFragment"/>
+    tools:context=".UI.clientInfoFragment.RiskFragment">
+
+    <TextView
+        android:id="@+id/social"
+        android:layout_width="92dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="57dp"
+        android:text="Social"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/education"
+        app:layout_constraintTop_toBottomOf="@+id/education" />
+
+    <TextView
+        android:id="@+id/education"
+        android:layout_width="92dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="53dp"
+        android:text="Education"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/health"
+        app:layout_constraintTop_toBottomOf="@+id/health" />
+
+    <TextView
+        android:id="@+id/health"
+        android:layout_width="92dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginLeft="66dp"
+        android:layout_marginTop="123dp"
+        android:text="Health"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

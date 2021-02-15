@@ -3,27 +3,19 @@ package com.example.cbr_manager.UI;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toolbar;
+import android.widget.Button;
 
 import com.example.cbr_manager.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
+import com.example.cbr_manager.UI.clientInfoFragment.RiskFragment;
+import com.example.cbr_manager.UI.clientInfoFragment.VisitsFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -48,6 +40,30 @@ public class ClientInfoActivity extends AppCompatActivity {
 
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
+
+        editButton();
+        newVisitButton();
+    }
+
+    private void newVisitButton() {
+        Button newVisit = findViewById(R.id.visit);
+        newVisit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewClientActivity.makeIntent(ClientInfoActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void editButton() {
+        Button edit = findViewById(R.id.edit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // edit
+            }
+        });
     }
 
     public class ViewPagerAdapter extends FragmentStateAdapter {

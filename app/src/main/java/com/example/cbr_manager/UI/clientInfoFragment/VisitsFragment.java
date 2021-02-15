@@ -1,4 +1,4 @@
-package com.example.cbr_manager.UI;
+package com.example.cbr_manager.UI.clientInfoFragment;
 
 import android.os.Bundle;
 
@@ -10,14 +10,14 @@ import android.view.ViewGroup;
 
 import com.example.cbr_manager.R;
 
-public class RiskFragment extends Fragment {
+public class VisitsFragment extends Fragment {
 
-    public RiskFragment() {
+    public VisitsFragment() {
         // Required empty public constructor
     }
 
-    public static RiskFragment newInstance() {
-        RiskFragment fragment = new RiskFragment();
+    public static VisitsFragment newInstance() {
+        VisitsFragment fragment = new VisitsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -26,12 +26,14 @@ public class RiskFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // TODO: populate list view
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_risk, container, false);
+        return inflater.inflate(R.layout.fragment_visits, container, false);
     }
 }

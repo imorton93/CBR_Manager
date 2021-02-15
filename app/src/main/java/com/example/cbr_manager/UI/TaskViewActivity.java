@@ -2,7 +2,6 @@ package com.example.cbr_manager.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,16 +22,16 @@ public class TaskViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view);
-        clickImage();
+        clickIcons();
     }
 
-    private void clickImage() {
+    private void clickIcons() {
         ImageView newClient = findViewById(R.id.newclient);
         newClient.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = NewClientActivity.makeIntent(TaskViewActivity.this);
-                        startActivity(intent);
+                startActivity(intent);
             }
         });
 
