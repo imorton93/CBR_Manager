@@ -14,6 +14,8 @@ public class ToolBarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tool_bar);
+
+        clickImages();
     }
 
     private void clickImages(){

@@ -16,7 +16,7 @@ import com.example.cbr_manager.R;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText firstnameTextBox, lastnameTextBox, emailTextBox, password1TextBox, password2TextBox;
+    private EditText firstNameTextBox, lastNameTextBox, emailTextBox, password1TextBox, password2TextBox;
     private Button submitButton;
     private DatabaseHelper mydb;
 
@@ -30,8 +30,8 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        firstnameTextBox = findViewById(R.id.firstnameTextBox);
-        lastnameTextBox = findViewById(R.id.lastnameTextBox);
+        firstNameTextBox = findViewById(R.id.firstnameTextBox);
+        lastNameTextBox = findViewById(R.id.lastnameTextBox);
         emailTextBox = findViewById(R.id.emailTextBox);
         password1TextBox = findViewById(R.id.password1TextBox);
         password2TextBox = findViewById(R.id.password2TextBox);
@@ -48,10 +48,10 @@ public class SignUpActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(vailidateEntries()) {
-                    if (vailidatePasswords()) {
+                if(validateEntries()) {
+                    if (validatePasswords()) {
                         CBRWorker cbrWorker;
-                        cbrWorker = new CBRWorker(firstnameTextBox.getText().toString(), lastnameTextBox.getText().toString(),
+                        cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
                                 emailTextBox.getText().toString(), password1TextBox.getText().toString());
                         boolean success = mydb.registerWorker(cbrWorker);
                         if(success)
@@ -72,9 +72,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private boolean vailidateEntries(){
+    private boolean validateEntries(){
         boolean bool = true;
-        if(firstnameTextBox.length() == 0||lastnameTextBox.length()==0
+        if(firstNameTextBox.length() == 0|| lastNameTextBox.length()==0
                 ||password2TextBox.length()==0||emailTextBox.length()==0) {
             bool = false;
         }
@@ -82,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    private boolean vailidatePasswords(){
+    private boolean validatePasswords(){
         if(!password2TextBox.getText().toString().equals(password1TextBox.getText().toString())){
             return false;
         }

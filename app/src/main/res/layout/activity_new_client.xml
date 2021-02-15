@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="back" />
+            android:text="@string/back" />
 
         <Button
             android:id="@+id/button3"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="skip" />
+            android:text="@string/skip" />
 
         <Button
             android:id="@+id/button2"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Next" />
+            android:text="@string/next" />
     </LinearLayout>
 
     <ProgressBar
@@ -55,7 +55,7 @@
         android:id="@+id/formProgressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1/14"
+        android:text="@string/_1_14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/formProgress" />
@@ -101,8 +101,8 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter Name:"
-            android:textSize="20dp"/>
+            android:text="@string/enter_name"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/editTextTextPersonName"
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Name" />
+            android:hint="@string/name" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
