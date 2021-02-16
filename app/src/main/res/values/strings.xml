@@ -12,4 +12,24 @@
     <string name="all_clients">All Clients</string>
     <string name="dashboard">Dashboard</string>
     <string name="sync">Sync</string>
+
+<!--    New Client Form Questions-->
+    <string name="consent_newClientForm">Consent to Interview:</string>
+    <string name="location_newClientForm">Location:</string>
+    <string name="villageNumber_newClientForm">Village Number:</string>
+    <string name="firstName_newClientForm">First Name:</string>
+    <string name="lastName_newClientForm">Last Name:</string>
+    <string name="gender_newClientForm">Gender:</string>
+    <string name="age_newClientForm">Age:</string>
+    <string name="contactNumber_newClientForm">Contact Number:</string>
+    <string name="caregiverPresent_newClientForm">Is a Caregiver present for Interview?</string>
+    <string name="photo_newClientForm">Photo of Client and Caregiver(request consent before taking photo)</string>
+    <string name="disabilityType_newClientForm">Type of Disability:</string>
+    <string name="healthRate_newClientForm">Please rate how you consider the clients health to be:</string>
+    <string name="educationStatus_newClientForm">Please rate how you consider the client\'s education status to be:</string>
+    <string name="require_newClientForm">Please Describe what they require:</string>
+    <string name="individualGoal_newClientForm">Set individual goal:</string>
+
+<!--    Answers-->
+    
 </resources>
