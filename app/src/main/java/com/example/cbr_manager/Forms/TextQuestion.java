@@ -1,15 +1,13 @@
 package com.example.cbr_manager.Forms;
 
 public class TextQuestion extends Question {
-    final private TextType textType;
 
-    public TextQuestion(String strQuestion, TextType textType) {
-        super(strQuestion);
-        this.textType = textType;
+    public TextQuestion(String strQuestion, QuestionType questionType) {
+        super(strQuestion, questionType);
     }
 
-    public TextType getTextType() {
-        return textType;
+    public QuestionType getQuestionType() {
+        return super.getQuestionType();
     }
 
     public String getQuestionString(){
