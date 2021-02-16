@@ -1,8 +1,10 @@
-package com.example.cbr_manager;
+package com.example.cbr_manager.Database;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.cbr_manager.R;
 
 public class MainActivity extends AppCompatActivity {
 
