@@ -72,18 +72,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/all_client_text">
 
-        <SearchView
-            android:id="@+id/clientListSearchButton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="100dp" />
+        <FrameLayout
+            android:layout_width="215dp"
+            android:layout_height="match_parent">
+
+            <SearchView
+                android:id="@+id/clientListSearchButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search Here" />
+        </FrameLayout>
 
         <Spinner
             android:id="@+id/filterDropdownButton"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
 
