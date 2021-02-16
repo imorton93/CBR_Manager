@@ -6,25 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".UI.ClientListActivity">
 
-    <ListView
-        android:id="@+id/clientList"
-        android:layout_width="wrap_content"
-        android:layout_height="604dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar" />
 
     <TextView
-        android:id="@+id/clients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/clients"
-        android:textColor="@color/black"
-        android:textSize="18sp"
+        android:id="@+id/all_client_text"
+        android:layout_width="140dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="@string/all_clients"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ListView
+        android:id="@+id/clientList"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/client_list_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/all_client_text" />
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/client_list_border"
+        android:text="Sorry No Clients were Found"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="144dp"
+        android:layout_height="37dp"
+        tools:layout_editor_absoluteX="210dp"
+        tools:layout_editor_absoluteY="83dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
