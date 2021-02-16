@@ -1,4 +1,4 @@
-package com.example.cbr_manager;
+package com.example.cbr_manager.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,21 +10,22 @@ import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "USER_RECORD";
-    private static final String TABLE_NAME = "USER_DATA";
-    private static final String COL_1 = "ID";
-    private static final String COL_2 = "USERNAME";
+    private static final String DATABASE_NAME = "cbr.db";
+    private static final String TABLE_NAME = "WORKER_DATA";
+    private static final String COL_1 = "FIRST_NAME";
+    private static final String COL_2 = "LAST_NAME";
     private static final String COL_3 = "EMAIL";
-    private static final String COL_4 = "EMAIL";
+    private static final String COL_4 = "PASSWORD";
 
     public DatabaseHelper(@Nullable Context context) {
+
         super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT , USERNAME TEXT , EMAIL TEXT , PASSWORD TEXT)");
-
+        String createtablestatement = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3 + " TEXT PRIMARY KEY, " + COL_4 + " TEXT);";
+        db.execSQL(createtablestatement);
     }
 
     @Override
@@ -33,25 +34,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean registerUser(String username , String email , String password) {
+    public boolean registerWorker(CBRWorker cbrWorker) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COL_2, username);
-        values.put(COL_3, email);
-        values.put(COL_4, password);
+        ContentValues cv = new ContentValues();
+        cv.put(COL_1, cbrWorker.getFirstName());
+        cv.put(COL_2, cbrWorker.getLastName());
+        cv.put(COL_3, cbrWorker.getEmail());
+        cv.put(COL_4, cbrWorker.getPassword());
 
-        long result = db.insert(TABLE_NAME, null, values);
+        long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean checkUser(String username, String password){
+    public boolean checkUser(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
-        String [] columns = { COL_1 };
-        String selection = COL_2 + "=?" + " and " + COL_4 + "=?" ;
-        String [] selectionArgs = { username , password};
+        String [] columns = { COL_3 };
+        String selection = COL_3 + "=?" + " and " + COL_4 + "=?" ;
+        String [] selectionArgs = { email , password};
         Cursor cursor = db.query(TABLE_NAME , columns , selection, selectionArgs, null, null, null);
         int count = cursor.getCount();
         db.close();
