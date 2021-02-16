@@ -13,9 +13,6 @@ import com.example.cbr_manager.R;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    private Spinner spinner;
-    private static final String[] dropdownMenuOptions = {"General", "Client Health", "Client Education", "Client Social Status"};
-
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, DashboardActivity.class);
         return intent;
@@ -32,11 +29,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void createDropDownMenu(){
-        spinner = (Spinner)findViewById(R.id.dashboard_filter);
-        ArrayAdapter<String>adapter = new ArrayAdapter<String>(DashboardActivity.this, android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinner = findViewById(R.id.dashboard_filter);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.options_array, android.R.layout.simple_spinner_item);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
     }
 
 //    @Override
