@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -44,7 +45,9 @@ public class NewClientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_client);
 
         next = (Button) findViewById(R.id.nextBtn);
+        next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtn);
+
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
         progressText = (TextView) findViewById(R.id.formProgressText);
@@ -62,6 +65,11 @@ public class NewClientActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 if(currentPage < pageCount){
+                    if(currentPage == 1){
+                        back.setClickable(true);
+                        back.setBackgroundColor(Color.BLUE);
+
+                    }
                     currentPage++;
                     setProgress(currentPage, pageCount);
                     clearForm();
@@ -80,10 +88,6 @@ public class NewClientActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentPage == 1){
-                    //nothing
-                }
-                else{
                     if(currentPage == pageCount){
                         next.setText(R.string.next);
                     }
@@ -91,9 +95,14 @@ public class NewClientActivity extends AppCompatActivity {
                     setProgress(currentPage, pageCount);
                     clearForm();
                     displayPage(pages.get(currentPage - 1));
-                }
+                    if(currentPage == 1){
+                        back.setClickable(false);
+                        back.setBackgroundColor(Color.DKGRAY);
+                    }
             }
         });
+        back.setClickable(false);
+        back.setBackgroundColor(Color.DKGRAY);
     }
 
     private void setProgress(int currentPage, int pageCount){
