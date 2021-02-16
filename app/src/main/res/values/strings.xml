@@ -32,8 +32,11 @@
     <string name="socialStatus_newClientForm">Please rate how you consider the client\'s social status to be:</string>
     <string name="require_newClientForm">Please Describe what they require:</string>
     <string name="individualGoal_newClientForm">Set individual goal:</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="finish">Finish</string>
 
-<!--    Answers-->
+    <!--    Answers-->
     <string-array name="yes_no_answer">
         <item>Yes</item>
         <item>No</item>

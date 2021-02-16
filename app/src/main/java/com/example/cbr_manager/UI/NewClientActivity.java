@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -31,6 +32,10 @@ public class NewClientActivity extends AppCompatActivity {
     int currentPage;
     int pageCount;
     ArrayList<FormPage> pages;
+    Button next;
+    Button back;
+    ProgressBar progressBar;
+    TextView progressText;
 
 
     @Override
@@ -38,28 +43,67 @@ public class NewClientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_client);
 
-
+        next = (Button) findViewById(R.id.nextBtn);
+        back = (Button) findViewById(R.id.backBtn);
         form = (LinearLayout) findViewById(R.id.form);
+        progressBar = (ProgressBar) findViewById(R.id.formProgress);
+        progressText = (TextView) findViewById(R.id.formProgressText);
+
         currentPage = 1;
         pages = new ArrayList<>();
 
         createNewClientForm();
         pageCount = pages.size();
         displayPage(pages.get(currentPage - 1));
+        progressText.setText(currentPage + "/" + pageCount);
+        progressBar.setMax(pageCount);
+        progressBar.setProgress(currentPage);
 
-        Button next = (Button) findViewById(R.id.nextBtn);
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 if(currentPage < pageCount){
                     currentPage++;
+                    setProgress(currentPage, pageCount);
                     clearForm();
                     displayPage(pages.get(currentPage - 1));
+                    if(currentPage == pageCount){
+                        next.setText(R.string.finish);
+                    }
                 }
                 else if(currentPage >= pageCount){
                     finishForm();
                 }
             }
         });
+
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentPage == 1){
+                    //nothing
+                }
+                else{
+                    if(currentPage == pageCount){
+                        next.setText(R.string.next);
+                    }
+                    currentPage--;
+                    setProgress(currentPage, pageCount);
+                    clearForm();
+                    displayPage(pages.get(currentPage - 1));
+                }
+            }
+        });
+    }
+
+    private void setProgress(int currentPage, int pageCount){
+        progressBar.setProgress(currentPage);
+        progressText.setText(currentPage + "/" + pageCount);
+    }
+
+
+    private void clearForm(){
+        form.removeAllViews();
     }
 
     private void finishForm(){
@@ -205,11 +249,6 @@ public class NewClientActivity extends AppCompatActivity {
             checkBox.setText(answer);
             form.addView(checkBox);
         }
-    }
-
-
-    private void clearForm(){
-        form.removeAllViews();
     }
 
 

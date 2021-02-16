@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="back" />
+            android:text="@string/back" />
 
         <Button
             android:id="@+id/nextBtn"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Next" />
+            android:text="@string/next" />
     </LinearLayout>
 
     <ProgressBar
