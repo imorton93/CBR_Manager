@@ -1,5 +1,6 @@
 package com.example.cbr_manager.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -37,5 +38,10 @@ public class ToolBarActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public static Intent makeIntent(Context context) {
+        Intent intent =  new Intent(context, TaskViewActivity.class);
+        return intent;
     }
 }
