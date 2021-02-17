@@ -34,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean registerWorker(com.example.cbr_manager.Database.CBRWorker cbrWorker) {
+    public boolean registerWorker(CBRWorker cbrWorker) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COL_1, cbrWorker.getFirstName());
