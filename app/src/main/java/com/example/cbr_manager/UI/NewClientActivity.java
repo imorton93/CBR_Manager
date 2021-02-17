@@ -1,14 +1,21 @@
 package com.example.cbr_manager.UI;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -44,6 +52,7 @@ public class NewClientActivity extends AppCompatActivity {
     Button back;
     ProgressBar progressBar;
     TextView progressText;
+    ImageView imageView;
 
     //structure to save all the answers
     NewClient newClient;
@@ -64,6 +73,7 @@ public class NewClientActivity extends AppCompatActivity {
         next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtn);
         newClient = new NewClient();
+        imageView = new ImageView(this);
 
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
@@ -104,7 +114,15 @@ public class NewClientActivity extends AppCompatActivity {
                     setProgress(currentPage, pageCount);
 
                     clearForm();
-                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+
+                    if(currentPage == 6){
+                        displayPicture(pages.get(currentPage - 1));
+                    }
+                    else{
+                        DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+
+                    }
+
 
                     //load previously saved answers if any
                     loadAnswers(pages.get(currentPage - 1));
@@ -137,8 +155,12 @@ public class NewClientActivity extends AppCompatActivity {
                     setProgress(currentPage, pageCount);
                     clearForm();
 
-                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
-
+                    if(currentPage == 6){
+                        displayPicture(pages.get(currentPage - 1));
+                    }
+                    else{
+                        DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+                    }
                     //load previously saved answers if any
                     loadAnswers(pages.get(currentPage - 1));
                     if(currentPage == 1){
@@ -149,6 +171,10 @@ public class NewClientActivity extends AppCompatActivity {
         });
         back.setClickable(false);
         back.setBackgroundColor(Color.DKGRAY);
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
+        }
     }
 
     private void setProgress(int currentPage, int pageCount){
@@ -164,6 +190,38 @@ public class NewClientActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(this, "End", duration);
         toast.show();
+    }
+
+    private void displayPicture(FormPage page){
+        ArrayList<Question> questions = page.getQuestions();
+        TextQuestion picQuestion = (TextQuestion) questions.get(0);
+        TextView questionText = new TextView(this);
+        questionText.setText(picQuestion.getQuestionString());
+        form.addView(questionText);
+
+        Button picButton = new Button(this);
+        picButton.setText("Take Picture");
+        picButton.setBackgroundColor(Color.BLUE);
+        picButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
+            }
+        });
+
+        form.addView(picButton);
+        form.addView(imageView);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100){
+            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            //set capture Image to imageview
+            imageView.setImageBitmap(captureImage);
+        }
     }
 
     private void requiredFieldsToast(){
@@ -650,7 +708,7 @@ public class NewClientActivity extends AppCompatActivity {
 
 
         //page six: photo
-        TextQuestion photo = new TextQuestion(getString(R.string.photo),getString(R.string.photo_newClientForm), QuestionType.PLAIN_TEXT, false);
+        TextQuestion photo = new TextQuestion(getString(R.string.photo),getString(R.string.photo_newClientForm), QuestionType.PICTURE, false);
         FormPage pageSix = new FormPage();
         pageSix.addToPage(photo);
         pages.add(pageSix);

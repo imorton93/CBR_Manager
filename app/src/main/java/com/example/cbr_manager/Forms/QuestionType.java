@@ -7,5 +7,7 @@ public enum QuestionType {
     NUMBER,
     RADIO,
     DROP_DOWN,
-    CHECK_BOX
+    CHECK_BOX,
+    CHECK_BOX_WITH_COMMENT,
+    PICTURE
 }
