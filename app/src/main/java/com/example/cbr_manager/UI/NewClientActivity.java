@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -71,6 +72,7 @@ public class NewClientActivity extends AppCompatActivity {
         currentPage = 1;
         pages = new ArrayList<>();
 
+        ToolbarButtons();
 
         createNewClientForm();
         pageCount = pages.size() + 1;
@@ -791,6 +793,26 @@ public class NewClientActivity extends AppCompatActivity {
         socialRateView.setText("Rate of Client's Social Status: " + socialRate);
         layout.addView(socialRateView);
 
+    }
+
+    private void ToolbarButtons(){
+        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
 }
