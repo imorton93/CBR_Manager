@@ -120,4 +120,59 @@
     <string name="social">Social</string>
     <string name="education">Education</string>
     <string name="health">Health</string>
+
+<!--    new visit questions-->
+    <string name="purposeOfVisit_newVisitForm">Purpose of Visit*:</string>
+    <string name="ifCBR_newVisitForm">If CBR:</string>
+    <string name="dateOfVisit_newVisitForm">Date of Visit*:</string>
+    <string name="location_newVisitForm">Location*:</string>
+    <string name="villageNumber_newVisitForm">Village Number*:</string>
+    <string name="healthProvided_newVisitForm">For health what was provided?*</string>
+    <string name="educationProvided_newVisitForm">For education what was provided?*</string>
+    <string name="socialProvided_newVisitForm">For Social what was provided?*</string>
+    <string name="goalMet_newVisitForm">Goal met?*</string>
+    <string name="concluded_newVisitForm">If concluded, what was the outcome:</string>
+    <string name="explain_newVisitForm">Explain Further</string>
+
+<!--    new visit answers-->
+    <array name="purposeVisitChoices">
+        <item>CBR</item>
+        <item>Disability Centre Referral</item>
+        <item>Disability Centre Referral Follow Up</item>
+    </array>
+    <array name="ifCBRChoices">
+        <item>Health</item>
+        <item>Education</item>
+        <item>Social</item>
+    </array>
+    <array name="healthProvidedChoices">
+        <item>Wheelchair</item>
+        <item>Prosthetic</item>
+        <item>Orthotic</item>
+        <item>Wheelchair Repairs</item>
+        <item>Referral to Health Centre</item>
+        <item>Advice</item>
+        <item>Advocacy</item>
+        <item>Encouragement</item>
+    </array>
+    <array name="educationSocialProvidedChoices">
+        <item>Advice</item>
+        <item>Advocacy</item>
+        <item>Referral to other Org</item>
+        <item>Encouragement</item>
+    </array>
+    <array name="goalMetChoices">
+        <item>Cancelled</item>
+        <item>Ongoing</item>
+        <item>Concluded</item>
+    </array>
+
+<!--    new visit tags-->
+    <string name="purposeOfVisit">purposeOfVisit</string>
+    <string name="ifCBR">ifCBR</string>
+    <string name="healthProvided">healthProvided</string>
+    <string name="goalMet">goalMet</string>
+    <string name="ifConcluded">concluded</string>
+    <string name="educationProvided">educationProvided</string>
+    <string name="socialProvided">socialProvided</string>
 </resources>

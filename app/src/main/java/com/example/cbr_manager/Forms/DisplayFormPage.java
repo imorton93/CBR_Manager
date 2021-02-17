@@ -3,16 +3,20 @@ package com.example.cbr_manager.Forms;
 import android.app.DatePickerDialog;
 import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.NewClientActivity;
 
 import java.util.ArrayList;
@@ -52,6 +56,10 @@ public class DisplayFormPage {
             else if(question.getQuestionType().equals(QuestionType.RADIO)){
                 mcQ = (MultipleChoiceQuestion) question;
                 displayRadioQuestion(mcQ, form, context);
+            }
+            else if(question.getQuestionType().equals(QuestionType.CHECK_BOX_WITH_COMMENT)){
+                mcQ = (MultipleChoiceQuestion) question;
+                displayCheckBoxCommentQuestion(mcQ, form, context);
             }
         }
     }
@@ -168,5 +176,47 @@ public class DisplayFormPage {
             form.addView(checkBox);
         }
 
+    }
+
+    private static void displayCheckBoxCommentQuestion(MultipleChoiceQuestion question, LinearLayout form, android.content.Context context){
+        displayQuestionHeading(question.getQuestionString(), form, context);
+
+        ScrollView sv = new ScrollView(context);
+        sv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+
+        CheckBox checkBox;
+        String[] answers = question.getAnswers();
+        for(int i = 0; i < answers.length; i++){
+            checkBox = new CheckBox(context);
+            checkBox.setText(answers[i]);
+            checkBox.setTag(i);
+            ;
+            EditText input = new EditText(context);
+            input.setTextSize(14);
+            input.setHint(R.string.explain_newVisitForm);
+            input.setVisibility(View.GONE);
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        input.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        input.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            layout.addView(checkBox);
+            layout.addView(input);
+        }
+
+        sv.addView(layout);
+        form.addView(sv);
     }
 }

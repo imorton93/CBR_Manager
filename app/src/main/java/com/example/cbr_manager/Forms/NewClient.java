@@ -5,27 +5,27 @@ import java.util.ArrayList;
 public class NewClient {
     //Saved answers to questions
     //all open to change depending on saving to database
-    Boolean consentToInterview;
-    String date;
-    String firstName;
-    String lastName;
-    int age = -1;
-    String gender;
-    String location;
-    int villageNumber = -1;
-    String contactPhoneNumber;
-    Boolean caregiverPresent;
-    String caregiverPhoneNumber;
-    ArrayList<String> disabilities = new ArrayList<>();
-    String healthRate;
-    String healthRequire;
-    String healthIndividualGoal;
-    String educationRate;
-    String educationRequire;
-    String educationIndividualGoal;
-    String socialStatusRate;
-    String socialStatusRequire;
-    String socialStatusIndividualGoal;
+    private Boolean consentToInterview;
+    private String date;
+    private String firstName;
+    private String lastName;
+    private int age = -1;
+    private String gender;
+    private String location;
+    private int villageNumber = -1;
+    private String contactPhoneNumber;
+    private Boolean caregiverPresent;
+    private String caregiverPhoneNumber;
+    private ArrayList<String> disabilities = new ArrayList<>();
+    private String healthRate;
+    private String healthRequire;
+    private String healthIndividualGoal;
+    private String educationRate;
+    private String educationRequire;
+    private String educationIndividualGoal;
+    private String socialStatusRate;
+    private String socialStatusRequire;
+    private String socialStatusIndividualGoal;
 
     public NewClient() {
     }

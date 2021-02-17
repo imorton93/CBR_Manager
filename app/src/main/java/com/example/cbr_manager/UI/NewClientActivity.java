@@ -6,8 +6,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,13 +14,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.InputType;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -38,10 +32,7 @@ import android.widget.Toast;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.Forms.*;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class NewClientActivity extends AppCompatActivity {
     LinearLayout form;
@@ -69,7 +60,7 @@ public class NewClientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_client);
 
-        next = (Button) findViewById(R.id.nextBtn);
+        next = (Button) findViewById(R.id.nextBtnVisit);
         next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtn);
         newClient = new NewClient();
@@ -89,16 +80,15 @@ public class NewClientActivity extends AppCompatActivity {
 
         DisplayFormPage.displayPage(pages.get(currentPage-1), form, this);
 
-        progressText.setText(currentPage + "/" + pageCount);
         progressBar.setMax(pageCount);
-        progressBar.setProgress(currentPage);
+
+        setProgress(currentPage, pageCount);
 
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 //make sure all required fields are filled in the page
                 if(!requiredFieldsFilled(pages.get(currentPage - 1))){
                     requiredFieldsToast();
-                    System.out.println("Not all Required Fields filled");
                 }
                 else if(currentPage < pageCount - 1){
                     if(currentPage == 1){
@@ -107,7 +97,6 @@ public class NewClientActivity extends AppCompatActivity {
 
                     }
                     //save answers
-//                    savePageAnswers(currentPage);
                     savePage(pages.get(currentPage - 1));
 
                     currentPage++;
@@ -130,7 +119,6 @@ public class NewClientActivity extends AppCompatActivity {
                 }
                 else if(currentPage >= pageCount - 1){
                     //save answers
-//                    savePageAnswers(currentPage);
                     savePage(pages.get(currentPage - 1));
                     currentPage++;
 
@@ -172,6 +160,7 @@ public class NewClientActivity extends AppCompatActivity {
         back.setClickable(false);
         back.setBackgroundColor(Color.DKGRAY);
 
+        //Permission for camera
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
         }
@@ -271,9 +260,6 @@ public class NewClientActivity extends AppCompatActivity {
         String tag = question.getQuestionTag();
         EditText input = (EditText) form.findViewWithTag(tag);
         String inputStr = input.getText().toString();
-        System.out.println("String is: " + inputStr + " .");
-        System.out.println(inputStr.equals(""));
-        System.out.println(inputStr.isEmpty());
         if(inputStr.equals("")){
             return false;
         }
