@@ -103,8 +103,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public int getWorkerId(CBRWorker cbrWorker){
-        String query = "SELECT MAX(ID) FROM " + TABLE_NAME;
+    public int getWorkerId(String username){
+        String query = "SELECT ID FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';" ;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
         c.moveToLast();

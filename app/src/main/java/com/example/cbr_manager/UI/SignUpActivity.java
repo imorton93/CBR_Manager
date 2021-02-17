@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 emailTextBox.getText().toString(), password1TextBox.getText().toString());
                         boolean success = mydb.registerWorker(cbrWorker);
                         if(success) {
-                            cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker)));
+                            cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getEmail())));
                             Toast.makeText(SignUpActivity.this, "Sign Up Successful!", Toast.LENGTH_LONG).show();
                         }
                         else
