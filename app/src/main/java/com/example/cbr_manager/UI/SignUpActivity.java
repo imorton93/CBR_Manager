@@ -19,6 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText firstNameTextBox, lastNameTextBox, emailTextBox, password1TextBox, password2TextBox;
     private Button submitButton;
     private DatabaseHelper mydb;
+    private CBRWorker cbrWorker;
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, SignUpActivity.class);
@@ -50,7 +51,6 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(validateEntries()) {
                     if (validatePasswords()) {
-                        CBRWorker cbrWorker;
                         cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
                                 emailTextBox.getText().toString(), password1TextBox.getText().toString());
                         boolean success = mydb.registerWorker(cbrWorker);
