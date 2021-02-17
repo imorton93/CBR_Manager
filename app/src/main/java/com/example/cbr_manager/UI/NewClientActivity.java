@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -45,6 +47,12 @@ public class NewClientActivity extends AppCompatActivity {
     //structure to save all the answers
     NewClient newClient;
 
+
+    public static Intent makeIntent(Context context) {
+        Intent intent =  new Intent(context, NewClientActivity.class);
+        return intent;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

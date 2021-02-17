@@ -7,7 +7,6 @@
     <string name="don_t_have_an_account_sign_up_here">Don\'t have an account? sign up here.</string>
     <string name="hopehealthactionlogo">HopeHealthActionLogo</string>
     <string name="new_client">New Client</string>
-    <string name="new_visit">New Visit</string>
     <string name="referral">Referral</string>
     <string name="all_clients">All Clients</string>
     <string name="dashboard">Dashboard</string>
@@ -32,8 +31,6 @@
     <string name="socialStatus_newClientForm">Please rate how you consider the client\'s social status to be*:</string>
     <string name="require_newClientForm">Please Describe what they require*:</string>
     <string name="individualGoal_newClientForm">Set individual goal*:</string>
-    <string name="back">Back</string>
-    <string name="next">Next</string>
     <string name="finish">Finish</string>
 
     <!--    Answers-->
@@ -100,4 +97,27 @@
     <string name="socialIndividualGoal">socialIndividualGoal</string>
     <string name="photo">photo</string>
     <string name="requireString">* Indicates Required Details</string>
+    <string name="clients">Clients</string>
+    <string name="risk_level">Risk Level</string>
+    <string name="visits">Visits</string>
+    <string name="information">Information</string>
+    <string name="edit">Edit</string>
+    <string name="new_visit">New Visit</string>
+    <string name="back">back</string>
+    <string name="skip">skip</string>
+    <string name="next">Next</string>
+    <string name="_1_14">1/14</string>
+    <string name="enter_name">Enter Name:</string>
+    <string name="name">Name</string>
+    <string name="type_email_username">Type email (username)</string>
+    <string name="type_password">Type Password</string>
+    <string name="submit">SUBMIT</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="first_last">First Last</string>
+    <string name="disability">Disability</string>
+    <string name="social">Social</string>
+    <string name="education">Education</string>
+    <string name="health">Health</string>
 </resources>

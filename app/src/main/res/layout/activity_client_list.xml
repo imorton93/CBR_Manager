@@ -6,4 +6,91 @@
     android:layout_height="match_parent"
     tools:context=".UI.ClientListActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar" />
+
+    <TextView
+        android:id="@+id/all_client_text"
+        android:layout_width="162dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="@string/all_clients"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/searchLayoutContainers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ListView
+        android:id="@+id/clientList"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/client_list_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/client_list_border"
+        android:gravity="center"
+        android:text="Sorry No Clients were Found"
+        android:textAllCaps="true"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="51dp" />
+
+    <RelativeLayout
+        android:id="@+id/searchLayoutContainers"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="7dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/clientList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/all_client_text">
+
+        <FrameLayout
+            android:layout_width="193dp"
+            android:layout_height="match_parent">
+
+            <SearchView
+                android:id="@+id/clientListSearchButton"
+                android:layout_width="193dp"
+                android:layout_height="match_parent"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search Here" />
+        </FrameLayout>
+
+        <Spinner
+            android:id="@+id/filterDropdownButton"
+            android:layout_width="123dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp" />
+    </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
