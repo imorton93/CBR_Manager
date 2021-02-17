@@ -34,33 +34,36 @@ public class NewClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_client);
-
-        firstNameTextBox = (EditText) findViewById(R.id.firstnameTextBox);
-        lastNameTextBox =(EditText)findViewById(R.id.lastnameTextBox);
-        locationTextBox = (EditText)findViewById(R.id.locationTextBox);
-        disabilityTextBox = (EditText)findViewById(R.id.disabilityTextBox);
-        ageTextBox = (EditText)findViewById(R.id.ageTextBox);
-        villageNoTextBox = (EditText)findViewById(R.id.villageNoTextBox);
-
-        submitButton = findViewById(R.id.submitButtonClient);
-
         mydb = new DatabaseHelper(NewClientActivity.this);
 
         insertClient();
     }
 
     private void insertClient() {
+        firstNameTextBox = (EditText) findViewById(R.id.firstNameTextBox);
+        lastNameTextBox =(EditText)findViewById(R.id.lastNameTextBox);
+        locationTextBox = (EditText)findViewById(R.id.locationTextBox);
+        disabilityTextBox = (EditText)findViewById(R.id.disabilityTextBox);
+        ageTextBox = (EditText)findViewById(R.id.ageTextBox);
+        villageNoTextBox = (EditText)findViewById(R.id.villageNoTextBox);
+
+        submitButton = (Button) findViewById(R.id.submitButtonClient);
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        Client client;
-                        client = new Client(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
-                                parseInt(ageTextBox.getText().toString()), parseInt(villageNoTextBox.getText().toString()), locationTextBox.getText().toString(),disabilityTextBox.getText().toString());
-                        boolean success = mydb.registerClient(client);
-                        if(success)
-                            Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(NewClientActivity.this, "Error Occured.", Toast.LENGTH_LONG).show();
+                if (validateEntries()) {
+                    Client client;
+                    client = new Client(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
+                            parseInt(ageTextBox.getText().toString()), parseInt(villageNoTextBox.getText().toString()), locationTextBox.getText().toString(), disabilityTextBox.getText().toString());
+                    boolean success = mydb.registerClient(client);
+                    if (success)
+                        Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(NewClientActivity.this, "Error Occured.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(NewClientActivity.this, "Please fill out the required fields.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
