@@ -69,6 +69,7 @@ public class DisplayFormPage {
         EditText inputText = new EditText(context);
         inputText.setText("");
         inputText.setInputType(InputType.TYPE_CLASS_TEXT);
+        inputText.setTag(question.getQuestionId());
         form.addView(inputText);
     }
 
@@ -79,6 +80,7 @@ public class DisplayFormPage {
         EditText inputText = new EditText(context);
         inputText.setText("");
         inputText.setInputType(InputType.TYPE_CLASS_PHONE);
+        inputText.setTag(question.getQuestionId());
         form.addView(inputText);
     }
 
@@ -88,6 +90,7 @@ public class DisplayFormPage {
         EditText inputText = new EditText(context);
         inputText.setText("");
         inputText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        inputText.setTag(question.getQuestionId());
         form.addView(inputText);
     }
 
@@ -96,6 +99,7 @@ public class DisplayFormPage {
 
         TextView selectDate = new TextView(context);
         selectDate.setText("Select Date");
+        selectDate.setTag(question.getQuestionId());
 
         DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -126,6 +130,7 @@ public class DisplayFormPage {
 
         String[] answers = question.getAnswers();
         RadioGroup radioAnswers = new RadioGroup(context);
+        radioAnswers.setTag(question.getQuestionId());
         RadioButton rButton;
         for (String answer : answers) {
             rButton = new RadioButton(context);
@@ -144,6 +149,8 @@ public class DisplayFormPage {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, answers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setTag(question.getQuestionId());
+
         form.addView(spinner);
     }
 
@@ -152,10 +159,12 @@ public class DisplayFormPage {
 
         CheckBox checkBox;
         String[] answers = question.getAnswers();
-        for (String answer : answers) {
+        for(int i = 0; i < answers.length; i++){
             checkBox = new CheckBox(context);
-            checkBox.setText(answer);
+            checkBox.setText(answers[i]);
+            checkBox.setTag(question.getQuestionId() + i);
             form.addView(checkBox);
         }
+
     }
 }

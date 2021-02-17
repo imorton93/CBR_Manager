@@ -2,8 +2,8 @@ package com.example.cbr_manager.Forms;
 
 public class TextQuestion extends Question {
 
-    public TextQuestion(String strQuestion, QuestionType questionType) {
-        super(strQuestion, questionType);
+    public TextQuestion(int questionId, String strQuestion, QuestionType questionType) {
+        super(questionId, strQuestion, questionType);
     }
 
     public QuestionType getQuestionType() {
@@ -13,5 +13,7 @@ public class TextQuestion extends Question {
     public String getQuestionString(){
         return super.getStrQuestion();
     }
+
+    public int getQuestionId() { return super.getQuestionId();}
 
 }

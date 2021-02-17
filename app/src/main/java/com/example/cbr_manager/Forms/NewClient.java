@@ -16,7 +16,7 @@ public class NewClient {
     String contactPhoneNumber;
     Boolean caregiverPresent;
     String caregiverPhoneNumber;
-    ArrayList<String> disabilities;
+    ArrayList<String> disabilities = new ArrayList<>();
     String healthRate;
     String healthRequire;
     String healthIndividualGoal;
@@ -120,6 +120,10 @@ public class NewClient {
 
     public void addToDisabilities(String disability){
         disabilities.add(disability);
+    }
+
+    public void clearDisabilities(){
+        disabilities.clear();
     }
 
     public ArrayList<String> getDisabilities() {
