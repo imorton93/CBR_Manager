@@ -60,8 +60,8 @@ public class NewVisit {
         return ifCbr;
     }
 
-    public void setIfCbr(ArrayList<String> ifCbr) {
-        this.ifCbr = ifCbr;
+    public void addToIfCbr(String string){
+        ifCbr.add(string);
     }
 
     public String getDate() {

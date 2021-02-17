@@ -9,9 +9,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +24,7 @@ import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
 import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
 import com.example.cbr_manager.Forms.NewVisit;
+import com.example.cbr_manager.Forms.Question;
 import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
@@ -183,6 +189,145 @@ public class NewVisitActivity extends AppCompatActivity {
         return true;
     }
 
+    private void savePage(FormPage page){
+        ArrayList<Question> questions = page.getQuestions();
+        for(Question question : questions){
+            QuestionType type = question.getQuestionType();
+            if(type == QuestionType.PLAIN_TEXT || type == QuestionType.PHONE_NUMBER){
+                saveText(question);
+            }
+            else if(type == QuestionType.DATE){
+                saveDate(question);
+            }
+            else if(type == QuestionType.RADIO){
+                saveRadio(question);
+            }
+            else if(type == QuestionType.NUMBER){
+                saveNumber(question);
+            }
+            else if(type == QuestionType.DROP_DOWN){
+                saveDropDown(question);
+            }
+            else if(type == QuestionType.CHECK_BOX){
+                saveCheckBox(question);
+            }
+            else if(type == QuestionType.CHECK_BOX_WITH_COMMENT){
+                saveCheckBoxWithComment(question);
+            }
+        }
+    }
+
+    private void saveText(Question question){
+        String tag = question.getQuestionTag();
+        EditText input = (EditText) form.findViewWithTag(tag);
+        if(tag.equals(getString(R.string.socialIfConcluded))){
+            newVisit.setSocialIfConcluded(input.getText().toString());
+        }
+        else if(tag.equals(getString(R.string.educationIfConcluded))){
+            newVisit.setEducationIfConcluded(input.getText().toString());
+        }
+        else if(tag.equals(getString(R.string.healthIfConcluded))){
+            newVisit.setHealthIfConcluded(input.getText().toString());
+        }
+    }
+
+    private void saveDate(Question question){
+        String tag = question.getQuestionTag();
+        TextView date = (TextView) form.findViewWithTag(question.getQuestionTag());
+        if(tag.equals(getString(R.string.date))){
+            newVisit.setDate(date.getText().toString());
+        }
+    }
+
+    private void saveRadio(Question question){
+        String tag = question.getQuestionTag();
+        RadioGroup radioGroup = (RadioGroup) form.findViewWithTag(tag);
+        RadioButton radioButton;
+        for(int i = 0; i < radioGroup.getChildCount(); i++){
+            radioButton = (RadioButton) radioGroup.getChildAt(i);
+            if(radioButton.isChecked()){
+                if(tag.equals(getString(R.string.purposeOfVisit))){
+                    newVisit.setPurposeOfVisit(radioButton.getText().toString());
+                }
+                else if(tag.equals(getString(R.string.socialGoalMet))){
+                    newVisit.setSocialGoalMet(radioButton.getText().toString());
+                }
+                else if(tag.equals(getString(R.string.educationGoalMet))){
+                    newVisit.setEducationGoalMet(radioButton.getText().toString());
+                }
+                else if(tag.equals(getString(R.string.healthGoalMet))){
+                    newVisit.setHealthGoalMet(radioButton.getText().toString());
+                }
+            }
+        }
+    }
+
+    private void saveNumber(Question question){
+        String tag = question.getQuestionTag();
+        EditText input = (EditText) form.findViewWithTag(tag);
+        String inputStr = input.getText().toString();
+        int num = Integer.parseInt(inputStr);
+        if(tag.equals(getString(R.string.villageNumber))){
+            newVisit.setVillageNumber(num);
+        }
+    }
+
+    private void saveDropDown(Question question){
+        String tag =  question.getQuestionTag();
+        Spinner spinner = (Spinner) form.findViewWithTag(tag);
+        String selected = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+        if(tag.equals(getString(R.string.location))){
+            newVisit.setLocation(selected);
+        }
+    }
+
+    private void saveCheckBox(Question question){
+        String tag = question.getQuestionTag();
+        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
+        int size = mcq.getAnswers().length;
+
+        CheckBox checkBox;
+        for(int i = 0; i < size; i++){
+            checkBox = (CheckBox) form.findViewWithTag(i);
+            if(checkBox.isChecked()){
+                String selected = checkBox.getText().toString();
+                if(tag.equals(getString(R.string.ifCBR))){
+                    newVisit.addToIfCbr(selected);
+                }
+            }
+        }
+    }
+
+    private void saveCheckBoxWithComment(Question question){
+        String tag = question.getQuestionTag();
+        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
+        int size = mcq.getAnswers().length;
+
+        EditText input;
+        CheckBox checkBox;
+        for(int i = 0; i < size; i++){
+            checkBox = (CheckBox) form.findViewWithTag(i);
+            if(checkBox.isChecked()){
+                String selected = checkBox.getText().toString();
+                input = (EditText) form.findViewWithTag(i * 100);
+                String explanation = input.getText().toString();
+
+                if(tag.equals(getString(R.string.healthProvided))){
+                    newVisit.addHealthProvided(selected, explanation);
+                }
+                else if(tag.equals(getString(R.string.socialProvided))){
+                    newVisit.addSocialProvided(selected, explanation);
+                }
+                else if(tag.equals(getString(R.string.educationProvided))){
+                    newVisit.addeducationProvided(selected, explanation);
+                }
+            }
+        }
+    }
+
+
+
+
 
     private void createNewVisitForm(){
         Resources res = getResources();
@@ -211,8 +356,8 @@ public class NewVisitActivity extends AppCompatActivity {
 
 
         //Page Four: goal met health, if concluded outcome
-        MultipleChoiceQuestion goalMet = new MultipleChoiceQuestion(getString(R.string.goalMet), getString(R.string.goalMet_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.goalMetChoices), true);
-        TextQuestion ifConcluded = new TextQuestion(getString(R.string.ifConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, true);
+        MultipleChoiceQuestion goalMet = new MultipleChoiceQuestion(getString(R.string.healthGoalMet), getString(R.string.goalMet_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.goalMetChoices), true);
+        TextQuestion ifConcluded = new TextQuestion(getString(R.string.healthIfConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, true);
         FormPage pageFour = new FormPage();
         pageFour.addToPage(goalMet);
         pageFour.addToPage(ifConcluded);
@@ -227,8 +372,8 @@ public class NewVisitActivity extends AppCompatActivity {
 
 
         //Page Six: social provided
-        MultipleChoiceQuestion goalMet1 = new MultipleChoiceQuestion(getString(R.string.goalMet), getString(R.string.goalMet_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.goalMetChoices), true);
-        TextQuestion ifConcluded1 = new TextQuestion(getString(R.string.ifConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, true);
+        MultipleChoiceQuestion goalMet1 = new MultipleChoiceQuestion(getString(R.string.educationGoalMet), getString(R.string.goalMet_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.goalMetChoices), true);
+        TextQuestion ifConcluded1 = new TextQuestion(getString(R.string.educationIfConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, true);
         FormPage pageSix = new FormPage();
         pageSix.addToPage(goalMet1);
         pageSix.addToPage(ifConcluded1);
@@ -241,8 +386,8 @@ public class NewVisitActivity extends AppCompatActivity {
         pages.add(pageSeven);
 
         //Page Eight
-        MultipleChoiceQuestion goalMet2 = new MultipleChoiceQuestion(getString(R.string.goalMet), getString(R.string.goalMet_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.goalMetChoices), true);
-        TextQuestion ifConcluded2 = new TextQuestion(getString(R.string.ifConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, true);
+        MultipleChoiceQuestion goalMet2 = new MultipleChoiceQuestion(getString(R.string.socialGoalMet), getString(R.string.goalMet_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.goalMetChoices), true);
+        TextQuestion ifConcluded2 = new TextQuestion(getString(R.string.socialIfConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, true);
         FormPage pageEight = new FormPage();
         pageEight.addToPage(goalMet2);
         pageEight.addToPage(ifConcluded2);

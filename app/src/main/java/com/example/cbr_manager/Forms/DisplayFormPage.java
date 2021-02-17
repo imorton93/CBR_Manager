@@ -186,6 +186,7 @@ public class DisplayFormPage {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        layout.setTag(question.getQuestionTag());
 
 
         CheckBox checkBox;
@@ -199,6 +200,7 @@ public class DisplayFormPage {
             input.setTextSize(14);
             input.setHint(R.string.explain_newVisitForm);
             input.setVisibility(View.GONE);
+            input.setTag(i * 100);
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

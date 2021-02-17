@@ -124,7 +124,7 @@
 <!--    new visit questions-->
     <string name="purposeOfVisit_newVisitForm">Purpose of Visit*:</string>
     <string name="ifCBR_newVisitForm">If CBR:</string>
-    <string name="dateOfVisit_newVisitForm">Date of Visit*:</string>
+    <string name="dateOfVisit_newVisitForm">Select Date of Visit*:</string>
     <string name="location_newVisitForm">Location*:</string>
     <string name="villageNumber_newVisitForm">Village Number*:</string>
     <string name="healthProvided_newVisitForm">For health what was provided?*</string>
@@ -171,8 +171,12 @@
     <string name="purposeOfVisit">purposeOfVisit</string>
     <string name="ifCBR">ifCBR</string>
     <string name="healthProvided">healthProvided</string>
-    <string name="goalMet">goalMet</string>
-    <string name="ifConcluded">concluded</string>
+    <string name="healthGoalMet">healthGoalMet</string>
+    <string name="healthIfConcluded">healthConcluded</string>
     <string name="educationProvided">educationProvided</string>
+    <string name="educationGoalMet">educationGoalMet</string>
+    <string name="educationIfConcluded">educationConcluded</string>
     <string name="socialProvided">socialProvided</string>
+    <string name="socialGoalMet">socialGoalMet</string>
+    <string name="socialIfConcluded">socialIfConcluded</string>
 </resources>
