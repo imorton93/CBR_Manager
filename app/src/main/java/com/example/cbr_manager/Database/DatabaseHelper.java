@@ -17,6 +17,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_3 = "EMAIL";
     private static final String COL_4 = "PASSWORD";
 
+    private static final String client_table_name = "CLIENT_DATA";
+    private static final String client_first_name = "FIRST_NAME";
+    private static final String client_last_name = "LAST_NAME";
+    private static final String client_age = "AGE";
+    private static final String client_village_no = "VILLAGE_NUMBER";
+    private static final String client_location = "LOCATION";
+    private static final String client_disability = "DISABILITY";
+    //private static final String client_id = "ID";
+
+
     public DatabaseHelper(@Nullable Context context) {
 
         super(context, DATABASE_NAME, null, 1);
@@ -26,12 +36,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createtablestatement = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3 + " TEXT PRIMARY KEY, " + COL_4 + " TEXT);";
         db.execSQL(createtablestatement);
+        String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_first_name + " TEXT, "
+                + client_last_name + " TEXT, " + client_age + " INTEGER, "
+                + client_village_no + " INTEGER, "  + client_location + " TEXT, "
+                + client_disability + " TEXT);";
+        db.execSQL(create_client_table);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME );
+        db.execSQL(" DROP TABLE IF EXISTS " + client_table_name );
         onCreate(db);
+    }
+
+    public boolean registerClient(Client client) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(client_first_name, client.getFirstName());
+        cv.put(client_last_name, client.getLastName());
+        cv.put(client_age, client.getAge());
+        cv.put(client_village_no, client.getVillageNo());
+        cv.put(client_location, client.getLocation());
+        cv.put(client_disability, client.getDisabilityType());
+
+        long result = db.insert(client_table_name, null, cv);
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     public boolean registerWorker(CBRWorker cbrWorker) {

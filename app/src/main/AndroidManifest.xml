@@ -10,19 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">>
         <activity android:name=".UI.NewReferralActivity" />
-        <activity android:name=".UI.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".UI.LoginActivity"/>
         <activity android:name=".UI.SignUpActivity" />
         <activity android:name=".UI.SyncActivity" />
         <activity android:name=".UI.ClientInfoActivity" />
         <activity android:name=".UI.DashboardActivity" />
         <activity android:name=".UI.ClientListActivity" />
         <activity android:name=".UI.NewVisitActivity" />
-        <activity android:name=".UI.NewClientActivity" />
+        <activity android:name=".UI.NewClientActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".UI.TaskViewActivity"/>
 
     </application>
