@@ -1,15 +1,17 @@
 package com.example.cbr_manager.Forms;
 
 public abstract class Question {
-    final private int questionId;
+    final private String questionTag;
     final private String strQuestion;
     final private QuestionType questionType;
+    final private Boolean required;
 
 
-    public Question(int questionId, String strQuestion, QuestionType questionType) {
-        this.questionId = questionId;
+    public Question(String questionTag, String strQuestion, QuestionType questionType, Boolean required) {
+        this.questionTag = questionTag;
         this.strQuestion = strQuestion;
         this.questionType = questionType;
+        this.required = required;
     }
 
     public String getStrQuestion() {
@@ -20,7 +22,11 @@ public abstract class Question {
         return questionType;
     }
 
-    public int getQuestionId() {
-        return questionId;
+    public String getQuestionTag() {
+        return questionTag;
+    }
+
+    public Boolean getRequired() {
+        return required;
     }
 }

@@ -7,13 +7,14 @@
     tools:context=".UI.NewClientActivity">
 
     <LinearLayout
+        android:id="@+id/bottomBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/rightGuideline"
         app:layout_constraintStart_toEndOf="@id/leftGuideline"
-        app:layout_constraintTop_toTopOf="@+id/buttonsGuideline">
+        app:layout_constraintTop_toBottomOf="@id/required">
 
 
         <Button
@@ -71,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/topGuideline"
@@ -89,5 +90,16 @@
         app:layout_constraintEnd_toStartOf="@id/rightGuideline"
         app:layout_constraintStart_toEndOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@id/topGuideline"/>
+
+    <TextView
+        android:id="@+id/required"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/requireString"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+        app:layout_constraintStart_toEndOf="@id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/buttonsGuideline"
+        app:layout_constraintTop_toTopOf="@+id/buttonsGuideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

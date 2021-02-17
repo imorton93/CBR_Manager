@@ -14,24 +14,24 @@
     <string name="sync">Sync</string>
 
 <!--    New Client Form Questions-->
-    <string name="consent_newClientForm">Consent to Interview:</string>
-    <string name="date_newClientForm">Date:</string>
-    <string name="location_newClientForm">Location:</string>
-    <string name="villageNumber_newClientForm">Village Number:</string>
-    <string name="firstName_newClientForm">First Name:</string>
-    <string name="lastName_newClientForm">Last Name:</string>
-    <string name="gender_newClientForm">Gender:</string>
-    <string name="age_newClientForm">Age:</string>
-    <string name="contactNumber_newClientForm">Contact Number:</string>
-    <string name="caregiverPresent_newClientForm">Is a Caregiver present for Interview?</string>
-    <string name="caregiverNumber_newClientForm">Caregiver Number:</string>
-    <string name="photo_newClientForm">Photo of Client and Caregiver(request consent before taking photo)</string>
-    <string name="disabilityType_newClientForm">Type of Disability:</string>
-    <string name="healthRate_newClientForm">Please rate how you consider the clients health to be:</string>
-    <string name="educationStatus_newClientForm">Please rate how you consider the client\'s education status to be:</string>
-    <string name="socialStatus_newClientForm">Please rate how you consider the client\'s social status to be:</string>
-    <string name="require_newClientForm">Please Describe what they require:</string>
-    <string name="individualGoal_newClientForm">Set individual goal:</string>
+    <string name="consent_newClientForm">Consent to Interview*:</string>
+    <string name="date_newClientForm">Select Date*:</string>
+    <string name="location_newClientForm">Location*:</string>
+    <string name="villageNumber_newClientForm">Village Number*:</string>
+    <string name="firstName_newClientForm">First Name*:</string>
+    <string name="lastName_newClientForm">Last Name*:</string>
+    <string name="gender_newClientForm">Gender*:</string>
+    <string name="age_newClientForm">Age*:</string>
+    <string name="contactNumber_newClientForm">Contact Number*:</string>
+    <string name="caregiverPresent_newClientForm">Is a Caregiver present for Interview*?</string>
+    <string name="caregiverNumber_newClientForm">Caregiver Contact Number(Required if caregiver present):</string>
+    <string name="photo_newClientForm">Photo of Client and Caregiver(request consent before taking photo)*</string>
+    <string name="disabilityType_newClientForm">Type of Disability*:</string>
+    <string name="healthRate_newClientForm">Please rate how you consider the clients health to be*:</string>
+    <string name="educationStatus_newClientForm">Please rate how you consider the client\'s education status to be*:</string>
+    <string name="socialStatus_newClientForm">Please rate how you consider the client\'s social status to be*:</string>
+    <string name="require_newClientForm">Please Describe what they require*:</string>
+    <string name="individualGoal_newClientForm">Set individual goal*:</string>
     <string name="back">Back</string>
     <string name="next">Next</string>
     <string name="finish">Finish</string>
@@ -75,4 +75,29 @@
         <item>Low Risk</item>
     </string-array>
 
+
+<!--    tags new client form-->
+    <string name="consent">consent</string>
+    <string name="date">date</string>
+    <string name="firstName">firstName</string>
+    <string name="lastName">lastName</string>
+    <string name="age">age</string>
+    <string name="gender">gender</string>
+    <string name="location">location</string>
+    <string name="villageNumber">villageNumber</string>
+    <string name="contactNumber">contactNumber</string>
+    <string name="caregiverPresent">caregiverPresent</string>
+    <string name="caregiverContactNumber">caregiverContactNumber</string>
+    <string name="disabilityType">disabilityType</string>
+    <string name="healthRate">healthRate</string>
+    <string name="healthRequire">healthRequire</string>
+    <string name="healthIndividualGoal">healthIndividualGoal</string>
+    <string name="educationRate">educationRate</string>
+    <string name="educationRequire">educationRequire</string>
+    <string name="educationIndividualGoal">educationIndividualGoal</string>
+    <string name="socialRate">socialRate</string>
+    <string name="socialRequire">socialRequire</string>
+    <string name="socialIndividualGoal">socialIndividualGoal</string>
+    <string name="photo">photo</string>
+    <string name="requireString">* Indicates Required Details</string>
 </resources>

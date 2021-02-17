@@ -9,10 +9,10 @@ public class NewClient {
     String date;
     String firstName;
     String lastName;
-    int age;
+    int age = -1;
     String gender;
     String location;
-    int villageNumber;
+    int villageNumber = -1;
     String contactPhoneNumber;
     Boolean caregiverPresent;
     String caregiverPhoneNumber;

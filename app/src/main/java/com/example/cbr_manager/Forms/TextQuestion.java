@@ -2,8 +2,8 @@ package com.example.cbr_manager.Forms;
 
 public class TextQuestion extends Question {
 
-    public TextQuestion(int questionId, String strQuestion, QuestionType questionType) {
-        super(questionId, strQuestion, questionType);
+    public TextQuestion(String questionTag, String strQuestion, QuestionType questionType, Boolean required) {
+        super(questionTag, strQuestion, questionType, required);
     }
 
     public QuestionType getQuestionType() {
@@ -14,6 +14,10 @@ public class TextQuestion extends Question {
         return super.getStrQuestion();
     }
 
-    public int getQuestionId() { return super.getQuestionId();}
+    public String getQuestionTag() { return super.getQuestionTag();}
+
+    public Boolean getRequired(){
+        return super.getRequired();
+    }
 
 }

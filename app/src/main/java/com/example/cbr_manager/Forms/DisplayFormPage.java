@@ -69,7 +69,7 @@ public class DisplayFormPage {
         EditText inputText = new EditText(context);
         inputText.setText("");
         inputText.setInputType(InputType.TYPE_CLASS_TEXT);
-        inputText.setTag(question.getQuestionId());
+        inputText.setTag(question.getQuestionTag());
         form.addView(inputText);
     }
 
@@ -80,7 +80,7 @@ public class DisplayFormPage {
         EditText inputText = new EditText(context);
         inputText.setText("");
         inputText.setInputType(InputType.TYPE_CLASS_PHONE);
-        inputText.setTag(question.getQuestionId());
+        inputText.setTag(question.getQuestionTag());
         form.addView(inputText);
     }
 
@@ -90,7 +90,7 @@ public class DisplayFormPage {
         EditText inputText = new EditText(context);
         inputText.setText("");
         inputText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        inputText.setTag(question.getQuestionId());
+        inputText.setTag(question.getQuestionTag());
         form.addView(inputText);
     }
 
@@ -98,8 +98,13 @@ public class DisplayFormPage {
         displayQuestionHeading(question.getQuestionString(), form, context);
 
         TextView selectDate = new TextView(context);
-        selectDate.setText("Select Date");
-        selectDate.setTag(question.getQuestionId());
+        Calendar calendar = Calendar.getInstance();
+        int year1 = calendar.get(Calendar.YEAR);
+        int month1 = calendar.get(Calendar.MONTH);
+        int dayOfMonth1 = calendar.get(Calendar.DAY_OF_MONTH);
+        String date = month1 + "/" + dayOfMonth1 + "/" + year1;
+        selectDate.setText(date);
+        selectDate.setTag(question.getQuestionTag());
 
         DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -110,17 +115,14 @@ public class DisplayFormPage {
             }
         };
 
-        selectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+        selectDate.setOnClickListener(v -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
-                dialog.show();
-            }
+            DatePickerDialog dialog = new DatePickerDialog(context, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
+            dialog.show();
         });
         form.addView(selectDate);
     }
@@ -130,7 +132,7 @@ public class DisplayFormPage {
 
         String[] answers = question.getAnswers();
         RadioGroup radioAnswers = new RadioGroup(context);
-        radioAnswers.setTag(question.getQuestionId());
+        radioAnswers.setTag(question.getQuestionTag());
         RadioButton rButton;
         for (String answer : answers) {
             rButton = new RadioButton(context);
@@ -149,7 +151,7 @@ public class DisplayFormPage {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, answers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setTag(question.getQuestionId());
+        spinner.setTag(question.getQuestionTag());
 
         form.addView(spinner);
     }
@@ -162,7 +164,7 @@ public class DisplayFormPage {
         for(int i = 0; i < answers.length; i++){
             checkBox = new CheckBox(context);
             checkBox.setText(answers[i]);
-            checkBox.setTag(question.getQuestionId() + i);
+            checkBox.setTag(i);
             form.addView(checkBox);
         }
 
