@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.example.cbr_manager.R;
@@ -24,6 +26,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         createDropDownMenu();
+        ToolbarButtons();
 
         // TODO: populate listView
     }
@@ -37,8 +40,24 @@ public class DashboardActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-//    @Override
-//    private void onItemSelected(AdapterView<?> parent, View v, int position, long id){
-//
-//    }
+    private void ToolbarButtons(){
+        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(DashboardActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(DashboardActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
 }

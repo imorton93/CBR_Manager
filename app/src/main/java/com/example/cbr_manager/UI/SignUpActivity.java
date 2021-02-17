@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,8 +41,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         mydb = new DatabaseHelper(SignUpActivity.this);
 
+        backButton();
         insertWorker();
-
     }
 
     private void insertWorker() {
@@ -89,4 +90,14 @@ public class SignUpActivity extends AppCompatActivity {
         return true;
     }
 
+    private void backButton(){
+        Button backbtn = (Button) findViewById(R.id.backButtonSignup);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
 }

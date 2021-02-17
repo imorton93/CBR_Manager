@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
@@ -43,6 +44,7 @@ public class ClientInfoActivity extends AppCompatActivity {
 
         editButton();
         newVisitButton();
+        ToolbarButtons();
     }
 
     private void newVisitButton() {
@@ -90,6 +92,26 @@ public class ClientInfoActivity extends AppCompatActivity {
         @Override public int getItemCount() {
             return CARD_ITEM_SIZE;
         }
+    }
+
+    private void ToolbarButtons(){
+        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(ClientInfoActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(ClientInfoActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private ViewPagerAdapter createCardAdapter() {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.cbr_manager.R;
@@ -23,6 +24,7 @@ public class TaskViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view);
         clickIcons();
+        ToolbarButtons();
     }
 
     private void clickIcons() {
@@ -81,5 +83,24 @@ public class TaskViewActivity extends AppCompatActivity {
         });
     }
 
+    private void ToolbarButtons(){
+        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(TaskViewActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(TaskViewActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
 
 }
