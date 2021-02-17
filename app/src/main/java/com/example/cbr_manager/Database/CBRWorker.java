@@ -5,6 +5,7 @@ public class CBRWorker {
     private String lastName;
     private String email;
     private String password;
+    private int id;
 
     public CBRWorker(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
@@ -51,4 +52,9 @@ public class CBRWorker {
     public String getFullName(){
         return firstName +" " + lastName;
     }
+
+    public void setWorkerId(int id) {
+        this.id = id;
+    }
+
 }

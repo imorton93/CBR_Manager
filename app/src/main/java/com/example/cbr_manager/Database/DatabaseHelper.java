@@ -18,7 +18,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_4 = "PASSWORD";
     private static final String COL_5 = "ID";
 
-
     private static final String client_table_name = "CLIENT_DATA";
     private static final String client_first_name = "FIRST_NAME";
     private static final String client_last_name = "LAST_NAME";
@@ -27,7 +26,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_location = "LOCATION";
     private static final String client_disability = "DISABILITY";
     private static final String is_synced = "IS_SYNCED";
-
     //private static final String client_id = "ID";
 
 
@@ -39,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createtablestatement = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
-                + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT);";
+                + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);";
         db.execSQL(createtablestatement);
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, "
@@ -64,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_village_no, client.getVillageNo());
         cv.put(client_location, client.getLocation());
         cv.put(client_disability, client.getDisabilityType());
+
 
         long result = db.insert(client_table_name, null, cv);
         if (result == -1)
@@ -101,6 +100,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         else
             return false;
+
+    }
+
+    public int getWorkerId(CBRWorker cbrWorker){
+        String query = "SELECT MAX(ID) FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        c.moveToLast();
+        return c.getInt(0);
 
     }
 }

@@ -4,7 +4,6 @@ public class Client {
 
     private String firstName;
     private String lastName;
-   // private String id;
     private String location;
     private int villageNo;
     private int age;
@@ -55,7 +54,7 @@ public class Client {
         return age;
     }
 
-    public void setAge(byte age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -66,4 +65,6 @@ public class Client {
     public void setDisabilityType(String disabilityType) {
         this.disabilityType = disabilityType;
     }
+
+
 }
