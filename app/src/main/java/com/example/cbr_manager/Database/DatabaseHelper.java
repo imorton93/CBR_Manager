@@ -39,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createtablestatement = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
-                + " TEXT PRIMARY KEY, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT);";
+                + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT);";
         db.execSQL(createtablestatement);
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, "
