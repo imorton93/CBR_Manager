@@ -24,6 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_village_no = "VILLAGE_NUMBER";
     private static final String client_location = "LOCATION";
     private static final String client_disability = "DISABILITY";
+    private static final String is_synced = "IS_SYNCED";
+
     //private static final String client_id = "ID";
 
 
@@ -39,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, "
                 + client_village_no + " INTEGER, "  + client_location + " TEXT, "
-                + client_disability + " TEXT);";
+                + client_disability + " TEXT, " + is_synced + "INTEGER DEFAULT 0);";
         db.execSQL(create_client_table);
     }
 
