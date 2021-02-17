@@ -16,6 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_2 = "LAST_NAME";
     private static final String COL_3 = "EMAIL";
     private static final String COL_4 = "PASSWORD";
+    private static final String COL_5 = "ID";
+
 
     private static final String client_table_name = "CLIENT_DATA";
     private static final String client_first_name = "FIRST_NAME";
@@ -36,12 +38,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createtablestatement = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3 + " TEXT PRIMARY KEY, " + COL_4 + " TEXT);";
+        String createtablestatement = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
+                + " TEXT PRIMARY KEY, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT);";
         db.execSQL(createtablestatement);
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, "
                 + client_village_no + " INTEGER, "  + client_location + " TEXT, "
-                + client_disability + " TEXT, " + is_synced + "INTEGER DEFAULT 0);";
+                + client_disability + " TEXT, " + is_synced + "INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
     }
 
