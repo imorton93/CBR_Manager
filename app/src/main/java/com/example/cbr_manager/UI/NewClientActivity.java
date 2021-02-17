@@ -38,6 +38,9 @@ public class NewClientActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView progressText;
 
+    //structure to save all the answers
+    NewClient newClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class NewClientActivity extends AppCompatActivity {
         next = (Button) findViewById(R.id.nextBtn);
         next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtn);
+        newClient = new NewClient();
 
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
@@ -55,9 +59,12 @@ public class NewClientActivity extends AppCompatActivity {
         currentPage = 1;
         pages = new ArrayList<>();
 
+
         createNewClientForm();
         pageCount = pages.size();
-        displayPage(pages.get(currentPage - 1));
+        //REFACTORING
+        DisplayFormPage.displayPage(pages.get(currentPage-1), form, this);
+//        displayPage(pages.get(currentPage - 1));
         progressText.setText(currentPage + "/" + pageCount);
         progressBar.setMax(pageCount);
         progressBar.setProgress(currentPage);
@@ -73,7 +80,9 @@ public class NewClientActivity extends AppCompatActivity {
                     currentPage++;
                     setProgress(currentPage, pageCount);
                     clearForm();
-                    displayPage(pages.get(currentPage - 1));
+                    //REFACTORING
+                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+//                    displayPage(pages.get(currentPage - 1));
                     if(currentPage == pageCount){
                         next.setText(R.string.finish);
                     }
@@ -94,7 +103,9 @@ public class NewClientActivity extends AppCompatActivity {
                     currentPage--;
                     setProgress(currentPage, pageCount);
                     clearForm();
-                    displayPage(pages.get(currentPage - 1));
+                    //REFACTORING
+                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+//                    displayPage(pages.get(currentPage - 1));
                     if(currentPage == 1){
                         back.setClickable(false);
                         back.setBackgroundColor(Color.DKGRAY);
@@ -110,7 +121,6 @@ public class NewClientActivity extends AppCompatActivity {
         progressText.setText(currentPage + "/" + pageCount);
     }
 
-
     private void clearForm(){
         form.removeAllViews();
     }
@@ -121,147 +131,8 @@ public class NewClientActivity extends AppCompatActivity {
         toast.show();
     }
 
-    private void displayPage(FormPage page){
-        ArrayList<Question> questions = page.getQuestions();
-        for(Question question : questions){
-            TextQuestion txtQ;
-            MultipleChoiceQuestion mcQ;
-            if(question.getQuestionType().equals(QuestionType.PLAIN_TEXT)){
-                txtQ = (TextQuestion) question;
-                displayPlainTextQuestion(txtQ);
-            }
-            else if(question.getQuestionType().equals(QuestionType.PHONE_NUMBER)){
-                txtQ = (TextQuestion) question;
-                displayPhoneNumberQuestion(txtQ);
-            }
-            else if(question.getQuestionType().equals(QuestionType.NUMBER)){
-                txtQ = (TextQuestion) question;
-                displayNumberQuestion(txtQ);
-            }
-            else if(question.getQuestionType().equals(QuestionType.DATE)){
-                txtQ = (TextQuestion) question;
-                displayDateQuestion(txtQ);
-            }
-            else if(question.getQuestionType().equals(QuestionType.CHECK_BOX)){
-                mcQ = (MultipleChoiceQuestion) question;
-                displayCheckBoxQuestion(mcQ);
-            }
-            else if(question.getQuestionType().equals(QuestionType.DROP_DOWN)){
-                mcQ = (MultipleChoiceQuestion) question;
-                displayDropDownQuestion(mcQ);
-            }
-            else if(question.getQuestionType().equals(QuestionType.RADIO)){
-                mcQ = (MultipleChoiceQuestion) question;
-                displayRadioQuestion(mcQ);
-            }
-        }
-    }
 
-
-    private void displayQuestionHeading(String questionString){
-        TextView questionText = new TextView(this);
-        questionText.setText(questionString);
-        form.addView(questionText);
-    }
-
-    private void displayPlainTextQuestion(TextQuestion question){
-        displayQuestionHeading(question.getQuestionString());
-
-        EditText inputText = new EditText(this);
-        inputText.setText("");
-        inputText.setInputType(InputType.TYPE_CLASS_TEXT);
-        form.addView(inputText);
-    }
-
-    private void displayPhoneNumberQuestion(TextQuestion question){
-        displayQuestionHeading(question.getQuestionString());
-
-
-        EditText inputText = new EditText(this);
-        inputText.setText("");
-        inputText.setInputType(InputType.TYPE_CLASS_PHONE);
-        form.addView(inputText);
-    }
-
-    private void displayNumberQuestion(TextQuestion question){
-        displayQuestionHeading(question.getQuestionString());
-
-        EditText inputText = new EditText(this);
-        inputText.setText("");
-        inputText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        form.addView(inputText);
-    }
-
-    private void displayDateQuestion(TextQuestion question){
-        displayQuestionHeading(question.getQuestionString());
-
-        TextView selectDate = new TextView(this);
-        selectDate.setText("Select Date");
-
-        DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = month + "/" + dayOfMonth + "/" + year;
-                selectDate.setText(date);
-            }
-        };
-
-        selectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(NewClientActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
-                dialog.show();
-            }
-        });
-        form.addView(selectDate);
-    }
-
-    private void displayRadioQuestion(MultipleChoiceQuestion question){
-        displayQuestionHeading(question.getQuestionString());
-
-        String[] answers = question.getAnswers();
-        RadioGroup radioAnswers = new RadioGroup(this);
-        RadioButton rButton;
-        for (String answer : answers) {
-            rButton = new RadioButton(this);
-            rButton.setText(answer);
-            radioAnswers.addView(rButton);
-        }
-
-        form.addView(radioAnswers);
-    }
-
-    private void displayDropDownQuestion(MultipleChoiceQuestion question){
-        displayQuestionHeading(question.getQuestionString());
-
-        Spinner spinner = new Spinner(this);
-        String[] answers = question.getAnswers();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, answers);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        form.addView(spinner);
-    }
-
-    private void displayCheckBoxQuestion(MultipleChoiceQuestion question){
-        displayQuestionHeading(question.getQuestionString());
-
-        CheckBox checkBox;
-        String[] answers = question.getAnswers();
-        for (String answer : answers) {
-            checkBox = new CheckBox(this);
-            checkBox.setText(answer);
-            form.addView(checkBox);
-        }
-    }
-
-
-
+    
     private void createNewClientForm(){
         Resources res = getResources();
         //page one: consent and date
