@@ -1,4 +1,4 @@
-package com.example.cbr_manager.Database;
+package com.hha.server.model;
 
 public class Client {
 
@@ -68,6 +68,4 @@ public class Client {
     public void setDisabilityType(String disabilityType) {
         this.disabilityType = disabilityType;
     }
-
-
 }
