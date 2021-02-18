@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cbr_manager.R;
 
@@ -59,8 +60,8 @@ public class TaskViewActivity extends AppCompatActivity {
         sync.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = SyncActivity.makeIntent(TaskViewActivity.this);
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Syncing data...", Toast.LENGTH_LONG).show();
+                // SYNC BUTTON
             }
         });
 
@@ -97,7 +98,7 @@ public class TaskViewActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TaskViewActivity.makeIntent(TaskViewActivity.this);
+                Intent intent = ProfileActivity.makeIntent(TaskViewActivity.this);
                 startActivity(intent);
             }
         });

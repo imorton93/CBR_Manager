@@ -56,7 +56,7 @@ public class ClientListActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TaskViewActivity.makeIntent(ClientListActivity.this);
+                Intent intent = ProfileActivity.makeIntent(ClientListActivity.this);
                 startActivity(intent);
             }
         });

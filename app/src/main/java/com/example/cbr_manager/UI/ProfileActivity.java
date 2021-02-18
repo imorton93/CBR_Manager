@@ -10,17 +10,12 @@ import android.widget.ImageButton;
 
 import com.example.cbr_manager.R;
 
-public class NewReferralActivity extends AppCompatActivity {
-
-    public static Intent makeIntent(Context context) {
-        Intent intent =  new Intent(context, NewReferralActivity.class);
-        return intent;
-    }
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_referral);
+        setContentView(R.layout.activity_profile);
         ToolbarButtons();
     }
 
@@ -29,7 +24,7 @@ public class NewReferralActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TaskViewActivity.makeIntent(NewReferralActivity.this);
+                Intent intent = TaskViewActivity.makeIntent(ProfileActivity.this);
                 startActivity(intent);
             }
         });
@@ -38,9 +33,13 @@ public class NewReferralActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = ProfileActivity.makeIntent(NewReferralActivity.this);
+                Intent intent = ProfileActivity.makeIntent(ProfileActivity.this);
                 startActivity(intent);
             }
         });
+    }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, ProfileActivity.class);
     }
 }

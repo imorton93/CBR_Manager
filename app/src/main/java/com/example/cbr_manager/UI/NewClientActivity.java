@@ -131,7 +131,7 @@ public class NewClientActivity extends AppCompatActivity {
 
                 }
                 else{
-                    finishForm()
+                    finishForm();
                 }
             }
         });
@@ -849,7 +849,7 @@ public class NewClientActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
+                Intent intent = ProfileActivity.makeIntent(NewClientActivity.this);
                 startActivity(intent);
             }
         });

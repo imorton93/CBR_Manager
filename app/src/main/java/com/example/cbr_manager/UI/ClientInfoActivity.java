@@ -108,7 +108,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TaskViewActivity.makeIntent(ClientInfoActivity.this);
+                Intent intent = ProfileActivity.makeIntent(ClientInfoActivity.this);
                 startActivity(intent);
             }
         });

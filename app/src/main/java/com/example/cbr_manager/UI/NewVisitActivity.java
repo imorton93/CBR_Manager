@@ -163,7 +163,7 @@ public class NewVisitActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TaskViewActivity.makeIntent(NewVisitActivity.this);
+                Intent intent = ProfileActivity.makeIntent(NewVisitActivity.this);
                 startActivity(intent);
             }
         });

@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TaskViewActivity.makeIntent(DashboardActivity.this);
+                Intent intent = ProfileActivity.makeIntent(DashboardActivity.this);
                 startActivity(intent);
             }
         });

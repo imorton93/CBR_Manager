@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.SyncActivity">
+    tools:context=".UI.ProfileActivity">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
