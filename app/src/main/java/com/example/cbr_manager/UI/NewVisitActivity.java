@@ -90,7 +90,7 @@ public class NewVisitActivity extends AppCompatActivity {
                         back.setBackgroundColor(Color.BLUE);
                     }
                     //save answers
-                    //savePage(pages.get(currentPage - 1));
+                    savePage(pages.get(currentPage - 1));
 
                     currentPage++;
                     setProgress(currentPage, pageCount);
@@ -100,11 +100,11 @@ public class NewVisitActivity extends AppCompatActivity {
                     DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewVisitActivity.this);
 
                     //load previously saved answers if any
-                    //loadAnswers(pages.get(currentPage - 1));
+                    loadAnswers(pages.get(currentPage - 1));
                 }
                 else if(currentPage >= pageCount -1){
                     //save answers
-                    //savePage(pages.get(currentPage - 1));
+                    savePage(pages.get(currentPage - 1));
 
                     currentPage++;
                     setProgress(currentPage,pageCount);
@@ -134,7 +134,7 @@ public class NewVisitActivity extends AppCompatActivity {
                 DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewVisitActivity.this);
 
                 //load previously saved answers if any
-//                loadAnswers(pages.get(currentPage - 1));
+                loadAnswers(pages.get(currentPage - 1));
                 if(currentPage == 1){
                     back.setClickable(false);
                     back.setBackgroundColor(Color.DKGRAY);
@@ -286,12 +286,17 @@ public class NewVisitActivity extends AppCompatActivity {
         MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
         int size = mcq.getAnswers().length;
 
+        if(tag.equals(getString(R.string.ifCBR))){
+            newVisit.clearIfCbr();
+        }
+
         CheckBox checkBox;
         for(int i = 0; i < size; i++){
             checkBox = (CheckBox) form.findViewWithTag(i);
             if(checkBox.isChecked()){
                 String selected = checkBox.getText().toString();
                 if(tag.equals(getString(R.string.ifCBR))){
+
                     newVisit.addToIfCbr(selected);
                 }
             }
@@ -303,13 +308,24 @@ public class NewVisitActivity extends AppCompatActivity {
         MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
         int size = mcq.getAnswers().length;
 
+        if(tag.equals(getString(R.string.healthProvided))){
+            newVisit.clearHealthProvided();
+        }
+        else if(tag.equals(getString(R.string.socialProvided))){
+            newVisit.clearSocialProvided();
+        }
+        else if(tag.equals(getString(R.string.educationProvided))){
+            newVisit.clearEducationProvided();
+        }
+
+
         EditText input;
         CheckBox checkBox;
         for(int i = 0; i < size; i++){
             checkBox = (CheckBox) form.findViewWithTag(i);
             if(checkBox.isChecked()){
                 String selected = checkBox.getText().toString();
-                input = (EditText) form.findViewWithTag(i * 100);
+                input = (EditText) form.findViewWithTag(selected);
                 String explanation = input.getText().toString();
 
                 if(tag.equals(getString(R.string.healthProvided))){
@@ -319,14 +335,183 @@ public class NewVisitActivity extends AppCompatActivity {
                     newVisit.addSocialProvided(selected, explanation);
                 }
                 else if(tag.equals(getString(R.string.educationProvided))){
-                    newVisit.addeducationProvided(selected, explanation);
+                    newVisit.addEducationProvided(selected, explanation);
                 }
             }
         }
     }
 
 
+    private void loadAnswers(FormPage page){
+        ArrayList<Question> questions = page.getQuestions();
+        for(Question question : questions){
+            QuestionType type = question.getQuestionType();
+            if(type == QuestionType.PLAIN_TEXT || type == QuestionType.PHONE_NUMBER){
+                loadText(question);
+            }
+            else if(type == QuestionType.DATE){
+                loadDate(question);
+            }
+            else if(type == QuestionType.RADIO){
+                loadRadio(question);
+            }
+            else if(type == QuestionType.NUMBER){
+                loadNumber(question);
+            }
+            else if(type == QuestionType.DROP_DOWN){
+                loadDropDown(question);
+            }
+            else if(type == QuestionType.CHECK_BOX){
+                loadCheckBox(question);
+            }
+            else if(type == QuestionType.CHECK_BOX_WITH_COMMENT){
+                loadCheckBoxWithComment(question);
+            }
+        }
+    }
 
+    private void loadText(Question question){
+        String tag = question.getQuestionTag();
+        String data = null;
+
+        if(tag.equals(getString(R.string.socialIfConcluded))){
+            data = newVisit.getSocialIfConcluded();
+        }
+        else if(tag.equals(getString(R.string.healthIfConcluded))){
+            data = newVisit.getHealthIfConcluded();
+        }
+        else if(tag.equals(getString(R.string.educationIfConcluded))){
+            data = newVisit.getEducationIfConcluded();
+        }
+
+        if(data != null){
+            EditText input = (EditText) form.findViewWithTag(tag);
+            input.setText(data);
+        }
+
+    }
+
+    private void loadDate(Question question){
+        String tag = question.getQuestionTag();
+        String data = null;
+        if(tag.equals(getString(R.string.date))){
+            data = newVisit.getDate();
+        }
+
+        if(data != null){
+            TextView date = (TextView) form.findViewWithTag(tag);
+            date.setText(data);
+        }
+    }
+
+    private void loadRadio(Question question){
+        String tag = question.getQuestionTag();
+        String data = null;
+        if(tag.equals(getString(R.string.purposeOfVisit))){
+            data = newVisit.getPurposeOfVisit();
+        }
+        else if(tag.equals(getString(R.string.socialGoalMet))){
+            data = newVisit.getSocialGoalMet();
+        }
+        else if(tag.equals(getString(R.string.educationGoalMet))){
+            data = newVisit.getEducationGoalMet();
+        }
+        else if(tag.equals(getString(R.string.healthGoalMet))){
+            data = newVisit.getHealthGoalMet();
+        }
+
+        if(data != null){
+            RadioGroup rateGroup = (RadioGroup) form.findViewWithTag(tag);
+            for(int i = 0; i < rateGroup.getChildCount(); i++){
+                RadioButton button = (RadioButton) rateGroup.getChildAt(i);
+                if(button.getText().equals(data)){
+                    button.toggle();
+                }
+            }
+        }
+    }
+
+    private void loadNumber(Question question){
+        String tag = question.getQuestionTag();
+        int data = -1;
+        if(tag.equals(getString(R.string.villageNumber))){
+            data = newVisit.getVillageNumber();
+        }
+
+        if(data != -1){
+            String dataStr = Integer.toString(data);
+            EditText input = (EditText) form.findViewWithTag(tag);
+            input.setText(dataStr);
+        }
+    }
+
+    private void loadDropDown(Question question){
+        String tag = question.getQuestionTag();
+        String data = null;
+        if(tag.equals(getString(R.string.location))){
+            data = newVisit.getLocation();
+        }
+
+        if(data != null){
+            Spinner spinner = (Spinner) form.findViewWithTag(tag);
+            for(int i = 0; i < spinner.getCount(); i++){
+                if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(data)){
+                    spinner.setSelection(i);
+                }
+            }
+        }
+    }
+
+    private void loadCheckBox(Question question){
+        String tag = question.getQuestionTag();
+        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
+        int size = mcq.getAnswers().length;
+        ArrayList<String> arrayList = null;
+        if(tag.equals(getString(R.string.ifCBR))){
+            arrayList = newVisit.getIfCbr();
+        }
+        for(int i = 0; i < arrayList.size(); i++){
+            CheckBox checkBox;
+            for(int j = 0; j < size; j++){
+                checkBox = (CheckBox) form.findViewWithTag(j);
+                if(checkBox.getText().equals(arrayList.get(i))){
+                    checkBox.toggle();
+                }
+            }
+        }
+
+    }
+
+    private void loadCheckBoxWithComment(Question question){
+        String tag = question.getQuestionTag();
+        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
+        int answersSize = mcq.getAnswers().length;
+        ArrayList<NewVisit.Provided> arrayList = null;
+        if(tag.equals(getString(R.string.healthProvided))){
+            arrayList = newVisit.getHealthProvided();
+        }
+        else if(tag.equals(getString(R.string.socialProvided))){
+            arrayList = newVisit.getSocialProvided();
+        }
+        else if(tag.equals(getString(R.string.educationProvided))){
+            arrayList = newVisit.getEducationProvided();
+        }
+
+        for(int i = 0; i < arrayList.size(); i++){
+            CheckBox checkBox;
+            for(int j = 0; j < answersSize; j++){
+                checkBox = (CheckBox) form.findViewWithTag(j);
+
+                if(checkBox.getText().equals(arrayList.get(i).getCheckBox())){
+                    checkBox.setChecked(true);
+
+                    EditText input = (EditText) form.findViewWithTag(checkBox.getText().toString());
+                    input.setText(arrayList.get(i).getExplanation());
+                }
+            }
+        }
+
+    }
 
 
     private void createNewVisitForm(){

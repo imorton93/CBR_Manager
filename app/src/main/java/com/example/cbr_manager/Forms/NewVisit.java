@@ -22,7 +22,7 @@ public class NewVisit {
     public NewVisit() {
     }
 
-    private class Provided{
+    public class Provided{
         private String checkBox;
         private String explanation;
 
@@ -64,6 +64,10 @@ public class NewVisit {
         ifCbr.add(string);
     }
 
+    public void clearIfCbr(){
+        ifCbr.clear();
+    }
+
     public String getDate() {
         return date;
     }
@@ -93,16 +97,8 @@ public class NewVisit {
         healthProvided.add(provided);
     }
 
-    public int healthProvidedSize(){
-        return healthProvided.size();
-    }
-
-    public String getHealthProvidedCheckboxAt(int index){
-        return healthProvided.get(index).getCheckBox();
-    }
-
-    public String getHealthProvidedExplanationAt(int index){
-        return healthProvided.get(index).getExplanation();
+    public void clearHealthProvided(){
+        healthProvided.clear();
     }
 
     public void addSocialProvided(String checkBox, String explanation){
@@ -110,36 +106,19 @@ public class NewVisit {
         socialProvided.add(provided);
     }
 
-    public int socialProvidedSize(){
-        return socialProvided.size();
-    }
-
-    public String getSocialProvidedCheckboxAt(int index){
-        return socialProvided.get(index).getCheckBox();
-    }
-
-    public String getSocialProvidedExplanationAt(int index){
-        return socialProvided.get(index).getExplanation();
+    public void clearSocialProvided(){
+        socialProvided.clear();
     }
 
 
-    public void addeducationProvided(String checkBox, String explanation){
+    public void addEducationProvided(String checkBox, String explanation){
         Provided provided = new Provided(checkBox, explanation);
         educationProvided.add(provided);
     }
 
-    public int educationProvidedSize(){
-        return educationProvided.size();
+    public void clearEducationProvided(){
+        educationProvided.clear();
     }
-
-    public String getEducationProvidedCheckboxAt(int index){
-        return educationProvided.get(index).getCheckBox();
-    }
-
-    public String getEducationProvidedExplanationAt(int index){
-        return educationProvided.get(index).getExplanation();
-    }
-
 
     public String getHealthGoalMet() {
         return healthGoalMet;
@@ -189,5 +168,17 @@ public class NewVisit {
 
     public void setEducationIfConcluded(String educationIfConcluded) {
         this.educationIfConcluded = educationIfConcluded;
+    }
+
+    public ArrayList<Provided> getHealthProvided() {
+        return healthProvided;
+    }
+
+    public ArrayList<Provided> getSocialProvided() {
+        return socialProvided;
+    }
+
+    public ArrayList<Provided> getEducationProvided() {
+        return educationProvided;
     }
 }

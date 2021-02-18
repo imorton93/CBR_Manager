@@ -195,12 +195,11 @@ public class DisplayFormPage {
             checkBox = new CheckBox(context);
             checkBox.setText(answers[i]);
             checkBox.setTag(i);
-            ;
             EditText input = new EditText(context);
             input.setTextSize(14);
             input.setHint(R.string.explain_newVisitForm);
             input.setVisibility(View.GONE);
-            input.setTag(i * 100);
+            input.setTag(checkBox.getText().toString());
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
