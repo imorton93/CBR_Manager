@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -102,7 +103,7 @@ public class NewVisitActivity extends AppCompatActivity {
                     //load previously saved answers if any
                     loadAnswers(pages.get(currentPage - 1));
                 }
-                else if(currentPage >= pageCount -1){
+                else if(currentPage == pageCount -1){
                     //save answers
                     savePage(pages.get(currentPage - 1));
 
@@ -115,8 +116,11 @@ public class NewVisitActivity extends AppCompatActivity {
                     if(currentPage == pageCount){
                         next.setText(getString(R.string.finish));
                     }
-                    finishForm();
 
+
+                }
+                else{
+                    finishForm();
                 }
             }
         });
@@ -186,8 +190,155 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
     private Boolean requiredFieldsFilled(FormPage page){
-        return true;
+        ArrayList<Question> questions = page.getQuestions();
+        Boolean returnBool = true;
+        for(Question question : questions){
+            QuestionType type = question.getQuestionType();
+            if(question.getRequired()){
+                if(type == QuestionType.PLAIN_TEXT || type == QuestionType.PHONE_NUMBER){
+                    if(!isTextAnswered(question)){
+                        returnBool = false;
+                    }
+
+                }
+                else if(type == QuestionType.NUMBER){
+                    if(!isNumberAnswered(question)){
+                        returnBool = false;
+                    }
+                }
+                else if(type == QuestionType.RADIO){
+                    if(!isRadioAnswered(question)){
+                        returnBool = false;
+                    }
+                }
+                else if(type == QuestionType.CHECK_BOX){
+                    if(!isCheckBoxAnswered(question)){
+                        returnBool = false;
+                    }
+                }
+                else if(type == QuestionType.CHECK_BOX_WITH_COMMENT){
+                    if(!isCheckBoxCommentAnswered(question)){
+                        returnBool = false;
+                    }
+                }
+            }
+        }
+        return returnBool;
     }
+
+    private Boolean isTextAnswered(Question question){
+        String tag = question.getQuestionTag();
+        EditText input = (EditText) form.findViewWithTag(tag);
+        return input.getText().toString().trim().length() > 0;
+    }
+
+    private Boolean isNumberAnswered(Question question){
+        String tag = question.getQuestionTag();
+        EditText input = (EditText) form.findViewWithTag(tag);
+        String inputStr = input.getText().toString();
+        if(inputStr.equals("")){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    private Boolean isRadioAnswered(Question question){
+        String tag = question.getQuestionTag();
+        RadioGroup radioGroup = (RadioGroup) form.findViewWithTag(tag);
+        boolean radioSelected = false;
+        boolean otherInput = true;
+
+        if(radioGroup.getCheckedRadioButtonId() != -1){
+            radioSelected = true;
+        }
+
+        if(radioSelected){
+            //check if purpose question if CBR was answered
+            if(tag.equals(getString(R.string.purposeOfVisit))){
+                int id  = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = (RadioButton) radioGroup.findViewById(id);
+                if(radioButton.getText().equals("CBR")){
+                    otherInput = false;
+                    CheckBox checkBox;
+                    for(int i = 0; i < 3; i++){
+                        checkBox = (CheckBox) form.findViewWithTag(i);
+                        if(checkBox.isChecked()){
+                            otherInput = true;
+                        }
+                    }
+                }
+            }
+            else if(tag.equals(getString(R.string.healthGoalMet))){
+                int id = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = (RadioButton) radioGroup.findViewById(id);
+                if(radioButton.getText().equals("Concluded")){
+
+                    EditText input = (EditText) form.findViewWithTag(getString(R.string.healthIfConcluded));
+                    otherInput = input.getText().toString().trim().length() > 0;
+                }
+            }
+            else if(tag.equals(getString(R.string.socialGoalMet))){
+                int id = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = (RadioButton) radioGroup.findViewById(id);
+                if(radioButton.getText().equals("Concluded")){
+
+                    EditText input = (EditText) form.findViewWithTag(getString(R.string.socialIfConcluded));
+                    otherInput = input.getText().toString().trim().length() > 0;
+                }
+            }
+            else if(tag.equals(getString(R.string.educationGoalMet))){
+                int id = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = (RadioButton) radioGroup.findViewById(id);
+                if(radioButton.getText().equals("Concluded")){
+
+                    EditText input = (EditText) form.findViewWithTag(getString(R.string.educationIfConcluded));
+                    otherInput = input.getText().toString().trim().length() > 0;
+                }
+            }
+        }
+
+        return radioSelected && otherInput;
+    }
+
+    private Boolean isCheckBoxAnswered(Question question){
+        boolean returnBool = false;
+        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
+        int size = mcq.getAnswers().length;
+        CheckBox checkBox;
+        for(int i = 0; i < size; i++){
+             checkBox = (CheckBox) form.findViewWithTag(i);
+            if(checkBox.isChecked()){
+                returnBool = true;
+            }
+        }
+        return returnBool;
+    }
+
+    private Boolean isCheckBoxCommentAnswered(Question question){
+        if(!isCheckBoxAnswered(question)){
+            return false;
+        }
+
+        //check make sure all descriptions are filled in that are checked
+        boolean returnBool = true;
+        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
+        int size = mcq.getAnswers().length;
+        CheckBox checkBox;
+        for(int i = 0; i < size; i++){
+            checkBox = (CheckBox) form.findViewWithTag(i);
+            if(checkBox.isChecked()){
+                EditText input = (EditText) form.findViewWithTag(checkBox.getText().toString());
+                if(input.getText().toString().trim().length() == 0){
+                    returnBool = false;
+                }
+            }
+        }
+        return returnBool;
+    }
+
+
 
     private void savePage(FormPage page){
         ArrayList<Question> questions = page.getQuestions();
@@ -542,7 +693,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         //Page Four: goal met health, if concluded outcome
         MultipleChoiceQuestion goalMet = new MultipleChoiceQuestion(getString(R.string.healthGoalMet), getString(R.string.goalMet_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.goalMetChoices), true);
-        TextQuestion ifConcluded = new TextQuestion(getString(R.string.healthIfConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, true);
+        TextQuestion ifConcluded = new TextQuestion(getString(R.string.healthIfConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, false);
         FormPage pageFour = new FormPage();
         pageFour.addToPage(goalMet);
         pageFour.addToPage(ifConcluded);
@@ -558,7 +709,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         //Page Six: social provided
         MultipleChoiceQuestion goalMet1 = new MultipleChoiceQuestion(getString(R.string.educationGoalMet), getString(R.string.goalMet_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.goalMetChoices), true);
-        TextQuestion ifConcluded1 = new TextQuestion(getString(R.string.educationIfConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, true);
+        TextQuestion ifConcluded1 = new TextQuestion(getString(R.string.educationIfConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, false);
         FormPage pageSix = new FormPage();
         pageSix.addToPage(goalMet1);
         pageSix.addToPage(ifConcluded1);
@@ -572,7 +723,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         //Page Eight
         MultipleChoiceQuestion goalMet2 = new MultipleChoiceQuestion(getString(R.string.socialGoalMet), getString(R.string.goalMet_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.goalMetChoices), true);
-        TextQuestion ifConcluded2 = new TextQuestion(getString(R.string.socialIfConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, true);
+        TextQuestion ifConcluded2 = new TextQuestion(getString(R.string.socialIfConcluded), getString(R.string.concluded_newVisitForm), QuestionType.PLAIN_TEXT, false);
         FormPage pageEight = new FormPage();
         pageEight.addToPage(goalMet2);
         pageEight.addToPage(ifConcluded2);
@@ -581,6 +732,110 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
     private void reviewPage(){
+        TextView purposeView = new TextView(this);
+        String purposeStr = newVisit.getPurposeOfVisit();
+        purposeView.setText("Purpose of Visit: " + purposeStr);
+        form.addView(purposeView);
+
+        if(purposeStr.equals("CBR")){
+            ArrayList<String> arrayList = newVisit.getIfCbr();
+            String ifcbr = "CBR: ";
+            for(int i = 0; i < arrayList.size(); i++){
+                String data = arrayList.get(i);
+                ifcbr = ifcbr.concat(data);
+            }
+            TextView cbrView = new TextView(this);
+            cbrView.setText(ifcbr);
+            form.addView(cbrView);
+        }
+
+        TextView dateView = new TextView(this);
+        String dateStr = newVisit.getDate();
+        dateView.setText("Date of Visit:" + dateStr);
+        form.addView(dateView);
+
+        TextView locationView = new TextView(this);
+        String locationStr = newVisit.getLocation();
+        locationView.setText("Location: " + locationStr);
+        form.addView(locationView);
+
+        TextView villageNumberView = new TextView(this);
+        int villageNumber = newVisit.getVillageNumber();
+        villageNumberView.setText("Village Number: " + Integer.toString(villageNumber));
+        form.addView(villageNumberView);
+
+        TextView healthProvidedView = new TextView(this);
+        healthProvidedView.setText("For Health, what was provided?");
+        form.addView(healthProvidedView);
+        ArrayList<NewVisit.Provided> arrayList = newVisit.getHealthProvided();
+        for(int i = 0; i < arrayList.size(); i++){
+            String checkbox = arrayList.get(i).getCheckBox();
+            String explanation = arrayList.get(i).getExplanation();
+            TextView checkboxView = new TextView(this);
+            checkboxView.setText("\t" + checkbox + ": " + explanation);
+            form.addView(checkboxView);
+        }
+
+        TextView healthGoalMetView = new TextView(this);
+        String healthGoalMet = newVisit.getHealthGoalMet();
+        healthGoalMetView.setText("Goal Met? " + healthGoalMet);
+        form.addView(healthGoalMetView);
+
+        if(healthGoalMet.equals("Concluded")){
+            TextView healthIfConcluded = new TextView(this);
+            String ifConcluded = newVisit.getHealthIfConcluded();
+            healthIfConcluded.setText("The Outcome: " + ifConcluded);
+            form.addView(healthIfConcluded);
+        }
+
+        TextView socialProvidedView = new TextView(this);
+        socialProvidedView.setText("For Social, what was provided?");
+        form.addView(socialProvidedView);
+        ArrayList<NewVisit.Provided> arrayList1 = newVisit.getSocialProvided();
+        for(int i = 0; i < arrayList1.size(); i++){
+            String checkbox = arrayList1.get(i).getCheckBox();
+            String explanation = arrayList1.get(i).getExplanation();
+            TextView checkboxView = new TextView(this);
+            checkboxView.setText("\t" + checkbox + ": " + explanation);
+            form.addView(checkboxView);
+        }
+
+        TextView socialGoalMetView = new TextView(this);
+        String socialGoalMet = newVisit.getSocialGoalMet();
+        socialGoalMetView.setText("Goal Met? " + socialGoalMet);
+        form.addView(socialGoalMetView);
+
+        if(socialGoalMet.equals("Concluded")){
+            TextView socialIfConcluded = new TextView(this);
+            String ifConcluded = newVisit.getSocialIfConcluded();
+            socialIfConcluded.setText("The Outcome: " + ifConcluded);
+            form.addView(socialIfConcluded);
+        }
+
+
+        TextView educationProvidedView = new TextView(this);
+        educationProvidedView.setText("For Education, what was provided?");
+        form.addView(educationProvidedView);
+        ArrayList<NewVisit.Provided> arrayList2 = newVisit.getEducationProvided();
+        for(int i = 0; i < arrayList2.size(); i++){
+            String checkbox = arrayList2.get(i).getCheckBox();
+            String explanation = arrayList2.get(i).getExplanation();
+            TextView checkboxView = new TextView(this);
+            checkboxView.setText("\t" + checkbox + ": " + explanation);
+            form.addView(checkboxView);
+        }
+
+        TextView educationGoalMetView = new TextView(this);
+        String educationGoalMet = newVisit.getEducationGoalMet();
+        educationGoalMetView.setText("Goal Met? " + educationGoalMet);
+        form.addView(educationGoalMetView);
+
+        if(educationGoalMet.equals("Concluded")){
+            TextView educationIfConcluded = new TextView(this);
+            String ifConcluded = newVisit.getEducationIfConcluded();
+            educationIfConcluded.setText("The Outcome: " + ifConcluded);
+            form.addView(educationIfConcluded);
+        }
 
     }
 }

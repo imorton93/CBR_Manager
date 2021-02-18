@@ -117,7 +117,7 @@ public class NewClientActivity extends AppCompatActivity {
                     loadAnswers(pages.get(currentPage - 1));
 
                 }
-                else if(currentPage >= pageCount - 1){
+                else if(currentPage == pageCount - 1){
                     //save answers
                     savePage(pages.get(currentPage - 1));
                     currentPage++;
@@ -128,7 +128,10 @@ public class NewClientActivity extends AppCompatActivity {
                     if(currentPage == pageCount){
                         next.setText(R.string.finish);
                     }
-                    finishForm();
+
+                }
+                else{
+                    finishForm()
                 }
             }
         });
@@ -742,13 +745,6 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void reviewPage(){
-        ScrollView scrollView = new ScrollView(this);
-        scrollView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        form.addView(scrollView);
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        scrollView.addView(layout);
 
         TextView consentView = new TextView(this);
         Boolean consent = newClient.getConsentToInterview();
@@ -758,49 +754,49 @@ public class NewClientActivity extends AppCompatActivity {
         else {
             consentView.setText("Consent to Interview: No");
         }
-        layout.addView(consentView);
+        form.addView(consentView);
 
         TextView dateView = new TextView(this);
         String formDate = newClient.getDate();
         dateView.setText("Date: " + formDate);
-        layout.addView(dateView);
+        form.addView(dateView);
 
         TextView firstNameView = new TextView(this);
         String firstName = newClient.getFirstName();
         firstNameView.setText("First Name: " + firstName);
-        layout.addView(firstNameView);
+        form.addView(firstNameView);
 
         TextView lastNameView = new TextView(this);
         String lastName = newClient.getLastName();
         lastNameView.setText("Last Name: " + lastName);
-        layout.addView(lastNameView);
+        form.addView(lastNameView);
 
         TextView ageView = new TextView(this);
         int age = newClient.getAge();
         String ageStr = Integer.toString(age);
         ageView.setText("Age: " + ageStr);
-        layout.addView(ageView);
+        form.addView(ageView);
 
         TextView genderView = new TextView(this);
         String gender = newClient.getGender();
         genderView.setText("Gender: " + gender);
-        layout.addView(genderView);
+        form.addView(genderView);
 
         TextView locationView = new TextView(this);
         String location = newClient.getLocation();
         locationView.setText("Location: " + location);
-        layout.addView(locationView);
+        form.addView(locationView);
 
         TextView villageNumberView = new TextView(this);
         int villageNumber = newClient.getVillageNumber();
         String villageNumberStr = Integer.toString(villageNumber);
         villageNumberView.setText("Village Number: " + villageNumberStr);
-        layout.addView(villageNumberView);
+        form.addView(villageNumberView);
 
         TextView contactNumberView = new TextView(this);
         String contactNumber = newClient.getContactPhoneNumber();
         contactNumberView.setText("Contact Number: " + contactNumber);
-        layout.addView(contactNumberView);
+        form.addView(contactNumberView);
 
         TextView caregiverPresentView = new TextView(this);
         Boolean caregiverPresent = newClient.getCaregiverPresent();
@@ -810,7 +806,7 @@ public class NewClientActivity extends AppCompatActivity {
         else {
             caregiverPresentView.setText("Caregiver Present: No");
         }
-        layout.addView(caregiverPresentView);
+        form.addView(caregiverPresentView);
 
         TextView disabilitiesView = new TextView(this);
         ArrayList<String> disabilities = newClient.getDisabilities();
@@ -820,22 +816,22 @@ public class NewClientActivity extends AppCompatActivity {
             disabilitiesStr = disabilitiesStr.concat(", ");
         }
         disabilitiesView.setText(disabilitiesStr);
-        layout.addView(disabilitiesView);
+        form.addView(disabilitiesView);
 
         TextView healthRateView = new TextView(this);
         String healthRate = newClient.getHealthRate();
         healthRateView.setText("Rate of Client's health: " + healthRate);
-        layout.addView(healthRateView);
+        form.addView(healthRateView);
 
         TextView educationRateView = new TextView(this);
         String educationRate = newClient.getEducationRate();
         educationRateView.setText("Rate of Client's Education: " + educationRate);
-        layout.addView(educationRateView);
+        form.addView(educationRateView);
 
         TextView socialRateView = new TextView(this);
         String socialRate = newClient.getSocialStatusRate();
         socialRateView.setText("Rate of Client's Social Status: " + socialRate);
-        layout.addView(socialRateView);
+        form.addView(socialRateView);
 
     }
 
