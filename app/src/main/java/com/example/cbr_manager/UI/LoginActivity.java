@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         mydb = new DatabaseHelper(LoginActivity.this);
 
         buttonsClicked();
-
     }
 
     private void buttonsClicked(){

@@ -1,21 +1,29 @@
 package com.example.cbr_manager.UI;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
 
 import java.util.List;
 
 public class ClientListActivity extends AppCompatActivity {
+
+    private ClientManager clientManager = ClientManager.getInstance();
+
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, ClientListActivity.class);
@@ -60,5 +68,34 @@ public class ClientListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    // TODO
+    private void populateListView() {
+        ArrayAdapter<Client> adapter = new MyListAdapter(clientManager.getClientsAsLists());
+        ListView list = findViewById(R.id.clientList);
+        list.setAdapter(adapter);
+    }
+
+    // TODO
+    private class MyListAdapter extends ArrayAdapter<Client> {
+        public MyListAdapter(List<Client> clientList) {
+            super(ClientListActivity.this, R.layout.client_list, clientList);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View itemView = convertView;
+
+            if (itemView == null) {
+                itemView = getLayoutInflater().inflate(R.layout.client_list, parent, false);
+            }
+
+            Client currentClient;
+            currentClient = clientManager.getClientAtIndex(position);
+
+            return itemView;
+        }
     }
 }
