@@ -111,4 +111,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c.getInt(0);
 
     }
+
+    public Cursor executeQuery(String query){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        return c;
+    }
 }

@@ -1,33 +1,31 @@
 package com.example.cbr_manager.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
-import com.google.gson.JsonIOException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
@@ -42,7 +40,11 @@ public class TaskViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view);
-
+        DatabaseHelper mydb = new DatabaseHelper(TaskViewActivity.this);
+        String query = "SELECT * FROM WORKER_DATA;" ;
+        Cursor c = mydb.executeQuery(query);
+        JSONArray j = cur2Json(c);
+        Toast.makeText(TaskViewActivity.this, j.toString(), Toast.LENGTH_LONG).show();
         clickIcons();
     }
 
@@ -123,7 +125,7 @@ public class TaskViewActivity extends AppCompatActivity {
 
 
                     //TODO - Replace 'localhost' your WIFI IPv4 address in the URL string, with port 8080
-                    String URL = "http://localhost:8080/clients";
+                    String URL = "http://192.168.1.8:8080/clients";
 
                     StringRequest stringRequest = new StringRequest(
                             Request.Method.POST,
@@ -184,5 +186,29 @@ public class TaskViewActivity extends AppCompatActivity {
         });
     }
 
+    public JSONArray cur2Json(Cursor cursor) {
 
+        JSONArray resultSet = new JSONArray();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int totalColumn = cursor.getColumnCount();
+            JSONObject rowObject = new JSONObject();
+            for (int i = 0; i < totalColumn; i++) {
+                if (cursor.getColumnName(i) != null) {
+                    try {
+                        rowObject.put(cursor.getColumnName(i),
+                                cursor.getString(i));
+                    } catch (Exception e) {
+                        Toast.makeText(TaskViewActivity.this, "Exception Error", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+            resultSet.put(rowObject);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return resultSet;
+
+    }
 }
