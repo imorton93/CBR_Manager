@@ -1,10 +1,5 @@
 package com.example.cbr_manager.UI;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -24,15 +19,24 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Forms.DisplayFormPage;
+import com.example.cbr_manager.Forms.FormPage;
+import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
+import com.example.cbr_manager.Forms.Question;
+import com.example.cbr_manager.Forms.QuestionType;
+import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
-import com.example.cbr_manager.Forms.*;
 
 import java.util.ArrayList;
 
@@ -48,7 +52,7 @@ public class NewClientActivity extends AppCompatActivity {
     ImageView imageView;
 
     //structure to save all the answers
-    NewClient newClient;
+    Client newClient;
     private DatabaseHelper mydb;
 
 
@@ -68,7 +72,7 @@ public class NewClientActivity extends AppCompatActivity {
         next = (Button) findViewById(R.id.nextBtnVisit);
         next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtn);
-        newClient = new NewClient();
+        newClient = new Client();
         imageView = new ImageView(this);
 
         form = (LinearLayout) findViewById(R.id.form);
@@ -93,7 +97,6 @@ public class NewClientActivity extends AppCompatActivity {
             public void onClick(View v){
                 if (currentPage == 11) {
                     insertClient();
-                    finishForm();
                 }
 
                 //make sure all required fields are filled in the page
@@ -863,10 +866,7 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void insertClient() {
-        Client client;
-        client = new Client(newClient.getFirstName(), newClient.getLastName(), newClient.getAge(), newClient.getVillageNumber(), newClient.getLocation(), android.text.TextUtils.join(",", newClient.getDisabilities()));
-
-        boolean success = mydb.registerClient(client);
+        boolean success = mydb.registerClient(newClient);
 
         if(success) {
             Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();

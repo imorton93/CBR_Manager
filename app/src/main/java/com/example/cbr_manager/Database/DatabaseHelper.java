@@ -17,7 +17,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_3 = "EMAIL";
     private static final String COL_4 = "PASSWORD";
     private static final String COL_5 = "ID";
+    /*
+     healthRequire, healthIndividualGoal, educationRate, educationRequire,
+    educationIndividualGoal, socialStatusRate, socialStatusRequire, SocialStatusIndividualGoal
 
+     */
     private static final String client_table_name = "CLIENT_DATA";
     private static final String client_first_name = "FIRST_NAME";
     private static final String client_last_name = "LAST_NAME";
@@ -26,7 +30,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_location = "LOCATION";
     private static final String client_disability = "DISABILITY";
     private static final String is_synced = "IS_SYNCED";
-    //private static final String client_id = "ID";
+    private static final String client_consent = "CONSENT";
+    private static final String client_date = "DATE";
+    private static final String client_caregiver_presence = "CAREGIVER_PRESENCE";
+    private static final String client_caregiver_number = "CAREGIVER_NUMBER";
+    private static final String client_heath_rate = "HEALTH_RATE";
+    private static final String client_contact = "CONTACT";
+    private static final String client_health_requirement = "HEALTH_REQUIREMENT";
+    private static final String client_health_goal = "HEALTH_GOAL";
+    private static final String client_education_rate = "EDUCATION_RATE";
+    private static final String client_education_requirement = "EDUCATION_REQUIRE";
+    private static final String client_education_goal = "EDUCATION_GOAL";
+    private static final String client_social_rate = "SOCIAL_RATE";
+    private static final String  client_social_requirement= "SOCIAL_REQUIREMENT";
+    private static final String client_social_goal = "SOCIAL_GOAL";
+    private static final String client_id = "ID";
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -38,10 +56,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createtablestatement = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
                 + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);";
         db.execSQL(createtablestatement);
-        String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_first_name + " TEXT, "
+        String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + client_consent + " BOOLEAN NOT NULL, " + client_date + " STRING NOT NULL, "
+                + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, "
-                + client_village_no + " INTEGER, "  + client_location + " TEXT, "
-                + client_disability + " TEXT, " + is_synced + "INTEGER NOT NULL DEFAULT 0);";
+                + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_contact + " STRING, "+ client_caregiver_presence
+                + " BOOLEAN NOT NULL, " +client_caregiver_number +" STRING, "
+                + client_disability + " TEXT, " + client_heath_rate + " STRING, "+ client_health_requirement +
+                " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, " +
+                client_education_requirement + " STRING, " + client_education_goal  + " STRING, " +
+                client_social_rate + " STRING, " + client_social_requirement + " STRING, " +
+                client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
     }
 
@@ -55,13 +80,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean registerClient(Client client) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        cv.put(client_consent, client.getConsentToInterview());
+        cv.put(client_date, client.getDate());
         cv.put(client_first_name, client.getFirstName());
         cv.put(client_last_name, client.getLastName());
         cv.put(client_age, client.getAge());
-        cv.put(client_village_no, client.getVillageNo());
+        cv.put(client_village_no, client.getVillageNumber());
         cv.put(client_location, client.getLocation());
-        cv.put(client_disability, client.getDisabilityType());
-
+        cv.put(client_disability, client.disabilitiesToString());
+        cv.put(client_contact, client.getContactPhoneNumber());
+        cv.put(client_caregiver_presence, client.getCaregiverPresent());
+        cv.put(client_caregiver_number, client.getCaregiverPhoneNumber());
+        cv.put(client_heath_rate, client.getHealthRate());
+        cv.put(client_health_requirement, client.getHealthRequire());
+        cv.put(client_health_goal, client.getHealthIndividualGoal());
+        cv.put(client_education_rate, client.getEducationRate());
+        cv.put(client_education_requirement, client.getEducationRequire());
+        cv.put(client_education_goal, client.getEducationIndividualGoal());
+        cv.put(client_social_rate, client.getSocialStatusRate());
+        cv.put(client_social_goal, client.getSocialStatusIndividualGoal());
+        cv.put(client_social_requirement, client.getSocialStatusRequire());
 
         long result = db.insert(client_table_name, null, cv);
         if (result == -1)
