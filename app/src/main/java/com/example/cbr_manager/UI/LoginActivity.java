@@ -17,7 +17,6 @@ import com.example.cbr_manager.R;
 public class LoginActivity extends AppCompatActivity {
 
     private String username, password;
-
     private EditText usernameTextBox, passwordTextBox;
     private Button login_btn;
     private DatabaseHelper mydb;

@@ -20,6 +20,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText firstNameTextBox, lastNameTextBox, emailTextBox, password1TextBox, password2TextBox;
     private Button submitButton;
     private DatabaseHelper mydb;
+    private CBRWorker cbrWorker;
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, SignUpActivity.class);
@@ -51,12 +52,13 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(validateEntries()) {
                     if (validatePasswords()) {
-                        CBRWorker cbrWorker;
                         cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
                                 emailTextBox.getText().toString(), password1TextBox.getText().toString());
                         boolean success = mydb.registerWorker(cbrWorker);
-                        if(success)
+                        if(success) {
+                            cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getEmail())));
                             Toast.makeText(SignUpActivity.this, "Sign Up Successful!", Toast.LENGTH_LONG).show();
+                        }
                         else
                             Toast.makeText(SignUpActivity.this, "Error Occured."+ success, Toast.LENGTH_LONG).show();
                         Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
