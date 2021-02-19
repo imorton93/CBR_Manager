@@ -29,6 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.Forms.*;
 
@@ -47,6 +49,7 @@ public class NewClientActivity extends AppCompatActivity {
 
     //structure to save all the answers
     NewClient newClient;
+    private DatabaseHelper mydb;
 
 
     public static Intent makeIntent(Context context) {
@@ -59,6 +62,8 @@ public class NewClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_client);
+
+        mydb = new DatabaseHelper(NewClientActivity.this);
 
         next = (Button) findViewById(R.id.nextBtnVisit);
         next.setBackgroundColor(Color.BLUE);
@@ -86,8 +91,13 @@ public class NewClientActivity extends AppCompatActivity {
 
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
+                if (currentPage == 11) {
+                    insertClient();
+                    finishForm();
+                }
+
                 //make sure all required fields are filled in the page
-                if(!requiredFieldsFilled(pages.get(currentPage - 1))){
+                else if(!requiredFieldsFilled(pages.get(currentPage - 1))){
                     requiredFieldsToast();
                 }
                 else if(currentPage < pageCount - 1){
@@ -129,9 +139,6 @@ public class NewClientActivity extends AppCompatActivity {
                         next.setText(R.string.finish);
                     }
 
-                }
-                else{
-                    finishForm();
                 }
             }
         });
@@ -855,5 +862,17 @@ public class NewClientActivity extends AppCompatActivity {
         });
     }
 
+    private void insertClient() {
+        Client client;
+        client = new Client(newClient.getFirstName(), newClient.getLastName(), newClient.getAge(), newClient.getVillageNumber(), newClient.getLocation(), android.text.TextUtils.join(",", newClient.getDisabilities()));
+
+        boolean success = mydb.registerClient(client);
+
+        if(success) {
+            Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(NewClientActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
+        }
+    }
 }
 

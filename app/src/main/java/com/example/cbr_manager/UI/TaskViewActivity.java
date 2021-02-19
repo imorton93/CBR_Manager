@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -44,8 +45,8 @@ public class TaskViewActivity extends AppCompatActivity {
         String query = "SELECT * FROM WORKER_DATA;" ;
         Cursor c = mydb.executeQuery(query);
         JSONArray j = cur2Json(c);
-        Toast.makeText(TaskViewActivity.this, j.toString(), Toast.LENGTH_LONG).show();
         clickIcons();
+        ToolbarButtons();
     }
 
     private boolean connectedToInternet () {
@@ -135,7 +136,7 @@ public class TaskViewActivity extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     try {
                                         JSONArray serverData = new JSONArray(response);
-                                        Toast.makeText(TaskViewActivity.this, "Created Array Successfully", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(TaskViewActivity.this, "Synced successfully", Toast.LENGTH_LONG).show();
                                         //do something with the serverData here (adding to the database)
 
                                     } catch (JSONException e) {
@@ -145,7 +146,7 @@ public class TaskViewActivity extends AppCompatActivity {
                             }, new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse (VolleyError e) {
-                                        Toast.makeText(TaskViewActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(TaskViewActivity.this, "Sync failed", Toast.LENGTH_LONG).show();
                                     }
                     })
                     {
@@ -209,6 +210,25 @@ public class TaskViewActivity extends AppCompatActivity {
 
         cursor.close();
         return resultSet;
+    }
 
+    private void ToolbarButtons(){
+        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(TaskViewActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = ProfileActivity.makeIntent(TaskViewActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 }
