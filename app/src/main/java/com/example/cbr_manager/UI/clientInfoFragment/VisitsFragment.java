@@ -1,11 +1,13 @@
 package com.example.cbr_manager.UI.clientInfoFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,6 +16,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.ClientInfoActivity;
+import com.example.cbr_manager.UI.ClientListActivity;
+import com.example.cbr_manager.UI.VisitInfoActivity;
 
 public class VisitsFragment extends Fragment {
 
@@ -41,6 +46,7 @@ public class VisitsFragment extends Fragment {
         long id = args.getLong("id", 0);
         View V =  inflater.inflate(R.layout.fragment_visits, container, false);
         populateListView(V, id);
+        clickVisit(V);
         return V;
     }
 
@@ -52,6 +58,17 @@ public class VisitsFragment extends Fragment {
         TodoCursorAdapter2 todoAdapter = new TodoCursorAdapter2(this.getActivity(), todoCursor);
         // Attach cursor adapter to the ListView
         lv.setAdapter(todoAdapter);
+    }
+
+    private void clickVisit(View V) {
+        ListView list = V.findViewById(R.id.visitList);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = VisitInfoActivity.makeIntent(getActivity(), id);
+                startActivity(intent);
+            }
+        });
     }
 
     public class TodoCursorAdapter2 extends CursorAdapter {
