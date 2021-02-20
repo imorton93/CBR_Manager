@@ -41,10 +41,7 @@ public class TaskViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view);
-        DatabaseHelper mydb = new DatabaseHelper(TaskViewActivity.this);
-        String query = "SELECT * FROM WORKER_DATA;" ;
-        Cursor c = mydb.executeQuery(query);
-        JSONArray j = cur2Json(c);
+
         clickIcons();
         ToolbarButtons();
     }
@@ -99,36 +96,21 @@ public class TaskViewActivity extends AppCompatActivity {
                 if (!connectedToInternet()) {
                     Toast.makeText(TaskViewActivity.this, "Not connected to internet.", Toast.LENGTH_LONG).show();
                 } else {
-                    //Toast.makeText(TaskViewActivity.this, "Syncing...", Toast.LENGTH_LONG).show();
-
                     //Setting up request queue for web service
                     RequestQueue requestQueue = Volley.newRequestQueue(TaskViewActivity.this);
 
-                    //Setting up a JsonArrayRequest to get data from the server
-                    String dataToSend = "[\n" +
-                            "    {\n" +
-                            "        \"firstName\": \"Test\",\n" +
-                            "        \"lastName\": \"#1\",\n" +
-                            "        \"age\": 25,\n" +
-                            "        \"villageNo\": 3,\n" +
-                            "        \"location\": \"BidiBidi Zone 3\",\n" +
-                            "        \"disabilityType\": \"Amputee\"\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"firstName\": \"Test\",\n" +
-                            "        \"lastName\": \"#2\",\n" +
-                            "        \"age\": 3,\n" +
-                            "        \"villageNo\": 3,\n" +
-                            "        \"location\": \"BidiBidi Zone 2\",\n" +
-                            "        \"disabilityType\": \"Polio\"\n" +
-                            "    }\n" +
-                            "]"; //get data from local database, store it in this variable in JSON format
+                    //Querying local database for unsynced data to send to the server
+                    DatabaseHelper mydb = new DatabaseHelper(TaskViewActivity.this);
+                    String query = "SELECT * FROM CLIENT_DATA WHERE is_synced = 0;" ; //get only data that is not synced
+                    Cursor c = mydb.executeQuery(query);
+                    JSONArray localDataJSON = cur2Json(c);
 
+                    String dataToSend =  localDataJSON.toString();
 
                     //TODO - Replace 'localhost' your WIFI IPv4 address in the URL string, with port 8080
-                    String URL = "http://192.168.1.8:8080/clients";
+                    String URL = "http://localhost:8080/clients";
 
-                    StringRequest stringRequest = new StringRequest(
+                    StringRequest requestToServer = new StringRequest(
                             Request.Method.POST,
                             URL,
                             new Response.Listener<String>() {
@@ -136,17 +118,16 @@ public class TaskViewActivity extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     try {
                                         JSONArray serverData = new JSONArray(response);
-                                        Toast.makeText(TaskViewActivity.this, "Synced successfully", Toast.LENGTH_LONG).show();
-                                        //do something with the serverData here (adding to the database)
+                                        Toast.makeText(TaskViewActivity.this, "Synced successful!", Toast.LENGTH_LONG).show();
 
                                     } catch (JSONException e) {
-                                        Toast.makeText(TaskViewActivity.this, "ERROR", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(TaskViewActivity.this, "Connection Error", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             }, new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse (VolleyError e) {
-                                        Toast.makeText(TaskViewActivity.this, "Sync failed", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(TaskViewActivity.this, "Sync failed.", Toast.LENGTH_LONG).show();
                                     }
                     })
                     {
@@ -163,7 +144,7 @@ public class TaskViewActivity extends AppCompatActivity {
                         }
                     };
 
-                    requestQueue.add(stringRequest);
+                    requestQueue.add(requestToServer);
                 }
             }
         });
