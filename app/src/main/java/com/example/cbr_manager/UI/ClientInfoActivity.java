@@ -1,17 +1,17 @@
 package com.example.cbr_manager.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
@@ -65,7 +65,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewClientActivity.makeIntent(ClientInfoActivity.this);
+                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this);
                 startActivity(intent);
             }
         });
