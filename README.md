@@ -1,6 +1,6 @@
 # CBR Manager Application
 
-## Usage
+## USAGE
 
 ### Login or Sign up
 
