@@ -10,7 +10,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-
+    //Worker Table
     private static final String DATABASE_NAME = "cbr.db";
     private static final String TABLE_NAME = "WORKER_DATA";
     private static final String COL_1 = "FIRST_NAME";
@@ -18,11 +18,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_3 = "EMAIL";
     private static final String COL_4 = "PASSWORD";
     private static final String COL_5 = "ID";
-    /*
-     healthRequire, healthIndividualGoal, educationRate, educationRequire,
-    educationIndividualGoal, socialStatusRate, socialStatusRequire, SocialStatusIndividualGoal
 
-     */
+    //Client Table
     private static final String client_table_name = "CLIENT_DATA";
     private static final String client_first_name = "FIRST_NAME";
     private static final String client_last_name = "LAST_NAME";
@@ -47,6 +44,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_social_goal = "SOCIAL_GOAL";
     private static final String client_id = "ID";
 
+    //Visits Table
+    private static final String visit_table = "CLIENT_VISITS";
+    private static final String visit_purpose = "PURPOSE_OF_VISIT";
+    private static final String if_cbr = "IF_CBR";
+    private static final String visit_location = "LOCATION";
+    private static final String visit_village_no = "VILLAGE_NUMBER";
+    private static final String health_provided = "HEALTH_PROVIDED";
+    private static final String health_goal_status = "HEALTH_GOAL_STATUS";
+    private static final String health_outcome = "HEALTH_OUTCOME";
+    private static final String education_provided = "EDU_PROVIDED";
+    private static final String edu_goal_status = "EDU_GOAL_STATUS";
+    private static final String education_outcome = "EDUCATION_OUTCOME";
+    private static final String social_provided = "SOCIAL_PROVIDED";
+    private static final String social_goal_status = "SOCIAL_GOAL_STATUS";
+    private static final String social_outcome = "SOCIAL_OUTCOME";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -69,13 +81,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 client_social_rate + " STRING, " + client_social_requirement + " STRING, " +
                 client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
+
+        String create_visit_table = "CREATE TABLE " + visit_table + " (" + visit_purpose + " STRING, " +
+                if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, " +
+                health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, " +
+                education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, " +
+                social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING)";
+        db.execSQL(create_visit_table);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME );
         db.execSQL(" DROP TABLE IF EXISTS " + client_table_name );
+        db.execSQL(" DROP TABLE IF EXISTS " + visit_table );
         onCreate(db);
+    }
+
+    public boolean registerWorker(CBRWorker cbrWorker) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_1, cbrWorker.getFirstName());
+        cv.put(COL_2, cbrWorker.getLastName());
+        cv.put(COL_3, cbrWorker.getEmail());
+        cv.put(COL_4, cbrWorker.getPassword());
+
+        long result = db.insert(TABLE_NAME, null, cv);
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     public boolean registerClient(Client client) {
@@ -109,19 +144,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean registerWorker(CBRWorker cbrWorker) {
+    public boolean addVisit(Visit visit) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COL_1, cbrWorker.getFirstName());
-        cv.put(COL_2, cbrWorker.getLastName());
-        cv.put(COL_3, cbrWorker.getEmail());
-        cv.put(COL_4, cbrWorker.getPassword());
 
-        long result = db.insert(TABLE_NAME, null, cv);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        cv.put(visit_purpose, visit.getPurposeOfVisit());
+        cv.put(if_cbr, android.text.TextUtils.join(",", visit.getIfCbr()));
+        cv.put(visit_location, visit.getLocation());
+        cv.put(visit_village_no, visit.getVillageNumber());
+        cv.put(health_provided, visit.healthProvToString());
+        cv.put(health_goal_status, visit.getHealthGoalMet());
+        cv.put(health_outcome, visit.getHealthIfConcluded());
+        cv.put(education_provided, visit.eduProvToString());
+        cv.put(edu_goal_status, visit.getEducationGoalMet());
+        cv.put(education_outcome, visit.getEducationIfConcluded());
+        cv.put(social_provided, visit.socialProvToString());
+        cv.put(social_goal_status, visit.getSocialGoalMet());
+        cv.put(social_outcome, visit.getSocialIfConcluded());
+
+        long result = db.insert(visit_table, null, cv);
+
+        if (result == -1 )
+         return false;
+
+        return true;
     }
 
     public boolean checkUser(String email, String password){
