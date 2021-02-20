@@ -24,6 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_first_name = "FIRST_NAME";
     private static final String client_last_name = "LAST_NAME";
     private static final String client_age = "AGE";
+    private static final String client_gender = "GENDER";
     private static final String client_village_no = "VILLAGE_NUMBER";
     private static final String client_location = "LOCATION";
     private static final String client_disability = "DISABILITY";
@@ -46,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Visits Table
     private static final String visit_table = "CLIENT_VISITS";
+    private static final String visit_date = "VISIT_DATE";
     private static final String visit_purpose = "PURPOSE_OF_VISIT";
     private static final String if_cbr = "IF_CBR";
     private static final String visit_location = "LOCATION";
@@ -72,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + client_consent + " BOOLEAN NOT NULL, " + client_date + " STRING NOT NULL, "
                 + client_first_name + " TEXT, "
-                + client_last_name + " TEXT, " + client_age + " INTEGER, "
+                + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
                 + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_contact + " STRING, "+ client_caregiver_presence
                 + " BOOLEAN NOT NULL, " +client_caregiver_number +" STRING, "
                 + client_disability + " TEXT, " + client_heath_rate + " STRING, "+ client_health_requirement +
@@ -82,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
 
-        String create_visit_table = "CREATE TABLE " + visit_table + " (" + visit_purpose + " STRING, " +
+        String create_visit_table = "CREATE TABLE " + visit_table + " (" + visit_date + " STRING, " + visit_purpose + " STRING, " +
                 if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, " +
                 health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, " +
                 education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, " +
@@ -116,11 +118,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean registerClient(Client client) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
         cv.put(client_consent, client.getConsentToInterview());
         cv.put(client_date, client.getDate());
         cv.put(client_first_name, client.getFirstName());
         cv.put(client_last_name, client.getLastName());
         cv.put(client_age, client.getAge());
+        cv.put(client_gender, client.getGender());
         cv.put(client_village_no, client.getVillageNumber());
         cv.put(client_location, client.getLocation());
         cv.put(client_disability, client.disabilitiesToString());
@@ -149,6 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(visit_purpose, visit.getPurposeOfVisit());
+        cv.put(visit_date, visit.getDate());
         cv.put(if_cbr, android.text.TextUtils.join(",", visit.getIfCbr()));
         cv.put(visit_location, visit.getLocation());
         cv.put(visit_village_no, visit.getVillageNumber());
