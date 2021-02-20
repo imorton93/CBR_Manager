@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -152,6 +153,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor executeQuery(String query){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
+        return c;
+    }
+
+    public Cursor getAllRows() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c =  db.rawQuery( "select rowid _id,* from CLIENT_DATA", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
         return c;
     }
 }

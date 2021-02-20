@@ -40,22 +40,6 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/empty"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="200dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/client_list_border"
-        android:gravity="center"
-        android:text="Sorry No Clients were Found"
-        android:textAllCaps="true"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="51dp" />
-
     <RelativeLayout
         android:id="@+id/searchLayoutContainers"
         android:layout_width="match_parent"

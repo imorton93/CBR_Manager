@@ -25,9 +25,11 @@ public class ClientInfoActivity extends AppCompatActivity {
     ViewPager2 viewPager;
 
     private String[] titles = new String[]{"Information", "Visits", "Risk Level"};
+    public static final String R_CLIENT_POSITION_PASSED_IN = "r_client_position_passed_in";
 
-    public static Intent makeIntent(Context context) {
+    public static Intent makeIntent(Context context, int position) {
         Intent intent =  new Intent(context, ClientInfoActivity.class);
+        intent.putExtra(R_CLIENT_POSITION_PASSED_IN, position);
         return intent;
     }
 

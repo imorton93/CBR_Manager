@@ -6,16 +6,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
 import java.util.List;
@@ -23,6 +31,7 @@ import java.util.List;
 public class ClientListActivity extends AppCompatActivity {
 
     private ClientManager clientManager = ClientManager.getInstance();
+    DatabaseHelper mydb;
 
 
     public static Intent makeIntent(Context context) {
@@ -35,10 +44,11 @@ public class ClientListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_list);
 
-        ListView list = findViewById(R.id.clientList);
-        list.setEmptyView(findViewById(android.R.id.empty));
         ToolbarButtons();
         createDropDownMenu();
+
+        populateListView();
+        clickClient();
     }
 
     private void createDropDownMenu(){
@@ -70,32 +80,69 @@ public class ClientListActivity extends AppCompatActivity {
         });
     }
 
-    // TODO
     private void populateListView() {
-        ArrayAdapter<Client> adapter = new MyListAdapter(clientManager.getClientsAsLists());
-        ListView list = findViewById(R.id.clientList);
-        list.setAdapter(adapter);
+
+        DatabaseHelper handler = new DatabaseHelper(this);
+        // Get access to the underlying writeable database
+        SQLiteDatabase db = handler.getWritableDatabase();
+
+        // Query for items from the database and get a cursor back
+        Cursor todoCursor = handler.getAllRows();
+
+//        ListView list = findViewById(R.id.clientList);
+//        list.setEmptyView(findViewById(android.R.id.empty));
+
+        ListView lvItems = findViewById(R.id.clientList);
+        // Setup cursor adapter using cursor from last step
+        TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, todoCursor);
+        // Attach cursor adapter to the ListView
+        lvItems.setAdapter(todoAdapter);
+
     }
 
-    // TODO
-    private class MyListAdapter extends ArrayAdapter<Client> {
-        public MyListAdapter(List<Client> clientList) {
-            super(ClientListActivity.this, R.layout.client_list, clientList);
+    public class TodoCursorAdapter extends CursorAdapter {
+        public TodoCursorAdapter(Context context, Cursor cursor) {
+            super(context, cursor, 0);
         }
 
-        @NonNull
+        // The newView method is used to inflate a new view and return it,
+        // you don't bind any data to the view at this point.
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            View itemView = convertView;
+        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+            return LayoutInflater.from(context).inflate(R.layout.client_list, parent, false);
+        }
 
-            if (itemView == null) {
-                itemView = getLayoutInflater().inflate(R.layout.client_list, parent, false);
-            }
+        // The bindView method is used to bind all data to a given view
+        // such as setting the text on a TextView.
+        @Override
+        public void bindView(View view, Context context, Cursor cursor) {
+            // Find fields to populate in inflated template
+            TextView firstName = view.findViewById(R.id.fname_clist);
+            TextView lastName = view.findViewById(R.id.lname_clist);
+            TextView village = view.findViewById(R.id.Village_clist);
 
-            Client currentClient;
-            currentClient = clientManager.getClientAtIndex(position);
+            // Extract properties from cursor
+            String first_name = cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME"));
+            String last_name = cursor.getString(cursor.getColumnIndexOrThrow("LAST_NAME"));
+            String villageString = cursor.getString(cursor.getColumnIndexOrThrow("LOCATION"));
 
-            return itemView;
+            // Populate fields with extracted properties
+            firstName.setText(first_name);
+            lastName.setText(last_name);
+            village.setText(villageString);
         }
     }
+
+    private void clickClient() {
+        ListView list = findViewById(R.id.clientList);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position);
+                startActivity(intent);
+            }
+        });
+    }
+
+
 }
