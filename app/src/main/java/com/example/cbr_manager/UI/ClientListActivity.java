@@ -30,10 +30,6 @@ import java.util.List;
 
 public class ClientListActivity extends AppCompatActivity {
 
-    private ClientManager clientManager = ClientManager.getInstance();
-    DatabaseHelper mydb;
-
-
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, ClientListActivity.class);
         return intent;

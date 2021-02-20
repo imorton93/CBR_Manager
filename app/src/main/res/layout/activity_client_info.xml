@@ -13,8 +13,8 @@
 
     <Button
         android:id="@+id/visit"
-        android:layout_width="67dp"
-        android:layout_height="36dp"
+        android:layout_width="106dp"
+        android:layout_height="38dp"
         android:layout_marginEnd="36dp"
         android:layout_marginRight="36dp"
         android:background="#00FFFFFF"
