@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -20,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_5 = "ID";
 
     //Client Table
+    //TODO: ADD GENDER
     private static final String client_table_name = "CLIENT_DATA";
     private static final String client_first_name = "FIRST_NAME";
     private static final String client_last_name = "LAST_NAME";
@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_id = "ID";
 
     //Visits Table
+    //TODO: ADD DATE
     private static final String visit_table = "CLIENT_VISITS";
     private static final String visit_purpose = "PURPOSE_OF_VISIT";
     private static final String if_cbr = "IF_CBR";
@@ -59,6 +60,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String social_provided = "SOCIAL_PROVIDED";
     private static final String social_goal_status = "SOCIAL_GOAL_STATUS";
     private static final String social_outcome = "SOCIAL_OUTCOME";
+    private static final String visit_id = "ID";
+    private static final String client_visit_id = "CLIENT_ID";
+
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -82,11 +86,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
 
-        String create_visit_table = "CREATE TABLE " + visit_table + " (" + visit_purpose + " STRING, " +
+        String create_visit_table = "CREATE TABLE " +
+                visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_purpose + " STRING, " +
                 if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, " +
                 health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, " +
                 education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, " +
-                social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING)";
+                social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING, "
+                + client_visit_id + " INTEGER NOT NULL);";
         db.execSQL(create_visit_table);
     }
 
@@ -161,6 +167,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(social_provided, visit.socialProvToString());
         cv.put(social_goal_status, visit.getSocialGoalMet());
         cv.put(social_outcome, visit.getSocialIfConcluded());
+        cv.put(client_visit_id, visit.getClientID());
 
         long result = db.insert(visit_table, null, cv);
 
@@ -194,6 +201,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.moveToLast();
         return c.getInt(0);
 
+    }
+
+    public Cursor getVisits(long id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM CLIENT_VISITS WHERE CLIENT_ID = " + client_visit_id + ";", null);
+        return c;
     }
 
     public Cursor executeQuery(String query){

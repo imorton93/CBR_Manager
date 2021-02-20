@@ -1,9 +1,5 @@
 package com.example.cbr_manager.UI;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,19 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.cbr_manager.Database.Client;
-import com.example.cbr_manager.Database.ClientManager;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
-
-import java.util.List;
 
 public class ClientListActivity extends AppCompatActivity {
 
@@ -87,7 +80,6 @@ public class ClientListActivity extends AppCompatActivity {
 
 //        ListView list = findViewById(R.id.clientList);
 //        list.setEmptyView(findViewById(android.R.id.empty));
-
         ListView lvItems = findViewById(R.id.clientList);
         // Setup cursor adapter using cursor from last step
         TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, todoCursor);
@@ -125,6 +117,7 @@ public class ClientListActivity extends AppCompatActivity {
         public void bindView(View view, Context context, Cursor cursor) {
             // Find fields to populate in inflated template
             TextView firstName = view.findViewById(R.id.fname_clist);
+
             TextView lastName = view.findViewById(R.id.lname_clist);
             TextView village = view.findViewById(R.id.Village_clist);
 

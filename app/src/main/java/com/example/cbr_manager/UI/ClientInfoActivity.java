@@ -66,6 +66,7 @@ public class ClientInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this);
+                intent.putExtra("ID", id);
                 startActivity(intent);
             }
         });
@@ -93,7 +94,7 @@ public class ClientInfoActivity extends AppCompatActivity {
                     return InfoFragment.newInstance();
                 }
                 case 1: {
-                    return VisitsFragment.newInstance();
+                    return VisitsFragment.newInstance(id);
                 }
                 case 2: {
                     return RiskFragment.newInstance();

@@ -1,14 +1,11 @@
 package com.example.cbr_manager.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewStructure;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,11 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
 import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
-import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Forms.Question;
 import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
@@ -35,8 +34,11 @@ import java.util.ArrayList;
 
 public class NewVisitActivity extends AppCompatActivity {
 
+    private static int client_id;
+
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, NewVisitActivity.class);
+        client_id = intent.getIntExtra("ID", 0);
         return intent;
     }
 
@@ -59,6 +61,8 @@ public class NewVisitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_visit);
+
+        newVisit.setClientID(client_id);
 
         mydb = new DatabaseHelper(NewVisitActivity.this);
 
