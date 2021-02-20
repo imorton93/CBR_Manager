@@ -15,12 +15,12 @@
         android:text="Goals"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/progressBarEducation2"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarSocial"
         app:layout_constraintStart_toStartOf="@+id/social"
         app:layout_constraintTop_toBottomOf="@+id/social" />
 
     <ProgressBar
-        android:id="@+id/progressBarEducation2"
+        android:id="@+id/progressBarSocial"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="165dp"
         android:layout_height="17dp"
