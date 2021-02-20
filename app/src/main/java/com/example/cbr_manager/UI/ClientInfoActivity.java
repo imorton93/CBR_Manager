@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -50,6 +51,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
 
+        extractIntent();
         editButton();
         newVisitButton();
         ToolbarButtons();
@@ -57,7 +59,7 @@ public class ClientInfoActivity extends AppCompatActivity {
 
     private void extractIntent(){
         Intent intent = getIntent();
-        this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
     }
 
     private void newVisitButton() {
@@ -65,8 +67,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this);
-                intent.putExtra("ID", id);
+                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, id);
                 startActivity(intent);
             }
         });

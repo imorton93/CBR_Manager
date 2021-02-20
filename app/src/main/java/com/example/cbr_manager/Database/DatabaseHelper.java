@@ -205,7 +205,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getVisits(long id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM CLIENT_VISITS WHERE CLIENT_ID = " + client_visit_id + ";", null);
+        Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_VISITS WHERE CLIENT_ID = " + id, null);
         return c;
     }
 
@@ -217,7 +217,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllRows() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c =  db.rawQuery( "select rowid _id,* from CLIENT_DATA", null);
+        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM CLIENT_DATA", null);
         if (c != null) {
             c.moveToFirst();
         }
@@ -226,7 +226,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getRow(long id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c =  db.rawQuery( "select rowid _id, * from CLIENT_DATA where ID = id", null);
+        Cursor c =  db.rawQuery( "SELECT rowid _id, * FROM CLIENT_DATA WHERE ID = "+ id, null);
         if(c != null){
             c.moveToFirst();
         }

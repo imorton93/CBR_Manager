@@ -34,12 +34,18 @@ import java.util.ArrayList;
 
 public class NewVisitActivity extends AppCompatActivity {
 
-    private static int client_id;
+    private static long client_id;
+    public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
 
-    public static Intent makeIntent(Context context) {
+    public static Intent makeIntent(Context context, long id) {
         Intent intent =  new Intent(context, NewVisitActivity.class);
-        client_id = intent.getIntExtra("ID", 0);
+        intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
         return intent;
+    }
+
+    private void extractIntent(){
+        Intent intent = getIntent();
+        client_id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
     }
 
     Button back;
@@ -62,16 +68,16 @@ public class NewVisitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_visit);
 
-        newVisit.setClientID(client_id);
-
         mydb = new DatabaseHelper(NewVisitActivity.this);
 
         ToolbarButtons();
+        extractIntent();
 
         next = (Button) findViewById(R.id.nextBtnVisit);
         next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtnVisit);
         newVisit = new Visit();
+        newVisit.setClientID(client_id);
 
         form = (LinearLayout) findViewById(R.id.formVisit);
         progressBar = (ProgressBar) findViewById(R.id.formProgressVisit);

@@ -37,7 +37,6 @@ public class VisitsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         Bundle args = getArguments();
         long id = args.getLong("id", 0);
         View V =  inflater.inflate(R.layout.fragment_visits, container, false);
