@@ -1,8 +1,8 @@
-package com.example.cbr_manager.Forms;
+package com.example.cbr_manager.Database;
 
 import java.util.ArrayList;
 
-public class NewVisit {
+public class Visit {
 
     private String purposeOfVisit;
     private ArrayList<String> ifCbr = new ArrayList<>();
@@ -19,7 +19,7 @@ public class NewVisit {
     private String educationGoalMet;
     private String educationIfConcluded;
 
-    public NewVisit() {
+    public Visit() {
     }
 
     public class Provided{
@@ -46,6 +46,8 @@ public class NewVisit {
         public void setExplanation(String explanation) {
             this.explanation = explanation;
         }
+
+        public String toString () { return checkBox + ": " + explanation; }
     }
 
     public String getPurposeOfVisit() {
@@ -170,15 +172,44 @@ public class NewVisit {
         this.educationIfConcluded = educationIfConcluded;
     }
 
-    public ArrayList<Provided> getHealthProvided() {
-        return healthProvided;
+    public ArrayList<Provided> getHealthProvided() { return healthProvided; }
+
+    //TODO - look over the ProvToString() functions
+    public String healthProvToString() {
+        String result = "";
+
+        for (Provided prov : healthProvided) {
+            result += prov.toString() + ", ";
+        }
+
+        return result;
     }
 
     public ArrayList<Provided> getSocialProvided() {
         return socialProvided;
     }
 
+    public String socialProvToString() {
+        String result = "";
+
+        for (Provided prov : socialProvided) {
+            result += prov.toString() + ", ";
+        }
+
+        return result;
+    }
+
     public ArrayList<Provided> getEducationProvided() {
         return educationProvided;
+    }
+
+    public String eduProvToString() {
+        String result = "";
+
+        for (Provided prov : educationProvided) {
+            result += prov.toString() + ", ";
+        }
+
+        return result;
     }
 }

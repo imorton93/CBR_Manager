@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
+import android.view.ViewStructure;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,10 +21,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
 import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
-import com.example.cbr_manager.Forms.NewVisit;
+import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Forms.Question;
 import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
@@ -50,19 +51,23 @@ public class NewVisitActivity extends AppCompatActivity {
     ArrayList<FormPage> pages;
 
     //structure to save all the answers
-    NewVisit newVisit;
+    Visit newVisit;
+    private DatabaseHelper mydb;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_visit);
+
+        mydb = new DatabaseHelper(NewVisitActivity.this);
+
         ToolbarButtons();
 
         next = (Button) findViewById(R.id.nextBtnVisit);
         next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtnVisit);
-        newVisit = new NewVisit();
+        newVisit = new Visit();
 
         form = (LinearLayout) findViewById(R.id.formVisit);
         progressBar = (ProgressBar) findViewById(R.id.formProgressVisit);
@@ -82,7 +87,11 @@ public class NewVisitActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!requiredFieldsFilled(pages.get(currentPage - 1))){
+                if (currentPage == 9) {
+                    insertVisit();
+                }
+
+                else if(!requiredFieldsFilled(pages.get(currentPage - 1))){
                     requiredFieldsToast();
                 }
                 else if(currentPage < pageCount - 1){
@@ -118,9 +127,6 @@ public class NewVisitActivity extends AppCompatActivity {
                     }
 
 
-                }
-                else{
-                    finishForm();
                 }
             }
         });
@@ -637,7 +643,7 @@ public class NewVisitActivity extends AppCompatActivity {
         String tag = question.getQuestionTag();
         MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
         int answersSize = mcq.getAnswers().length;
-        ArrayList<NewVisit.Provided> arrayList = null;
+        ArrayList<Visit.Provided> arrayList = null;
         if(tag.equals(getString(R.string.healthProvided))){
             arrayList = newVisit.getHealthProvided();
         }
@@ -767,7 +773,7 @@ public class NewVisitActivity extends AppCompatActivity {
         TextView healthProvidedView = new TextView(this);
         healthProvidedView.setText("For Health, what was provided?");
         form.addView(healthProvidedView);
-        ArrayList<NewVisit.Provided> arrayList = newVisit.getHealthProvided();
+        ArrayList<Visit.Provided> arrayList = newVisit.getHealthProvided();
         for(int i = 0; i < arrayList.size(); i++){
             String checkbox = arrayList.get(i).getCheckBox();
             String explanation = arrayList.get(i).getExplanation();
@@ -791,7 +797,7 @@ public class NewVisitActivity extends AppCompatActivity {
         TextView socialProvidedView = new TextView(this);
         socialProvidedView.setText("For Social, what was provided?");
         form.addView(socialProvidedView);
-        ArrayList<NewVisit.Provided> arrayList1 = newVisit.getSocialProvided();
+        ArrayList<Visit.Provided> arrayList1 = newVisit.getSocialProvided();
         for(int i = 0; i < arrayList1.size(); i++){
             String checkbox = arrayList1.get(i).getCheckBox();
             String explanation = arrayList1.get(i).getExplanation();
@@ -816,7 +822,7 @@ public class NewVisitActivity extends AppCompatActivity {
         TextView educationProvidedView = new TextView(this);
         educationProvidedView.setText("For Education, what was provided?");
         form.addView(educationProvidedView);
-        ArrayList<NewVisit.Provided> arrayList2 = newVisit.getEducationProvided();
+        ArrayList<Visit.Provided> arrayList2 = newVisit.getEducationProvided();
         for(int i = 0; i < arrayList2.size(); i++){
             String checkbox = arrayList2.get(i).getCheckBox();
             String explanation = arrayList2.get(i).getExplanation();
@@ -836,6 +842,15 @@ public class NewVisitActivity extends AppCompatActivity {
             educationIfConcluded.setText("The Outcome: " + ifConcluded);
             form.addView(educationIfConcluded);
         }
+    }
 
+    private void insertVisit() {
+        boolean success = mydb.addVisit(newVisit);
+
+        if(success) {
+            Toast.makeText(NewVisitActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(NewVisitActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
+        }
     }
 }
