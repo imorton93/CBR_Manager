@@ -96,6 +96,17 @@ public class ClientListActivity extends AppCompatActivity {
 
     }
 
+    private void clickClient() {
+        ListView list = findViewById(R.id.clientList);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, id);
+                startActivity(intent);
+            }
+        });
+    }
+
     public class TodoCursorAdapter extends CursorAdapter {
         public TodoCursorAdapter(Context context, Cursor cursor) {
             super(context, cursor, 0);
@@ -128,17 +139,5 @@ public class ClientListActivity extends AppCompatActivity {
             village.setText(villageString);
         }
     }
-
-    private void clickClient() {
-        ListView list = findViewById(R.id.clientList);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position);
-                startActivity(intent);
-            }
-        });
-    }
-
 
 }

@@ -164,4 +164,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return c;
     }
+
+    public Cursor getRow(long id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c =  db.rawQuery( "select rowid _id, * from CLIENT_DATA where ID = id", null);
+        if(c != null){
+            c.moveToFirst();
+        }
+        return c;
+    }
 }

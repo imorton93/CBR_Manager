@@ -24,13 +24,19 @@ public class ClientInfoActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 viewPager;
 
-    private String[] titles = new String[]{"Information", "Visits", "Risk Level"};
-    public static final String R_CLIENT_POSITION_PASSED_IN = "r_client_position_passed_in";
+    private long id;
 
-    public static Intent makeIntent(Context context, int position) {
+    private String[] titles = new String[]{"Information", "Visits", "Risk Level"};
+    public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
+
+    public static Intent makeIntent(Context context, long id) {
         Intent intent =  new Intent(context, ClientInfoActivity.class);
-        intent.putExtra(R_CLIENT_POSITION_PASSED_IN, position);
+        intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
         return intent;
+    }
+
+    public long getId() {
+        return id;
     }
 
     @Override
@@ -47,6 +53,11 @@ public class ClientInfoActivity extends AppCompatActivity {
         editButton();
         newVisitButton();
         ToolbarButtons();
+    }
+
+    private void extractIntent(){
+        Intent intent = getIntent();
+        this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
     }
 
     private void newVisitButton() {
