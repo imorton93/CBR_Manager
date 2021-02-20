@@ -169,6 +169,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(social_outcome, visit.getSocialIfConcluded());
         cv.put(client_visit_id, visit.getClientID());
 
+
         long result = db.insert(visit_table, null, cv);
 
         if (result == -1 )

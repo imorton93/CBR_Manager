@@ -52,7 +52,6 @@ public class VisitsFragment extends Fragment {
         TodoCursorAdapter2 todoAdapter = new TodoCursorAdapter2(this.getActivity(), todoCursor);
         // Attach cursor adapter to the ListView
         lv.setAdapter(todoAdapter);
-
     }
 
     public class TodoCursorAdapter2 extends CursorAdapter {
@@ -73,12 +72,15 @@ public class VisitsFragment extends Fragment {
         public void bindView(View view, Context context, Cursor cursor) {
             // Find fields to populate in inflated template
             TextView purpose = view.findViewById(R.id.purpose_vlist);
+//            TextView date = view.findViewById(R.id.dateOfVisit);
 
             // Extract properties from cursor
             String purposeOfVisit = cursor.getString(cursor.getColumnIndexOrThrow("PURPOSE_OF_VISIT"));
+//            String dateOfVisit = cursor.getString(cursor.getColumnIndexOrThrow(""));
 
             // Populate fields with extracted properties
             purpose.setText(purposeOfVisit);
+//            date.setText(dateOfVisit);
         }
     }
 }
