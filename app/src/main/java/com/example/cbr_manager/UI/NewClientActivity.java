@@ -10,14 +10,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -872,6 +870,8 @@ public class NewClientActivity extends AppCompatActivity {
 
         if(success) {
             Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
+            Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
+            startActivity(intent);
         } else {
             Toast.makeText(NewClientActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
         }

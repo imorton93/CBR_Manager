@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,11 +57,11 @@ public class SignUpActivity extends AppCompatActivity {
                         if(success) {
                             cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getEmail())));
                             Toast.makeText(SignUpActivity.this, "Sign Up Successful!", Toast.LENGTH_LONG).show();
+                            Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
+                            startActivity(intent);
                         }
                         else
                             Toast.makeText(SignUpActivity.this, "Error Occured."+ success, Toast.LENGTH_LONG).show();
-                        Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
-                        startActivity(intent);
                     }
                     else {
                         Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();

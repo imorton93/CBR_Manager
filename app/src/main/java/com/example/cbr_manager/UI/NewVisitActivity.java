@@ -860,6 +860,8 @@ public class NewVisitActivity extends AppCompatActivity {
 
         if(success) {
             Toast.makeText(NewVisitActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
+            Intent intent = ClientInfoActivity.makeIntent(NewVisitActivity.this, client_id);
+            startActivity(intent);
         } else {
             Toast.makeText(NewVisitActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
         }
