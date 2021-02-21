@@ -44,6 +44,7 @@ public class NewClientActivity extends AppCompatActivity {
     LinearLayout form;
     int currentPage;
     int pageCount;
+    int imagePage;
     ArrayList<FormPage> pages;
     Button next;
     Button back;
@@ -117,7 +118,7 @@ public class NewClientActivity extends AppCompatActivity {
 
                     clearForm();
 
-                    if(currentPage == 6){
+                    if(currentPage == imagePage){
                         displayPicture(pages.get(currentPage - 1));
                     }
                     else{
@@ -722,6 +723,7 @@ public class NewClientActivity extends AppCompatActivity {
 
         //page six: photo
         TextQuestion photo = new TextQuestion(getString(R.string.photo),getString(R.string.photo_newClientForm), QuestionType.PICTURE, false);
+        imagePage = 6;
         FormPage pageSix = new FormPage();
         pageSix.addToPage(photo);
         pages.add(pageSix);
