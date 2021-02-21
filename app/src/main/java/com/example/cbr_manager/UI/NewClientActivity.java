@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -75,6 +76,8 @@ public class NewClientActivity extends AppCompatActivity {
         back = (Button) findViewById(R.id.backBtn);
         newClient = new Client();
         imageView = new ImageView(this);
+        LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        imageView.setLayoutParams(imageViewLayoutParams);
 
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
