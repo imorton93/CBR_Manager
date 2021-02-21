@@ -112,6 +112,7 @@ public class DisplayFormPage {
         int dayOfMonth1 = calendar.get(Calendar.DAY_OF_MONTH);
         String date = month1 + "/" + dayOfMonth1 + "/" + year1;
         selectDate.setText(date);
+        selectDate.setTextSize(24);
         selectDate.setTag(question.getQuestionTag());
 
         DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {

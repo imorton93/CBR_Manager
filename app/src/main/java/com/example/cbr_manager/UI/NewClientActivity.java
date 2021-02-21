@@ -126,7 +126,6 @@ public class NewClientActivity extends AppCompatActivity {
 
                     }
 
-
                     //load previously saved answers if any
                     loadAnswers(pages.get(currentPage - 1));
 
@@ -300,24 +299,26 @@ public class NewClientActivity extends AppCompatActivity {
     private Boolean isRadioAnswered(Question question){
         String tag = question.getQuestionTag();
         RadioGroup radioGroup = (RadioGroup) form.findViewWithTag(tag);
-        Boolean returnBool = true;
+        boolean isAnswered = true;
+        boolean caregiverPresentCondition = true;
+
+        if(radioGroup.getCheckedRadioButtonId() == -1){
+            isAnswered = false;
+        }
 
         //test if optional caregiver phone number field is filled if caregiver present
-        if(tag.equals(getString(R.string.caregiverPresent))){
+        if(tag.equals(getString(R.string.caregiverPresent)) && isAnswered){
             int id = radioGroup.getCheckedRadioButtonId();
             RadioButton button = (RadioButton) radioGroup.findViewById(id);
             if(button.getText().equals("Yes")){
                 EditText input = form.findViewWithTag(getString(R.string.caregiverContactNumber));
                 if (input.getText().toString().trim().length() == 0) {
-                    returnBool = false;
+                    caregiverPresentCondition = false;
                 }
             }
         }
 
-        if(radioGroup.getCheckedRadioButtonId() == -1){
-            returnBool = false;
-        }
-        return returnBool;
+        return isAnswered && caregiverPresentCondition;
     }
 
     private Boolean isCheckBoxAnswered(Question question){
