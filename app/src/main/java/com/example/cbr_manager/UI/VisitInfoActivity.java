@@ -19,13 +19,10 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class VisitInfoActivity extends AppCompatActivity {
-
     TabLayout tabLayout;
     ViewPager2 viewPager;
     private String[] titles = new String[]{"Information", "Goals"};
-
     public static final String R_VISIT_ID_PASSED_IN = "r_visit_id_passed_in";
-
     private long visit_id;
 
     public static Intent makeIntent(Context context, long id) {
@@ -83,7 +80,7 @@ public class VisitInfoActivity extends AppCompatActivity {
     }
 
     private void ToolbarButtons(){
-        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +89,7 @@ public class VisitInfoActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        ImageButton profileBtn = findViewById(R.id.profileButton);
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +100,6 @@ public class VisitInfoActivity extends AppCompatActivity {
     }
 
     private ViewPagerAdapter createCardAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
-        return adapter;
+        return new ViewPagerAdapter(this);
     }
 }

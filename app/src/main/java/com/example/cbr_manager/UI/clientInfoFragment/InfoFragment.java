@@ -20,7 +20,6 @@ public class InfoFragment extends Fragment {
     private ClientInfoActivity infoActivity;
 
     public InfoFragment() {
-        // Required empty public constructor
     }
 
     public static InfoFragment newInstance() {
@@ -38,7 +37,6 @@ public class InfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         this.infoActivity = (ClientInfoActivity)getActivity();
         View v = inflater.inflate(R.layout.fragment_info, container, false);
         getClientInfo(v);
@@ -48,13 +46,13 @@ public class InfoFragment extends Fragment {
     public void getClientInfo(View v){
         DatabaseHelper handler = new DatabaseHelper(this.infoActivity);
         Cursor todoCursor = handler.getRow(infoActivity.getId());
+
         TextView name = v.findViewById(R.id.name);
         TextView gender = v.findViewById(R.id.genderAns);
         TextView age = v.findViewById(R.id.ageAns);
         TextView location = v.findViewById(R.id.locationAns);
         TextView disability = v.findViewById(R.id.disabilityAns);
 
-        // Extract properties from cursor
         String first_name = todoCursor.getString(todoCursor.getColumnIndexOrThrow("FIRST_NAME"));
         String last_name = todoCursor.getString(todoCursor.getColumnIndexOrThrow("LAST_NAME"));
         String ageString = todoCursor.getString(todoCursor.getColumnIndexOrThrow("AGE"));
@@ -63,7 +61,6 @@ public class InfoFragment extends Fragment {
         String disabilityString = todoCursor.getString(todoCursor.getColumnIndexOrThrow("DISABILITY"));
         String name_string = first_name + " " + last_name;
 
-        // Populate fields with extracted properties
         name.setText(name_string);
         gender.setText(genderString);
         age.setText(ageString);

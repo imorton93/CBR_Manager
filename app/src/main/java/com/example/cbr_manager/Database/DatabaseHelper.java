@@ -19,7 +19,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_5 = "ID";
 
     //Client Table
-    //TODO: ADD GENDER
     private static final String client_table_name = "CLIENT_DATA";
     private static final String client_first_name = "FIRST_NAME";
     private static final String client_last_name = "LAST_NAME";
@@ -46,7 +45,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_id = "ID";
 
     //Visits Table
-    //TODO: ADD DATE
     private static final String visit_table = "CLIENT_VISITS";
     private static final String visit_date = "VISIT_DATE";
     private static final String visit_purpose = "PURPOSE_OF_VISIT";

@@ -41,7 +41,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void ToolbarButtons(){
-        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +50,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        ImageButton profileBtn = findViewById(R.id.profileButton);
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

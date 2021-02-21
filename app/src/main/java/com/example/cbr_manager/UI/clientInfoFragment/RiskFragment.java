@@ -22,7 +22,6 @@ public class RiskFragment extends Fragment {
     private ClientInfoActivity infoActivity;
 
     public RiskFragment() {
-        // Required empty public constructor
     }
 
     public static RiskFragment newInstance() {
@@ -58,7 +57,6 @@ public class RiskFragment extends Fragment {
         ProgressBar educationRate = v.findViewById(R.id.progressBarEducation);
         ProgressBar socialRate = v.findViewById(R.id.progressBarSocial);
 
-        // Extract properties from cursor
         String health_goal = todoCursor.getString(todoCursor.getColumnIndexOrThrow("HEALTH_GOAL"));
         String education_goal = todoCursor.getString(todoCursor.getColumnIndexOrThrow("EDUCATION_GOAL"));
         String social_goal = todoCursor.getString(todoCursor.getColumnIndexOrThrow("SOCIAL_GOAL"));
@@ -73,7 +71,6 @@ public class RiskFragment extends Fragment {
         String final_education = "Goal: " + education_goal + "\n\nRequires: " + education_goal_req;
         String final_social = "Goal: " + social_goal + "\n\nRequires: " + social_goal_req;
 
-        // Populate fields with extracted properties
         healthGoal.setText(final_health);
         educationGoal.setText(final_education);
         socialGoal.setText(final_social);

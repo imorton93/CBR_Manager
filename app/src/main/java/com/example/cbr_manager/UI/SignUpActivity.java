@@ -86,10 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private boolean validatePasswords(){
-        if(!password2TextBox.getText().toString().equals(password1TextBox.getText().toString())){
-            return false;
-        }
-        return true;
+        return password2TextBox.getText().toString().equals(password1TextBox.getText().toString());
     }
 
     private void backButton(){

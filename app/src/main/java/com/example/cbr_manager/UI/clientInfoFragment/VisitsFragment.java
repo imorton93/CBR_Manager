@@ -23,7 +23,6 @@ import com.example.cbr_manager.UI.VisitInfoActivity;
 public class VisitsFragment extends Fragment {
 
     public VisitsFragment() {
-        // Required empty public constructor
     }
 
     public static VisitsFragment newInstance(long id) {
@@ -51,12 +50,10 @@ public class VisitsFragment extends Fragment {
     }
 
     private void populateListView(View V, long id) {
-
         DatabaseHelper handler = new DatabaseHelper(this.getActivity());
         Cursor todoCursor = handler.getVisits(id);
         ListView lv = V.findViewById(R.id.visitList);
         TodoCursorAdapter2 todoAdapter = new TodoCursorAdapter2(this.getActivity(), todoCursor);
-        // Attach cursor adapter to the ListView
         lv.setAdapter(todoAdapter);
     }
 

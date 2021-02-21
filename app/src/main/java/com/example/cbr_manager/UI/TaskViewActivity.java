@@ -49,11 +49,8 @@ public class TaskViewActivity extends AppCompatActivity {
     private boolean connectedToInternet () {
         //https://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            return true;
-        }
-        return false;
+        return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
     }
     
     private void clickIcons() {
@@ -195,7 +192,7 @@ public class TaskViewActivity extends AppCompatActivity {
     }
 
     private void ToolbarButtons(){
-        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,7 +201,7 @@ public class TaskViewActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        ImageButton profileBtn = findViewById(R.id.profileButton);
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

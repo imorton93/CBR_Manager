@@ -19,6 +19,7 @@ public class VisitGoalFragment extends Fragment {
     private VisitInfoActivity visitInfoActivity;
 
     public VisitGoalFragment() {
+
     }
 
     public static VisitGoalFragment newInstance() {
@@ -36,7 +37,6 @@ public class VisitGoalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         this.visitInfoActivity = (VisitInfoActivity)getActivity();
         View v = inflater.inflate(R.layout.fragment_visit_goal, container, false);
         getVisitGoal(v);
@@ -45,7 +45,6 @@ public class VisitGoalFragment extends Fragment {
 
     private void getVisitGoal(View v) {
         DatabaseHelper handler = new DatabaseHelper(this.visitInfoActivity);
-
         Cursor todoCursor = handler.getVisit(visitInfoActivity.getVisit_id());
 
         TextView educationGoal = v.findViewById(R.id.educationGaol);
@@ -67,11 +66,9 @@ public class VisitGoalFragment extends Fragment {
             String social = "Social Goal: " + social_goal + "\n" + "Provided: " + social_provided + "\n" + "Outcome: " + social_outcome;
             String health = "Health Goal: " + health_goal + "\n" + "Provided: " + health_provided + "\n" + "Outcome: " + health_outcome;
 
-            // Populate fields with extracted properties
             educationGoal.setText(education);
             socialGoal.setText(social);
             healthGoal.setText(health);
         }
-
     }
 }

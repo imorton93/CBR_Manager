@@ -71,22 +71,11 @@ public class ClientListActivity extends AppCompatActivity {
     }
 
     private void populateListView() {
-
         DatabaseHelper handler = new DatabaseHelper(this);
-        // Get access to the underlying writeable database
-        SQLiteDatabase db = handler.getWritableDatabase();
-
-        // Query for items from the database and get a cursor back
         Cursor todoCursor = handler.getAllRows();
-
-//        ListView list = findViewById(R.id.clientList);
-//        list.setEmptyView(findViewById(android.R.id.empty));
         ListView lvItems = findViewById(R.id.clientList);
-        // Setup cursor adapter using cursor from last step
         TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, todoCursor);
-        // Attach cursor adapter to the ListView
         lvItems.setAdapter(todoAdapter);
-
     }
 
     private void clickClient() {
@@ -105,29 +94,21 @@ public class ClientListActivity extends AppCompatActivity {
             super(context, cursor, 0);
         }
 
-        // The newView method is used to inflate a new view and return it,
-        // you don't bind any data to the view at this point.
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             return LayoutInflater.from(context).inflate(R.layout.client_list, parent, false);
         }
 
-        // The bindView method is used to bind all data to a given view
-        // such as setting the text on a TextView.
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            // Find fields to populate in inflated template
             TextView firstName = view.findViewById(R.id.fname_clist);
-
             TextView lastName = view.findViewById(R.id.lname_clist);
             TextView village = view.findViewById(R.id.Village_clist);
 
-            // Extract properties from cursor
             String first_name = cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME"));
             String last_name = cursor.getString(cursor.getColumnIndexOrThrow("LAST_NAME"));
             String villageString = cursor.getString(cursor.getColumnIndexOrThrow("LOCATION"));
 
-            // Populate fields with extracted properties
             firstName.setText(first_name);
             lastName.setText(last_name);
             village.setText(villageString);
