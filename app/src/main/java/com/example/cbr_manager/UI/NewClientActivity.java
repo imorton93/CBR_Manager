@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -97,81 +98,76 @@ public class NewClientActivity extends AppCompatActivity {
 
         setProgress(currentPage, pageCount);
 
-        next.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                if (currentPage == 11) {
-                    insertClient();
-                }
+        next.setOnClickListener(v -> {
+            if (currentPage == 11) {
+                insertClient();
+            }
 
-                //make sure all required fields are filled in the page
-                else if(!requiredFieldsFilled(pages.get(currentPage - 1))){
-                    requiredFieldsToast();
-                }
-                else if(currentPage < pageCount - 1){
-                    if(currentPage == 1){
-                        back.setClickable(true);
-                        back.setBackgroundColor(Color.BLUE);
-
-                    }
-                    //save answers
-                    savePage(pages.get(currentPage - 1));
-
-                    currentPage++;
-                    setProgress(currentPage, pageCount);
-
-                    clearForm();
-
-                    if(currentPage == imagePage){
-                        displayPicture(pages.get(currentPage - 1));
-                    }
-                    else{
-                        DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
-
-                    }
-
-                    //load previously saved answers if any
-                    loadAnswers(pages.get(currentPage - 1));
+            //make sure all required fields are filled in the page
+            else if(!requiredFieldsFilled(pages.get(currentPage - 1))){
+                requiredFieldsToast();
+            }
+            else if(currentPage < pageCount - 1){
+                if(currentPage == 1){
+                    back.setClickable(true);
+                    back.setBackgroundColor(Color.BLUE);
 
                 }
-                else if(currentPage == pageCount - 1){
-                    //save answers
-                    savePage(pages.get(currentPage - 1));
-                    currentPage++;
+                //save answers
+                savePage(pages.get(currentPage - 1));
 
-                    setProgress(currentPage, pageCount);
-                    clearForm();
-                    reviewPage();
-                    if(currentPage == pageCount){
-                        next.setText(R.string.finish);
-                    }
+                currentPage++;
+                setProgress(currentPage, pageCount);
+
+                clearForm();
+
+                if(currentPage == imagePage){
+                    displayPicture(pages.get(currentPage - 1));
+                }
+                else{
+                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
 
                 }
+
+                //load previously saved answers if any
+                loadAnswers(pages.get(currentPage - 1));
+
+            }
+            else if(currentPage == pageCount - 1){
+                //save answers
+                savePage(pages.get(currentPage - 1));
+                currentPage++;
+
+                setProgress(currentPage, pageCount);
+                clearForm();
+                reviewPage();
+                if(currentPage == pageCount){
+                    next.setText(R.string.finish);
+                }
+
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    if(currentPage == pageCount){
-                        next.setText(R.string.next);
-                    }
-                    currentPage--;
-                    setProgress(currentPage, pageCount);
-                    clearForm();
+        back.setOnClickListener(v -> {
+                if(currentPage == pageCount){
+                    next.setText(R.string.next);
+                }
+                currentPage--;
+                setProgress(currentPage, pageCount);
+                clearForm();
 
-                    if(currentPage == 6){
-                        displayPicture(pages.get(currentPage - 1));
-                    }
-                    else{
-                        DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
-                    }
-                    //load previously saved answers if any
-                    loadAnswers(pages.get(currentPage - 1));
-                    if(currentPage == 1){
-                        back.setClickable(false);
-                        back.setBackgroundColor(Color.DKGRAY);
-                    }
-            }
+                if(currentPage == 6){
+                    displayPicture(pages.get(currentPage - 1));
+                }
+                else{
+                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+                }
+                //load previously saved answers if any
+                loadAnswers(pages.get(currentPage - 1));
+                if(currentPage == 1){
+                    back.setClickable(false);
+                    back.setBackgroundColor(Color.DKGRAY);
+                }
         });
         back.setClickable(false);
         back.setBackgroundColor(Color.DKGRAY);
@@ -207,12 +203,12 @@ public class NewClientActivity extends AppCompatActivity {
         Button picButton = new Button(this);
         picButton.setText("Take Picture");
         picButton.setBackgroundColor(Color.BLUE);
-        picButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 100);
-            }
+        LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        imageViewLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+        picButton.setLayoutParams(imageViewLayoutParams);
+        picButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 100);
         });
 
         form.addView(picButton);
