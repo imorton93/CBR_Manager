@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Gravity;
@@ -71,9 +72,8 @@ public class NewClientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_client);
 
         mydb = new DatabaseHelper(NewClientActivity.this);
-
         next = (Button) findViewById(R.id.nextBtnVisit);
-        next.setBackgroundColor(Color.BLUE);
+        next.setBackgroundColor(Color.parseColor("#6661ED24"));
         back = (Button) findViewById(R.id.backBtn);
         newClient = new Client();
         imageView = new ImageView(this);
@@ -98,6 +98,7 @@ public class NewClientActivity extends AppCompatActivity {
 
         setProgress(currentPage, pageCount);
 
+
         next.setOnClickListener(v -> {
             if (currentPage == 11) {
                 insertClient();
@@ -110,7 +111,8 @@ public class NewClientActivity extends AppCompatActivity {
             else if(currentPage < pageCount - 1){
                 if(currentPage == 1){
                     back.setClickable(true);
-                    back.setBackgroundColor(Color.BLUE);
+                    back.setVisibility(View.VISIBLE);
+                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
 
                 }
                 //save answers
@@ -166,16 +168,21 @@ public class NewClientActivity extends AppCompatActivity {
                 loadAnswers(pages.get(currentPage - 1));
                 if(currentPage == 1){
                     back.setClickable(false);
+                    back.setVisibility(View.INVISIBLE);
                     back.setBackgroundColor(Color.DKGRAY);
                 }
         });
         back.setClickable(false);
+        back.setVisibility(View.INVISIBLE);
         back.setBackgroundColor(Color.DKGRAY);
 
         //Permission for camera
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
         }
+        Drawable progressDrawable = progressBar.getProgressDrawable().mutate();
+        progressDrawable.setColorFilter(Color.parseColor("#009fb8"), android.graphics.PorterDuff.Mode.SRC_IN);
+        progressBar.setProgressDrawable(progressDrawable);
     }
 
     private void setProgress(int currentPage, int pageCount){
@@ -202,7 +209,7 @@ public class NewClientActivity extends AppCompatActivity {
 
         Button picButton = new Button(this);
         picButton.setText("Take Picture");
-        picButton.setBackgroundColor(Color.BLUE);
+        picButton.setBackgroundColor(Color.parseColor("#6661ED24"));
         LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         imageViewLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
         picButton.setLayoutParams(imageViewLayoutParams);
