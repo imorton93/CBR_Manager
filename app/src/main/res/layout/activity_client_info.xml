@@ -49,7 +49,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/visit"
-        app:tabIndicatorColor="#6661ED24"
+        app:tabIndicatorColor="#009FB8"
         app:tabTextColor="#000000">
 
         <com.google.android.material.tabs.TabItem
