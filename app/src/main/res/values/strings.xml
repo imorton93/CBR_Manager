@@ -179,4 +179,6 @@
     <string name="socialProvided">socialProvided</string>
     <string name="socialGoalMet">socialGoalMet</string>
     <string name="socialIfConcluded">socialIfConcluded</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

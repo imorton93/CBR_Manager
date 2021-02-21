@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -45,7 +44,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_info);
 
-        viewPager = findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager3);
         tabLayout = findViewById(R.id.tabLayout);
 
         viewPager.setAdapter(createCardAdapter());
