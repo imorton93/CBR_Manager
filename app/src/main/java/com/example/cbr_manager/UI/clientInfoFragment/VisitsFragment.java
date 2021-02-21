@@ -76,28 +76,21 @@ public class VisitsFragment extends Fragment {
             super(context, cursor, 0);
         }
 
-        // The newView method is used to inflate a new view and return it,
-        // you don't bind any data to the view at this point.
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             return LayoutInflater.from(context).inflate(R.layout.visit_list, parent, false);
         }
 
-        // The bindView method is used to bind all data to a given view
-        // such as setting the text on a TextView.
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            // Find fields to populate in inflated template
             TextView purpose = view.findViewById(R.id.purpose_vlist);
-//            TextView date = view.findViewById(R.id.dateOfVisit);
+            TextView date = view.findViewById(R.id.dateOfVisit);
 
-            // Extract properties from cursor
             String purposeOfVisit = cursor.getString(cursor.getColumnIndexOrThrow("PURPOSE_OF_VISIT"));
-//            String dateOfVisit = cursor.getString(cursor.getColumnIndexOrThrow(""));
+            String dateOfVisit = cursor.getString(cursor.getColumnIndexOrThrow("VISIT_DATE"));
 
-            // Populate fields with extracted properties
             purpose.setText(purposeOfVisit);
-//            date.setText(dateOfVisit);
+            date.setText(dateOfVisit);
         }
     }
 }

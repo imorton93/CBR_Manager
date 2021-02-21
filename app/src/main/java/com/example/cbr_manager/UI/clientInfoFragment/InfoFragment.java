@@ -58,13 +58,14 @@ public class InfoFragment extends Fragment {
         String first_name = todoCursor.getString(todoCursor.getColumnIndexOrThrow("FIRST_NAME"));
         String last_name = todoCursor.getString(todoCursor.getColumnIndexOrThrow("LAST_NAME"));
         String ageString = todoCursor.getString(todoCursor.getColumnIndexOrThrow("AGE"));
+        String genderString = todoCursor.getString(todoCursor.getColumnIndexOrThrow("GENDER"));
         String villageString = todoCursor.getString(todoCursor.getColumnIndexOrThrow("LOCATION"));
         String disabilityString = todoCursor.getString(todoCursor.getColumnIndexOrThrow("DISABILITY"));
         String name_string = first_name + " " + last_name;
 
         // Populate fields with extracted properties
         name.setText(name_string);
-        gender.setText(last_name);
+        gender.setText(genderString);
         age.setText(ageString);
         location.setText(villageString);
         disability.setText(disabilityString);
