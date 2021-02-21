@@ -89,8 +89,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_client_table);
 
         String create_visit_table = "CREATE TABLE " +
-                visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_purpose + " STRING, " +
-                if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, " +
+                visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_date + " STRING NOT NULL, " +
+                visit_purpose + " STRING, " + if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, " +
                 health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, " +
                 education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, " +
                 social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING, "
