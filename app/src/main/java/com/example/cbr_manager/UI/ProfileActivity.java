@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.cbr_manager.R;
@@ -17,6 +18,19 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ToolbarButtons();
+        profilePageButtons();
+    }
+
+    private void profilePageButtons(){
+        Button signoutButton = findViewById(R.id.signoutButton);
+        signoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = LoginActivity.makeIntent(ProfileActivity.this);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void ToolbarButtons(){
