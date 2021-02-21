@@ -326,9 +326,10 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private Boolean isCheckBoxAnswered(Question question){
+        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
         Boolean returnBool = false;
         CheckBox checkBox;
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < mcq.getAnswers().length; i++){
             checkBox = (CheckBox) form.findViewWithTag(i);
             if(checkBox.isChecked()){
                 returnBool = true;
@@ -666,10 +667,11 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void saveCheckBox(Question question){
+        MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
         String tag = question.getQuestionTag();
         newClient.clearDisabilities();
         CheckBox checkBox;
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < mcq.getAnswers().length; i++){
             checkBox = (CheckBox) form.findViewWithTag(i);
             if(checkBox.isChecked()){
                 String selected = checkBox.getText().toString();
