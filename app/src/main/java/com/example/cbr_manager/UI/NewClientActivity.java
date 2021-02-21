@@ -249,19 +249,33 @@ public class NewClientActivity extends AppCompatActivity {
                     }
                 }
                 else if(type == QuestionType.RADIO){
-                    if(!isRadioAnswered(question)){
-                        returnBool = false;
+                    if(question.getQuestionTag().equals("consent")) {
+                        RadioGroup consent = (RadioGroup) form.findViewWithTag("consent");
+                        int buttonId = consent.getCheckedRadioButtonId();
+                        RadioButton radioButton = consent.findViewById(buttonId);
+                        if (radioButton.getText().equals("Yes"))
+                            returnBool = true;
+                        else {
+                            Toast.makeText(NewClientActivity.this, "Please provide consent to continue.", Toast.LENGTH_LONG).show();
+                            returnBool = false;
+                        }
+                    }
+                    else{
+                        if (!isRadioAnswered(question)) {
+                            returnBool = false;
+                        }
                     }
                 }
+            }
                 else if(type == QuestionType.CHECK_BOX){
                     if(!isCheckBoxAnswered(question)){
                         returnBool = false;
                     }
                 }
             }
-        }
         return returnBool;
     }
+
 
     private Boolean isTextAnswered(Question question){
         String tag = question.getQuestionTag();
@@ -592,7 +606,7 @@ public class NewClientActivity extends AppCompatActivity {
         RadioButton radioButton = consent.findViewById(buttonId);
 
         if(tag.equals(getString(R.string.consent))){
-            newClient.setConsentToInterview(radioButton.getText().equals("Yes"));
+                newClient.setConsentToInterview(radioButton.getText().equals("Yes"));
         }
         else if(tag.equals(getString(R.string.caregiverPresent))){
             newClient.setCaregiverPresent(radioButton.getText().equals("Yes"));
