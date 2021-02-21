@@ -253,13 +253,14 @@ public class NewClientActivity extends AppCompatActivity {
                         returnBool = false;
                     }
                 }
-            }
                 else if(type == QuestionType.CHECK_BOX){
                     if(!isCheckBoxAnswered(question)){
                         returnBool = false;
                     }
                 }
             }
+
+        }
         return returnBool;
     }
 
@@ -323,7 +324,6 @@ public class NewClientActivity extends AppCompatActivity {
 
     private Boolean isCheckBoxAnswered(Question question){
         Boolean returnBool = false;
-
         CheckBox checkBox;
         for(int i = 0; i < 10; i++){
             checkBox = (CheckBox) form.findViewWithTag(i);
