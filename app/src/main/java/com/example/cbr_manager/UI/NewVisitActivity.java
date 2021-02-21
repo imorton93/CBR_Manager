@@ -108,7 +108,8 @@ public class NewVisitActivity extends AppCompatActivity {
                 else if(currentPage < pageCount - 1){
                     if(currentPage == 1){
                         back.setClickable(true);
-                        back.setBackgroundColor(Color.BLUE);
+                        back.setVisibility(View.VISIBLE);
+                        back.setBackgroundColor(Color.parseColor("#6661ED24"));
                     }
                     //save answers
                     savePage(pages.get(currentPage - 1));
@@ -158,11 +159,13 @@ public class NewVisitActivity extends AppCompatActivity {
                 loadAnswers(pages.get(currentPage - 1));
                 if(currentPage == 1){
                     back.setClickable(false);
+                    back.setVisibility(View.INVISIBLE);
                     back.setBackgroundColor(Color.DKGRAY);
                 }
             }
         });
         back.setClickable(false);
+        back.setVisibility(View.INVISIBLE);
         back.setBackgroundColor(Color.DKGRAY);
 
         //make the progrss bar blue

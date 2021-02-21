@@ -73,7 +73,9 @@ public class NewClientActivity extends AppCompatActivity {
 
         mydb = new DatabaseHelper(NewClientActivity.this);
         next = (Button) findViewById(R.id.nextBtnVisit);
+
         next.setBackgroundColor(Color.parseColor("#6661ED24"));
+
         back = (Button) findViewById(R.id.backBtn);
         newClient = new Client();
         imageView = new ImageView(this);
@@ -112,7 +114,9 @@ public class NewClientActivity extends AppCompatActivity {
                 if(currentPage == 1){
                     back.setClickable(true);
                     back.setVisibility(View.VISIBLE);
+
                     back.setBackgroundColor(Color.parseColor("#6661ED24"));
+
 
                 }
                 //save answers
@@ -170,11 +174,14 @@ public class NewClientActivity extends AppCompatActivity {
                     back.setClickable(false);
                     back.setVisibility(View.INVISIBLE);
                     back.setBackgroundColor(Color.DKGRAY);
+
                 }
         });
         back.setClickable(false);
         back.setVisibility(View.INVISIBLE);
+
         back.setBackgroundColor(Color.DKGRAY);
+
 
         //Permission for camera
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
