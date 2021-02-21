@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
@@ -47,7 +48,6 @@ public class InfoFragment extends Fragment {
     public void getClientInfo(View v){
         DatabaseHelper handler = new DatabaseHelper(this.infoActivity);
         Cursor todoCursor = handler.getRow(infoActivity.getId());
-
         TextView name = v.findViewById(R.id.name);
         TextView gender = v.findViewById(R.id.genderAns);
         TextView age = v.findViewById(R.id.ageAns);

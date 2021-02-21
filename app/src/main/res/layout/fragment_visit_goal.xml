@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.visitInfoFragment.VisitGoalFragment">
+
+    <TextView
+        android:id="@+id/healthGoal"
+        android:layout_width="247dp"
+        android:layout_height="142dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginRight="158dp"
+        android:text="Health Goal"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/educationGaol"
+        android:layout_width="240dp"
+        android:layout_height="142dp"
+        android:layout_marginTop="20dp"
+        android:text="Education Goal"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/socialGoal"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="@+id/socialGoal"
+        app:layout_constraintTop_toBottomOf="@+id/socialGoal" />
+
+    <TextView
+        android:id="@+id/socialGoal"
+        android:layout_width="245dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="16dp"
+        android:text="Social Goal"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/healthGoal"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="@+id/healthGoal"
+        app:layout_constraintTop_toBottomOf="@+id/healthGoal" />
+</androidx.constraintlayout.widget.ConstraintLayout>

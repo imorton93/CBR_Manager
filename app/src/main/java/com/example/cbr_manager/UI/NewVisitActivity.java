@@ -1,14 +1,11 @@
 package com.example.cbr_manager.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewStructure;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,11 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
 import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
-import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Forms.Question;
 import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
@@ -35,9 +34,18 @@ import java.util.ArrayList;
 
 public class NewVisitActivity extends AppCompatActivity {
 
-    public static Intent makeIntent(Context context) {
+    private static long client_id;
+    public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
+
+    public static Intent makeIntent(Context context, long id) {
         Intent intent =  new Intent(context, NewVisitActivity.class);
+        intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
         return intent;
+    }
+
+    private void extractIntent(){
+        Intent intent = getIntent();
+        client_id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
     }
 
     Button back;
@@ -63,11 +71,13 @@ public class NewVisitActivity extends AppCompatActivity {
         mydb = new DatabaseHelper(NewVisitActivity.this);
 
         ToolbarButtons();
+        extractIntent();
 
         next = (Button) findViewById(R.id.nextBtnVisit);
         next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtnVisit);
         newVisit = new Visit();
+        newVisit.setClientID(client_id);
 
         form = (LinearLayout) findViewById(R.id.formVisit);
         progressBar = (ProgressBar) findViewById(R.id.formProgressVisit);

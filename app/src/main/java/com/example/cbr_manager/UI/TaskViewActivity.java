@@ -66,14 +66,15 @@ public class TaskViewActivity extends AppCompatActivity {
             }
         });
 
-        ImageView newVisit = findViewById(R.id.newVisit);
-        newVisit.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeIntent(TaskViewActivity.this);
-                startActivity(intent);
-            }
-        });
+        // TODO DELETE THIS BUTTON MAKE IT BASELINE ACTIVITY
+//        ImageView newVisit = findViewById(R.id.newVisit);
+//        newVisit.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = NewVisitActivity.makeIntent(TaskViewActivity.this);
+//                startActivity(intent);
+//            }
+//        });
 
         ImageView newReferral = findViewById(R.id.referral);
         newReferral.setOnClickListener(new OnClickListener() {

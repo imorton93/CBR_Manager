@@ -44,12 +44,13 @@ public class ClientInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_info);
 
-        viewPager = findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager3);
         tabLayout = findViewById(R.id.tabLayout);
 
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
 
+        extractIntent();
         editButton();
         newVisitButton();
         ToolbarButtons();
@@ -57,7 +58,7 @@ public class ClientInfoActivity extends AppCompatActivity {
 
     private void extractIntent(){
         Intent intent = getIntent();
-        this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
     }
 
     private void newVisitButton() {
@@ -65,7 +66,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this);
+                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, id);
                 startActivity(intent);
             }
         });
@@ -93,7 +94,7 @@ public class ClientInfoActivity extends AppCompatActivity {
                     return InfoFragment.newInstance();
                 }
                 case 1: {
-                    return VisitsFragment.newInstance();
+                    return VisitsFragment.newInstance(id);
                 }
                 case 2: {
                     return RiskFragment.newInstance();

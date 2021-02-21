@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Visit {
 
+    private long client_id;
     private String purposeOfVisit;
     private ArrayList<String> ifCbr = new ArrayList<>();
     private String date;
@@ -18,6 +19,7 @@ public class Visit {
     private ArrayList<Provided> educationProvided = new ArrayList<>();
     private String educationGoalMet;
     private String educationIfConcluded;
+
 
     public Visit() {
     }
@@ -138,6 +140,13 @@ public class Visit {
         this.healthIfConcluded = healthIfConcluded;
     }
 
+    public long getClientID() {
+        return this.client_id;
+    }
+
+    public void setClientID(long client_id) {
+        this.client_id = client_id;
+    }
 
     public String getSocialGoalMet() {
         return socialGoalMet;
