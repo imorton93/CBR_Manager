@@ -58,10 +58,10 @@ public class VisitInfoFragment extends Fragment {
             String location_of_visit = todoCursor.getString(todoCursor.getColumnIndexOrThrow("LOCATION"));
             String village_number = todoCursor.getString(todoCursor.getColumnIndexOrThrow("VILLAGE_NUMBER"));
 
-            purposeOfVisit.setText(purpose_of_visit);
-            dateOfVisit.setText(date_of_visit);
-            locationOfVisit.setText(location_of_visit);
-            villageNumber.setText(village_number);
+            purposeOfVisit.setText("PURPOSE OF VISIT: " + purpose_of_visit);
+            dateOfVisit.setText("DATE: " + date_of_visit);
+            locationOfVisit.setText("LOCATION: " + location_of_visit);
+            villageNumber.setText("VILLAGE NUMBER: " + village_number);
         }
     }
 }

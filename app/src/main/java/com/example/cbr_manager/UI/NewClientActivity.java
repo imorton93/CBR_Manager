@@ -73,7 +73,6 @@ public class NewClientActivity extends AppCompatActivity {
         mydb = new DatabaseHelper(NewClientActivity.this);
 
         next = (Button) findViewById(R.id.nextBtnVisit);
-        next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtn);
         newClient = new Client();
         imageView = new ImageView(this);
@@ -110,7 +109,7 @@ public class NewClientActivity extends AppCompatActivity {
             else if(currentPage < pageCount - 1){
                 if(currentPage == 1){
                     back.setClickable(true);
-                    back.setBackgroundColor(Color.BLUE);
+                    back.setVisibility(View.VISIBLE);
 
                 }
                 //save answers
@@ -166,11 +165,11 @@ public class NewClientActivity extends AppCompatActivity {
                 loadAnswers(pages.get(currentPage - 1));
                 if(currentPage == 1){
                     back.setClickable(false);
-                    back.setBackgroundColor(Color.DKGRAY);
+                    back.setVisibility(View.INVISIBLE);
                 }
         });
         back.setClickable(false);
-        back.setBackgroundColor(Color.DKGRAY);
+        back.setVisibility(View.INVISIBLE);
 
         //Permission for camera
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
