@@ -690,6 +690,7 @@ public class NewVisitActivity extends AppCompatActivity {
         FormPage pageOne = new FormPage();
         pageOne.addToPage(purposeOfVisit);
         pageOne.addToPage(ifCBR);
+        pageOne.addToPage(date);
         pages.add(pageOne);
 
         //Page Two: Location, village number
