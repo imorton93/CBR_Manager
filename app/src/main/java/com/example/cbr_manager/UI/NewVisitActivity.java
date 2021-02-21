@@ -74,7 +74,6 @@ public class NewVisitActivity extends AppCompatActivity {
         extractIntent();
 
         next = (Button) findViewById(R.id.nextBtnVisit);
-        next.setBackgroundColor(Color.BLUE);
         back = (Button) findViewById(R.id.backBtnVisit);
         newVisit = new Visit();
         newVisit.setClientID(client_id);
@@ -107,7 +106,7 @@ public class NewVisitActivity extends AppCompatActivity {
                 else if(currentPage < pageCount - 1){
                     if(currentPage == 1){
                         back.setClickable(true);
-                        back.setBackgroundColor(Color.BLUE);
+                        back.setVisibility(View.VISIBLE);
                     }
                     //save answers
                     savePage(pages.get(currentPage - 1));
@@ -157,12 +156,12 @@ public class NewVisitActivity extends AppCompatActivity {
                 loadAnswers(pages.get(currentPage - 1));
                 if(currentPage == 1){
                     back.setClickable(false);
-                    back.setBackgroundColor(Color.DKGRAY);
+                    back.setVisibility(View.INVISIBLE);
                 }
             }
         });
         back.setClickable(false);
-        back.setBackgroundColor(Color.DKGRAY);
+        back.setVisibility(View.INVISIBLE);
     }
 
     private void ToolbarButtons(){
