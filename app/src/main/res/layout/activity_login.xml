@@ -98,7 +98,8 @@
             android:layout_marginBottom="24dp"
             android:text="@string/login"
             android:textColor="@color/black"
-            app:backgroundTint="#02FDDF" />
+            app:backgroundTint="#02FDDF"
+            />
 
     </RelativeLayout>
 
@@ -112,7 +113,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="60dp"
-        android:text="@string/don_t_have_an_account_sign_up_here"
+        android:text="SIGN UP"
         android:textColor="#090909"
         app:backgroundTint="#6661ED24"
         app:layout_constraintBottom_toBottomOf="parent"
