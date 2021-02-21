@@ -249,21 +249,8 @@ public class NewClientActivity extends AppCompatActivity {
                     }
                 }
                 else if(type == QuestionType.RADIO){
-                    if(question.getQuestionTag().equals("consent")) {
-                        RadioGroup consent = (RadioGroup) form.findViewWithTag("consent");
-                        int buttonId = consent.getCheckedRadioButtonId();
-                        RadioButton radioButton = consent.findViewById(buttonId);
-                        if (radioButton.getText().equals("Yes"))
-                            returnBool = true;
-                        else {
-                            Toast.makeText(NewClientActivity.this, "Please provide consent to continue.", Toast.LENGTH_LONG).show();
-                            returnBool = false;
-                        }
-                    }
-                    else{
-                        if (!isRadioAnswered(question)) {
-                            returnBool = false;
-                        }
+                    if (!isRadioAnswered(question)) {
+                        returnBool = false;
                     }
                 }
             }
@@ -301,6 +288,7 @@ public class NewClientActivity extends AppCompatActivity {
         RadioGroup radioGroup = (RadioGroup) form.findViewWithTag(tag);
         boolean isAnswered = true;
         boolean caregiverPresentCondition = true;
+        boolean consentCondition = true;
 
         if(radioGroup.getCheckedRadioButtonId() == -1){
             isAnswered = false;
@@ -318,7 +306,19 @@ public class NewClientActivity extends AppCompatActivity {
             }
         }
 
-        return isAnswered && caregiverPresentCondition;
+        if(question.getQuestionTag().equals("consent") && isAnswered) {
+            RadioGroup consent = (RadioGroup) form.findViewWithTag("consent");
+            int buttonId = consent.getCheckedRadioButtonId();
+            RadioButton radioButton = consent.findViewById(buttonId);
+            if (radioButton.getText().equals("Yes"))
+                consentCondition = true;
+            else {
+                Toast.makeText(NewClientActivity.this, "Please provide consent to continue.", Toast.LENGTH_LONG).show();
+                consentCondition = false;
+            }
+        }
+
+        return isAnswered && caregiverPresentCondition && consentCondition;
     }
 
     private Boolean isCheckBoxAnswered(Question question){
