@@ -1,13 +1,11 @@
 package com.example.cbr_manager.Database;
 
-import java.net.PasswordAuthentication;
-
 public class CBRWorker {
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-
+    private int id;
 
     public CBRWorker(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
@@ -54,4 +52,9 @@ public class CBRWorker {
     public String getFullName(){
         return firstName +" " + lastName;
     }
+
+    public void setWorkerId(int id) {
+        this.id = id;
+    }
+
 }

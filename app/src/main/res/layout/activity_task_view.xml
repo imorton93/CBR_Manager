@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.TaskViewActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar" />
+
+
+    <ImageView
+        android:id="@+id/newclient"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toStartOf="@+id/newVisit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:srcCompat="@mipmap/add_user_foreground" />
+
+    <ImageView
+        android:id="@+id/newVisit"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/newclient"
+        app:layout_constraintTop_toTopOf="@+id/newclient"
+        app:srcCompat="@mipmap/add_visit_foreground" />
+
+    <ImageView
+        android:id="@+id/allClients"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/referral"
+        app:layout_constraintTop_toBottomOf="@+id/newVisit"
+        app:srcCompat="@mipmap/list_foreground" />
+
+    <ImageView
+        android:id="@+id/dashboard"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toStartOf="@+id/sync"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/referral"
+        app:srcCompat="@mipmap/notification_foreground" />
+
+    <ImageView
+        android:id="@+id/sync"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dashboard"
+        app:layout_constraintTop_toBottomOf="@+id/allClients"
+        app:srcCompat="@mipmap/sync_foreground" />
+
+    <ImageView
+        android:id="@+id/referral"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toStartOf="@+id/allClients"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newclient"
+        app:srcCompat="@mipmap/referral_foreground" />
+
+    <TextView
+        android:id="@+id/question1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/new_client"
+        app:layout_constraintBottom_toBottomOf="@+id/newclient"
+        app:layout_constraintEnd_toEndOf="@+id/newclient"
+        app:layout_constraintStart_toStartOf="@+id/newclient" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/baseline_survey"
+        app:layout_constraintBottom_toBottomOf="@+id/newVisit"
+        app:layout_constraintEnd_toEndOf="@+id/newVisit"
+        app:layout_constraintStart_toStartOf="@+id/newVisit" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/referral"
+        app:layout_constraintBottom_toBottomOf="@+id/referral"
+        app:layout_constraintEnd_toEndOf="@+id/referral"
+        app:layout_constraintStart_toStartOf="@+id/referral" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/all_clients"
+        app:layout_constraintBottom_toBottomOf="@+id/allClients"
+        app:layout_constraintEnd_toEndOf="@+id/allClients"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="@+id/allClients" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/dashboard"
+        app:layout_constraintBottom_toBottomOf="@+id/dashboard"
+        app:layout_constraintEnd_toEndOf="@+id/dashboard"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="@+id/dashboard" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/sync"
+        app:layout_constraintBottom_toBottomOf="@+id/sync"
+        app:layout_constraintEnd_toEndOf="@+id/sync"
+        app:layout_constraintStart_toStartOf="@+id/sync" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

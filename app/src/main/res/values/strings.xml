@@ -1,3 +1,184 @@
 <resources>
     <string name="app_name">CBR_Manager</string>
+    <string name="community_based_rehab_manager">Community Based Rehab Manager</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_sign_up_here">Don\'t have an account? sign up here.</string>
+    <string name="hopehealthactionlogo">HopeHealthActionLogo</string>
+    <string name="new_client">New Client</string>
+    <string name="referral">Referral</string>
+    <string name="all_clients">All Clients</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="sync">Sync</string>
+
+    <!--    New Client Form Questions-->
+    <string name="consent_newClientForm">Consent to Interview*:</string>
+    <string name="date_newClientForm">Select Date*:</string>
+    <string name="location_newClientForm">Location*:</string>
+    <string name="villageNumber_newClientForm">Village Number*:</string>
+    <string name="firstName_newClientForm">First Name*:</string>
+    <string name="lastName_newClientForm">Last Name*:</string>
+    <string name="gender_newClientForm">Gender*:</string>
+    <string name="age_newClientForm">Age*:</string>
+    <string name="contactNumber_newClientForm">Contact Number*:</string>
+    <string name="caregiverPresent_newClientForm">Is a Caregiver present for Interview*?</string>
+    <string name="caregiverNumber_newClientForm">Caregiver Contact Number(Required if caregiver present):</string>
+    <string name="photo_newClientForm">Photo of Client and Caregiver(request consent before taking photo)*</string>
+    <string name="disabilityType_newClientForm">Type of Disability*:</string>
+    <string name="healthRate_newClientForm">Please rate how you consider the clients health to be*:</string>
+    <string name="educationStatus_newClientForm">Please rate how you consider the client\'s education status to be*:</string>
+    <string name="socialStatus_newClientForm">Please rate how you consider the client\'s social status to be*:</string>
+    <string name="require_newClientForm">Please Describe what they require*:</string>
+    <string name="individualGoal_newClientForm">Set individual goal*:</string>
+    <string name="finish">Finish</string>
+
+    <!--    Answers-->
+    <string-array name="yes_no_answer">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="locations">
+        <item>BidiBidi Zone 1</item>
+        <item>BidiBidi Zone 2</item>
+        <item>BidiBidi Zone 3</item>
+        <item>BidiBidi Zone 4</item>
+        <item>BidiBidi Zone 5</item>
+        <item>Palorinya Basecamp</item>
+        <item>Palorinya Zone 1</item>
+        <item>Palorinya Zone 2</item>
+        <item>Palorinya Zone 3</item>
+    </string-array>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="disability_types">
+        <item>Amputee</item>
+        <item>Polio</item>
+        <item>Spinal Cord Injury</item>
+        <item>Cerebral Palsy</item>
+        <item>Spina Bifida</item>
+        <item>Hydrocephalus</item>
+        <item>Visual Impairment</item>
+        <item>Hearing Impairment</item>
+        <item>Don\'t Know</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="risk_type">
+        <item>Critical Risk</item>
+        <item>High Risk</item>
+        <item>Medium Risk</item>
+        <item>Low Risk</item>
+    </string-array>
+
+
+    <!--    tags new client form-->
+    <string name="consent">consent</string>
+    <string name="date">date</string>
+    <string name="firstName">firstName</string>
+    <string name="lastName">lastName</string>
+    <string name="age">age</string>
+    <string name="gender">gender</string>
+    <string name="location">location</string>
+    <string name="villageNumber">villageNumber</string>
+    <string name="contactNumber">contactNumber</string>
+    <string name="caregiverPresent">caregiverPresent</string>
+    <string name="caregiverContactNumber">caregiverContactNumber</string>
+    <string name="disabilityType">disabilityType</string>
+    <string name="healthRate">healthRate</string>
+    <string name="healthRequire">healthRequire</string>
+    <string name="healthIndividualGoal">healthIndividualGoal</string>
+    <string name="educationRate">educationRate</string>
+    <string name="educationRequire">educationRequire</string>
+    <string name="educationIndividualGoal">educationIndividualGoal</string>
+    <string name="socialRate">socialRate</string>
+    <string name="socialRequire">socialRequire</string>
+    <string name="socialIndividualGoal">socialIndividualGoal</string>
+    <string name="photo">photo</string>
+    <string name="requireString">* Indicates Required Details</string>
+    <string name="clients">Clients</string>
+    <string name="risk_level">Risk Level</string>
+    <string name="visits">Visits</string>
+    <string name="information">Information</string>
+    <string name="edit">Edit</string>
+    <string name="new_visit">New Visit</string>
+    <string name="back">back</string>
+    <string name="skip">skip</string>
+    <string name="next">Next</string>
+    <string name="_1_14">1/14</string>
+    <string name="enter_name">Enter Name:</string>
+    <string name="name">Name</string>
+    <string name="type_email_username">Type email (username)</string>
+    <string name="type_password">Type Password</string>
+    <string name="submit">SUBMIT</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="first_last">First Last</string>
+    <string name="disability">Disability</string>
+    <string name="social">Social</string>
+    <string name="education">Education</string>
+    <string name="health">Health</string>
+
+    <!--    new visit questions-->
+    <string name="purposeOfVisit_newVisitForm">Purpose of Visit*:</string>
+    <string name="ifCBR_newVisitForm">If CBR:</string>
+    <string name="dateOfVisit_newVisitForm">Select Date of Visit*:</string>
+    <string name="location_newVisitForm">Location*:</string>
+    <string name="villageNumber_newVisitForm">Village Number*:</string>
+    <string name="healthProvided_newVisitForm">For health what was provided?*</string>
+    <string name="educationProvided_newVisitForm">For education what was provided?*</string>
+    <string name="socialProvided_newVisitForm">For Social what was provided?*</string>
+    <string name="goalMet_newVisitForm">Goal met?*</string>
+    <string name="concluded_newVisitForm">If concluded, what was the outcome:</string>
+    <string name="explain_newVisitForm">Explain Further</string>
+
+    <!--    new visit answers-->
+    <array name="purposeVisitChoices">
+        <item>CBR</item>
+        <item>Disability Centre Referral</item>
+        <item>Disability Centre Referral Follow Up</item>
+    </array>
+    <array name="ifCBRChoices">
+        <item>Health</item>
+        <item>Education</item>
+        <item>Social</item>
+    </array>
+    <array name="healthProvidedChoices">
+        <item>Wheelchair</item>
+        <item>Prosthetic</item>
+        <item>Orthotic</item>
+        <item>Wheelchair Repairs</item>
+        <item>Referral to Health Centre</item>
+        <item>Advice</item>
+        <item>Advocacy</item>
+        <item>Encouragement</item>
+    </array>
+    <array name="educationSocialProvidedChoices">
+        <item>Advice</item>
+        <item>Advocacy</item>
+        <item>Referral to other Org</item>
+        <item>Encouragement</item>
+    </array>
+    <array name="goalMetChoices">
+        <item>Cancelled</item>
+        <item>Ongoing</item>
+        <item>Concluded</item>
+    </array>
+
+    <!--    new visit tags-->
+    <string name="purposeOfVisit">purposeOfVisit</string>
+    <string name="ifCBR">ifCBR</string>
+    <string name="healthProvided">healthProvided</string>
+    <string name="healthGoalMet">healthGoalMet</string>
+    <string name="healthIfConcluded">healthConcluded</string>
+    <string name="educationProvided">educationProvided</string>
+    <string name="educationGoalMet">educationGoalMet</string>
+    <string name="educationIfConcluded">educationConcluded</string>
+    <string name="socialProvided">socialProvided</string>
+    <string name="socialGoalMet">socialGoalMet</string>
+    <string name="socialIfConcluded">socialIfConcluded</string>
+    <string name="baseline_survey">Baseline Survey</string>
+    <string name="sign_up">SIGN UP</string>
 </resources>
