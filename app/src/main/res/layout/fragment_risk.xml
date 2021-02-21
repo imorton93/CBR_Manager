@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.clientInfoFragment.RiskFragment">
+
+    <TextView
+        android:id="@+id/goalSocial"
+        android:layout_width="296dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="33dp"
+        android:text="Goals"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarSocial"
+        app:layout_constraintStart_toStartOf="@+id/social"
+        app:layout_constraintTop_toBottomOf="@+id/social" />
+
+    <ProgressBar
+        android:id="@+id/progressBarSocial"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="165dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toBottomOf="@+id/social"
+        app:layout_constraintEnd_toEndOf="@+id/goalEducation"
+        app:layout_constraintStart_toStartOf="@+id/progressBarEducation"
+        app:layout_constraintTop_toTopOf="@+id/social" />
+
+    <TextView
+        android:id="@+id/goalEducation"
+        android:layout_width="296dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="33dp"
+        android:text="Goals"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarEducation"
+        app:layout_constraintStart_toStartOf="@+id/education"
+        app:layout_constraintTop_toBottomOf="@+id/education" />
+
+    <ProgressBar
+        android:id="@+id/progressBarEducation"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="165dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toBottomOf="@+id/education"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarHealth"
+        app:layout_constraintStart_toStartOf="@+id/progressBarHealth"
+        app:layout_constraintTop_toTopOf="@+id/education" />
+
+    <TextView
+        android:id="@+id/social"
+        android:layout_width="92dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="172dp"
+        android:text="@string/social"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/education"
+        app:layout_constraintTop_toBottomOf="@+id/education" />
+
+    <TextView
+        android:id="@+id/education"
+        android:layout_width="92dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="172dp"
+        android:text="@string/education"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/health"
+        app:layout_constraintTop_toBottomOf="@+id/health" />
+
+    <TextView
+        android:id="@+id/health"
+        android:layout_width="92dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/health"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarHealth"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="165dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/health"
+        app:layout_constraintStart_toEndOf="@+id/health"
+        app:layout_constraintTop_toTopOf="@+id/health" />
+
+    <TextView
+        android:id="@+id/goalHealth"
+        android:layout_width="296dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="33dp"
+        android:text="Goals"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarHealth"
+        app:layout_constraintStart_toStartOf="@+id/health"
+        app:layout_constraintTop_toBottomOf="@+id/health" />
+</androidx.constraintlayout.widget.ConstraintLayout>
