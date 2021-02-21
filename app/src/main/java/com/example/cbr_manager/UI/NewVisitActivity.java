@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -74,7 +75,7 @@ public class NewVisitActivity extends AppCompatActivity {
         extractIntent();
 
         next = (Button) findViewById(R.id.nextBtnVisit);
-        next.setBackgroundColor(Color.BLUE);
+        next.setBackgroundColor(Color.parseColor("#6661ED24"));
         back = (Button) findViewById(R.id.backBtnVisit);
         newVisit = new Visit();
         newVisit.setClientID(client_id);
@@ -163,6 +164,11 @@ public class NewVisitActivity extends AppCompatActivity {
         });
         back.setClickable(false);
         back.setBackgroundColor(Color.DKGRAY);
+
+        //make the progrss bar blue
+        Drawable progressDrawable = progressBar.getProgressDrawable().mutate();
+        progressDrawable.setColorFilter(Color.parseColor("#009fb8"), android.graphics.PorterDuff.Mode.SRC_IN);
+        progressBar.setProgressDrawable(progressDrawable);
     }
 
     private void ToolbarButtons(){
