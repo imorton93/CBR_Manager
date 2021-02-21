@@ -14,7 +14,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="36dp"
-        android:text="@string/gender"
+        android:text="Gender"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/location"
+        android:text="Location"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/age"
@@ -94,7 +94,7 @@
         android:layout_width="51dp"
         android:layout_height="25dp"
         android:layout_marginTop="24dp"
-        android:text="@string/age"
+        android:text="Age"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/gender"
@@ -124,5 +124,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/stockprofileimage"
+        tools:srcCompat="@drawable/stockprofileimage" />
 </androidx.constraintlayout.widget.ConstraintLayout>
