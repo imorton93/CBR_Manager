@@ -191,7 +191,7 @@ public class Visit {
             result += prov.toString() + ", ";
         }
 
-        return result;
+        return result.substring(0, result.length() - 2);
     }
 
     public ArrayList<Provided> getSocialProvided() {
@@ -205,7 +205,7 @@ public class Visit {
             result += prov.toString() + ", ";
         }
 
-        return result;
+        return result.substring(0, result.length() - 2);
     }
 
     public ArrayList<Provided> getEducationProvided() {
@@ -219,6 +219,6 @@ public class Visit {
             result += prov.toString() + ", ";
         }
 
-        return result;
+        return result.substring(0, result.length() - 2);
     }
 }
