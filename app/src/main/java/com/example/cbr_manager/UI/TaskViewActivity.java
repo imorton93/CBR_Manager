@@ -47,10 +47,15 @@ public class TaskViewActivity extends AppCompatActivity {
     }
 
     private boolean connectedToInternet () {
-        //https://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+        //Reference: https://developer.android.com/training/monitoring-device-state/connectivity-status-type
+        ConnectivityManager connectManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectManager.getActiveNetworkInfo();
+
+        if ((activeNetwork != null) && (activeNetwork.isConnectedOrConnecting())) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     private void clickIcons() {
@@ -108,6 +113,7 @@ public class TaskViewActivity extends AppCompatActivity {
                     //TODO - Replace 'localhost' your WIFI IPv4 address in the URL string, with port 8080
                     String URL = "http://localhost:8080/clients";
 
+                    //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
                     StringRequest requestToServer = new StringRequest(
                             Request.Method.POST,
                             URL,

@@ -1,4 +1,4 @@
-package com.example.cbr_manager.Database;
+package com.hha.server.model;
 
 import java.util.ArrayList;
 

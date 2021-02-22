@@ -9,8 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    //Worker Table
     private static final String DATABASE_NAME = "cbr.db";
+
+    //Worker Table
     private static final String TABLE_NAME = "WORKER_DATA";
     private static final String COL_1 = "FIRST_NAME";
     private static final String COL_2 = "LAST_NAME";
@@ -20,32 +21,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Client Table
     private static final String client_table_name = "CLIENT_DATA";
+    private static final String client_id = "ID";
+    private static final String client_consent = "CONSENT";
+    private static final String client_date = "DATE";
     private static final String client_first_name = "FIRST_NAME";
     private static final String client_last_name = "LAST_NAME";
     private static final String client_age = "AGE";
     private static final String client_gender = "GENDER";
     private static final String client_village_no = "VILLAGE_NUMBER";
     private static final String client_location = "LOCATION";
-    private static final String client_disability = "DISABILITY";
-    private static final String is_synced = "IS_SYNCED";
-    private static final String client_consent = "CONSENT";
-    private static final String client_date = "DATE";
+    private static final String client_contact = "CONTACT";
     private static final String client_caregiver_presence = "CAREGIVER_PRESENCE";
     private static final String client_caregiver_number = "CAREGIVER_NUMBER";
+    private static final String client_disability = "DISABILITY";
     private static final String client_heath_rate = "HEALTH_RATE";
-    private static final String client_contact = "CONTACT";
     private static final String client_health_requirement = "HEALTH_REQUIREMENT";
     private static final String client_health_goal = "HEALTH_GOAL";
     private static final String client_education_rate = "EDUCATION_RATE";
     private static final String client_education_requirement = "EDUCATION_REQUIRE";
     private static final String client_education_goal = "EDUCATION_GOAL";
     private static final String client_social_rate = "SOCIAL_RATE";
-    private static final String  client_social_requirement= "SOCIAL_REQUIREMENT";
+    private static final String client_social_requirement= "SOCIAL_REQUIREMENT";
     private static final String client_social_goal = "SOCIAL_GOAL";
-    private static final String client_id = "ID";
+    private static final String is_synced = "IS_SYNCED";
 
     //Visits Table
     private static final String visit_table = "CLIENT_VISITS";
+    private static final String visit_id = "ID";
     private static final String visit_date = "VISIT_DATE";
     private static final String visit_purpose = "PURPOSE_OF_VISIT";
     private static final String if_cbr = "IF_CBR";
@@ -60,9 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String social_provided = "SOCIAL_PROVIDED";
     private static final String social_goal_status = "SOCIAL_GOAL_STATUS";
     private static final String social_outcome = "SOCIAL_OUTCOME";
-    private static final String visit_id = "ID";
     private static final String client_visit_id = "CLIENT_ID";
-
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -70,28 +70,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createtablestatement = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
+        String create_worker_table = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
                 + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);";
-        db.execSQL(createtablestatement);
+        db.execSQL(create_worker_table);
+
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + client_consent + " BOOLEAN NOT NULL, " + client_date + " STRING NOT NULL, "
-                + client_first_name + " TEXT, "
+                + client_consent + " BOOLEAN NOT NULL, " + client_date + " STRING NOT NULL, " + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
                 + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_contact + " STRING, "+ client_caregiver_presence
-                + " BOOLEAN NOT NULL, " +client_caregiver_number +" STRING, "
-                + client_disability + " TEXT, " + client_heath_rate + " STRING, "+ client_health_requirement +
-                " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, " +
-                client_education_requirement + " STRING, " + client_education_goal  + " STRING, " +
-                client_social_rate + " STRING, " + client_social_requirement + " STRING, " +
-                client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
+                + " BOOLEAN NOT NULL, " + client_caregiver_number +" STRING, " + client_disability + " TEXT, " + client_heath_rate
+                + " STRING, "+ client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, "
+                + client_education_requirement + " STRING, " + client_education_goal  + " STRING, " + client_social_rate + " STRING, "
+                + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
 
         String create_visit_table = "CREATE TABLE " +
-                visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_date + " STRING NOT NULL, " +
-                visit_purpose + " STRING, " + if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, " +
-                health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, " +
-                education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, " +
-                social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING, "
+                visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_date + " STRING NOT NULL, "
+                + visit_purpose + " STRING, " + if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, "
+                + health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, "
+                + education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, "
+                + social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING, "
                 + client_visit_id + " INTEGER NOT NULL);";
         db.execSQL(create_visit_table);
     }
@@ -101,12 +99,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME );
         db.execSQL(" DROP TABLE IF EXISTS " + client_table_name );
         db.execSQL(" DROP TABLE IF EXISTS " + visit_table );
+
         onCreate(db);
     }
 
     public boolean registerWorker(CBRWorker cbrWorker) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
         cv.put(COL_1, cbrWorker.getFirstName());
         cv.put(COL_2, cbrWorker.getLastName());
         cv.put(COL_3, cbrWorker.getEmail());
@@ -172,13 +172,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(social_outcome, visit.getSocialIfConcluded());
         cv.put(client_visit_id, visit.getClientID());
 
-
         long result = db.insert(visit_table, null, cv);
-
         if (result == -1 )
-         return false;
-
-        return true;
+            return false;
+        else
+            return true;
     }
 
     public boolean checkUser(String email, String password){
