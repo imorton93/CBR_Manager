@@ -15,47 +15,73 @@
         android:id="@+id/dashboard_text"
         android:layout_width="140dp"
         android:layout_height="36dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/dashboard"
+        android:textColor="#009fb8"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#009fb8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ListView
         android:id="@+id/clientList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="341dp"
+        android:layout_height="481dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="12dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/all_client_text">
+        app:layout_constraintTop_toBottomOf="@+id/searchVillageLayoutContainers">
 
     </ListView>
 
-    <Spinner
-        android:id="@+id/dashboard_filter"
-        android:layout_width="173dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:layout_marginBottom="22dp"
-        app:layout_constraintBottom_toTopOf="@+id/clientList"
+    <LinearLayout
+        android:id="@+id/searchDashboardLayoutContainers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dashboard_text"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashboard_text">
 
+        <Spinner
+            android:id="@+id/filter_village_dashboard"
+            android:layout_width="33dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5" />
+
+        <EditText
+            android:id="@+id/filter_villageNum_dashboard"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:ems="8"
+            android:hint="Village #"
+            android:inputType="number" />
+
+        <Spinner
+            android:id="@+id/filter_section_dashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"/>
+
+        <Button
+            android:id="@+id/search_button_dashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@android:color/transparent"
+            android:text="Search" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void createDropDownMenu(){
-        Spinner spinner = findViewById(R.id.dashboard_filter);
+        Spinner spinner = findViewById(R.id.filter_section_dashboard);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.options_array, android.R.layout.simple_spinner_item);
 

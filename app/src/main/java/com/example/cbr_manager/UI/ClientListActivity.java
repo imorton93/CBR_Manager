@@ -41,7 +41,7 @@ public class ClientListActivity extends AppCompatActivity {
     }
 
     private void createDropDownMenu(){
-        Spinner spinner = findViewById(R.id.filterDropdownButton);
+        Spinner spinner = findViewById(R.id.filter_section_clientList);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.options_array, android.R.layout.simple_spinner_item);
 

@@ -56,21 +56,21 @@
         app:layout_constraintTop_toBottomOf="@+id/all_client_text">
 
         <AutoCompleteTextView
-            android:id="@+id/clientList_firstName"
+            android:id="@+id/firstName_clientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
             android:hint="First Name" />
 
         <AutoCompleteTextView
-            android:id="@+id/clientList_lastName"
+            android:id="@+id/lastName_clientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
             android:hint="Last Name" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/search_button_clientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -91,13 +91,13 @@
         app:layout_constraintTop_toBottomOf="@+id/searchNameLayoutContainers">
 
         <Spinner
-            android:id="@+id/filter_village"
+            android:id="@+id/filter_village_clientList"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1.5"/>
 
         <EditText
-            android:id="@+id/filter_villageNum"
+            android:id="@+id/filter_villageNum_clientList"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:ems="8"
@@ -105,7 +105,7 @@
             android:inputType="number" />
 
         <Spinner
-            android:id="@+id/filterDropdownButton"
+            android:id="@+id/filter_section_clientList"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1.5"/>
