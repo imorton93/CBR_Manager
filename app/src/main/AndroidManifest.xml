@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:screenOrientation="portrait"
@@ -25,6 +26,7 @@
         </activity>
         <activity android:name=".UI.SignUpActivity" />
         <activity android:name=".UI.ClientInfoActivity" />
+        <activity android:name=".UI.ClientPhoto" />
         <activity android:name=".UI.DashboardActivity" />
         <activity android:name=".UI.ClientListActivity" />
         <activity android:name=".UI.NewVisitActivity" />

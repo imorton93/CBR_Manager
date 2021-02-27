@@ -33,6 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_contact = "CONTACT";
     private static final String client_caregiver_presence = "CAREGIVER_PRESENCE";
     private static final String client_caregiver_number = "CAREGIVER_NUMBER";
+    private static final String client_photo = "CLIENT_PHOTO";
     private static final String client_disability = "DISABILITY";
     private static final String client_heath_rate = "HEALTH_RATE";
     private static final String client_health_requirement = "HEALTH_REQUIREMENT";
@@ -78,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + client_consent + " BOOLEAN NOT NULL, " + client_date + " STRING NOT NULL, " + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
                 + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_contact + " STRING, "+ client_caregiver_presence
-                + " BOOLEAN NOT NULL, " + client_caregiver_number +" STRING, " + client_disability + " TEXT, " + client_heath_rate
+                + " BOOLEAN NOT NULL, " + client_caregiver_number +" STRING, " + client_photo + " BLOB " + client_disability + " TEXT, " + client_heath_rate
                 + " STRING, "+ client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, "
                 + client_education_requirement + " STRING, " + client_education_goal  + " STRING, " + client_social_rate + " STRING, "
                 + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
@@ -248,5 +249,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.moveToFirst();
         }
         return c;
+    }
+    public boolean addData(String name,byte[] img)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", name);
+        contentValues.put("newimage", img);
+        long result = db.insert(" CLIENT_DATA ",null,contentValues);
+        if (result == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+    }
+    public Cursor getdata()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select * from " + " CLIENT_DATA ";
+        Cursor data = db.rawQuery(query,null);
+        return data;
+    }
+
+    public Cursor getItemId(String name)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select * from "+ " CLIENT_DATA " + " Where Name"  + " = '" +  name + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
     }
 }
