@@ -25,8 +25,7 @@ import com.example.cbr_manager.R;
 public class ClientListActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context) {
-        Intent intent =  new Intent(context, ClientListActivity.class);
-        return intent;
+        return new Intent(context, ClientListActivity.class);
     }
 
     @Override
