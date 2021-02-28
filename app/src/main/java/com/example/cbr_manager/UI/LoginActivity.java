@@ -66,4 +66,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    // TODO: implement
+    private void forgotButton(){
+        Button forgotBtn = findViewById(R.id.forgotButton);
+        forgotBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
 }
