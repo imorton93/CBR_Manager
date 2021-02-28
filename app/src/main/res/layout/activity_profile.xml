@@ -114,6 +114,26 @@
             android:text="Worker Email"
             android:textColor="@color/black"
             app:backgroundTint="#02FDDF" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="93dp"
+            android:layout_height="34dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="138dp"
+            android:layout_marginLeft="138dp"
+            android:layout_marginTop="131dp"
+            android:layout_marginEnd="132dp"
+            android:layout_marginRight="132dp"
+            android:layout_marginBottom="180dp"
+            android:text="Upload"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <Button
