@@ -25,16 +25,26 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        createDropDownMenu();
         ToolbarButtons();
+        sectionDropDownMenu();
+        villageDropDownMenu();
 
         // TODO: populate listView
     }
 
-    private void createDropDownMenu(){
+    private void sectionDropDownMenu(){
         Spinner spinner = findViewById(R.id.filter_section_dashboard);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.options_array, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    private void villageDropDownMenu(){
+        Spinner spinner = findViewById(R.id.filter_village_dashboard);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.locations, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

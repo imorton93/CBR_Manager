@@ -34,19 +34,48 @@ public class ClientListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_list);
 
         ToolbarButtons();
-        createDropDownMenu();
+        sectionDropDownMenu();
+        villageDropDownMenu();
 
-        populateListView();
+        populateAllClientList();
         clickClient();
     }
 
-    private void createDropDownMenu(){
+    private void villageDropDownMenu(){
+        Spinner spinner = findViewById(R.id.filter_village_clientList);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.locations, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    private void sectionDropDownMenu(){
         Spinner spinner = findViewById(R.id.filter_section_clientList);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.options_array, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+    }
+
+    private void populateAllClientList() {
+        DatabaseHelper handler = new DatabaseHelper(this);
+        Cursor todoCursor = handler.getAllRows();
+        ListView lvItems = findViewById(R.id.clientList);
+        TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, todoCursor);
+        lvItems.setAdapter(todoAdapter);
+    }
+
+    private void clickClient() {
+        ListView list = findViewById(R.id.clientList);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, id);
+                startActivity(intent);
+            }
+        });
     }
 
     private void ToolbarButtons(){
@@ -64,25 +93,6 @@ public class ClientListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = ProfileActivity.makeIntent(ClientListActivity.this);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void populateListView() {
-        DatabaseHelper handler = new DatabaseHelper(this);
-        Cursor todoCursor = handler.getAllRows();
-        ListView lvItems = findViewById(R.id.clientList);
-        TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, todoCursor);
-        lvItems.setAdapter(todoAdapter);
-    }
-
-    private void clickClient() {
-        ListView list = findViewById(R.id.clientList);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, id);
                 startActivity(intent);
             }
         });
