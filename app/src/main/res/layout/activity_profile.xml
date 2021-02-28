@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgroundgradient"
     tools:context=".UI.ProfileActivity">
 
 
@@ -11,47 +12,153 @@
         android:id="@+id/toolbar"
         layout="@layout/activity_tool_bar" />
 
-    <TextView
-        android:id="@+id/profileFname"
-        android:layout_width="164dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="149dp"
-        android:text="Worker First Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <TextView
-        android:id="@+id/profileLname"
-        android:layout_width="164dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="14dp"
-        android:text="Worker Last Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileFname" />
-
-    <TextView
-        android:id="@+id/profileUsername"
-        android:layout_width="164dp"
-        android:layout_height="32dp"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="363dp"
+        android:layout_height="345dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="16dp"
-        android:text="Worker Username"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="132dp"
+        android:background="@drawable/loginpageroundstyle"
+        android:orientation="horizontal"
+        android:radius="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileLname" />
+        app:layout_constraintTop_toBottomOf="@+id/LoginPageTextBox">
+
+        <TextView
+            android:id="@+id/profileFname2"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="172dp"
+            android:layout_marginEnd="200dp"
+            android:layout_marginRight="200dp"
+            android:layout_marginBottom="133dp"
+            android:background="#8BC34A"
+            android:text="Worker First Name"
+            android:textColor="@color/black"
+            app:backgroundTint="#02FDDF" />
+
+        <TextView
+            android:id="@+id/profileFname3"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="198dp"
+            android:layout_marginLeft="198dp"
+            android:layout_marginTop="171dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="134dp"
+            android:background="#FFFFFF"
+            android:text="Worker Last Name"
+            android:textColor="@color/black"
+            app:backgroundTint="#02FDDF" />
+
+        <TextView
+            android:id="@+id/profileFname4"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="222dp"
+            android:layout_marginEnd="200dp"
+            android:layout_marginRight="200dp"
+            android:layout_marginBottom="83dp"
+            android:background="#FFFFFF"
+            android:text="Worker User Name"
+            android:textColor="@color/black"
+            app:backgroundTint="#02FDDF" />
+
+        <TextView
+            android:id="@+id/profileFname"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="200dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="222dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="83dp"
+            android:background="#FFFFFF"
+            android:text="Worker Email"
+            android:textColor="@color/black"
+            app:backgroundTint="#02FDDF" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/signoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
+        android:layout_width="129dp"
+        android:layout_height="54dp"
+        android:background="@drawable/button_border"
         android:text="Signout"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.935" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="240dp"
+        android:layout_height="249dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="stockphoto"
+        android:bottomLeftRadius="100dp"
+        android:bottomRightRadius="100dp"
+        android:topLeftRadius="30dp"
+        android:topRightRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.106"
+        app:srcCompat="@drawable/headshot" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
