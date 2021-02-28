@@ -32,15 +32,15 @@
         android:layout_height="412dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
 
+        android:layout_marginRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchVillageLayoutContainers"
-        app:layout_constraintVertical_bias="0.161" />
+        app:layout_constraintTop_toBottomOf="@+id/searchVillageNumLayoutContainers" />
 
     <LinearLayout
         android:id="@+id/searchNameLayoutContainers"
@@ -59,23 +59,16 @@
             android:id="@+id/firstName_clientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
+            android:layout_weight="0.5"
             android:hint="First Name" />
 
         <AutoCompleteTextView
             android:id="@+id/lastName_clientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
+            android:layout_weight="0.5"
             android:hint="Last Name" />
 
-        <Button
-            android:id="@+id/search_button_clientList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:background="@android:color/transparent"
-            android:text="Search" />
     </LinearLayout>
 
     <LinearLayout
@@ -86,15 +79,33 @@
         android:layout_marginRight="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchNameLayoutContainers">
 
         <Spinner
             android:id="@+id/filter_village_clientList"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"/>
+            android:layout_weight="0.5"/>
+
+        <Spinner
+            android:id="@+id/filter_section_clientList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchVillageNumLayoutContainers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchVillageLayoutContainers">
 
         <EditText
             android:id="@+id/filter_villageNum_clientList"
@@ -104,11 +115,13 @@
             android:hint="Village #"
             android:inputType="number" />
 
-        <Spinner
-            android:id="@+id/filter_section_clientList"
+        <Button
+            android:id="@+id/search_button_clientList"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@android:color/transparent"
+            android:text="Search" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
