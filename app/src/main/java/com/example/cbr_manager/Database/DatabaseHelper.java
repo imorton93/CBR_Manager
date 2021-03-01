@@ -5,11 +5,23 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Base64;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "cbr.db";
+
+    private Cipher cip;
+    private SecretKey key;
 
     //Worker Table
     private static final String TABLE_NAME = "WORKER_DATA";
@@ -66,6 +78,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
+
+        //Setting up cipher and key
+        try {
+            KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+            cip = Cipher.getInstance("AES");
+            key = keyGen.generateKey();
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -183,7 +205,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String [] columns = { COL_3 };
         String selection = COL_3 + "=?" + " and " + COL_4 + "=?" ;
-        String [] selectionArgs = { email , password};
+        String [] selectionArgs = { email , password };
+
+        try {
+            Log.d("Encrypted: ", encryptPassword(password));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Cursor cursor = db.query(TABLE_NAME , columns , selection, selectionArgs, null, null, null);
         int count = cursor.getCount();
         db.close();
@@ -248,5 +277,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.moveToFirst();
         }
         return c;
+    }
+
+    public String encryptPassword (String password) throws Exception {
+        //Using the AES Algorithm
+        //References:
+        // - https://developer.android.com/guide/topics/security/cryptography
+        // - https://www.youtube.com/watch?v=kN8hlHO8US0&t=596s&ab_channel=SylvainSaurel
+        //BUG: If multiple users sign up in the same session, this function throws an exception
+        cip.init(Cipher.ENCRYPT_MODE, key);
+        byte[] val = cip.doFinal(password.getBytes());
+
+        return Base64.encodeToString(val, Base64.DEFAULT);
+    }
+
+    public String decryptPassword (String password) throws Exception {
+        cip.init(Cipher.DECRYPT_MODE, key);
+        byte[] val = cip.doFinal(Base64.decode(password, Base64.DEFAULT));
+
+        return new String(val);
     }
 }
