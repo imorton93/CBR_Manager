@@ -24,19 +24,19 @@ public class ClientInfoActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 viewPager;
 
-    private long id;
+    private int position;
 
     private String[] titles = new String[]{"Information", "Visits", "Risk Level"};
     public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
 
-    public static Intent makeIntent(Context context, long id) {
+    public static Intent makeIntent(Context context, int position) {
         Intent intent =  new Intent(context, ClientInfoActivity.class);
-        intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
+        intent.putExtra(R_CLIENT_ID_PASSED_IN, position);
         return intent;
     }
 
-    public long getId() {
-        return id;
+    public int getPosition() {
+        return position;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class ClientInfoActivity extends AppCompatActivity {
 
     private void extractIntent(){
         Intent intent = getIntent();
-        id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        position = intent.getIntExtra(R_CLIENT_ID_PASSED_IN, 0);
     }
 
     private void newVisitButton() {
@@ -66,7 +66,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, id);
+                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, position);
                 startActivity(intent);
             }
         });
@@ -88,13 +88,13 @@ public class ClientInfoActivity extends AppCompatActivity {
             super(fragmentActivity);
         }
 
-        @Override public Fragment createFragment(int position) {
-            switch (position) {
+        @Override public Fragment createFragment(int pos) {
+            switch (pos) {
                 case 0: {
                     return InfoFragment.newInstance();
                 }
                 case 1: {
-                    return VisitsFragment.newInstance(id);
+                    return VisitsFragment.newInstance(position);
                 }
                 case 2: {
                     return RiskFragment.newInstance();

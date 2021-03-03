@@ -45,9 +45,10 @@ public class ClientListActivity extends AppCompatActivity {
         villageDropDownMenu();
 
 //        populateAllClientList();
-//        clickClient();
 
         populateAllClientsFromList();
+        clickClient();
+
     }
 
     private void villageDropDownMenu(){
@@ -77,24 +78,36 @@ public class ClientListActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
-    private void populateAllClientList() {
-        DatabaseHelper handler = new DatabaseHelper(this);
-        Cursor todoCursor = handler.getAllRows();
-        ListView lvItems = findViewById(R.id.clientList);
-        TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, todoCursor);
-        lvItems.setAdapter(todoAdapter);
-    }
-
     private void clickClient() {
         ListView list = findViewById(R.id.clientList);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, id);
+                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position);
                 startActivity(intent);
             }
         });
     }
+
+
+//    private void populateAllClientList() {
+//        DatabaseHelper handler = new DatabaseHelper(this);
+//        Cursor todoCursor = handler.getAllRows();
+//        ListView lvItems = findViewById(R.id.clientList);
+//        TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, todoCursor);
+//        lvItems.setAdapter(todoAdapter);
+//    }
+//
+//    private void clickClient() {
+//        ListView list = findViewById(R.id.clientList);
+//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, id);
+//                startActivity(intent);
+//            }
+//        });
+//    }
 
     private void ToolbarButtons(){
         ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);

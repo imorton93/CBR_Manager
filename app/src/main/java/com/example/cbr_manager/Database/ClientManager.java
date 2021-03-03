@@ -57,6 +57,10 @@ public class ClientManager implements Iterable<Client>{
         return instance;
     }
 
+    public Client getClientByPosition(int position){
+        return clients.get(position);
+    }
+
     public void updateList() {
 
         Cursor c = databaseHelper.getAllRows();
