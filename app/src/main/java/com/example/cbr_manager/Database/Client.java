@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Client {
     //Saved answers to questions
     //all open to change depending on saving to database
+    private long id;
     private Boolean consentToInterview;
     private String date;
     private String firstName;
@@ -58,6 +59,14 @@ public class Client {
     private String socialStatusIndividualGoal;
 
     public Client() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Boolean getConsentToInterview() {

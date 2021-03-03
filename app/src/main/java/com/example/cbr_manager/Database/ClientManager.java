@@ -23,6 +23,7 @@ public class ClientManager implements Iterable<Client>{
     private static ClientManager instance;
     private DatabaseHelper databaseHelper;
 
+    private static final String client_id = "ID";
     private static final String client_consent = "CONSENT";
     private static final String client_date = "DATE";
     private static final String client_first_name = "FIRST_NAME";
@@ -65,6 +66,7 @@ public class ClientManager implements Iterable<Client>{
 
         Cursor c = databaseHelper.getAllRows();
 
+        int idI = c.getColumnIndex(client_id);
         int consentI = c.getColumnIndex(client_consent);
         int dateI = c.getColumnIndex(client_date);
         int firstNameI = c.getColumnIndex(client_first_name);
@@ -89,6 +91,7 @@ public class ClientManager implements Iterable<Client>{
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
 
+            long id = c.getLong(idI);
             Boolean consent = (c.getInt(consentI) > 0);
             String date = c.getString(dateI);
             String firstName = c.getString(firstNameI);
@@ -111,10 +114,14 @@ public class ClientManager implements Iterable<Client>{
             String socialStatusRequire = c.getString(socialReqI);
             String socialStatusIndividualGoal = c.getString(socialGoalI);
 
-            clients.add(new Client(consent, date, firstName, lastName, age, gender, location,
-            villageNumber, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber, disabilities,
+            Client newClient = new Client(consent, date, firstName, lastName, age, gender, location,
+                    villageNumber, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber, disabilities,
                     healthRate, healthRequire, healthIndividualGoal, educationRate, educationRequire,
-                    educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal));
+                    educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal);
+
+            newClient.setId(id);
+
+            clients.add(newClient);
         }
     }
 

@@ -79,11 +79,12 @@ public class ClientListActivity extends AppCompatActivity {
     }
 
     private void clickClient() {
+        ClientManager clientManager = ClientManager.getInstance(this);
         ListView list = findViewById(R.id.clientList);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position);
+                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position, clientManager.getClientByPosition(position).getId());
                 startActivity(intent);
             }
         });
