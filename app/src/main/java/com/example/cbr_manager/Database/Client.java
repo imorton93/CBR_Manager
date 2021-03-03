@@ -25,7 +25,12 @@ public class Client {
     private String educationIndividualGoal;
     private String socialStatusRate;
 
-    public Client(Boolean consentToInterview, String date, String firstName, String lastName, int age, String gender, String location, int villageNumber, String contactPhoneNumber, Boolean caregiverPresent, String caregiverPhoneNumber, ArrayList<String> disabilities, String healthRate, String healthRequire, String healthIndividualGoal, String educationRate, String educationRequire, String educationIndividualGoal, String socialStatusRate, String socialStatusRequire, String socialStatusIndividualGoal) {
+    public Client(Boolean consentToInterview, String date, String firstName, String lastName,
+                  int age, String gender, String location, int villageNumber, String contactPhoneNumber,
+                  Boolean caregiverPresent, String caregiverPhoneNumber, ArrayList<String> disabilities,
+                  String healthRate, String healthRequire, String healthIndividualGoal, String educationRate,
+                  String educationRequire, String educationIndividualGoal, String socialStatusRate,
+                  String socialStatusRequire, String socialStatusIndividualGoal) {
         this.consentToInterview = consentToInterview;
         this.date = date;
         this.firstName = firstName;

@@ -17,10 +17,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientListActivity extends AppCompatActivity {
 
@@ -37,8 +44,10 @@ public class ClientListActivity extends AppCompatActivity {
         sectionDropDownMenu();
         villageDropDownMenu();
 
-        populateAllClientList();
-        clickClient();
+//        populateAllClientList();
+//        clickClient();
+
+        populateAllClientsFromList();
     }
 
     private void villageDropDownMenu(){
@@ -57,6 +66,20 @@ public class ClientListActivity extends AppCompatActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+    }
+
+    private void populateAllClientsFromList() {
+        ClientManager clientManager = ClientManager.getInstance();
+        clientManager.updateList();
+//        ListView lvItems = findViewById(R.id.clientList);
+//        ArrayAdapter<Client> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.clientList,
+//                clientManager.getClients());
+//
+//        lvItems.setAdapter(arrayAdapter);
+
+        ArrayAdapter<Client> adapter = new MyListAdapter(clientManager.getClients());
+        ListView list = findViewById(R.id.clientList);
+        list.setAdapter(adapter);
     }
 
     private void populateAllClientList() {
@@ -124,4 +147,30 @@ public class ClientListActivity extends AppCompatActivity {
         }
     }
 
+    private class MyListAdapter extends ArrayAdapter<Client> {
+        public MyListAdapter(List<Client> clients) {
+            super(ClientListActivity.this, R.layout.client_list, clients);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View view = convertView;
+            Client currentClient;
+            ClientManager clientManager = ClientManager.getInstance();
+            List<Client> clients = clientManager.getClients();
+
+            currentClient = clients.get(position);
+
+            TextView firstName = view.findViewById(R.id.fname_clist);
+            TextView lastName = view.findViewById(R.id.lname_clist);
+            TextView village = view.findViewById(R.id.Village_clist);
+
+            firstName.setText(currentClient.getFirstName());
+            lastName.setText(currentClient.getLastName());
+            village.setText(currentClient.getVillageNumber());
+
+            return view;
+        }
+    }
 }

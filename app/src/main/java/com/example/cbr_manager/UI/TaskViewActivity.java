@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
@@ -91,6 +92,10 @@ public class TaskViewActivity extends AppCompatActivity {
         sync.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Client client = new Client();
+
+
                 //Steps:
                 //- Check if user is connected to the internet
                 //  - If not connected, show a message stating so
