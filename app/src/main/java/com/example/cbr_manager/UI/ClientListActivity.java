@@ -69,17 +69,17 @@ public class ClientListActivity extends AppCompatActivity {
     }
 
     private void populateAllClientsFromList() {
-        ClientManager clientManager = ClientManager.getInstance();
+        ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
         clientManager.updateList();
-//        ListView lvItems = findViewById(R.id.clientList);
-//        ArrayAdapter<Client> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.clientList,
-//                clientManager.getClients());
-//
-//        lvItems.setAdapter(arrayAdapter);
+        ListView lvItems = findViewById(R.id.clientList);
+        ArrayAdapter<Client> arrayAdapter = new ArrayAdapter<Client>(this, android.R.layout.simple_list_item_1,
+                clientManager.getClients());
 
-        ArrayAdapter<Client> adapter = new MyListAdapter(clientManager.getClients());
-        ListView list = findViewById(R.id.clientList);
-        list.setAdapter(adapter);
+        lvItems.setAdapter(arrayAdapter);
+
+//        ArrayAdapter<Client> adapter = new MyListAdapter(clientManager.getClients());
+//        ListView list = findViewById(R.id.clientList);
+//        list.setAdapter(adapter);
     }
 
     private void populateAllClientList() {
@@ -157,7 +157,7 @@ public class ClientListActivity extends AppCompatActivity {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View view = convertView;
             Client currentClient;
-            ClientManager clientManager = ClientManager.getInstance();
+            ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
             List<Client> clients = clientManager.getClients();
 
             currentClient = clients.get(position);

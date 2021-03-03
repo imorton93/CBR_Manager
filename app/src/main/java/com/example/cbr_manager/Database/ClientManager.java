@@ -1,5 +1,6 @@
 package com.example.cbr_manager.Database;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -44,13 +45,13 @@ public class ClientManager implements Iterable<Client>{
     private static final String client_social_requirement= "SOCIAL_REQUIREMENT";
     private static final String client_social_goal = "SOCIAL_GOAL";
 
-    public ClientManager() {
-//        this.databaseHelper = new DatabaseHelper();
+    public ClientManager(Context context) {
+        this.databaseHelper = new DatabaseHelper(context);
     }
 
-    public static ClientManager getInstance() {
+    public static ClientManager getInstance(Context context) {
         if (instance == null) {
-            instance = new ClientManager();
+            instance = new ClientManager(context);
         }
 
         return instance;
@@ -59,10 +60,6 @@ public class ClientManager implements Iterable<Client>{
     public void updateList() {
 
         Cursor c = databaseHelper.getAllRows();
-
-        if (c == null) {
-            Log.e(TAG, "ITS NULL");
-        }
 
         int consentI = c.getColumnIndex(client_consent);
         int dateI = c.getColumnIndex(client_date);
