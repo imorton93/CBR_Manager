@@ -59,7 +59,7 @@ public class VisitsFragment extends Fragment {
         View V =  inflater.inflate(R.layout.fragment_visits, container, false);
 //        populateListView(V, id);
 
-//        populateListViewFromList(V, id);
+        populateListViewFromList(V, id);
         clickVisit(V);
         return V;
     }
@@ -92,28 +92,28 @@ public class VisitsFragment extends Fragment {
         });
     }
 
-    public class TodoCursorAdapter2 extends CursorAdapter {
-        public TodoCursorAdapter2(Context context, Cursor cursor) {
-            super(context, cursor, 0);
-        }
-
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            return LayoutInflater.from(context).inflate(R.layout.visit_list, parent, false);
-        }
-
-        @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            TextView purpose = view.findViewById(R.id.purpose_vlist);
-            TextView date = view.findViewById(R.id.dateOfVisit);
-
-            String purposeOfVisit = cursor.getString(cursor.getColumnIndexOrThrow("PURPOSE_OF_VISIT"));
-            String dateOfVisit = cursor.getString(cursor.getColumnIndexOrThrow("VISIT_DATE"));
-
-            purpose.setText(purposeOfVisit);
-            date.setText(dateOfVisit);
-        }
-    }
+//    public class TodoCursorAdapter2 extends CursorAdapter {
+//        public TodoCursorAdapter2(Context context, Cursor cursor) {
+//            super(context, cursor, 0);
+//        }
+//
+//        @Override
+//        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+//            return LayoutInflater.from(context).inflate(R.layout.visit_list, parent, false);
+//        }
+//
+//        @Override
+//        public void bindView(View view, Context context, Cursor cursor) {
+//            TextView purpose = view.findViewById(R.id.purpose_vlist);
+//            TextView date = view.findViewById(R.id.dateOfVisit);
+//
+//            String purposeOfVisit = cursor.getString(cursor.getColumnIndexOrThrow("PURPOSE_OF_VISIT"));
+//            String dateOfVisit = cursor.getString(cursor.getColumnIndexOrThrow("VISIT_DATE"));
+//
+//            purpose.setText(purposeOfVisit);
+//            date.setText(dateOfVisit);
+//        }
+//    }
 
     private class MyListAdapter extends ArrayAdapter<Visit> {
         public MyListAdapter(List<Visit> visits) {

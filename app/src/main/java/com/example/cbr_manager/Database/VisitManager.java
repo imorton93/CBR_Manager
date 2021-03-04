@@ -50,7 +50,8 @@ public class VisitManager implements Iterable<Visit>{
 
     public void updateList() {
 
-        Cursor c = databaseHelper.getAllRows();
+        Cursor c = databaseHelper.getAllVisits();
+        System.out.println(c.getCount());
 
         int idI = c.getColumnIndex(visit_id);
         int dateI = c.getColumnIndex(visit_date);
@@ -69,11 +70,8 @@ public class VisitManager implements Iterable<Visit>{
         int socialOutcomeI = c.getColumnIndex(social_outcome);
         int client_visit_idI = c.getColumnIndex(client_visit_id);
 
-        int count = 0;
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
-            count++;
 
-            Log.e(TAG, "COUNT: " + count);
             long id = c.getLong(idI);
             String date = c.getString(dateI);
             String purpose = c.getString(purposeI);
