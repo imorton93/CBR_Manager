@@ -8,19 +8,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.Visit;
+import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
 import com.example.cbr_manager.UI.ClientListActivity;
 import com.example.cbr_manager.UI.VisitInfoActivity;
 
+import java.util.List;
+
 public class VisitsFragment extends Fragment {
+
+    private ClientInfoActivity infoActivity;
+    private long id;
 
     public VisitsFragment() {
     }
@@ -41,20 +53,32 @@ public class VisitsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.infoActivity = (ClientInfoActivity)getActivity();
         Bundle args = getArguments();
-        long id = args.getLong("id", 0);
+        this.id = args.getLong("id", 0);
         View V =  inflater.inflate(R.layout.fragment_visits, container, false);
-        populateListView(V, id);
+//        populateListView(V, id);
+
+//        populateListViewFromList(V, id);
         clickVisit(V);
         return V;
     }
 
-    private void populateListView(View V, long id) {
-        DatabaseHelper handler = new DatabaseHelper(this.getActivity());
-        Cursor todoCursor = handler.getVisits(id);
-        ListView lv = V.findViewById(R.id.visitList);
-        TodoCursorAdapter2 todoAdapter = new TodoCursorAdapter2(this.getActivity(), todoCursor);
-        lv.setAdapter(todoAdapter);
+//    private void populateListView(View V, long id) {
+//        DatabaseHelper handler = new DatabaseHelper(this.getActivity());
+//        Cursor todoCursor = handler.getVisits(id);
+//        ListView lv = V.findViewById(R.id.visitList);
+//        TodoCursorAdapter2 todoAdapter = new TodoCursorAdapter2(this.getActivity(), todoCursor);
+//        lv.setAdapter(todoAdapter);
+//    }
+
+    private void populateListViewFromList(View V, long id) {
+        VisitManager visitManager = VisitManager.getInstance(infoActivity);
+        visitManager.updateList();
+
+        ListView list = V.findViewById(R.id.visitList);
+        ArrayAdapter<Visit> adapter = new VisitsFragment.MyListAdapter(visitManager.getVisits(id));
+        list.setAdapter(adapter);
     }
 
     private void clickVisit(View V) {
@@ -88,6 +112,35 @@ public class VisitsFragment extends Fragment {
 
             purpose.setText(purposeOfVisit);
             date.setText(dateOfVisit);
+        }
+    }
+
+    private class MyListAdapter extends ArrayAdapter<Visit> {
+        public MyListAdapter(List<Visit> visits) {
+            super(infoActivity, R.layout.visit_list, visits);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View view = convertView;
+
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.visit_list, parent, false);
+            }
+
+            Visit currentVisit;
+            VisitManager visitManager = VisitManager.getInstance(view.getContext());
+            List<Visit> visits = visitManager.getVisits(id);
+            currentVisit = visits.get(position);
+
+            TextView date = view.findViewById(R.id.dateOfVisit);
+            TextView purpose = view.findViewById(R.id.purposeOfVisit);
+
+            date.setText(currentVisit.getDate());
+            purpose.setText(currentVisit.getPurposeOfVisit());
+
+            return view;
         }
     }
 }

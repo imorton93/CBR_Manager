@@ -20,6 +20,7 @@ public class Visit {
     private ArrayList<Provided> educationProvided = new ArrayList<>();
     private String educationGoalMet;
     private String educationIfConcluded;
+    private long visit_id;
 
 
     public Visit() {
@@ -29,7 +30,7 @@ public class Visit {
                  String location, int villageNumber, ArrayList<String> healthProvided,
                  String healthGoalMet, String healthIfConcluded, ArrayList<String> socialProvided,
                  String socialGoalMet, String socialIfConcluded, ArrayList<String> educationProvided,
-                 String educationGoalMet, String educationIfConcluded){
+                 String educationGoalMet, String educationIfConcluded, long visit_id){
         this.client_id = client_id;
         this.purposeOfVisit = purposeOfVisit;
         this.ifCbr = ifCbr;
@@ -45,6 +46,11 @@ public class Visit {
         this.educationProvided = convertStringListToProvidedList(educationProvided);
         this.educationGoalMet = educationGoalMet;
         this.educationIfConcluded = educationIfConcluded;
+        this.visit_id = visit_id;
+    }
+
+    public long getClient_id() {
+        return client_id;
     }
 
     private ArrayList<Provided> convertStringListToProvidedList(ArrayList<String> provided){

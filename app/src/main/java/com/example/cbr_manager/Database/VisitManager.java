@@ -2,6 +2,7 @@ package com.example.cbr_manager.Database;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class VisitManager implements Iterable<Visit>{
 
+    private static final String TAG = "HEY" ;
     private List<Visit> visits = new ArrayList<>();
     private static VisitManager instance;
     private DatabaseHelper databaseHelper;
@@ -67,9 +69,11 @@ public class VisitManager implements Iterable<Visit>{
         int socialOutcomeI = c.getColumnIndex(social_outcome);
         int client_visit_idI = c.getColumnIndex(client_visit_id);
 
-
+        int count = 0;
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            count++;
 
+            Log.e(TAG, "COUNT: " + count);
             long id = c.getLong(idI);
             String date = c.getString(dateI);
             String purpose = c.getString(purposeI);
@@ -85,11 +89,10 @@ public class VisitManager implements Iterable<Visit>{
             ArrayList<String> socialProvided = new ArrayList<>(Arrays.asList(c.getString(socialProvidedI).split(",")));
             String socialGoal = c.getString(socialGoalI);
             String socialOutcome = c.getString(socialOutcomeI);
-            String client_visit_id = c.getString(client_visit_idI); // TODO figure out which id to use
+            long client_visit_id = c.getLong(client_visit_idI);
 
-
-            visits.add(new Visit(id, purpose, if_cbr, date, location, villageNumber, healthProvided, healthGoal, healthOutcome,
-                        socialProvided, socialGoal, socialOutcome, educationProvided, educationGoal, educationOutcome));
+            visits.add(new Visit(client_visit_id, purpose, if_cbr, date, location, villageNumber, healthProvided, healthGoal, healthOutcome,
+                        socialProvided, socialGoal, socialOutcome, educationProvided, educationGoal, educationOutcome, id));
         }
     }
 
@@ -99,7 +102,15 @@ public class VisitManager implements Iterable<Visit>{
         return visits.iterator();
     }
 
-    public List<Visit> getClients() {
-        return visits;
+    public List<Visit> getVisits(long id) {
+        List<Visit> finalVisits = new ArrayList<>();
+
+        for (int i = 0; i < visits.size(); i++) {
+            if(visits.get(i).getClient_id() == id) {
+                finalVisits.add(visits.get(i));
+            }
+        }
+
+        return finalVisits;
     }
 }
