@@ -1,6 +1,7 @@
 package com.example.cbr_manager.Database;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Visit {
 
@@ -12,7 +13,7 @@ public class Visit {
     private int villageNumber;
     private ArrayList<Provided> healthProvided = new ArrayList<>();
     private String healthGoalMet;
-    private  String healthIfConcluded;
+    private String healthIfConcluded;
     private ArrayList<Provided> socialProvided = new ArrayList<>();
     private String socialGoalMet;
     private String socialIfConcluded;
@@ -23,6 +24,38 @@ public class Visit {
 
     public Visit() {
     }
+
+    public Visit(long client_id, String purposeOfVisit, ArrayList<String> ifCbr, String date,
+                 String location, int villageNumber, ArrayList<String> healthProvided,
+                 String healthGoalMet, String healthIfConcluded, ArrayList<String> socialProvided,
+                 String socialGoalMet, String socialIfConcluded, ArrayList<String> educationProvided,
+                 String educationGoalMet, String educationIfConcluded){
+        this.client_id = client_id;
+        this.purposeOfVisit = purposeOfVisit;
+        this.ifCbr = ifCbr;
+        this.date = date;
+        this.location = location;
+        this.villageNumber = villageNumber;
+        this.healthProvided = convertStringListToProvidedList(healthProvided);
+        this.healthGoalMet = healthGoalMet;
+        this.healthIfConcluded = healthIfConcluded;
+        this.socialProvided = convertStringListToProvidedList(socialProvided);
+        this.socialGoalMet = socialGoalMet;
+        this.socialIfConcluded = socialIfConcluded;
+        this.educationProvided = convertStringListToProvidedList(educationProvided);
+        this.educationGoalMet = educationGoalMet;
+        this.educationIfConcluded = educationIfConcluded;
+    }
+
+    private ArrayList<Provided> convertStringListToProvidedList(ArrayList<String> provided){
+        ArrayList<Provided> sectionProvided = new ArrayList<>();
+        for(String item : provided){
+            String[] providedSections = item.split(":");
+            sectionProvided.add(new Provided(providedSections[0].trim(), providedSections[1].trim()));
+        }
+        return sectionProvided;
+    }
+
 
     public class Provided{
         private String checkBox;
