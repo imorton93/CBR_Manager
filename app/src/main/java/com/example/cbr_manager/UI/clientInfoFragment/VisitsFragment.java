@@ -57,20 +57,11 @@ public class VisitsFragment extends Fragment {
         Bundle args = getArguments();
         this.id = args.getLong("id", 0);
         View V =  inflater.inflate(R.layout.fragment_visits, container, false);
-//        populateListView(V, id);
 
         populateListViewFromList(V, id);
         clickVisit(V);
         return V;
     }
-
-//    private void populateListView(View V, long id) {
-//        DatabaseHelper handler = new DatabaseHelper(this.getActivity());
-//        Cursor todoCursor = handler.getVisits(id);
-//        ListView lv = V.findViewById(R.id.visitList);
-//        TodoCursorAdapter2 todoAdapter = new TodoCursorAdapter2(this.getActivity(), todoCursor);
-//        lv.setAdapter(todoAdapter);
-//    }
 
     private void populateListViewFromList(View V, long id) {
         VisitManager visitManager = VisitManager.getInstance(infoActivity);
@@ -92,29 +83,6 @@ public class VisitsFragment extends Fragment {
         });
     }
 
-//    public class TodoCursorAdapter2 extends CursorAdapter {
-//        public TodoCursorAdapter2(Context context, Cursor cursor) {
-//            super(context, cursor, 0);
-//        }
-//
-//        @Override
-//        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-//            return LayoutInflater.from(context).inflate(R.layout.visit_list, parent, false);
-//        }
-//
-//        @Override
-//        public void bindView(View view, Context context, Cursor cursor) {
-//            TextView purpose = view.findViewById(R.id.purpose_vlist);
-//            TextView date = view.findViewById(R.id.dateOfVisit);
-//
-//            String purposeOfVisit = cursor.getString(cursor.getColumnIndexOrThrow("PURPOSE_OF_VISIT"));
-//            String dateOfVisit = cursor.getString(cursor.getColumnIndexOrThrow("VISIT_DATE"));
-//
-//            purpose.setText(purposeOfVisit);
-//            date.setText(dateOfVisit);
-//        }
-//    }
-
     private class MyListAdapter extends ArrayAdapter<Visit> {
         public MyListAdapter(List<Visit> visits) {
             super(infoActivity, R.layout.visit_list, visits);
@@ -135,7 +103,7 @@ public class VisitsFragment extends Fragment {
             currentVisit = visits.get(position);
 
             TextView date = view.findViewById(R.id.dateOfVisit);
-            TextView purpose = view.findViewById(R.id.purposeOfVisit);
+            TextView purpose = view.findViewById(R.id.purpose_vlist);
 
             date.setText(currentVisit.getDate());
             purpose.setText(currentVisit.getPurposeOfVisit());

@@ -51,6 +51,7 @@ public class ClientInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_info);
+        extractIntent();
 
         viewPager = findViewById(R.id.viewPager3);
         tabLayout = findViewById(R.id.tabLayout);
@@ -58,7 +59,6 @@ public class ClientInfoActivity extends AppCompatActivity {
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
 
-        extractIntent();
         editButton();
         newVisitButton();
         ToolbarButtons();
@@ -66,8 +66,8 @@ public class ClientInfoActivity extends AppCompatActivity {
 
     private void extractIntent(){
         Intent intent = getIntent();
-        position = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
-        id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        this.position = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
+        this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
     }
 
     private void newVisitButton() {
@@ -104,7 +104,11 @@ public class ClientInfoActivity extends AppCompatActivity {
                     return InfoFragment.newInstance();
                 }
                 case 1: {
-                    return VisitsFragment.newInstance(position);
+                    VisitsFragment visitsFragment = VisitsFragment.newInstance(ClientInfoActivity.this.getId());
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("id", ClientInfoActivity.this.getId());
+                    visitsFragment.setArguments(bundle);
+                    return visitsFragment;
                 }
                 case 2: {
                     return RiskFragment.newInstance();

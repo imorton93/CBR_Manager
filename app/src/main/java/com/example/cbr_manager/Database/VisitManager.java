@@ -103,9 +103,9 @@ public class VisitManager implements Iterable<Visit>{
     public List<Visit> getVisits(long id) {
         List<Visit> finalVisits = new ArrayList<>();
 
-        for (int i = 0; i < visits.size(); i++) {
-            if(visits.get(i).getClient_id() == id) {
-                finalVisits.add(visits.get(i));
+        for (Visit currentVisit : this.visits) {
+            if(currentVisit.getClient_id() == id) {
+                finalVisits.add(currentVisit);
             }
         }
 
