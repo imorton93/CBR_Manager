@@ -64,13 +64,8 @@ public class VisitsFragment extends Fragment {
         return V;
     }
 
-
     private void populateListViewFromList(View V, long id) {
         VisitManager visitManager = VisitManager.getInstance(infoActivity);
-
-        visitManager.clear();
-        visitManager.updateList();
-
         ListView list = V.findViewById(R.id.visitList);
         ArrayAdapter<Visit> adapter = new VisitsFragment.MyListAdapter(visitManager.getVisits(id));
         list.setAdapter(adapter);

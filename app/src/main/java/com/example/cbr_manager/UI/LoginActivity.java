@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,6 +32,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mydb = new DatabaseHelper(LoginActivity.this);
+
+        ClientManager clientManager = ClientManager.getInstance(LoginActivity.this);
+        clientManager.clear();
+        clientManager.updateList();
+
+        VisitManager visitManager = VisitManager.getInstance(LoginActivity.this);
+        visitManager.clear();
+        visitManager.updateList();
 
         buttonsClicked();
     }

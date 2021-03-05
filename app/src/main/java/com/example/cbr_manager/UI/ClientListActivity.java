@@ -46,8 +46,8 @@ public class ClientListActivity extends AppCompatActivity {
         sectionDropDownMenu();
         villageDropDownMenu();
 
-        clientManager.clear();
-        clientManager.updateList();
+//        clientManager.clear();
+//        clientManager.updateList();
 
         populateAllClientsFromList();
         clickClient();
