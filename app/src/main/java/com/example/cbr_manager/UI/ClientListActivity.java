@@ -31,6 +31,8 @@ import java.util.List;
 
 public class ClientListActivity extends AppCompatActivity {
 
+    ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
+
     public static Intent makeIntent(Context context) {
         return new Intent(context, ClientListActivity.class);
     }
@@ -44,9 +46,11 @@ public class ClientListActivity extends AppCompatActivity {
         sectionDropDownMenu();
         villageDropDownMenu();
 
+        clientManager.clear();
+        clientManager.updateList();
+
         populateAllClientsFromList();
         clickClient();
-
     }
 
     private void villageDropDownMenu(){
@@ -68,16 +72,12 @@ public class ClientListActivity extends AppCompatActivity {
     }
 
     private void populateAllClientsFromList() {
-        ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
-        clientManager.updateList();
-
         ArrayAdapter<Client> adapter = new MyListAdapter(clientManager.getClients());
         ListView list = findViewById(R.id.clientList);
         list.setAdapter(adapter);
     }
 
     private void clickClient() {
-        ClientManager clientManager = ClientManager.getInstance(this);
         ListView list = findViewById(R.id.clientList);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -123,7 +123,6 @@ public class ClientListActivity extends AppCompatActivity {
             }
 
             Client currentClient;
-            ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
             List<Client> clients = clientManager.getClients();
 
             currentClient = clients.get(position);

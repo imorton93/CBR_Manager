@@ -47,11 +47,13 @@ public class VisitManager implements Iterable<Visit>{
         return instance;
     }
 
+    public Visit getVisitByPosition(int position){
+        return visits.get(position);
+    }
+
 
     public void updateList() {
-
         Cursor c = databaseHelper.getAllVisits();
-        System.out.println(c.getCount());
 
         int idI = c.getColumnIndex(visit_id);
         int dateI = c.getColumnIndex(visit_date);
@@ -92,6 +94,8 @@ public class VisitManager implements Iterable<Visit>{
             visits.add(new Visit(client_visit_id, purpose, if_cbr, date, location, villageNumber, healthProvided, healthGoal, healthOutcome,
                         socialProvided, socialGoal, socialOutcome, educationProvided, educationGoal, educationOutcome, id));
         }
+
+
     }
 
     @NonNull
@@ -110,5 +114,9 @@ public class VisitManager implements Iterable<Visit>{
         }
 
         return finalVisits;
+    }
+
+    public void clear() {
+        visits.clear();
     }
 }

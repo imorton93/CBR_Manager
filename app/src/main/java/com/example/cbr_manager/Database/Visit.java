@@ -1,7 +1,11 @@
 package com.example.cbr_manager.Database;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static android.content.ContentValues.TAG;
 
 public class Visit {
 
@@ -57,7 +61,10 @@ public class Visit {
         ArrayList<Provided> sectionProvided = new ArrayList<>();
         for(String item : provided){
             String[] providedSections = item.split(":");
-            sectionProvided.add(new Provided(providedSections[0].trim(), providedSections[1].trim()));
+            //TODO CHECK
+            if((providedSections.length -1) >= 2) {
+                sectionProvided.add(new Provided(providedSections[0].trim(), providedSections[1].trim()));
+            }
         }
         return sectionProvided;
     }

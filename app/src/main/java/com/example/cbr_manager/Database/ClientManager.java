@@ -134,4 +134,8 @@ public class ClientManager implements Iterable<Client>{
     public List<Client> getClients() {
         return clients;
     }
+
+    public void clear() {
+        clients.clear();
+    }
 }

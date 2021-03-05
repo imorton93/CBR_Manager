@@ -56,15 +56,19 @@ public class VisitsFragment extends Fragment {
         this.infoActivity = (ClientInfoActivity)getActivity();
         Bundle args = getArguments();
         this.id = args.getLong("id", 0);
-        View V =  inflater.inflate(R.layout.fragment_visits, container, false);
 
+        View V = inflater.inflate(R.layout.fragment_visits, container, false);
         populateListViewFromList(V, id);
         clickVisit(V);
+
         return V;
     }
 
+
     private void populateListViewFromList(View V, long id) {
         VisitManager visitManager = VisitManager.getInstance(infoActivity);
+
+        visitManager.clear();
         visitManager.updateList();
 
         ListView list = V.findViewById(R.id.visitList);
@@ -77,7 +81,7 @@ public class VisitsFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = VisitInfoActivity.makeIntent(getActivity(), id);
+                Intent intent = VisitInfoActivity.makeIntent(getActivity(), id, position);
                 startActivity(intent);
             }
         });
@@ -98,7 +102,7 @@ public class VisitsFragment extends Fragment {
             }
 
             Visit currentVisit;
-            VisitManager visitManager = VisitManager.getInstance(view.getContext());
+            VisitManager visitManager = VisitManager.getInstance(infoActivity);
             List<Visit> visits = visitManager.getVisits(id);
             currentVisit = visits.get(position);
 
