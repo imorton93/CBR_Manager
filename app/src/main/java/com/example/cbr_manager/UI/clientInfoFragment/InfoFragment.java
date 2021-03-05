@@ -17,6 +17,7 @@ import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class InfoFragment extends Fragment {
@@ -59,11 +60,13 @@ public class InfoFragment extends Fragment {
 
         String name_string = currentClient.getFirstName() + " " + currentClient.getLastName();
 
+        String disabilities = Arrays.toString(currentClient.getDisabilities().toArray()).replace("[", "").replace("]", "");
+
         name.setText(name_string);
         gender.setText(currentClient.getGender());
         age.setText(String.valueOf(currentClient.getAge()));
         location.setText(currentClient.getLocation());
-        disability.setText(currentClient.getDisabilities().toString());
+        disability.setText(disabilities);
     }
 
 }

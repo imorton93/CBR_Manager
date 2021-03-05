@@ -16,6 +16,8 @@ import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.VisitInfoActivity;
 
+import java.util.Arrays;
+
 public class VisitGoalFragment extends Fragment {
 
     private VisitInfoActivity visitInfoActivity;
@@ -53,14 +55,18 @@ public class VisitGoalFragment extends Fragment {
         TextView socialGoal = v.findViewById(R.id.socialGoal);
         TextView healthGoal = v.findViewById(R.id.healthGoal);
 
+        String healthProvided = Arrays.toString(currentVisit.getHealthProvided().toArray()).replace("[", "").replace("]", "");
+        String educationProvided = Arrays.toString(currentVisit.getEducationProvided().toArray()).replace("[", "").replace("]", "");
+        String socialProvided = Arrays.toString(currentVisit.getSocialProvided().toArray()).replace("[", "").replace("]", "");
+
         String education = "Education Goal: " + currentVisit.getEducationGoalMet() + "\n" +
-                "Provided: " + currentVisit.getEducationProvided() + "\n" +
+                "Provided: " + educationProvided + "\n" +
                 "Outcome: " + currentVisit.getEducationIfConcluded();
         String social = "Social Goal: " + currentVisit.getSocialGoalMet() + "\n" +
-                "Provided: " + currentVisit.getSocialProvided() + "\n" +
+                "Provided: " + socialProvided + "\n" +
                 "Outcome: " + currentVisit.getSocialIfConcluded();
         String health = "Health Goal: " + currentVisit.getHealthGoalMet() + "\n" +
-                "Provided: " + currentVisit.getHealthProvided() + "\n" +
+                "Provided: " + healthProvided + "\n" +
                 "Outcome: " + currentVisit.getHealthIfConcluded();
 
         educationGoal.setText(education);

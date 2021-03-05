@@ -102,8 +102,8 @@
 
     <TextView
         android:id="@+id/disabilityAns"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="193dp"
+        android:layout_height="170dp"
         android:gravity="right"
         android:text="Learning"
         android:textColor="@color/black"
