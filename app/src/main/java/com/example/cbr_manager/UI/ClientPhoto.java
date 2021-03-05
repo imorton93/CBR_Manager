@@ -63,7 +63,7 @@ public class ClientPhoto extends AppCompatActivity
                 byte[] NewEntry7 = imageViewToByte(editImage);
                 if (editText.length() != 0)
                 {
-                    AddData(NewEntry, NewEntry7);
+                    AddData(NewEntry7);
                     Intent intent = new Intent(ClientPhoto.this, NewClientActivity.class);
                     startActivity(intent);
                 } else {
@@ -75,19 +75,10 @@ public class ClientPhoto extends AppCompatActivity
         });
 
     }
-    private void AddData(String newEntry,byte[] newEntry7)
-    {
-        boolean insertData = mDatabaseHelper.addData(newEntry, newEntry7);
-        if(insertData)
-        {
-            Toast("Data inserted");
-
-        }
-        else
-        {
-            Toast("Data not inserted");
-        }
+    private void AddData(byte[] newEntry7) {
+        mDatabaseHelper.addData(newEntry7);
     }
+
     private  void Toast(String s)
     {
         Toast.makeText(this,s,Toast.LENGTH_SHORT).show();

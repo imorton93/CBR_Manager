@@ -25,7 +25,9 @@ public class Client {
     private String educationIndividualGoal;
     private String socialStatusRate;
 
-    public Client(Boolean consentToInterview, String date, String firstName, String lastName, int age, String gender, String location, int villageNumber, String contactPhoneNumber, Boolean caregiverPresent, String caregiverPhoneNumber, ArrayList<String> disabilities, String healthRate, String healthRequire, String healthIndividualGoal, String educationRate, String educationRequire, String educationIndividualGoal, String socialStatusRate, String socialStatusRequire, String socialStatusIndividualGoal) {
+    private byte[] photo;
+
+    public Client(byte[] photo, Boolean consentToInterview, String date, String firstName, String lastName, int age, String gender, String location, int villageNumber, String contactPhoneNumber, Boolean caregiverPresent, String caregiverPhoneNumber, ArrayList<String> disabilities, String healthRate, String healthRequire, String healthIndividualGoal, String educationRate, String educationRequire, String educationIndividualGoal, String socialStatusRate, String socialStatusRequire, String socialStatusIndividualGoal) {
         this.consentToInterview = consentToInterview;
         this.date = date;
         this.firstName = firstName;
@@ -47,6 +49,8 @@ public class Client {
         this.socialStatusRate = socialStatusRate;
         this.socialStatusRequire = socialStatusRequire;
         this.socialStatusIndividualGoal = socialStatusIndividualGoal;
+
+        this.photo = photo;
     }
 
     private String socialStatusRequire;
@@ -232,5 +236,9 @@ public class Client {
 
     public void setSocialStatusIndividualGoal(String socialStatusIndividualGoal) {
         this.socialStatusIndividualGoal = socialStatusIndividualGoal;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
     }
 }

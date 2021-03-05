@@ -76,10 +76,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_worker_table);
 
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + client_consent + " BOOLEAN NOT NULL, " + client_date + " STRING NOT NULL, " + client_first_name + " TEXT, "
+                + client_consent + " BOOLEAN, " + client_date + " STRING, " + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
                 + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_contact + " STRING, "+ client_caregiver_presence
-                + " BOOLEAN NOT NULL, " + client_caregiver_number +" STRING, " + client_photo + " BLOB " + client_disability + " TEXT, " + client_heath_rate
+                + " BOOLEAN, " + client_caregiver_number +" STRING, " + client_photo + " BLOB, " + client_disability + " TEXT, " + client_heath_rate
                 + " STRING, "+ client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, "
                 + client_education_requirement + " STRING, " + client_education_goal  + " STRING, " + client_social_rate + " STRING, "
                 + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
@@ -145,6 +145,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_social_rate, client.getSocialStatusRate());
         cv.put(client_social_goal, client.getSocialStatusIndividualGoal());
         cv.put(client_social_requirement, client.getSocialStatusRequire());
+
+//        cv.put(client_photo, client.getPhoto());
 
         long result = db.insert(client_table_name, null, cv);
         if (result == -1)
@@ -250,33 +252,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return c;
     }
-    public boolean addData(String name,byte[] img)
-    {
+
+    public void addData(byte[] img) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("newimage", img);
-        long result = db.insert(" CLIENT_DATA ",null,contentValues);
-        if (result == -1)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-
+        contentValues.put(client_photo, img);
+        db.insert(client_table_name,null, contentValues);
     }
-    public Cursor getdata()
-    {
+
+    public Cursor getdata() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * from " + " CLIENT_DATA ";
         Cursor data = db.rawQuery(query,null);
         return data;
     }
 
-    public Cursor getItemId(String name)
-    {
+    public Cursor getItemId(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * from "+ " CLIENT_DATA " + " Where Name"  + " = '" +  name + "'";
         Cursor data = db.rawQuery(query, null);

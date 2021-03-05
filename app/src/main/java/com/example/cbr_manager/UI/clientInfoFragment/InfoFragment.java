@@ -1,6 +1,8 @@
 package com.example.cbr_manager.UI.clientInfoFragment;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,12 +10,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
+
+import java.sql.Blob;
 
 public class InfoFragment extends Fragment {
 
@@ -47,6 +52,8 @@ public class InfoFragment extends Fragment {
         DatabaseHelper handler = new DatabaseHelper(this.infoActivity);
         Cursor todoCursor = handler.getRow(infoActivity.getId());
 
+        ImageView profile = v.findViewById(R.id.image4);
+
         TextView name = v.findViewById(R.id.name);
         TextView gender = v.findViewById(R.id.genderAns);
         TextView age = v.findViewById(R.id.ageAns);
@@ -60,6 +67,11 @@ public class InfoFragment extends Fragment {
         String villageString = todoCursor.getString(todoCursor.getColumnIndexOrThrow("LOCATION"));
         String disabilityString = todoCursor.getString(todoCursor.getColumnIndexOrThrow("DISABILITY"));
         String name_string = first_name + " " + last_name;
+
+        byte[] blob = todoCursor.getBlob(todoCursor.getColumnIndexOrThrow("CLIENT_PHOTO"));
+        Bitmap bmp = BitmapFactory.decodeByteArray(blob, 0 , blob.length);
+
+        profile.setImageBitmap(bmp);
 
         name.setText(name_string);
         gender.setText(genderString);

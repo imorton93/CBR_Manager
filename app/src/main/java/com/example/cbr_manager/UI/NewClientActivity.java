@@ -7,9 +7,11 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +44,11 @@ import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class NewClientActivity extends AppCompatActivity {
+    private static final String TAG = "INSERTED";
     LinearLayout form;
     int currentPage;
     int pageCount;
@@ -230,6 +234,18 @@ public class NewClientActivity extends AppCompatActivity {
         form.addView(imageView);
     }
 
+    private void addData(byte[] newEntry7) {
+        mydb.addData(newEntry7);
+    }
+
+    public byte[] imageViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -237,6 +253,9 @@ public class NewClientActivity extends AppCompatActivity {
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
             //set capture Image to imageview
             imageView.setImageBitmap(captureImage);
+
+            byte[] imageEntry = imageViewToByte(imageView);
+            addData(imageEntry);
         }
     }
 
@@ -875,8 +894,8 @@ public class NewClientActivity extends AppCompatActivity {
         String socialRate = newClient.getSocialStatusRate();
         socialRateView.setText("Rate of Client's Social Status: " + socialRate);
         form.addView(socialRateView);
-
     }
+
 
     private void ToolbarButtons(){
         ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
