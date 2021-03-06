@@ -32,15 +32,16 @@ import java.util.List;
 public class VisitsFragment extends Fragment {
 
     private ClientInfoActivity infoActivity;
-    private long id;
+    private long client_id;
+    private VisitManager visitManager;
 
     public VisitsFragment() {
     }
 
-    public static VisitsFragment newInstance(long id) {
+    public static VisitsFragment newInstance(long client_id) {
         VisitsFragment fragment = new VisitsFragment();
         Bundle args = new Bundle();
-        args.putLong("id", id);
+        args.putLong("client_id", client_id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,10 +56,11 @@ public class VisitsFragment extends Fragment {
                              Bundle savedInstanceState) {
         this.infoActivity = (ClientInfoActivity)getActivity();
         Bundle args = getArguments();
-        this.id = args.getLong("id", 0);
+        this.client_id = args.getLong("client_id", 0);
+        this.visitManager = VisitManager.getInstance(infoActivity);
 
         View V = inflater.inflate(R.layout.fragment_visits, container, false);
-        populateListViewFromList(V, id);
+        populateListViewFromList(V, client_id);
         clickVisit(V);
 
         return V;
@@ -76,8 +78,9 @@ public class VisitsFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("id being passed in to visit: " + VisitsFragment.this.id);
-                Intent intent = VisitInfoActivity.makeIntent(getActivity(), VisitsFragment.this.id, position);
+                List<Visit> visits = visitManager.getVisits(client_id);
+                Visit currentVisit = visits.get(position);
+                Intent intent = VisitInfoActivity.makeIntent(getActivity(), currentVisit.getVisit_id(), position);
                 startActivity(intent);
             }
         });
@@ -98,8 +101,7 @@ public class VisitsFragment extends Fragment {
             }
 
             Visit currentVisit;
-            VisitManager visitManager = VisitManager.getInstance(infoActivity);
-            List<Visit> visits = visitManager.getVisits(id);
+            List<Visit> visits = visitManager.getVisits(client_id);
             currentVisit = visits.get(position);
 
             TextView date = view.findViewById(R.id.dateOfVisit);

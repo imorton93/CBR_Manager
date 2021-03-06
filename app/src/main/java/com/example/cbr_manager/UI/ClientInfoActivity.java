@@ -76,7 +76,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {// TODO cant I Just pass id?
-                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, position, clientManager.getClientById(id).getId());
+                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, position, id);
                 startActivity(intent);
             }
         });
@@ -104,10 +104,9 @@ public class ClientInfoActivity extends AppCompatActivity {
                     return InfoFragment.newInstance();
                 }
                 case 1: {
-                    System.out.println("ID BEING PASSED IN TO FRAGMENT: " + ClientInfoActivity.this.getId());
                     VisitsFragment visitsFragment = VisitsFragment.newInstance(ClientInfoActivity.this.getId());
                     Bundle bundle = new Bundle();
-                    bundle.putLong("id", ClientInfoActivity.this.getId());
+                    bundle.putLong("client_id", ClientInfoActivity.this.getId());
                     visitsFragment.setArguments(bundle);
                     return visitsFragment;
                 }

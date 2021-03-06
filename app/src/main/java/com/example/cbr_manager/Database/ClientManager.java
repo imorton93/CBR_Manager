@@ -63,7 +63,7 @@ public class ClientManager implements Iterable<Client>{
     }
 
     // TODO: I don't like how I did this. The id should in theory always exists but in
-    // TODO: the case it doesn't the app will crash because a new empty client will be returned.
+    // TODO: the case it doesn't the app display null because a new empty client will be returned.
     public Client getClientById(long id){
         for(Client client : clients){
             if(client.getId() == id){

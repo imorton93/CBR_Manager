@@ -110,11 +110,6 @@ public class ClientListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                for(Client client: searched_clients){
-
-                    System.out.println("First name in click client: " + client.getFirstName());
-
-                }
                 Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position, searched_clients.get(position).getId());
                 startActivity(intent);
             }

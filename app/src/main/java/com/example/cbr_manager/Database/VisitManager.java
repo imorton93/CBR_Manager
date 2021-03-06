@@ -53,7 +53,7 @@ public class VisitManager implements Iterable<Visit>{
 
     public Visit getVisitById(long id){
         for(Visit visit : visits){
-            if(visit.getClientID() == id){
+            if(visit.getVisit_id() == id){
                 return visit;
             }
         }
