@@ -1,24 +1,16 @@
 package com.example.cbr_manager.UI.clientInfoFragment;
 
-import android.database.Cursor;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
-import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
-
 import java.util.Arrays;
-import java.util.List;
 
 public class InfoFragment extends Fragment {
 
@@ -56,6 +48,7 @@ public class InfoFragment extends Fragment {
         TextView gender = v.findViewById(R.id.genderAns);
         TextView age = v.findViewById(R.id.ageAns);
         TextView location = v.findViewById(R.id.locationAns);
+        TextView village_num = v.findViewById(R.id.village_num_ans);
         TextView disability = v.findViewById(R.id.disabilityAns);
 
         String name_string = currentClient.getFirstName() + " " + currentClient.getLastName();
@@ -66,6 +59,7 @@ public class InfoFragment extends Fragment {
         gender.setText(currentClient.getGender());
         age.setText(String.valueOf(currentClient.getAge()));
         location.setText(currentClient.getLocation());
+        village_num.setText(Integer.toString(currentClient.getVillageNumber()));
         disability.setText(disabilities);
     }
 

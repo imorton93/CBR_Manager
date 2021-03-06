@@ -152,6 +152,11 @@ public class ClientManager implements Iterable<Client>{
 
     public List<Client> getSearchedClients(String first_name, String last_name, String village,
                                            String section, String village_num){
+        if(first_name.isEmpty() && last_name.isEmpty() && village.equals("Villages") &&
+                section.equals("Overall") && village_num.isEmpty()){
+            return this.clients;
+        }
+
         List<Client> searched_clients = new ArrayList<>();
         boolean village_num_exists = true;
         int village_number = -999;
