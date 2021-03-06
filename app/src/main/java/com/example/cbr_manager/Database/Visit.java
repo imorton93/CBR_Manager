@@ -267,4 +267,13 @@ public class Visit {
 
         return result.substring(0, result.length() - 2);
     }
+
+    public long getVisit_id() {
+        return visit_id;
+    }
+
+    public void setVisit_id(long visit_id) {
+        this.visit_id = visit_id;
+    }
+
 }

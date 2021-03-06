@@ -50,7 +50,7 @@ public class VisitInfoFragment extends Fragment {
 
     private void getVisitInfo(View v) {
         VisitManager visitManager = VisitManager.getInstance(visitInfoActivity);
-        Visit currentVisit = visitManager.getVisitByPosition(visitInfoActivity.getPosition());
+        Visit currentVisit = visitManager.getVisitById(visitInfoActivity.getVisit_id());
 
         TextView purposeOfVisit = v.findViewById(R.id.purposeOfVisit);
         TextView dateOfVisit = v.findViewById(R.id.dateOfVisit2);

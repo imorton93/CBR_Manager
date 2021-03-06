@@ -51,6 +51,15 @@ public class VisitManager implements Iterable<Visit>{
         return visits.get(position);
     }
 
+    public Visit getVisitById(long id){
+        for(Visit visit : visits){
+            if(visit.getClientID() == id){
+                return visit;
+            }
+        }
+        return new Visit();
+    }
+
 
     public void updateList() {
         Cursor c = databaseHelper.getAllVisits();

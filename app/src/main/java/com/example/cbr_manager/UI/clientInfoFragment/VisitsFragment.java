@@ -76,7 +76,8 @@ public class VisitsFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = VisitInfoActivity.makeIntent(getActivity(), id, position);
+                System.out.println("id being passed in to visit: " + VisitsFragment.this.id);
+                Intent intent = VisitInfoActivity.makeIntent(getActivity(), VisitsFragment.this.id, position);
                 startActivity(intent);
             }
         });

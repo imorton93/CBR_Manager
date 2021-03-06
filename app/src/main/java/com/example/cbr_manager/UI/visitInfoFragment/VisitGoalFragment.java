@@ -49,7 +49,7 @@ public class VisitGoalFragment extends Fragment {
 
     private void getVisitGoal(View v) {
         VisitManager visitManager = VisitManager.getInstance(visitInfoActivity);
-        Visit currentVisit = visitManager.getVisitByPosition(visitInfoActivity.getPosition());
+        Visit currentVisit = visitManager.getVisitById(visitInfoActivity.getVisit_id());
 
         TextView educationGoal = v.findViewById(R.id.educationGaol);
         TextView socialGoal = v.findViewById(R.id.socialGoal);
