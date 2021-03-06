@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -32,6 +35,7 @@ import java.util.List;
 public class ClientListActivity extends AppCompatActivity {
 
     ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
+    List<Client> searched_clients;
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, ClientListActivity.class);
@@ -46,17 +50,40 @@ public class ClientListActivity extends AppCompatActivity {
         sectionDropDownMenu();
         villageDropDownMenu();
 
-//        clientManager.clear();
-//        clientManager.updateList();
+        List<Client> clientList = clientManager.getClients();
 
-        populateAllClientsFromList();
+        populateAllClientsFromList(clientList);
         clickClient();
+        searchBoxes();
+    }
+
+    private void searchBoxes(){
+        AutoCompleteTextView first_name_text = findViewById(R.id.firstName_clientList);
+        AutoCompleteTextView last_name_text = findViewById(R.id.lastName_clientList);
+        Spinner village_spinner = findViewById(R.id.filter_village_clientList);
+        Spinner section_spinner = findViewById(R.id.filter_section_clientList);
+        EditText village_num_text = findViewById(R.id.filter_villageNum_clientList);
+        Button search_button = findViewById(R.id.search_button_clientList);
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String first_name = first_name_text.getText().toString().trim();
+                String last_name = last_name_text.getText().toString().trim();
+                String village = village_spinner.getSelectedItem().toString();
+                String section = section_spinner.getSelectedItem().toString();
+                String village_num = village_num_text.getText().toString().trim();
+                searched_clients =  clientManager.getSearchedClients(first_name,
+                         last_name, village, section, village_num);
+                populateAllClientsFromList(searched_clients);
+            }
+        });
+
     }
 
     private void villageDropDownMenu(){
         Spinner spinner = findViewById(R.id.filter_village_clientList);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.locations, android.R.layout.simple_spinner_item);
+                R.array.dashboard_locations, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -71,8 +98,9 @@ public class ClientListActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    private void populateAllClientsFromList() {
-        ArrayAdapter<Client> adapter = new MyListAdapter(clientManager.getClients());
+    private void populateAllClientsFromList(List<Client> clientList) {
+        this.searched_clients = clientList;
+        ArrayAdapter<Client> adapter = new MyListAdapter(clientList);
         ListView list = findViewById(R.id.clientList);
         list.setAdapter(adapter);
     }
@@ -82,7 +110,12 @@ public class ClientListActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position, clientManager.getClientByPosition(position).getId());
+                for(Client client: searched_clients){
+
+                    System.out.println("First name in click client: " + client.getFirstName());
+
+                }
+                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position, searched_clients.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -109,8 +142,11 @@ public class ClientListActivity extends AppCompatActivity {
     }
 
     private class MyListAdapter extends ArrayAdapter<Client> {
+        private List<Client> clients;
+
         public MyListAdapter(List<Client> clients) {
             super(ClientListActivity.this, R.layout.client_list, clients);
+            this.clients = clients;
         }
 
         @NonNull
@@ -123,9 +159,8 @@ public class ClientListActivity extends AppCompatActivity {
             }
 
             Client currentClient;
-            List<Client> clients = clientManager.getClients();
 
-            currentClient = clients.get(position);
+            currentClient = this.clients.get(position);
 
             TextView firstName = view.findViewById(R.id.fname_clist);
             TextView lastName = view.findViewById(R.id.lname_clist);

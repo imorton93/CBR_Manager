@@ -62,6 +62,17 @@ public class ClientManager implements Iterable<Client>{
         return clients.get(position);
     }
 
+    // TODO: I don't like how I did this. The id should in theory always exists but in
+    // TODO: the case it doesn't the app will crash because a new empty client will be returned.
+    public Client getClientById(long id){
+        for(Client client : clients){
+            if(client.getId() == id){
+                return client;
+            }
+        }
+        return new Client();
+    }
+
     public void updateList() {
 
         Cursor c = databaseHelper.getAllRows();
@@ -137,5 +148,43 @@ public class ClientManager implements Iterable<Client>{
 
     public void clear() {
         clients.clear();
+    }
+
+    public List<Client> getSearchedClients(String first_name, String last_name, String village,
+                                           String section, String village_num){
+        List<Client> searched_clients = new ArrayList<>();
+        boolean village_num_exists = true;
+        int village_number = -999;
+
+        try{
+            village_number = Integer.parseInt(village_num);
+        }catch(NumberFormatException e){
+            village_num_exists = false;
+        }
+
+        for(Client current_client : this.clients){
+            if(current_client.getFirstName().equals(first_name)){
+                searched_clients.add(current_client);
+            }else if(current_client.getLastName().equals(last_name)){
+                searched_clients.add(current_client);
+            }else if(current_client.getLocation().equals(village)){
+                searched_clients.add(current_client);
+            }else if(village_num_exists && current_client.getVillageNumber() == village_number){
+                searched_clients.add(current_client);
+            }else if(section.equals("Critical Health")){
+                if(current_client.getHealthRate().equals("Critical Risk")){
+                    searched_clients.add(current_client);
+                }
+            }else if(section.equals("Critical Education")){
+                if(current_client.getEducationRate().equals("Critical Risk")){
+                    searched_clients.add(current_client);
+                }
+            }else if(section.equals("Critical Social Status")){
+                if(current_client.getSocialStatusRate().equals("Critical Risk")){
+                    searched_clients.add(current_client);
+                }
+            }
+        }
+        return searched_clients;
     }
 }

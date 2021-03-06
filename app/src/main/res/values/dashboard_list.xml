@@ -2,9 +2,21 @@
 <resources>
     <string-array name="options_array">
         <item>Overall</item>
-        <item>Health</item>
-        <item>Education</item>
-        <item>Social</item>
+        <item>Critical Health</item>
+        <item>Critical Education</item>
+        <item>Critical Social Status</item>
+    </string-array>
+    <string-array name="dashboard_locations">
+        <item>Villages</item>
+        <item>BidiBidi Zone 1</item>
+        <item>BidiBidi Zone 2</item>
+        <item>BidiBidi Zone 3</item>
+        <item>BidiBidi Zone 4</item>
+        <item>BidiBidi Zone 5</item>
+        <item>Palorinya Basecamp</item>
+        <item>Palorinya Zone 1</item>
+        <item>Palorinya Zone 2</item>
+        <item>Palorinya Zone 3</item>
     </string-array>
 </resources>
 

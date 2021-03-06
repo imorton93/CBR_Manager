@@ -25,6 +25,8 @@ public class Client {
     private String educationRequire;
     private String educationIndividualGoal;
     private String socialStatusRate;
+    private String socialStatusRequire;
+    private String socialStatusIndividualGoal;
 
     public Client(Boolean consentToInterview, String date, String firstName, String lastName,
                   int age, String gender, String location, int villageNumber, String contactPhoneNumber,
@@ -54,9 +56,6 @@ public class Client {
         this.socialStatusRequire = socialStatusRequire;
         this.socialStatusIndividualGoal = socialStatusIndividualGoal;
     }
-
-    private String socialStatusRequire;
-    private String socialStatusIndividualGoal;
 
     public Client() {
     }

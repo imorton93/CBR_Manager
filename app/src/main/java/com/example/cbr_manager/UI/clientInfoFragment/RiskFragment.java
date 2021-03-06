@@ -49,7 +49,7 @@ public class RiskFragment extends Fragment {
 
     public void getClientRiskInfo(View v){
         ClientManager clientManager = ClientManager.getInstance(infoActivity);
-        Client currentClient = clientManager.getClientByPosition(infoActivity.getPosition());
+        Client currentClient = clientManager.getClientById(infoActivity.getId());
 
         TextView healthGoal = v.findViewById(R.id.goalHealth);
         TextView educationGoal = v.findViewById(R.id.goalEducation);

@@ -50,7 +50,7 @@ public class InfoFragment extends Fragment {
 
     public void getClientInfo(View v){
         ClientManager clientManager = ClientManager.getInstance(infoActivity);
-        Client currentClient = clientManager.getClientByPosition(infoActivity.getPosition());
+        Client currentClient = clientManager.getClientById(infoActivity.getId());
 
         TextView name = v.findViewById(R.id.name);
         TextView gender = v.findViewById(R.id.genderAns);
