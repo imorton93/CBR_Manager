@@ -81,7 +81,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String referral_outcome = "REFERRAL_OUTCOME";
     private static final String client_referral_id = "CLIENT_ID";
 
-
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -113,7 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String create_referral_table = "CREATE TABLE "
                 + referral_table + " (" + referral_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + service_req + " TEXT, "
-                + referral_photo + " BLOB, " + basic_or_inter + " TEXT, " + hip_width + " DOUBLE, " + has_wheelchair + " BOOLEAN NOT NULL, "
+                + referral_photo + " BLOB, " + basic_or_inter + " TEXT, " + hip_width + " REAL, " + has_wheelchair + " BOOLEAN NOT NULL, "
                 + wheelchair_repairable + " BOOLEAN NOT NULL, " + bring_to_centre + " BOOLEAN NOT NULL, " + conditions + " TEXT, "
                 + injury_location_knee + " TEXT, " + injury_location_elbow + " TEXT, " + referral_status + " TEXT, "
                 + referral_outcome + " STRING, " + client_referral_id + " INTEGER NOT NULL);";
