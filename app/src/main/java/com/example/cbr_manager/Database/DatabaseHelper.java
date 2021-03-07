@@ -5,8 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import static android.content.ContentValues.TAG;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "cbr.db";
@@ -203,6 +206,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.moveToLast();
         return c.getInt(0);
 
+    }
+
+    public Cursor getAllVisits(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_VISITS", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
     }
 
     public Cursor getVisits(long id){

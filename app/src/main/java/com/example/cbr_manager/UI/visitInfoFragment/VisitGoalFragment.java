@@ -11,8 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.Visit;
+import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.VisitInfoActivity;
+
+import java.util.Arrays;
 
 public class VisitGoalFragment extends Fragment {
 
@@ -44,31 +48,29 @@ public class VisitGoalFragment extends Fragment {
     }
 
     private void getVisitGoal(View v) {
-        DatabaseHelper handler = new DatabaseHelper(this.visitInfoActivity);
-        Cursor todoCursor = handler.getVisit(visitInfoActivity.getVisit_id());
+        VisitManager visitManager = VisitManager.getInstance(visitInfoActivity);
+        Visit currentVisit = visitManager.getVisitById(visitInfoActivity.getVisit_id());
 
         TextView educationGoal = v.findViewById(R.id.educationGaol);
         TextView socialGoal = v.findViewById(R.id.socialGoal);
         TextView healthGoal = v.findViewById(R.id.healthGoal);
 
-        if(todoCursor.getCount() >= 1) {
-            String education_goal = todoCursor.getString(todoCursor.getColumnIndexOrThrow("EDU_GOAL_STATUS"));
-            String social_goal = todoCursor.getString(todoCursor.getColumnIndexOrThrow("SOCIAL_GOAL_STATUS"));
-            String health_goal = todoCursor.getString(todoCursor.getColumnIndexOrThrow("HEALTH_GOAL_STATUS"));
-            String education_outcome = todoCursor.getString(todoCursor.getColumnIndexOrThrow("EDUCATION_OUTCOME"));
-            String social_outcome = todoCursor.getString(todoCursor.getColumnIndexOrThrow("SOCIAL_OUTCOME"));
-            String health_outcome = todoCursor.getString(todoCursor.getColumnIndexOrThrow("HEALTH_OUTCOME"));
-            String education_provided = todoCursor.getString(todoCursor.getColumnIndexOrThrow("EDU_PROVIDED"));
-            String social_provided = todoCursor.getString(todoCursor.getColumnIndexOrThrow("SOCIAL_PROVIDED"));
-            String health_provided = todoCursor.getString(todoCursor.getColumnIndexOrThrow("HEALTH_PROVIDED"));
+        String healthProvided = Arrays.toString(currentVisit.getHealthProvided().toArray()).replace("[", "").replace("]", "");
+        String educationProvided = Arrays.toString(currentVisit.getEducationProvided().toArray()).replace("[", "").replace("]", "");
+        String socialProvided = Arrays.toString(currentVisit.getSocialProvided().toArray()).replace("[", "").replace("]", "");
 
-            String education = "Education Goal: " + education_goal + "\n" + "Provided: " + education_provided + "\n" + "Outcome: " + education_outcome;
-            String social = "Social Goal: " + social_goal + "\n" + "Provided: " + social_provided + "\n" + "Outcome: " + social_outcome;
-            String health = "Health Goal: " + health_goal + "\n" + "Provided: " + health_provided + "\n" + "Outcome: " + health_outcome;
+        String education = "Education Goal: " + currentVisit.getEducationGoalMet() + "\n" +
+                "Provided: " + educationProvided + "\n" +
+                "Outcome: " + currentVisit.getEducationIfConcluded();
+        String social = "Social Goal: " + currentVisit.getSocialGoalMet() + "\n" +
+                "Provided: " + socialProvided + "\n" +
+                "Outcome: " + currentVisit.getSocialIfConcluded();
+        String health = "Health Goal: " + currentVisit.getHealthGoalMet() + "\n" +
+                "Provided: " + healthProvided + "\n" +
+                "Outcome: " + currentVisit.getHealthIfConcluded();
 
-            educationGoal.setText(education);
-            socialGoal.setText(social);
-            healthGoal.setText(health);
-        }
+        educationGoal.setText(education);
+        socialGoal.setText(social);
+        healthGoal.setText(health);
     }
 }

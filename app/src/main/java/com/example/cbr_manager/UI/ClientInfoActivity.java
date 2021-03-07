@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
 import com.example.cbr_manager.UI.clientInfoFragment.RiskFragment;
@@ -25,14 +26,21 @@ public class ClientInfoActivity extends AppCompatActivity {
     ViewPager2 viewPager;
 
     private long id;
+    private int position;
 
     private String[] titles = new String[]{"Information", "Visits", "Risk Level"};
     public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
+    public static final String R_CLIENT_POS_PASSED_IN = "r_client_POS_passed_in";
 
-    public static Intent makeIntent(Context context, long id) {
+    public static Intent makeIntent(Context context, int position, long id) {
         Intent intent =  new Intent(context, ClientInfoActivity.class);
         intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
+        intent.putExtra(R_CLIENT_POS_PASSED_IN, position);
         return intent;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     public long getId() {
@@ -43,6 +51,7 @@ public class ClientInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_info);
+        extractIntent();
 
         viewPager = findViewById(R.id.viewPager3);
         tabLayout = findViewById(R.id.tabLayout);
@@ -50,7 +59,6 @@ public class ClientInfoActivity extends AppCompatActivity {
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
 
-        extractIntent();
         editButton();
         newVisitButton();
         ToolbarButtons();
@@ -58,15 +66,17 @@ public class ClientInfoActivity extends AppCompatActivity {
 
     private void extractIntent(){
         Intent intent = getIntent();
-        id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        this.position = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
+        this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
     }
 
     private void newVisitButton() {
+        ClientManager clientManager = ClientManager.getInstance(this);
         Button newVisit = findViewById(R.id.visit);
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, id);
+            public void onClick(View v) {// TODO cant I Just pass id?
+                Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, position, id);
                 startActivity(intent);
             }
         });
@@ -88,13 +98,17 @@ public class ClientInfoActivity extends AppCompatActivity {
             super(fragmentActivity);
         }
 
-        @Override public Fragment createFragment(int position) {
-            switch (position) {
+        @Override public Fragment createFragment(int pos) {
+            switch (pos) {
                 case 0: {
                     return InfoFragment.newInstance();
                 }
                 case 1: {
-                    return VisitsFragment.newInstance(id);
+                    VisitsFragment visitsFragment = VisitsFragment.newInstance(ClientInfoActivity.this.getId());
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("client_id", ClientInfoActivity.this.getId());
+                    visitsFragment.setArguments(bundle);
+                    return visitsFragment;
                 }
                 case 2: {
                     return RiskFragment.newInstance();

@@ -23,19 +23,26 @@ public class VisitInfoActivity extends AppCompatActivity {
     ViewPager2 viewPager;
     private String[] titles = new String[]{"Information", "Goals"};
     public static final String R_VISIT_ID_PASSED_IN = "r_visit_id_passed_in";
+    public static final String R_VISIT_POSITION_PASSED_IN = "r_visit_position_passed_in";
     private long visit_id;
+    private int position;
 
-    public static Intent makeIntent(Context context, long id) {
+    public static Intent makeIntent(Context context, long id, int position) {
         Intent intent =  new Intent(context, VisitInfoActivity.class);
         intent.putExtra(R_VISIT_ID_PASSED_IN, id);
+        intent.putExtra(R_VISIT_POSITION_PASSED_IN, position);
         return intent;
     }
 
     private void extractIntent(){
         Intent intent = getIntent();
         visit_id = intent.getLongExtra(R_VISIT_ID_PASSED_IN, 0);
+        position = intent.getIntExtra(R_VISIT_POSITION_PASSED_IN, 0);
     }
 
+    public int getPosition() {
+        return position;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
