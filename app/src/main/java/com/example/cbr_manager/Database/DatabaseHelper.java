@@ -64,6 +64,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String social_outcome = "SOCIAL_OUTCOME";
     private static final String client_visit_id = "CLIENT_ID";
 
+    //Referral table
+    private static final String referral_table = "CLIENT_REFERRALS";
+    private static final String referral_id = "ID";
+    private static final String service_req = "SERVICE_REQUIRED";
+    private static final String referral_photo = "REFERRAL_PHOTO";
+    private static final String basic_or_inter = "BASIC_OR_INTERMEDIATE";
+    private static final String hip_width = "HIP_WIDTH";
+    private static final String has_wheelchair = "HAS_WHEELCHAIR";
+    private static final String wheelchair_repairable = "WHEELCHAIR_REPAIRABLE";
+    private static final String bring_to_centre = "BRING_TO_CENTRE";
+    private static final String conditions = "CONDITIONS";
+    private static final String injury_location_knee = "INJURY_LOCATION_KNEE";
+    private static final String injury_location_elbow = "INJURY_LOCATION_ELBOW";
+    private static final String referral_status = "REFERRAL_STATUS";
+    private static final String referral_outcome = "REFERRAL_OUTCOME";
+    private static final String client_referral_id = "CLIENT_ID";
+
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -84,14 +102,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
 
-        String create_visit_table = "CREATE TABLE " +
-                visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_date + " STRING NOT NULL, "
+        String create_visit_table = "CREATE TABLE "
+                + visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_date + " STRING NOT NULL, "
                 + visit_purpose + " STRING, " + if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, "
                 + health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, "
                 + education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, "
                 + social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING, "
                 + client_visit_id + " INTEGER NOT NULL);";
         db.execSQL(create_visit_table);
+
+        String create_referral_table = "CREATE TABLE "
+                + referral_table + " (" + referral_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + service_req + " TEXT, "
+                + referral_photo + " BLOB, " + basic_or_inter + " TEXT, " + hip_width + " DOUBLE, " + has_wheelchair + " BOOLEAN NOT NULL, "
+                + wheelchair_repairable + " BOOLEAN NOT NULL, " + bring_to_centre + " BOOLEAN NOT NULL, " + conditions + " TEXT, "
+                + injury_location_knee + " TEXT, " + injury_location_elbow + " TEXT, " + referral_status + " TEXT, "
+                + referral_outcome + " STRING, " + client_referral_id + " INTEGER NOT NULL);";
+        db.execSQL(create_referral_table);
     }
 
     @Override
@@ -99,6 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME );
         db.execSQL(" DROP TABLE IF EXISTS " + client_table_name );
         db.execSQL(" DROP TABLE IF EXISTS " + visit_table );
+        db.execSQL(" DROP TABLE IF EXISTS " + referral_table );
 
         onCreate(db);
     }
@@ -171,6 +198,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(social_goal_status, visit.getSocialGoalMet());
         cv.put(social_outcome, visit.getSocialIfConcluded());
         cv.put(client_visit_id, visit.getClientID());
+
+        long result = db.insert(visit_table, null, cv);
+        if (result == -1 )
+            return false;
+        else
+            return true;
+    }
+
+    public boolean addReferral(Referral referral) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(service_req, referral.getServiceReq());
+        //TODO: cv.put(referral_photo, referral.getReferralPhoto());
+        cv.put(basic_or_inter, referral.getBasicOrInter());
+        cv.put(hip_width, referral.getHipWidth());
+        cv.put(has_wheelchair, referral.getHasWheelchair());
+        cv.put(wheelchair_repairable, referral.getWheelchairReparable());
+        cv.put(bring_to_centre, referral.getBringToCentre());
+        cv.put(conditions, referral.conditionsToString());
+        cv.put(injury_location_knee, referral.getInjuryLocationKnee());
+        cv.put(injury_location_elbow, referral.getInjuryLocationElbow());
+        cv.put(referral_status, referral.getStatus());
+        cv.put(referral_outcome, referral.getOutcome());
+        cv.put(client_referral_id, referral.getClientID());
 
         long result = db.insert(visit_table, null, cv);
         if (result == -1 )

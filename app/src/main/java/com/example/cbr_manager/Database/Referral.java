@@ -15,12 +15,13 @@ public class Referral {
     private String injuryLocationElbow;
     private String status;
     private String outcome;
+    private Long clientID;
 
     public Referral() {
 
     }
 
-    public Referral(String serviceReq, byte[] referralPhoto, String basicOrInter, double hipWidth, Boolean hasWheelchair, Boolean wheelchairReparable, Boolean bringToCentre, ArrayList<String> conditions, String injuryLocationKnee, String injuryLocationElbow, String status, String outcome) {
+    public Referral(String serviceReq, byte[] referralPhoto, String basicOrInter, double hipWidth, Boolean hasWheelchair, Boolean wheelchairReparable, Boolean bringToCentre, ArrayList<String> conditions, String injuryLocationKnee, String injuryLocationElbow, String status, String outcome, Long clientID) {
         this.serviceReq = serviceReq;
         this.referralPhoto = referralPhoto;
         this.basicOrInter = basicOrInter;
@@ -33,6 +34,7 @@ public class Referral {
         this.injuryLocationElbow = injuryLocationElbow;
         this.status = status;
         this.outcome = outcome;
+        this.clientID = clientID;
     }
 
     public String getServiceReq() {
@@ -133,5 +135,13 @@ public class Referral {
 
     public void setOutcome(String outcome) {
         this.outcome = outcome;
+    }
+
+    public Long getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(Long clientID) {
+        this.clientID = clientID;
     }
 }

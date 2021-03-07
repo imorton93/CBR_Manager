@@ -110,7 +110,6 @@ public class TaskViewActivity extends AppCompatActivity {
 
                     String dataToSend =  localDataJSON.toString();
 
-                    //TODO - Replace 'localhost' your WIFI IPv4 address in the URL string, with port 8080
                     String URL = "https://mycbr-server.herokuapp.com/get-clients";
 
                     //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
