@@ -1,19 +1,32 @@
 package com.example.cbr_manager.UI;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
 
+import java.util.List;
+
 public class DashboardActivity extends AppCompatActivity {
+
+    private ClientManager clientManager = ClientManager.getInstance(DashboardActivity.this);
+    private List<Client> priority_clients;
+
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, DashboardActivity.class);
@@ -29,7 +42,10 @@ public class DashboardActivity extends AppCompatActivity {
         sectionDropDownMenu();
         villageDropDownMenu();
 
-        // TODO: populate listView
+        this.priority_clients = this.clientManager.getHighPriorityClients();
+        populateAllClientsFromList(priority_clients);
+
+        clickClient();
     }
 
     private void sectionDropDownMenu(){
@@ -44,11 +60,29 @@ public class DashboardActivity extends AppCompatActivity {
     private void villageDropDownMenu(){
         Spinner spinner = findViewById(R.id.filter_village_dashboard);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.locations, android.R.layout.simple_spinner_item);
+                R.array.dashboard_locations, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
+
+    private void populateAllClientsFromList(List<Client> priority_clients) {
+        ArrayAdapter<Client> adapter = new DashboardActivity.MyListAdapter(priority_clients);
+        ListView list = findViewById(R.id.dashboard_clients);
+        list.setAdapter(adapter);
+    }
+
+    private void clickClient() {
+        ListView list = findViewById(R.id.dashboard_clients);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = ClientInfoActivity.makeIntent(DashboardActivity.this, position, priority_clients.get(position).getId());
+                startActivity(intent);
+            }
+        });
+    }
+
 
     private void ToolbarButtons(){
         ImageButton homeBtn = findViewById(R.id.homeButton);
@@ -68,6 +102,39 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private class MyListAdapter extends ArrayAdapter<Client> {
+        private List<Client> clients;
+
+        public MyListAdapter(List<Client> clients) {
+            super(DashboardActivity.this, R.layout.client_list, clients);
+            this.clients = clients;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View view = convertView;
+
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.client_list, parent, false);
+            }
+
+            Client currentClient;
+
+            currentClient = this.clients.get(position);
+
+            TextView firstName = view.findViewById(R.id.fname_clist);
+            TextView lastName = view.findViewById(R.id.lname_clist);
+            TextView village = view.findViewById(R.id.Village_clist);
+
+            firstName.setText(currentClient.getFirstName());
+            lastName.setText(currentClient.getLastName());
+            village.setText(currentClient.getLocation());
+
+            return view;
+        }
     }
 
 }

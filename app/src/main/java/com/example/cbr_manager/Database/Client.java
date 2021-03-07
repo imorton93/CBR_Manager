@@ -2,7 +2,7 @@ package com.example.cbr_manager.Database;
 
 import java.util.ArrayList;
 
-public class Client {
+public class Client implements Comparable<Client>{
     //Saved answers to questions
     //all open to change depending on saving to database
     private long id;
@@ -27,6 +27,7 @@ public class Client {
     private String socialStatusRate;
     private String socialStatusRequire;
     private String socialStatusIndividualGoal;
+    private int priority = 0; // For dashboard to calculate priority of a client
 
     public Client(Boolean consentToInterview, String date, String firstName, String lastName,
                   int age, String gender, String location, int villageNumber, String contactPhoneNumber,
@@ -245,5 +246,18 @@ public class Client {
 
     public void setSocialStatusIndividualGoal(String socialStatusIndividualGoal) {
         this.socialStatusIndividualGoal = socialStatusIndividualGoal;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(Client client) {
+        return Integer.compare(this.priority, client.getPriority());
     }
 }

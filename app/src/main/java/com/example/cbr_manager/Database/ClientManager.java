@@ -6,10 +6,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientListActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Spliterator;
@@ -157,7 +160,6 @@ public class ClientManager implements Iterable<Client>{
             return this.clients;
         }
 
-        List<Client> searched_clients = new ArrayList<>();
         boolean village_num_exists = true;
         int village_number = -999;
 
@@ -167,6 +169,12 @@ public class ClientManager implements Iterable<Client>{
             village_num_exists = false;
         }
 
+        return getSearchedClientsHelper(first_name, last_name, village, section, village_number, village_num_exists);
+    }
+
+    private List<Client> getSearchedClientsHelper(String first_name, String last_name, String village,
+                                     String section, int village_number, boolean village_num_exists){
+        List<Client> searched_clients = new ArrayList<>();
         for(Client current_client : this.clients){
             if(current_client.getFirstName().equals(first_name)){
                 searched_clients.add(current_client);
@@ -192,4 +200,35 @@ public class ClientManager implements Iterable<Client>{
         }
         return searched_clients;
     }
+
+    public List<Client> getHighPriorityClients(){
+        List<Client> priority_clients = new ArrayList<>(clients);
+        calculatePriorityOfClients();
+        Collections.sort(priority_clients);
+        int min = Math.min(priority_clients.size(), 10);
+        return priority_clients.subList(0, min);
+    }
+
+    private void calculatePriorityOfClients(){
+        for(Client client : clients){
+            client.setPriority(calculatePriority(client.getHealthRate()));
+            client.setPriority( (client.getPriority() + calculatePriority(client.getSocialStatusRate()) ));
+            client.setPriority( (client.getPriority() + calculatePriority(client.getEducationRate()) ));
+        }
+    }
+
+    private int calculatePriority(String risk_level){
+        int priorityScore = 0;
+        if(risk_level.equals("Critical Risk")){
+            priorityScore = 4;
+        }else if(risk_level.equals("High Risk")){
+            priorityScore = 3;
+        }else if(risk_level.equals("Medium Risk")){
+            priorityScore = 2;
+        }else if(risk_level.equals("Low Risk")){
+            priorityScore = 1;
+        }
+        return priorityScore;
+    }
+
 }
