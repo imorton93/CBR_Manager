@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
@@ -91,6 +92,10 @@ public class TaskViewActivity extends AppCompatActivity {
         sync.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Client client = new Client();
+
+
                 //Steps:
                 //- Check if user is connected to the internet
                 //  - If not connected, show a message stating so
@@ -110,8 +115,9 @@ public class TaskViewActivity extends AppCompatActivity {
 
                     String dataToSend =  localDataJSON.toString();
 
-                    String URL = "https://mycbr-server.herokuapp.com/get-clients";
-
+                    //TODO - Replace 'localhost' your WIFI IPv4 address in the URL string, with port 8080
+//                    String URL = "http://localhost:8080/clients";
+                    String URL = "https://mycbr-server.herokuapp.com/clients";
                     //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
                     StringRequest requestToServer = new StringRequest(
                             Request.Method.POST,

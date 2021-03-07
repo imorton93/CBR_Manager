@@ -8,6 +8,29 @@
     tools:context=".UI.clientInfoFragment.InfoFragment">
 
     <TextView
+        android:id="@+id/village_num_ans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="right"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/ageAns"
+        app:layout_constraintTop_toBottomOf="@+id/locationAns" />
+
+    <TextView
+        android:id="@+id/village_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Village Number"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/age"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
+
+    <TextView
         android:id="@+id/gender"
         android:layout_width="101dp"
         android:layout_height="27dp"
@@ -47,7 +70,7 @@
         android:id="@+id/disability"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="60dp"
         android:text="@string/disability"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -102,8 +125,8 @@
 
     <TextView
         android:id="@+id/disabilityAns"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="193dp"
+        android:layout_height="170dp"
         android:gravity="right"
         android:text="Learning"
         android:textColor="@color/black"

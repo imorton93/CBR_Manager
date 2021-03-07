@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
@@ -46,8 +48,8 @@ public class RiskFragment extends Fragment {
     }
 
     public void getClientRiskInfo(View v){
-        DatabaseHelper handler = new DatabaseHelper(this.infoActivity);
-        Cursor todoCursor = handler.getRow(infoActivity.getId());
+        ClientManager clientManager = ClientManager.getInstance(infoActivity);
+        Client currentClient = clientManager.getClientById(infoActivity.getId());
 
         TextView healthGoal = v.findViewById(R.id.goalHealth);
         TextView educationGoal = v.findViewById(R.id.goalEducation);
@@ -57,27 +59,17 @@ public class RiskFragment extends Fragment {
         ProgressBar educationRate = v.findViewById(R.id.progressBarEducation);
         ProgressBar socialRate = v.findViewById(R.id.progressBarSocial);
 
-        String health_goal = todoCursor.getString(todoCursor.getColumnIndexOrThrow("HEALTH_GOAL"));
-        String education_goal = todoCursor.getString(todoCursor.getColumnIndexOrThrow("EDUCATION_GOAL"));
-        String social_goal = todoCursor.getString(todoCursor.getColumnIndexOrThrow("SOCIAL_GOAL"));
-        String health_goal_req = todoCursor.getString(todoCursor.getColumnIndexOrThrow("HEALTH_REQUIREMENT"));
-        String education_goal_req = todoCursor.getString(todoCursor.getColumnIndexOrThrow("EDUCATION_REQUIRE"));
-        String social_goal_req = todoCursor.getString(todoCursor.getColumnIndexOrThrow("SOCIAL_REQUIREMENT"));
-        String health_rate = todoCursor.getString(todoCursor.getColumnIndexOrThrow("HEALTH_RATE"));
-        String education_rate = todoCursor.getString(todoCursor.getColumnIndexOrThrow("EDUCATION_RATE"));
-        String social_rate = todoCursor.getString(todoCursor.getColumnIndexOrThrow("SOCIAL_RATE"));
-
-        String final_health = "Goal: " + health_goal + "\n\nRequires: " + health_goal_req;
-        String final_education = "Goal: " + education_goal + "\n\nRequires: " + education_goal_req;
-        String final_social = "Goal: " + social_goal + "\n\nRequires: " + social_goal_req;
+        String final_health = "Goal: " + currentClient.getHealthIndividualGoal() + "\n\nRequires: " + currentClient.getHealthRequire();
+        String final_education = "Goal: " + currentClient.getEducationIndividualGoal() + "\n\nRequires: " + currentClient.getEducationRequire();
+        String final_social = "Goal: " + currentClient.getSocialStatusIndividualGoal() + "\n\nRequires: " + currentClient.getSocialStatusRequire();
 
         healthGoal.setText(final_health);
         educationGoal.setText(final_education);
         socialGoal.setText(final_social);
 
-        progressBarUpdate(healthRate, health_rate);
-        progressBarUpdate(educationRate, education_rate);
-        progressBarUpdate(socialRate, social_rate);
+        progressBarUpdate(healthRate, currentClient.getHealthRate());
+        progressBarUpdate(educationRate, currentClient.getEducationRate());
+        progressBarUpdate(socialRate, currentClient.getSocialStatusRate());
     }
 
     public void progressBarUpdate(ProgressBar progressBar, String rate) {
