@@ -200,7 +200,7 @@ public class NewReferralActivity extends AppCompatActivity {
         });
         back.setClickable(false);
         back.setVisibility(View.INVISIBLE);
-        
+
         //Permission for camera
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
