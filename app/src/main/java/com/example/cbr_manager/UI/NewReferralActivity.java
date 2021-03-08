@@ -175,27 +175,27 @@ public class NewReferralActivity extends AppCompatActivity {
 
         //setup back button
         back.setOnClickListener(v -> {
-//            if(currentPage == pageCount){
-//                next.setText(R.string.next);
-//            }
-//            currentPage--;
-//            setProgress(currentPage, pageCount);
-//            clearForm();
-//
-//            if(currentPage == 6){
-//                displayPicture(pages.get(currentPage - 1));
-//            }
-//            else{
-//                DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
-//            }
-//            //load previously saved answers if any
+            if(currentPage == pageCount){
+                next.setText(R.string.next);
+            }
+            currentPage--;
+            setProgress(currentPage, pageCount);
+            clearForm();
+
+            if(currentPage == 6){
+                displayPicture(pages.get(currentPage - 1));
+            }
+            else{
+                DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+            }
+            //load previously saved answers if any
 //            loadAnswers(pages.get(currentPage - 1));
-//            if(currentPage == 1){
-//                back.setClickable(false);
-//                back.setVisibility(View.INVISIBLE);
-//                back.setBackgroundColor(Color.DKGRAY);
-//
-//            }
+            if(currentPage == 1){
+                back.setClickable(false);
+                back.setVisibility(View.INVISIBLE);
+                back.setBackgroundColor(Color.DKGRAY);
+
+            }
         });
         back.setClickable(false);
         back.setVisibility(View.INVISIBLE);

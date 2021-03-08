@@ -162,7 +162,7 @@ public class NewClientActivity extends AppCompatActivity {
                 setProgress(currentPage, pageCount);
                 clearForm();
 
-                if(currentPage == 6){
+                if(currentPage == imagePage){
                     displayPicture(pages.get(currentPage - 1));
                 }
                 else{
