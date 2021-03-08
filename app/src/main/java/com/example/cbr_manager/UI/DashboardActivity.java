@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -46,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
         populateAllClientsFromList(priority_clients);
 
         clickClient();
+        dashboardSearchBoxes();
     }
 
     private void sectionDropDownMenu(){
@@ -66,6 +69,24 @@ public class DashboardActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
+    private void dashboardSearchBoxes(){
+        Spinner village_spinner = findViewById(R.id.filter_village_dashboard);
+        Spinner section_spinner = findViewById(R.id.filter_section_dashboard);
+        EditText village_num_text = findViewById(R.id.filter_villageNum_dashboard);
+        Button search_button = findViewById(R.id.search_button_dashboard);
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String village = village_spinner.getSelectedItem().toString();
+                String section = section_spinner.getSelectedItem().toString();
+                String village_num = village_num_text.getText().toString().trim();
+
+                priority_clients = clientManager.getDashboardSearchedClients(village, section, village_num);
+                populateAllClientsFromList(priority_clients);
+            }
+        });
+    }
+
     private void populateAllClientsFromList(List<Client> priority_clients) {
         ArrayAdapter<Client> adapter = new DashboardActivity.MyListAdapter(priority_clients);
         ListView list = findViewById(R.id.dashboard_clients);
@@ -82,7 +103,6 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void ToolbarButtons(){
         ImageButton homeBtn = findViewById(R.id.homeButton);

@@ -25,6 +25,7 @@ public class ClientManager implements Iterable<Client>{
     private List<Client> clients = new ArrayList<>();
     private static ClientManager instance;
     private DatabaseHelper databaseHelper;
+    private static final int NUMBER_OF_CLIENTS = 10;
 
     private static final String client_id = "ID";
     private static final String client_consent = "CONSENT";
@@ -201,11 +202,85 @@ public class ClientManager implements Iterable<Client>{
         return searched_clients;
     }
 
+    public List<Client> getDashboardSearchedClients(String village, String section, String village_num){
+        if(village.equals("Villages") && section.equals("Overall") && village_num.isEmpty()){
+            return getHighPriorityClients();
+        }
+
+        boolean village_num_exists = true;
+        int village_number = -999;
+
+        try{
+            village_number = Integer.parseInt(village_num);
+        }catch(NumberFormatException e){
+            village_num_exists = false;
+        }
+
+        return getDashboardSearchedClientsHelper(village, section, village_number, village_num_exists);
+    }
+
+    private List<Client> getDashboardSearchedClientsHelper(String village, String section, int village_number, boolean village_num_exists){
+        List<Client> priority_clients = new ArrayList<>(clients);
+        calculatePriorityOfClients();
+        List<Client> priority_clients_filtered;
+
+        if(!village.isEmpty() && village_num_exists) {
+            priority_clients_filtered = filterByVillage(village, village_number, priority_clients, village_num_exists);
+        }else{
+            priority_clients_filtered = new ArrayList<>(clients);
+        }
+
+        if(section.equals("Critical Health")){
+            filterByHealth(priority_clients_filtered);
+        }else if(section.equals("Critical Education")){
+            filterByEducation(priority_clients_filtered);
+        }else if(section.equals("Critical Social Status")){
+            filterBySocial(priority_clients_filtered);
+        }
+
+        Collections.sort(priority_clients_filtered, Collections.reverseOrder());
+        int min = Math.min(priority_clients_filtered.size(), NUMBER_OF_CLIENTS);
+
+        return priority_clients_filtered.subList(0, min);
+    }
+
+    private List<Client> filterByVillage(String village, int village_number,
+                                 List<Client> priority_clients, boolean village_num_exists){
+        List<Client> priority_clients_filtered = new ArrayList<>();
+
+        for(Client client : priority_clients){
+            if(!village.isEmpty() && client.getLocation().equals(village)){
+                priority_clients_filtered.add(client);
+            }else if(village_num_exists && client.getVillageNumber() == village_number){
+                priority_clients_filtered.add(client);
+            }
+        }
+        return priority_clients_filtered;
+    }
+
+    private void filterByHealth(List<Client> priority_clients){
+        for(Client client : priority_clients){
+            client.setPriority(calculatePriority(client.getHealthRate()));
+        }
+    }
+
+    private void filterByEducation(List<Client> priority_clients){
+        for(Client client : priority_clients){
+            client.setPriority(calculatePriority(client.getEducationRate()));
+        }
+    }
+
+    private void filterBySocial(List<Client> priority_clients){
+        for(Client client : priority_clients){
+            client.setPriority(calculatePriority(client.getSocialStatusRate()));
+        }
+    }
+
     public List<Client> getHighPriorityClients(){
         List<Client> priority_clients = new ArrayList<>(clients);
         calculatePriorityOfClients();
-        Collections.sort(priority_clients);
-        int min = Math.min(priority_clients.size(), 10);
+        Collections.sort(priority_clients, Collections.reverseOrder());
+        int min = Math.min(priority_clients.size(), NUMBER_OF_CLIENTS);
         return priority_clients.subList(0, min);
     }
 
