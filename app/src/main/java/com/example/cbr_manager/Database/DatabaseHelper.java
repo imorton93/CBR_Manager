@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import static android.content.ContentValues.TAG;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -235,19 +237,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean checkUser(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
-        String [] columns = { COL_3 };
-        String selection = COL_3 + "=?" + " and " + COL_4 + "=?" ;
-        String [] selectionArgs = { email , password};
-        Cursor cursor = db.query(TABLE_NAME , columns , selection, selectionArgs, null, null, null);
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + email + "'";
+
+        Cursor cursor = db.rawQuery(query, null);
         int count = cursor.getCount();
+
+        if (count > 0) {
+            cursor.moveToFirst();
+            String curPw = cursor.getString(cursor.getColumnIndex(COL_4));
+            BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), curPw);
+
+            if (result.verified == true) {
+                db.close();
+                cursor.close();
+                return true;
+            }
+        }
+
         db.close();
         cursor.close();
-
-        if (count > 0)
-            return true;
-        else
-            return false;
-
+        return false;
     }
 
     public int getWorkerId(String username){
