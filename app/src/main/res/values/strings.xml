@@ -183,16 +183,16 @@
     <string name="sign_up">SIGN UP</string>
     
 <!--    new referral questions-->
-    <string name="serviceRequireQuestion_newReferralForm">What service does the client require?</string>
-    <string name="photoQuestion_newReferralForm">Take a photo of the client and any existing assistive device</string>
-    <string name="typeUserQuestion_newReferralForm">Is the user a basic or intermediate user?</string>
-    <string name="hipWidthQuestion_newReferralForm">What is the client\'s hip width in inches?</string>
-    <string name="existingChairQuestion_newReferralForm">Do they have an existing wheelchair?</string>
+    <string name="serviceRequireQuestion_newReferralForm">What service does the client require?*</string>
+    <string name="photoQuestion_newReferralForm">Take a photo of the client and any existing assistive device.</string>
+    <string name="typeUserQuestion_newReferralForm">Is the user a basic or intermediate user?*</string>
+    <string name="hipWidthQuestion_newReferralForm">What is the client\'s hip width in inches?*</string>
+    <string name="existingChairQuestion_newReferralForm">Do they have an existing wheelchair?*</string>
     <string name="repairedQuestion_newReferralForm">If yes, can the existing wheelchair be repaired?</string>
     <string name="bringCenter_newReferralForm">Bring wheelchair to the centre.</string>
-    <string name="clientConditionQuestion_newReferralForm">What condition does the client have?</string>
-    <string name="injuryLocationQuestion_newReferralForm">Is the injury below or above the knee?</string>
-    <string name="pleaseDescribe_newReferralForm">Please Describe:</string>
+    <string name="clientConditionQuestion_newReferralForm">What condition does the client have?*</string>
+    <string name="injuryLocationQuestion_newReferralForm">Is the injury below or above the knee?*</string>
+    <string name="pleaseDescribe_newReferralForm">Please Describe:*</string>
     
 <!--    new referral answers-->
     <array name="serviceType">
