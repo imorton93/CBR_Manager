@@ -232,5 +232,6 @@
     <string name="photoPhysio">photoPhysio</string>
     <string name="clientCondition">clientCondition</string>
     <string name="injuryLocation">injuryLocation</string>
+    <string name="otherDescribe">otherDescribe</string>
 
 </resources>

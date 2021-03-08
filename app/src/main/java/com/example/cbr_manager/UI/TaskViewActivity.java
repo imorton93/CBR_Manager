@@ -63,7 +63,9 @@ public class TaskViewActivity extends AppCompatActivity {
         newClient.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewClientActivity.makeIntent(TaskViewActivity.this);
+                //CHANGE BACK!!
+                Intent intent = NewReferralActivity.makeIntent(TaskViewActivity.this);
+//                Intent intent = NewClientActivity.makeIntent(TaskViewActivity.this);
                 startActivity(intent);
             }
         });

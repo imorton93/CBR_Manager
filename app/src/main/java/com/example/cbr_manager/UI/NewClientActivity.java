@@ -173,14 +173,12 @@ public class NewClientActivity extends AppCompatActivity {
                 if(currentPage == 1){
                     back.setClickable(false);
                     back.setVisibility(View.INVISIBLE);
-                    back.setBackgroundColor(Color.DKGRAY);
 
                 }
         });
         back.setClickable(false);
         back.setVisibility(View.INVISIBLE);
 
-        back.setBackgroundColor(Color.DKGRAY);
 
 
         //Permission for camera
@@ -201,11 +199,6 @@ public class NewClientActivity extends AppCompatActivity {
         form.removeAllViews();
     }
 
-    private void finishForm(){
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(this, "End", duration);
-        toast.show();
-    }
 
     private void displayPicture(FormPage page){
         ArrayList<Question> questions = page.getQuestions();
