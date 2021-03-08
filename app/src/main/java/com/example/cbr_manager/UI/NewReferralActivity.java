@@ -182,26 +182,25 @@ public class NewReferralActivity extends AppCompatActivity {
             setProgress(currentPage, pageCount);
             clearForm();
 
-            if(currentPage == 6){
-                displayPicture(pages.get(currentPage - 1));
+            if(currentPage == imagePage){
+                displayPicture(selectedForm.get(currentPage - 2));
+            }
+            else if(currentPage == 1){
+                DisplayFormPage.displayPage(serviceRequirePage, form, NewReferralActivity.this);
             }
             else{
-                DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+                DisplayFormPage.displayPage(selectedForm.get(currentPage - 2), form, NewReferralActivity.this);
             }
             //load previously saved answers if any
 //            loadAnswers(pages.get(currentPage - 1));
             if(currentPage == 1){
                 back.setClickable(false);
                 back.setVisibility(View.INVISIBLE);
-                back.setBackgroundColor(Color.DKGRAY);
-
             }
         });
         back.setClickable(false);
         back.setVisibility(View.INVISIBLE);
-
-        back.setBackgroundColor(Color.DKGRAY);
-
+        
         //Permission for camera
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
