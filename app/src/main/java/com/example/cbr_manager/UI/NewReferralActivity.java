@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +16,11 @@ import android.widget.TextView;
 
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
+import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
+import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.R;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class NewReferralActivity extends AppCompatActivity {
@@ -24,7 +28,12 @@ public class NewReferralActivity extends AppCompatActivity {
     int currentPage;
     int pageCount;
     int imagePage;
-    ArrayList<FormPage> pages;
+    //serviceReqruiePage is the first page of the new referral form
+    FormPage serviceRequirePage;
+    ArrayList<FormPage> wheelchairPages;
+    ArrayList<FormPage> physioPages;
+    ArrayList<FormPage> prostheticOrthoticPages;
+    ArrayList<FormPage> otherExplanation;
     Button next;
     Button back;
     ProgressBar progressBar;
@@ -51,6 +60,13 @@ public class NewReferralActivity extends AppCompatActivity {
         progressText = (TextView) findViewById(R.id.formProgressText);
 
         currentPage = 1;
+
+        //set up FormPages
+        serviceRequirePage = new FormPage();
+        otherExplanation = new ArrayList<>();
+        wheelchairPages = new ArrayList<>();
+        physioPages = new ArrayList<>();
+        prostheticOrthoticPages = new ArrayList<>();
 
 
         next.setOnClickListener(v -> {
@@ -156,5 +172,13 @@ public class NewReferralActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+
+    private void createNewReferralForm(){
+        Resources res = getResources();
+        //first Page
+        MultipleChoiceQuestion require = new MultipleChoiceQuestion(getString(R.string.serviceRequire), getString(R.string.serviceRequireQuestion_newReferralForm), QuestionType.RADIO, res.getStringArray(R.array.))
+        serviceRequirePage.addToPage();
     }
 }
