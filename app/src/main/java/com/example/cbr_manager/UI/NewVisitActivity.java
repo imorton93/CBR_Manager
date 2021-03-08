@@ -36,17 +36,21 @@ import java.util.ArrayList;
 public class NewVisitActivity extends AppCompatActivity {
 
     private static long client_id;
+    private static int client_pos;
     public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
+    public static final String R_CLIENT_POS_PASSED_IN = "r_client_pos_passed_in";
 
-    public static Intent makeIntent(Context context, long id) {
+    public static Intent makeIntent(Context context,int position,long id) {
         Intent intent =  new Intent(context, NewVisitActivity.class);
         intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
+        intent.putExtra(R_CLIENT_POS_PASSED_IN, position);
         return intent;
     }
 
     private void extractIntent(){
         Intent intent = getIntent();
         client_id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        client_pos = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
     }
 
     Button back;
@@ -869,7 +873,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         if(success) {
             Toast.makeText(NewVisitActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
-            Intent intent = ClientInfoActivity.makeIntent(NewVisitActivity.this, client_id);
+            Intent intent = ClientInfoActivity.makeIntent(NewVisitActivity.this, client_pos,  client_id);
             startActivity(intent);
         } else {
             Toast.makeText(NewVisitActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();

@@ -57,3 +57,4 @@ public class ProfileActivity extends AppCompatActivity {
         return new Intent(context, ProfileActivity.class);
     }
 }
+

@@ -1,6 +1,11 @@
 package com.example.cbr_manager.Database;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import static android.content.ContentValues.TAG;
 
 public class Visit {
 
@@ -12,17 +17,58 @@ public class Visit {
     private int villageNumber;
     private ArrayList<Provided> healthProvided = new ArrayList<>();
     private String healthGoalMet;
-    private  String healthIfConcluded;
+    private String healthIfConcluded;
     private ArrayList<Provided> socialProvided = new ArrayList<>();
     private String socialGoalMet;
     private String socialIfConcluded;
     private ArrayList<Provided> educationProvided = new ArrayList<>();
     private String educationGoalMet;
     private String educationIfConcluded;
+    private long visit_id;
 
 
     public Visit() {
     }
+
+    public Visit(long client_id, String purposeOfVisit, ArrayList<String> ifCbr, String date,
+                 String location, int villageNumber, ArrayList<String> healthProvided,
+                 String healthGoalMet, String healthIfConcluded, ArrayList<String> socialProvided,
+                 String socialGoalMet, String socialIfConcluded, ArrayList<String> educationProvided,
+                 String educationGoalMet, String educationIfConcluded, long visit_id){
+        this.client_id = client_id;
+        this.purposeOfVisit = purposeOfVisit;
+        this.ifCbr = ifCbr;
+        this.date = date;
+        this.location = location;
+        this.villageNumber = villageNumber;
+        this.healthProvided = convertStringListToProvidedList(healthProvided);
+        this.healthGoalMet = healthGoalMet;
+        this.healthIfConcluded = healthIfConcluded;
+        this.socialProvided = convertStringListToProvidedList(socialProvided);
+        this.socialGoalMet = socialGoalMet;
+        this.socialIfConcluded = socialIfConcluded;
+        this.educationProvided = convertStringListToProvidedList(educationProvided);
+        this.educationGoalMet = educationGoalMet;
+        this.educationIfConcluded = educationIfConcluded;
+        this.visit_id = visit_id;
+    }
+
+    public long getClient_id() {
+        return client_id;
+    }
+
+    private ArrayList<Provided> convertStringListToProvidedList(ArrayList<String> provided){
+        ArrayList<Provided> sectionProvided = new ArrayList<>();
+        for(String item : provided){
+            String[] providedSections = item.split(":");
+            //TODO CHECK
+            if((providedSections.length -1) >= 2) {
+                sectionProvided.add(new Provided(providedSections[0].trim(), providedSections[1].trim()));
+            }
+        }
+        return sectionProvided;
+    }
+
 
     public class Provided{
         private String checkBox;
@@ -221,4 +267,13 @@ public class Visit {
 
         return result.substring(0, result.length() - 2);
     }
+
+    public long getVisit_id() {
+        return visit_id;
+    }
+
+    public void setVisit_id(long visit_id) {
+        this.visit_id = visit_id;
+    }
+
 }
