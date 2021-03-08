@@ -254,10 +254,10 @@ public class NewReferralActivity extends AppCompatActivity {
 
     private Boolean fieldsFilled(int currentPage){
         if(currentPage == 1){
-            return !requiredFieldsFilled(serviceRequirePage);
+            return requiredFieldsFilled(serviceRequirePage);
         }
         else{
-            return !requiredFieldsFilled(selectedForm.get(currentPage - 2));
+            return requiredFieldsFilled(selectedForm.get(currentPage - 2));
         }
 
     }
@@ -508,7 +508,10 @@ public class NewReferralActivity extends AppCompatActivity {
             newReferral.setExistingWheelchair(radioButton.getText().equals("Yes"));
         }
         else if(tag.equals(getString(R.string.repairChair))){
-            newReferral.setCanChairRepair(radioButton.getText().equals("Yes"));
+            if(buttonId != -1){
+                newReferral.setCanChairRepair(radioButton.getText().equals("Yes"));
+            }
+
         }
     }
 
@@ -668,21 +671,24 @@ public class NewReferralActivity extends AppCompatActivity {
             TextView existingChairView = new TextView(this);
             if(existingChair){
                 existingChairView.setText("Existing Chair: Yes");
+                form.addView(existingChairView);
+                Boolean canBeFixed = newReferral.getCanChairRepair();
+                TextView canBeFixedView = new TextView(this);
+                if(canBeFixed){
+                    canBeFixedView.setText("Can be Fixed: Yes");
+                }
+                else{
+                    canBeFixedView.setText("Can be Fixed: No");
+                }
+                form.addView(canBeFixedView);
             }
             else{
                 existingChairView.setText("Existing Chair: No");
+                form.addView(existingChairView);
             }
-            form.addView(existingChairView);
 
-            Boolean canBeFixed = newReferral.getCanChairRepair();
-            TextView canBeFixedView = new TextView(this);
-            if(canBeFixed){
-                canBeFixedView.setText("Can be Fixed: Yes");
-            }
-            else{
-                canBeFixedView.setText("Can be Fixed: No");
-            }
-            form.addView(canBeFixedView);
+
+
 
         }
         else if(serviceType.equals("Other")){
