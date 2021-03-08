@@ -26,6 +26,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
@@ -106,7 +107,10 @@ public class NewReferralActivity extends AppCompatActivity {
 
 
         next.setOnClickListener(v -> {
-            if(currentPage < pageCount - 1){
+            if(!fieldsFilled(currentPage)){
+                requiredFieldsToast();
+            }
+            else if(currentPage < pageCount - 1){
                 if(currentPage == 1){
                     getSelectedForm();
                     pageCount = selectedForm.size() + 2;
@@ -130,6 +134,8 @@ public class NewReferralActivity extends AppCompatActivity {
                 else{
                     DisplayFormPage.displayPage(selectedForm.get(currentPage - 2), form, NewReferralActivity.this);
                 }
+
+                loadAnswers(selectedForm.get(currentPage - 2));
             }
             else if(currentPage == pageCount - 1){
                 savePage(selectedForm.get(currentPage - 2));
@@ -139,60 +145,6 @@ public class NewReferralActivity extends AppCompatActivity {
                 reviewPage();
                 next.setText(R.string.finish);
             }
-
-
-
-
-//            if (currentPage == 11) {
-//                insertClient();
-//            }
-//
-//            //make sure all required fields are filled in the page
-//            else if(!requiredFieldsFilled(pages.get(currentPage - 1))){
-//                requiredFieldsToast();
-//            }
-//            else if(currentPage < pageCount - 1){
-//                if(currentPage == 1){
-//                    back.setClickable(true);
-//                    back.setVisibility(View.VISIBLE);
-//
-//                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
-//
-//
-//                }
-//                //save answers
-//                savePage(pages.get(currentPage - 1));
-//
-//                currentPage++;
-//                setProgress(currentPage, pageCount);
-//
-//                clearForm();
-//
-//                if(currentPage == imagePage){
-//                    displayPicture(pages.get(currentPage - 1));
-//                }
-//                else{
-//                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
-//
-//                }
-//
-//                //load previously saved answers if any
-//                loadAnswers(pages.get(currentPage - 1));
-//
-//            }
-//            else if(currentPage == pageCount - 1){
-//                //save answers
-//                savePage(pages.get(currentPage - 1));
-//                currentPage++;
-//
-//                setProgress(currentPage, pageCount);
-//                clearForm();
-//                reviewPage();
-//                if(currentPage == pageCount){
-//                    next.setText(R.string.finish);
-//                }
-//
-//            }
         });
 
         //setup back button
@@ -214,10 +166,14 @@ public class NewReferralActivity extends AppCompatActivity {
                 DisplayFormPage.displayPage(selectedForm.get(currentPage - 2), form, NewReferralActivity.this);
             }
             //load previously saved answers if any
-//            loadAnswers(pages.get(currentPage - 1));
+
             if(currentPage == 1){
                 back.setClickable(false);
                 back.setVisibility(View.INVISIBLE);
+                loadAnswers(serviceRequirePage);
+            }
+            else{
+                loadAnswers(selectedForm.get(currentPage - 2));
             }
         });
         back.setClickable(false);
@@ -290,6 +246,220 @@ public class NewReferralActivity extends AppCompatActivity {
             imagePage = -1;
         }
     }
+
+    private void requiredFieldsToast(){
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(this, "Fill all Required Fields", duration).show();
+    }
+
+    private Boolean fieldsFilled(int currentPage){
+        if(currentPage == 1){
+            return !requiredFieldsFilled(serviceRequirePage);
+        }
+        else{
+            return !requiredFieldsFilled(selectedForm.get(currentPage - 2));
+        }
+
+    }
+
+    private Boolean requiredFieldsFilled(FormPage page){
+        ArrayList<Question> questions = page.getQuestions();
+        Boolean returnBool = true;
+        for(Question question : questions){
+            QuestionType type = question.getQuestionType();
+            if(question.getRequired()){
+                if(type == QuestionType.PLAIN_TEXT){
+                    if(!isTextAnswered(question)){
+                        returnBool = false;
+                    }
+                }
+                else if(type == QuestionType.NUMBER){
+                    if(!isNumberAnswered(question)){
+                        returnBool = false;
+                    }
+                }
+                else if(type == QuestionType.RADIO){
+                    if (!isRadioAnswered(question)) {
+                        returnBool = false;
+                    }
+                }
+            }
+
+        }
+        return returnBool;
+    }
+
+    private Boolean isTextAnswered(Question question){
+        String tag = question.getQuestionTag();
+        EditText input = (EditText) form.findViewWithTag(tag);
+        return input.getText().toString().trim().length() > 0;
+    }
+
+    private Boolean isNumberAnswered(Question question){
+        String tag = question.getQuestionTag();
+        EditText input = (EditText) form.findViewWithTag(tag);
+        String inputStr = input.getText().toString();
+        if(inputStr.equals("")){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    private Boolean isRadioAnswered(Question question){
+        String tag = question.getQuestionTag();
+        RadioGroup radioGroup = (RadioGroup) form.findViewWithTag(tag);
+        boolean isAnswered = true;
+        boolean repairCondition = true;
+
+        if(radioGroup.getCheckedRadioButtonId() == -1){
+            isAnswered = false;
+        }
+
+        //test if optional caregiver phone number field is filled if caregiver present
+        if(tag.equals(getString(R.string.existingChair)) && isAnswered){
+            int id = radioGroup.getCheckedRadioButtonId();
+            RadioButton button = (RadioButton) radioGroup.findViewById(id);
+            if(button.getText().equals("Yes")){
+                RadioGroup beRepaired = (RadioGroup) form.findViewWithTag(getString(R.string.repairChair));
+                if(beRepaired.getCheckedRadioButtonId() == -1){
+                    repairCondition = false;
+                }
+            }
+        }
+
+
+        return isAnswered && repairCondition;
+    }
+
+
+
+    private void loadAnswers(FormPage page){
+        ArrayList<Question> questions = page.getQuestions();
+        for(Question question : questions){
+            QuestionType type = question.getQuestionType();
+            if(type == QuestionType.PLAIN_TEXT){
+                loadText(question);
+            }
+            else if(type == QuestionType.RADIO){
+                loadRadio(question);
+            }
+            else if(type == QuestionType.NUMBER){
+                loadNumber(question);
+            }
+            else if(type == QuestionType.DROP_DOWN){
+                loadDropDown(question);
+            }
+        }
+    }
+
+    private void loadText(Question question){
+        String tag = question.getQuestionTag();
+        String data = null;
+
+        if(tag.equals(getString(R.string.otherDescribe))){
+            data = newReferral.getOtherDescription();
+        }
+
+        if(data != null){
+            EditText input = (EditText) form.findViewWithTag(tag);
+            input.setText(data);
+        }
+
+    }
+
+    private void loadRadio(Question question){
+        String tag = question.getQuestionTag();
+        if(tag.equals(getString(R.string.existingChair)) || tag.equals(getString(R.string.repairChair))){
+            loadRadioBool(question);
+        }
+        else{
+            loadRadioMultiple(question);
+        }
+    }
+
+    private void loadRadioBool(Question question){
+        String tag = question.getQuestionTag();
+        Boolean data = null;
+        if(tag.equals(getString(R.string.existingChair))){
+            data = newReferral.getExistingWheelchair();
+        }
+        else if(tag.equals(getString(R.string.repairChair))){
+            data = newReferral.getCanChairRepair();
+        }
+
+        if(data != null){
+            RadioGroup consent = (RadioGroup) form.findViewWithTag(tag);
+            RadioButton button;
+            if(data){
+                button = (RadioButton) consent.getChildAt(0);
+            }
+            else{
+                button = (RadioButton) consent.getChildAt(1);
+            }
+            button.toggle();
+        }
+    }
+
+    private void loadRadioMultiple(Question question){
+        String tag = question.getQuestionTag();
+        String data = null;
+
+        if(tag.equals(getString(R.string.serviceRequire))){
+            data = newReferral.getService();
+        }
+        else if(tag.equals(getString(R.string.basicIntermediateUser))){
+            data = newReferral.getLevelWheelchairUser();
+        }
+        else if(tag.equals(getString(R.string.injuryLocation))){
+            data = newReferral.getInjuryLocation();
+        }
+
+        if(data != null){
+            RadioGroup rateGroup = (RadioGroup) form.findViewWithTag(tag);
+            for(int i = 0; i < rateGroup.getChildCount(); i++){
+                RadioButton button = (RadioButton) rateGroup.getChildAt(i);
+                if(button.getText().equals(data)){
+                    button.toggle();
+                }
+            }
+        }
+    }
+
+    private void loadNumber(Question question){
+        String tag = question.getQuestionTag();
+        int data = -1;
+        if(tag.equals(getString(R.string.hipWidth))){
+            data = newReferral.getHipWidth();
+        }
+
+        if(data != -1){
+            String dataStr = Integer.toString(data);
+            EditText input = (EditText) form.findViewWithTag(tag);
+            input.setText(dataStr);
+        }
+    }
+
+    private void loadDropDown(Question question){
+        String tag = question.getQuestionTag();
+        String data = null;
+        if(tag.equals(getString(R.string.clientCondition))){
+            data = newReferral.getClientCondition();
+        }
+
+        if(data != null){
+            Spinner spinner = (Spinner) form.findViewWithTag(tag);
+            for(int i = 0; i < spinner.getCount(); i++){
+                if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(data)){
+                    spinner.setSelection(i);
+                }
+            }
+        }
+    }
+
+
+
 
     private void savePage(FormPage page){
         ArrayList<Question> questions = page.getQuestions();
