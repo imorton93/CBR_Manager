@@ -34,8 +34,8 @@ import java.util.List;
 
 public class ClientListActivity extends AppCompatActivity {
 
-    ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
-    List<Client> searched_clients;
+    private ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
+    private List<Client> searched_clients;
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, ClientListActivity.class);

@@ -22,7 +22,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 
 import org.json.JSONArray;
@@ -92,6 +94,13 @@ public class TaskViewActivity extends AppCompatActivity {
         sync.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                ClientManager clientManager = ClientManager.getInstance(TaskViewActivity.this);
+                clientManager.clear();
+                clientManager.updateList();
+
+                VisitManager visitManager = VisitManager.getInstance(TaskViewActivity.this);
+                visitManager.clear();
+                visitManager.updateList();
 
                 Client client = new Client();
 
