@@ -17,17 +17,20 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
 import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
+import com.example.cbr_manager.Forms.NewReferral;
 import com.example.cbr_manager.Forms.Question;
 import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
@@ -41,7 +44,7 @@ public class NewReferralActivity extends AppCompatActivity {
     int currentPage;
     int pageCount;
     int imagePage;
-    //serviceReqruiePage is the first page of the new referral form
+    //serviceRequirePage is the first page of the new referral form
     FormPage serviceRequirePage;
     ArrayList<FormPage> wheelchairPages;
     ArrayList<FormPage> physioPages;
@@ -54,6 +57,9 @@ public class NewReferralActivity extends AppCompatActivity {
     TextView progressText;
 
     ImageView imageView;
+
+    NewReferral newReferral;
+
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, NewReferralActivity.class);
@@ -71,6 +77,7 @@ public class NewReferralActivity extends AppCompatActivity {
         next.setBackgroundColor(Color.parseColor("#6661ED24"));
         back = (Button) findViewById(R.id.backBtn);
         imageView = new ImageView(this);
+        newReferral = new NewReferral();
 
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
@@ -99,27 +106,42 @@ public class NewReferralActivity extends AppCompatActivity {
 
 
         next.setOnClickListener(v -> {
-            if(currentPage == 1){
-                getSelectedForm();
-                pageCount = selectedForm.size() + 2;
-                back.setClickable(true);
-                back.setVisibility(View.VISIBLE);
-                back.setBackgroundColor(Color.parseColor("#6661ED24"));
+            if(currentPage < pageCount - 1){
+                if(currentPage == 1){
+                    getSelectedForm();
+                    pageCount = selectedForm.size() + 2;
+                    back.setClickable(true);
+                    back.setVisibility(View.VISIBLE);
+                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
+                    savePage(serviceRequirePage);
+                }
+                else{
+                    savePage(selectedForm.get(currentPage - 2));
+                }
+
+                currentPage++;
+                setProgress(currentPage, pageCount);
+
+                clearForm();
+
+                if(currentPage == imagePage){
+                    displayPicture(selectedForm.get(currentPage - 2));
+                }
+                else{
+                    DisplayFormPage.displayPage(selectedForm.get(currentPage - 2), form, NewReferralActivity.this);
+                }
+            }
+            else if(currentPage == pageCount - 1){
+                savePage(selectedForm.get(currentPage - 2));
+                currentPage++;
+                setProgress(currentPage, pageCount);
+                clearForm();
+                reviewPage();
+                next.setText(R.string.finish);
             }
 
-            //save page
 
-            currentPage++;
-            setProgress(currentPage, pageCount);
 
-            clearForm();
-
-            if(currentPage == imagePage){
-                displayPicture(selectedForm.get(currentPage - 2));
-            }
-            else{
-                DisplayFormPage.displayPage(selectedForm.get(currentPage - 2), form, NewReferralActivity.this);
-            }
 
 //            if (currentPage == 11) {
 //                insertClient();
@@ -213,6 +235,7 @@ public class NewReferralActivity extends AppCompatActivity {
 
     private void setProgress(int currentPage, int pageCount){
         progressBar.setProgress(currentPage);
+        progressBar.setMax(pageCount);
         progressText.setText(currentPage + "/" + pageCount);
     }
 
@@ -267,6 +290,100 @@ public class NewReferralActivity extends AppCompatActivity {
             imagePage = -1;
         }
     }
+
+    private void savePage(FormPage page){
+        ArrayList<Question> questions = page.getQuestions();
+        for(Question question : questions){
+            QuestionType type = question.getQuestionType();
+            if(type == QuestionType.PLAIN_TEXT){
+                saveText(question);
+            }
+            else if(type == QuestionType.RADIO){
+                saveRadio(question);
+            }
+            else if(type == QuestionType.NUMBER){
+                saveNumber(question);
+            }
+            else if(type == QuestionType.DROP_DOWN){
+                saveDropDown(question);
+            }
+        }
+    }
+
+    private void saveText(Question question){
+        String tag = question.getQuestionTag();
+        EditText input = (EditText) form.findViewWithTag(tag);
+        if(tag.equals(getString(R.string.otherDescribe))){
+            newReferral.setOtherDescription(input.getText().toString());
+        }
+    }
+
+    private void saveRadio(Question question){
+        String tag = question.getQuestionTag();
+        if(tag.equals(getString(R.string.existingChair)) || tag.equals(getString(R.string.repairChair))){
+            saveRadioBool(question);
+        }
+        else{
+            saveRadioMultiple(question);
+        }
+    }
+
+    private void saveRadioBool(Question question){
+        String tag = question.getQuestionTag();
+        RadioGroup consent = (RadioGroup) form.findViewWithTag(tag);
+        int buttonId = consent.getCheckedRadioButtonId();
+        RadioButton radioButton = consent.findViewById(buttonId);
+
+        if(tag.equals(getString(R.string.existingChair))){
+            newReferral.setExistingWheelchair(radioButton.getText().equals("Yes"));
+        }
+        else if(tag.equals(getString(R.string.repairChair))){
+            newReferral.setCanChairRepair(radioButton.getText().equals("Yes"));
+        }
+    }
+
+    private void saveRadioMultiple(Question question){
+        String tag = question.getQuestionTag();
+        RadioGroup radioGroup = (RadioGroup) form.findViewWithTag(tag);
+        RadioButton radioButton;
+        for(int i = 0; i < radioGroup.getChildCount(); i++){
+            radioButton = (RadioButton) radioGroup.getChildAt(i);
+            if(radioButton.isChecked()){
+                if(tag.equals(getString(R.string.serviceRequire))){
+                    newReferral.setService(radioButton.getText().toString());
+                }
+                else if(tag.equals(getString(R.string.basicIntermediateUser))){
+                    newReferral.setLevelWheelchairUser(radioButton.getText().toString());
+                }
+                else if(tag.equals(getString(R.string.injuryLocation))){
+                    newReferral.setInjuryLocation(radioButton.getText().toString());
+                }
+            }
+        }
+    }
+
+    private void saveNumber(Question question){
+        String tag = question.getQuestionTag();
+        EditText input = (EditText) form.findViewWithTag(tag);
+        String inputStr = input.getText().toString();
+        int num = Integer.parseInt(inputStr);
+        if(tag.equals(getString(R.string.hipWidth))){
+            newReferral.setHipWidth(num);
+        }
+    }
+
+    private void saveDropDown(Question question){
+        String tag = question.getQuestionTag();
+        Spinner spinner = (Spinner) form.findViewWithTag(tag);
+        String selected = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+        if(tag.equals(getString(R.string.clientCondition))) {
+            newReferral.setClientCondition(selected);
+        }
+    }
+
+
+
+
 
     private void ToolbarButtons(){
         ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
@@ -340,5 +457,69 @@ public class NewReferralActivity extends AppCompatActivity {
         otherExplanation.add(otherOne);
 
 
+    }
+
+    private void reviewPage(){
+        TextView serviceTypeView = new TextView(this);
+        String serviceType = newReferral.getService();
+        serviceTypeView.setText(serviceType);
+        form.addView(serviceTypeView);
+        if(serviceType.equals("Physiotherapy")){
+            String condition = newReferral.getClientCondition();
+            TextView conditionView = new TextView(this);
+            conditionView.setText("Condition: " + condition);
+            form.addView(conditionView);
+        }
+        else if(serviceType.equals("Prosthetic")){
+            String injuryLocation = newReferral.getInjuryLocation();
+            TextView injuryLocationView = new TextView(this);
+            injuryLocationView.setText("Injury above or below the knee: " + injuryLocation);
+            form.addView(injuryLocationView);
+        }
+        else if(serviceType.equals("Orthotic")){
+            String injuryLocation = newReferral.getInjuryLocation();
+            TextView injuryLocationView = new TextView(this);
+            injuryLocationView.setText("Injury above or below the knee: " + injuryLocation);
+            form.addView(injuryLocationView);
+        }
+        else if(serviceType.equals("Wheelchair")){
+            String userType = newReferral.getLevelWheelchairUser();
+            TextView userTypeView = new TextView(this);
+            userTypeView.setText("Type of user: " + userType);
+            form.addView(userTypeView);
+
+            int hipWidth = newReferral.getHipWidth();
+            String hipWidthString = Integer.toString(hipWidth);
+            TextView hipWidthView = new TextView(this);
+            hipWidthView.setText("Hip Width(inches): " + hipWidthString);
+            form.addView(hipWidthView);
+
+            Boolean existingChair = newReferral.getExistingWheelchair();
+            TextView existingChairView = new TextView(this);
+            if(existingChair){
+                existingChairView.setText("Existing Chair: Yes");
+            }
+            else{
+                existingChairView.setText("Existing Chair: No");
+            }
+            form.addView(existingChairView);
+
+            Boolean canBeFixed = newReferral.getCanChairRepair();
+            TextView canBeFixedView = new TextView(this);
+            if(canBeFixed){
+                canBeFixedView.setText("Can be Fixed: Yes");
+            }
+            else{
+                canBeFixedView.setText("Can be Fixed: No");
+            }
+            form.addView(canBeFixedView);
+
+        }
+        else if(serviceType.equals("Other")){
+            String otherExplanation = newReferral.getOtherDescription();
+            TextView otherExplanationView = new TextView(this);
+            otherExplanationView.setText("Explanation" + otherExplanation);
+            form.addView(otherExplanationView);
+        }
     }
 }

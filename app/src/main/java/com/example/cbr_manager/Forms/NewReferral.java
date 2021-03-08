@@ -1,6 +1,6 @@
 package com.example.cbr_manager.Forms;
 
-public class newReferral {
+public class NewReferral {
     String service;
     String levelWheelchairUser;
     int hipWidth;
@@ -8,6 +8,7 @@ public class newReferral {
     Boolean canChairRepair;
     String clientCondition;
     String injuryLocation;
+    String otherDescription;
 
     public String getService() {
         return service;
@@ -63,5 +64,13 @@ public class newReferral {
 
     public void setInjuryLocation(String injuryLocation) {
         this.injuryLocation = injuryLocation;
+    }
+
+    public String getOtherDescription() {
+        return otherDescription;
+    }
+
+    public void setOtherDescription(String otherDescription) {
+        this.otherDescription = otherDescription;
     }
 }
