@@ -2,23 +2,14 @@ package com.example.cbr_manager.Database;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.cbr_manager.R;
-import com.example.cbr_manager.UI.ClientListActivity;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-
-import static android.content.ContentValues.TAG;
 
 public class ClientManager implements Iterable<Client>{
 
