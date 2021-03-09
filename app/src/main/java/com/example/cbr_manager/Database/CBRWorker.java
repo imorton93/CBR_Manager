@@ -6,12 +6,14 @@ public class CBRWorker {
     private String email;
     private String password;
     private int id;
+    private boolean is_admin;
 
     public CBRWorker(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        is_admin = false;
     }
 
     public CBRWorker(){
@@ -55,6 +57,14 @@ public class CBRWorker {
 
     public void setWorkerId(int id) {
         this.id = id;
+    }
+
+    public void setIs_admin(boolean a){
+        is_admin = a;
+    }
+
+    public boolean getIs_admin() {
+        return is_admin;
     }
 
 }

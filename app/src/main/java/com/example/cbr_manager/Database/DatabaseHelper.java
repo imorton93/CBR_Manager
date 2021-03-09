@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_3 = "EMAIL";
     private static final String COL_4 = "PASSWORD";
     private static final String COL_5 = "ID";
+    private static final String COL_6 = "IS_ADMIN";
 
     //Client Table
     private static final String client_table_name = "CLIENT_DATA";
@@ -93,7 +94,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String create_worker_table = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
-                + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);";
+                + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + COL_6 + " BOOLEAN NOT NULL DEFAULT 0);";
         db.execSQL(create_worker_table);
 
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
