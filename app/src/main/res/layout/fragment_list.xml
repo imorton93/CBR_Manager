@@ -13,21 +13,6 @@ android:layout_height="match_parent"
 tools:context=".UI.clientListFragment.listFragment"
 android:background="@drawable/backgroundgradient">
 
-    <TextView
-        android:id="@+id/all_client_text"
-        android:layout_width="118dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="33dp"
-        android:gravity="center"
-        android:text="@string/all_clients"
-        android:textColor="#009fb8"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ListView
         android:id="@+id/clientList"
         android:layout_width="344dp"
@@ -43,34 +28,34 @@ android:background="@drawable/backgroundgradient">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchVillageNumLayoutContainers" />
 
-<LinearLayout
-    android:id="@+id/searchNameLayoutContainers"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:orientation="horizontal"
-    app:layout_constraintEnd_toEndOf="@+id/clientList"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="@+id/clientList"
-    app:layout_constraintTop_toBottomOf="@+id/all_client_text">
-
-    <AutoCompleteTextView
-        android:id="@+id/firstName_clientList"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:hint="First Name" />
-
-    <AutoCompleteTextView
-        android:id="@+id/lastName_clientList"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/searchNameLayoutContainers"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:hint="Last Name" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/clientList"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/clientList"
+        app:layout_constraintTop_toTopOf="parent">
 
-</LinearLayout>
+        <AutoCompleteTextView
+            android:id="@+id/firstName_clientList"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:hint="First Name" />
+
+        <AutoCompleteTextView
+            android:id="@+id/lastName_clientList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="Last Name" />
+
+    </LinearLayout>
 
 <LinearLayout
     android:id="@+id/searchVillageLayoutContainers"
