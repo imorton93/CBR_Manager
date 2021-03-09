@@ -323,4 +323,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return c;
     }
+
+    public boolean isAdmin(String username ) {
+        String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';" ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        c.moveToLast();
+        boolean is_admin = c.getInt(0) > 0; // convert int to boolean
+        return is_admin;
+    }
 }

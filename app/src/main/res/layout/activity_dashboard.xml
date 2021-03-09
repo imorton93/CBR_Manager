@@ -87,6 +87,7 @@
             android:ems="8"
             android:hint="Village #"
             android:inputType="number" />
+
         <Button
             android:id="@+id/search_button_dashboard"
             android:layout_width="wrap_content"
@@ -96,5 +97,17 @@
             android:text="Search" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/statistics_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Statistics"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashboard_clients"
+        app:layout_constraintVertical_bias="0.903" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
