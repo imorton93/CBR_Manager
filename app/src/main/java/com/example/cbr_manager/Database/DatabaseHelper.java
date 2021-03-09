@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "WORKER_DATA";
     private static final String COL_1 = "FIRST_NAME";
     private static final String COL_2 = "LAST_NAME";
-    private static final String COL_3 = "EMAIL";
+    private static final String COL_3 = "USERNAME";
     private static final String COL_4 = "PASSWORD";
     private static final String COL_5 = "ID";
     private static final String COL_6 = "IS_ADMIN";
@@ -142,7 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COL_1, cbrWorker.getFirstName());
         cv.put(COL_2, cbrWorker.getLastName());
-        cv.put(COL_3, cbrWorker.getEmail());
+        cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_4, cbrWorker.getPassword());
 
         long result = db.insert(TABLE_NAME, null, cv);
