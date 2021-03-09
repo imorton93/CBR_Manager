@@ -1,5 +1,6 @@
 package com.example.cbr_manager.UI;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -78,6 +80,9 @@ public class NewReferralActivity extends AppCompatActivity {
         next.setBackgroundColor(Color.parseColor("#6661ED24"));
         back = (Button) findViewById(R.id.backBtn);
         imageView = new ImageView(this);
+        LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        imageView.setLayoutParams(imageViewLayoutParams);
+        //newReferral to save form information
         newReferral = new NewReferral();
 
         form = (LinearLayout) findViewById(R.id.form);
@@ -221,6 +226,16 @@ public class NewReferralActivity extends AppCompatActivity {
         form.addView(imageView);
     }
 
+    // set taken picture to imageView
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100){
+            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            //set capture Image to imageview
+            imageView.setImageBitmap(captureImage);
+        }
+    }
 
 
 
