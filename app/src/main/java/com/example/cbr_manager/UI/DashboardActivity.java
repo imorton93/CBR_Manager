@@ -17,9 +17,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
 import java.util.List;
@@ -28,18 +30,20 @@ public class DashboardActivity extends AppCompatActivity {
 
     private ClientManager clientManager = ClientManager.getInstance(DashboardActivity.this);
     private List<Client> priority_clients;
+    private Button statistics_button;
+    private DatabaseHelper mydb = new DatabaseHelper(DashboardActivity.this);
+
 
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, DashboardActivity.class);
         return intent;
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
+        StatisticsButton();
         ToolbarButtons();
         sectionDropDownMenu();
         villageDropDownMenu();
@@ -49,6 +53,23 @@ public class DashboardActivity extends AppCompatActivity {
 
         clickClient();
         dashboardSearchBoxes();
+    }
+
+    private void StatisticsButton() {
+        String current_username = getIntent().getStringExtra("Worker Username");
+        statistics_button = findViewById(R.id.statistics_button);
+        statistics_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mydb.isAdmin(current_username)){
+                    Toast.makeText(DashboardActivity.this, "Access Not Allowed", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                   /* Intent intent = StatisticsActivity.makeIntent(DashboardActivity.this);
+                    startActivity(intent);*/
+                }
+            }
+        });
     }
 
     private void sectionDropDownMenu(){

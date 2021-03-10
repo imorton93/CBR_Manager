@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Do something with login button
                 if (mydb.checkUser(username, password)) {
                     Intent intent = TaskViewActivity.makeIntent(LoginActivity.this);
+                    intent.putExtra("Worker Username", username);
                     startActivity(intent);
                 }
                 else{
