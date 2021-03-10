@@ -21,7 +21,6 @@ public class ClientSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("IT GOT IN HERE");
         setContentView(R.layout.activity_client_search);
         ToolbarButtons();
     }

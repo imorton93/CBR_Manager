@@ -4,10 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.ClientSearchActivity">
+    tools:context=".UI.ClientSearchActivity"
+    android:background="@drawable/backgroundgradient">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/activity_tool_bar" />
+
+    <TextView
+        android:id="@+id/client_search_text"
+        android:layout_width="272dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Please Select A Client"
+        android:textColor="#009fb8"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/searchNameLayoutContainers_clientSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/clientList"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/clientList"
+        app:layout_constraintTop_toBottomOf="@+id/client_search_text">
+
+        <AutoCompleteTextView
+            android:id="@+id/firstName_clientSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:hint="First Name" />
+
+        <AutoCompleteTextView
+            android:id="@+id/lastName_clientSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="Last Name" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchVillageLayoutContainers_clientSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchNameLayoutContainers_clientSearch">
+
+        <Spinner
+            android:id="@+id/filter_village_clientSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+
+        <Spinner
+            android:id="@+id/filter_section_clientSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchVillageNumLayoutContainers_clientSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchVillageLayoutContainers_clientSearch">
+
+        <EditText
+            android:id="@+id/filter_villageNum_clientSearch"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:ems="8"
+            android:hint="Village #"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/search_button_clientSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@android:color/transparent"
+            android:text="Search" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/clientList"
+        android:layout_width="344dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchVillageNumLayoutContainers_clientSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
