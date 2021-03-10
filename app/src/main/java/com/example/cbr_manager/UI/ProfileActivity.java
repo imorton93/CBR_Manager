@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,10 +16,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -32,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
+
 
     private void profilePageButtons(){
         Button signoutButton = findViewById(R.id.signoutButton);
