@@ -109,7 +109,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/clientList"
+        android:id="@+id/search_client_list"
         android:layout_width="344dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"

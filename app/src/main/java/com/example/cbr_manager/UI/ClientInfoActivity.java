@@ -75,7 +75,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         Button newVisit = findViewById(R.id.visit);
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {// TODO cant I Just pass id?
+            public void onClick(View v) {
                 Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, position, id);
                 startActivity(intent);
             }

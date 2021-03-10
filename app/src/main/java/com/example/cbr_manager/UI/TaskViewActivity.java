@@ -75,7 +75,7 @@ public class TaskViewActivity extends AppCompatActivity {
         newVisit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = ClientSearchActivity.makeIntent(TaskViewActivity.this);
+                Intent intent = ClientSearchActivity.makeIntent(TaskViewActivity.this, 1);
                 startActivity(intent);
             }
         });

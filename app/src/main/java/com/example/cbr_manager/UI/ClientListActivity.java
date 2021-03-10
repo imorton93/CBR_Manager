@@ -77,7 +77,6 @@ public class ClientListActivity extends AppCompatActivity {
                 populateAllClientsFromList(searched_clients);
             }
         });
-
     }
 
     private void villageDropDownMenu(){
