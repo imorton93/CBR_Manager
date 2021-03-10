@@ -265,9 +265,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT ID FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';" ;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
-        c.moveToLast();
-        return c.getInt(0);
-
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return 0;
+        }
     }
 
     public Cursor getAllVisits(){
@@ -328,8 +332,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';" ;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
-        c.moveToLast();
-        boolean is_admin = c.getInt(0) > 0; // convert int to boolean
-        return is_admin;
+        if(c!=null && c.getCount()>0) {
+            c.moveToLast();
+            boolean is_admin = c.getInt(0) > 0; // convert int to boolean
+            return is_admin;
+        }
+        else
+            return false;
     }
 }
