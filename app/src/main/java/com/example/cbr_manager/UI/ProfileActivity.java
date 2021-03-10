@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    ArrayList<String> listItem;
-    ArrayAdapter adapter;
     TextView textView = findViewById(R.id.profileData);
 
     @Override
@@ -31,8 +29,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         ToolbarButtons();
         profilePageButtons();
-
-        listItem= new ArrayList<>();
 
 
     }
@@ -73,24 +69,5 @@ public class ProfileActivity extends AppCompatActivity {
         return new Intent(context, ProfileActivity.class);
     }
 
-    private void viewData(){
-
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-
-        Cursor c = databaseHelper.viewCBRData();
-
-        if (c.getCount()==0){
-            Toast.makeText(this, "No Data to Show", Toast.LENGTH_SHORT).show();
-
-        }else{
-            while(c.moveToNext()){
-                listItem.add(c.getString(0));
-            }
-
-            adapter = new ArrayAdapter(this, android.R.layout.activity_list_item,listItem);
-
-            textView.setAdapter(adapter)
-        }
-    }
 }
 
