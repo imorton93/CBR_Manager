@@ -227,6 +227,9 @@ public class TaskViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = ProfileActivity.makeIntent(TaskViewActivity.this);
                 startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), ViewDataCBR.class);
+//
+//                startActivity(intent);
             }
         });
     }

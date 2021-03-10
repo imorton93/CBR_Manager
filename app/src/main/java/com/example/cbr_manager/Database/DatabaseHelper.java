@@ -321,4 +321,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return c;
     }
+
+    public Cursor viewCBRData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c =  db.rawQuery( "SELECT rowid _id, * FROM WORKER_DATA", null);
+        if(c != null){
+            c.moveToFirst();
+        }
+        return c;
+    }
 }
