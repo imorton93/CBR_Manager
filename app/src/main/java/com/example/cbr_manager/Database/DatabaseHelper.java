@@ -97,10 +97,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_worker_table);
 
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + client_consent + " BOOLEAN NOT NULL, " + client_date + " STRING NOT NULL, " + client_first_name + " TEXT, "
+                + client_consent + " BOOLEAN, " + client_date + " STRING, " + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
                 + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_contact + " STRING, "+ client_caregiver_presence
-                + " BOOLEAN NOT NULL, " + client_caregiver_number +" STRING, " + client_disability + " TEXT, " + client_heath_rate
+                + " BOOLEAN, " + client_caregiver_number +" STRING, " + client_disability + " TEXT, " + client_heath_rate
                 + " STRING, "+ client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, "
                 + client_education_requirement + " STRING, " + client_education_goal  + " STRING, " + client_social_rate + " STRING, "
                 + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
