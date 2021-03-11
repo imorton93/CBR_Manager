@@ -25,6 +25,7 @@ import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.VisitManager;
+import com.example.cbr_manager.GoogleMaps.MainActivity;
 import com.example.cbr_manager.R;
 
 import org.json.JSONArray;

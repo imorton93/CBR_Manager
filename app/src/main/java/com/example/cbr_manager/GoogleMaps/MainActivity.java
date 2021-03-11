@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.NewClientActivity;
+import com.example.cbr_manager.UI.TaskViewActivity;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -31,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView textLatLong, textAddress;
     private ProgressBar progressBar;
     private ResultReceiver resultReceiver;
+
+    public static Intent makeIntent(Context context) {
+        Intent intent =  new Intent(context, MainActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
