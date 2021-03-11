@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.ResultReceiver;
@@ -54,6 +55,7 @@ import java.util.ArrayList;
 
 public class NewClientActivity extends AppCompatActivity {
 
+    private static final String TAG = "ERROR";
     LinearLayout form;
     int currentPage;
     int pageCount;
@@ -636,6 +638,20 @@ public class NewClientActivity extends AppCompatActivity {
             else if(type == QuestionType.CHECK_BOX){
                 saveCheckBox(question);
             }
+
+            else if(type == QuestionType.GPS){
+                Log.e(TAG, "IN GPS");
+                saveGPS(question);
+            }
+
+        }
+    }
+    private void saveGPS(Question question) {
+        String tag = question.getQuestionTag();
+        if (tag.equals("GPS")) {
+            Log.e(TAG, "IN GPSssss");
+            newClient.setLatitude(latitude);
+            newClient.setLongitude(longitude);
         }
     }
 
@@ -797,7 +813,7 @@ public class NewClientActivity extends AppCompatActivity {
         TextQuestion villageNum = new TextQuestion(getString(R.string.villageNumber),getString(R.string.villageNumber_newClientForm), QuestionType.NUMBER, true);
         TextQuestion contactNum = new TextQuestion(getString(R.string.contactNumber),getString(R.string.contactNumber_newClientForm), QuestionType.PHONE_NUMBER, true);
 
-        TextQuestion gps = new TextQuestion("GPS Location: ", "GPS: ", QuestionType.GPS, false);
+        TextQuestion gps = new TextQuestion("GPS", "GPS: ", QuestionType.GPS, false);
 
         FormPage pageFour = new FormPage();
         pageFour.addToPage(location);

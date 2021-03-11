@@ -35,6 +35,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_gender = "GENDER";
     private static final String client_village_no = "VILLAGE_NUMBER";
     private static final String client_location = "LOCATION";
+    private static final String client_latitude = "LATITUDE";
+    private static final String client_longitude = "LONGITUDE";
     private static final String client_contact = "CONTACT";
     private static final String client_caregiver_presence = "CAREGIVER_PRESENCE";
     private static final String client_caregiver_number = "CAREGIVER_NUMBER";
@@ -99,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + client_consent + " BOOLEAN, " + client_date + " STRING, " + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
-                + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_contact + " STRING, "+ client_caregiver_presence
+                + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_latitude + " TEXT, " + client_longitude + " TEXT, " + client_contact + " STRING, "+ client_caregiver_presence
                 + " BOOLEAN, " + client_caregiver_number +" STRING, " + client_disability + " TEXT, " + client_heath_rate
                 + " STRING, "+ client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, "
                 + client_education_requirement + " STRING, " + client_education_goal  + " STRING, " + client_social_rate + " STRING, "
@@ -107,20 +109,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_client_table);
 
         String create_visit_table = "CREATE TABLE "
-                + visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_date + " STRING NOT NULL, "
+                + visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_date + " STRING, "
                 + visit_purpose + " STRING, " + if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, "
                 + health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, "
                 + education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, "
                 + social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING, "
-                + client_visit_id + " INTEGER NOT NULL);";
+                + client_visit_id + " INTEGER);";
         db.execSQL(create_visit_table);
 
         String create_referral_table = "CREATE TABLE "
                 + referral_table + " (" + referral_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + service_req + " TEXT, "
-                + referral_photo + " BLOB, " + basic_or_inter + " TEXT, " + hip_width + " REAL, " + has_wheelchair + " BOOLEAN NOT NULL, "
-                + wheelchair_repairable + " BOOLEAN NOT NULL, " + bring_to_centre + " BOOLEAN NOT NULL, " + conditions + " TEXT, "
+                + referral_photo + " BLOB, " + basic_or_inter + " TEXT, " + hip_width + " REAL, " + has_wheelchair + " BOOLEAN, "
+                + wheelchair_repairable + " BOOLEAN, " + bring_to_centre + " BOOLEAN, " + conditions + " TEXT, "
                 + injury_location_knee + " TEXT, " + injury_location_elbow + " TEXT, " + referral_status + " TEXT, "
-                + referral_outcome + " STRING, " + client_referral_id + " INTEGER NOT NULL);";
+                + referral_outcome + " STRING, " + client_referral_id + " INTEGER);";
         db.execSQL(create_referral_table);
     }
 
