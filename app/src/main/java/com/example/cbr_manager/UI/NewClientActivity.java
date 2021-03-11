@@ -649,7 +649,6 @@ public class NewClientActivity extends AppCompatActivity {
     private void saveGPS(Question question) {
         String tag = question.getQuestionTag();
         if (tag.equals("GPS")) {
-            Log.e(TAG, "IN GPSssss");
             newClient.setLatitude(latitude);
             newClient.setLongitude(longitude);
         }
@@ -878,7 +877,6 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void reviewPage(){
-
         TextView consentView = new TextView(this);
         Boolean consent = newClient.getConsentToInterview();
         if(consent){
@@ -925,6 +923,12 @@ public class NewClientActivity extends AppCompatActivity {
         String villageNumberStr = Integer.toString(villageNumber);
         villageNumberView.setText("Village Number: " + villageNumberStr);
         form.addView(villageNumberView);
+
+        TextView gpsView = new TextView(this);
+        double lat = newClient.getLatitude();
+        double lon = newClient.getLongitude();
+        gpsView.setText("GPS: " + lat + ", " + lon);
+        form.addView(gpsView);
 
         TextView contactNumberView = new TextView(this);
         String contactNumber = newClient.getContactPhoneNumber();

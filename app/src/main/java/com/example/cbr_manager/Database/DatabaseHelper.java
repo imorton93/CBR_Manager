@@ -101,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + client_consent + " BOOLEAN, " + client_date + " STRING, " + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
-                + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_latitude + " TEXT, " + client_longitude + " TEXT, " + client_contact + " STRING, "+ client_caregiver_presence
+                + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_latitude + " DOUBLE, " + client_longitude + " DOUBLE, " + client_contact + " STRING, "+ client_caregiver_presence
                 + " BOOLEAN, " + client_caregiver_number +" STRING, " + client_disability + " TEXT, " + client_heath_rate
                 + " STRING, "+ client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, "
                 + client_education_requirement + " STRING, " + client_education_goal  + " STRING, " + client_social_rate + " STRING, "
@@ -164,6 +164,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_gender, client.getGender());
         cv.put(client_village_no, client.getVillageNumber());
         cv.put(client_location, client.getLocation());
+        cv.put(client_latitude, client.getLatitude());
+        cv.put(client_longitude, client.getLongitude());
         cv.put(client_disability, client.disabilitiesToString());
         cv.put(client_contact, client.getContactPhoneNumber());
         cv.put(client_caregiver_presence, client.getCaregiverPresent());
