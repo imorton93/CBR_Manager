@@ -690,7 +690,6 @@ public class NewClientActivity extends AppCompatActivity {
         }
     }
 
-
     private void createNewClientForm(){
         Resources res = getResources();
         //page one: consent and date
@@ -736,15 +735,12 @@ public class NewClientActivity extends AppCompatActivity {
         pageFive.addToPage(caregiverContactNumber);
         pages.add(pageFive);
 
-
         //page six: photo
         TextQuestion photo = new TextQuestion(getString(R.string.photo),getString(R.string.photo_newClientForm), QuestionType.PICTURE, false);
         imagePage = 6;
         FormPage pageSix = new FormPage();
         pageSix.addToPage(photo);
         pages.add(pageSix);
-
-
 
 
         //page seven: Type of disability
