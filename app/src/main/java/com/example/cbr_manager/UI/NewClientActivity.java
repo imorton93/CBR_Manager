@@ -331,14 +331,22 @@ public class NewClientActivity extends AppCompatActivity {
     private Boolean isCheckBoxAnswered(Question question){
         MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
         Boolean returnBool = false;
+        Boolean otherExplanationRequirement = true;
         CheckBox checkBox;
         for(int i = 0; i < mcq.getAnswers().length; i++){
             checkBox = (CheckBox) form.findViewWithTag(i);
             if(checkBox.isChecked()){
                 returnBool = true;
+                if(checkBox.getText().toString().equals("Other")){
+                    otherExplanationRequirement = false;
+                    EditText input = (EditText) form.findViewWithTag("otherExplanation");
+                    if(input.getText().toString().trim().length() > 0){
+                        otherExplanationRequirement = true;
+                    }
+                }
             }
         }
-        return returnBool;
+        return returnBool && otherExplanationRequirement;
     }
 
 
