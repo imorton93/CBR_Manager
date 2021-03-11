@@ -570,9 +570,6 @@ public class NewReferralActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void ToolbarButtons(){
         ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {

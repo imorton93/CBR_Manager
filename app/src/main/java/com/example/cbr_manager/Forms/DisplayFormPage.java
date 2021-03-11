@@ -147,25 +147,6 @@ public class DisplayFormPage {
             rButton = new RadioButton(context);
             rButton.setText(answer);
             radioAnswers.addView(rButton);
-            if(answer.equals("Other")){
-                EditText input = new EditText(context);
-                input.setTextSize(14);
-                input.setHint(R.string.explain_newVisitForm);
-                input.setVisibility(View.GONE);
-                input.setTag("otherExplanation");
-                rButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked){
-                            input.setVisibility(View.VISIBLE);
-                        }
-                        else{
-                            input.setVisibility(View.GONE);
-                        }
-                    }
-                });
-                radioAnswers.addView(input);
-            }
         }
 
         form.addView(radioAnswers);
