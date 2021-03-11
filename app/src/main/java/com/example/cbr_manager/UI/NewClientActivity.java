@@ -522,11 +522,19 @@ public class NewClientActivity extends AppCompatActivity {
         ArrayList<String> disabilities = newClient.getDisabilities();
         for(int i = 0; i < disabilities.size(); i++){
             CheckBox checkBox;
-            for(int j = 0; j < 9; j++){
+            for(int j = 0; j < 10; j++){
                 checkBox = (CheckBox) form.findViewWithTag(j);
                 if(checkBox.getText().equals(disabilities.get(i))){
+
                     checkBox.toggle();
+                    if(checkBox.getText().toString().equals("Other")){
+                        EditText explanation = (EditText) form.findViewWithTag("otherExplanation");
+                        String explanationString = newClient.getOtherExplanation();
+                        explanation.setVisibility(View.VISIBLE);
+                        explanation.setText(explanationString);
+                    }
                 }
+
             }
         }
     }
@@ -679,6 +687,11 @@ public class NewClientActivity extends AppCompatActivity {
             if(checkBox.isChecked()){
                 String selected = checkBox.getText().toString();
                 newClient.addToDisabilities(selected);
+                System.out.println(selected);
+                if(checkBox.getText().toString().equals("Other")){
+                    EditText explanation = (EditText) form.findViewWithTag("otherExplanation");
+                    newClient.setOtherExplanation(explanation.getText().toString());
+                }
             }
         }
     }
