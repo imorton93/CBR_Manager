@@ -165,6 +165,10 @@ public class Client implements Comparable<Client>{
         disabilities.clear();
     }
 
+    public void setDisabilities(ArrayList<String> disabilities) {
+        this.disabilities = disabilities;
+    }
+
     public ArrayList<String> getDisabilities() {
         return this.disabilities;
 

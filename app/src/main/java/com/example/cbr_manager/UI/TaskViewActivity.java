@@ -32,6 +32,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class TaskViewActivity extends AppCompatActivity {
 
@@ -117,6 +121,7 @@ public class TaskViewActivity extends AppCompatActivity {
                     RequestQueue requestQueue = Volley.newRequestQueue(TaskViewActivity.this);
 
                     //Querying local database for unsynced data to send to the server
+                    //TODO: changing the IS_SYNCED column to 1 for rows that are being sent to the server
                     DatabaseHelper mydb = new DatabaseHelper(TaskViewActivity.this);
                     String query = "SELECT * FROM CLIENT_DATA WHERE is_synced = 0;" ; //get only data that is not synced
                     Cursor c = mydb.executeQuery(query);
@@ -124,9 +129,8 @@ public class TaskViewActivity extends AppCompatActivity {
 
                     String dataToSend =  localDataJSON.toString();
 
-                    //TODO - Replace 'localhost' your WIFI IPv4 address in the URL string, with port 8080
-//                    String URL = "http://localhost:8080/clients";
                     String URL = "https://mycbr-server.herokuapp.com/clients";
+
                     //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
                     StringRequest requestToServer = new StringRequest(
                             Request.Method.POST,
@@ -136,10 +140,48 @@ public class TaskViewActivity extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     try {
                                         JSONArray serverData = new JSONArray(response);
-                                        Toast.makeText(TaskViewActivity.this, "Synced successful!", Toast.LENGTH_LONG).show();
+
+                                        JSONObject object = new JSONObject();
+                                        Client client = new Client();
+
+                                        for (int i = 0; i < serverData.length(); i++) {
+                                            object = serverData.getJSONObject(i);
+
+                                            client.setId(Long.parseLong((String) object.get("ID")));
+                                            client.setConsentToInterview(true);
+                                            client.setDate((String) object.get("DATE"));
+                                            client.setFirstName((String) object.get("FIRST_NAME"));
+                                            client.setLastName((String) object.get("LAST_NAME"));
+                                            client.setAge(Integer.parseInt((String) object.get("AGE")));
+                                            client.setGender((String) object.get("GENDER"));
+                                            client.setLocation((String) object.get("LOCATION"));
+                                            client.setVillageNumber(Integer.parseInt((String) object.get("VILLAGE_NUMBER")));
+                                            client.setContactPhoneNumber((String) object.get("CONTACT"));
+                                            client.setCaregiverPresent(false);
+                                            client.setCaregiverPhoneNumber((String) object.get("CAREGIVER_NUMBER"));
+
+                                            //setting disabilities - (doesn't work 100%)
+                                            List<String> disabilities = new ArrayList<String>(Arrays.asList(((String) object.get("DISABILITY")).split(", ")));
+                                            client.setDisabilities((ArrayList<String>) disabilities);
+                                            //--
+
+                                            client.setHealthRate((String) object.get("HEALTH_RATE"));
+                                            client.setHealthRequire((String) object.get("HEALTH_REQUIREMENT"));
+                                            client.setHealthIndividualGoal((String) object.get("HEALTH_GOAL"));
+                                            client.setEducationRate((String) object.get("EDUCATION_RATE"));
+                                            client.setEducationRequire((String) object.get("EDUCATION_REQUIRE"));
+                                            client.setEducationIndividualGoal((String) object.get("EDUCATION_GOAL"));
+                                            client.setSocialStatusRate((String) object.get("SOCIAL_RATE"));
+                                            client.setSocialStatusRequire((String) object.get("SOCIAL_REQUIREMENT"));
+                                            client.setSocialStatusIndividualGoal((String) object.get("SOCIAL_GOAL"));
+
+                                            mydb.registerClient(client);
+                                        }
+
+                                        Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
 
                                     } catch (JSONException e) {
-                                        Toast.makeText(TaskViewActivity.this, "Connection Error", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(TaskViewActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                                     }
                                 }
                             }, new Response.ErrorListener() {
