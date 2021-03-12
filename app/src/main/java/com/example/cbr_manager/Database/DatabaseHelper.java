@@ -175,6 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_social_rate, client.getSocialStatusRate());
         cv.put(client_social_goal, client.getSocialStatusIndividualGoal());
         cv.put(client_social_requirement, client.getSocialStatusRequire());
+        cv.put(is_synced, client.getIsSynced());
 
         long result = db.insert(client_table_name, null, cv);
         if (result == -1)
