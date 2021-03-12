@@ -27,6 +27,7 @@ public class Client implements Comparable<Client>{
     private String socialStatusRate;
     private String socialStatusRequire;
     private String socialStatusIndividualGoal;
+    private int isSynced = 0;
     private int priority = 0; // For dashboard to calculate priority of a client
 
     public Client(Boolean consentToInterview, String date, String firstName, String lastName,
@@ -263,5 +264,13 @@ public class Client implements Comparable<Client>{
     @Override
     public int compareTo(Client client) {
         return Integer.compare(this.priority, client.getPriority());
+    }
+
+    public int getIsSynced() {
+        return isSynced;
+    }
+
+    public void setIsSynced(int isSynced) {
+        this.isSynced = isSynced;
     }
 }
