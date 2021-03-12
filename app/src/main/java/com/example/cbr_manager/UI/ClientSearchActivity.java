@@ -1,69 +1,79 @@
 package com.example.cbr_manager.UI;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.CycleInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
-import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ClientListActivity extends AppCompatActivity {
+public class ClientSearchActivity extends AppCompatActivity {
 
-    private ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
+    private ClientManager clientManager = ClientManager.getInstance(ClientSearchActivity.this);
     private List<Client> searched_clients;
+    private int type;
+    public static final String R_CLIENT_TYPE_PASSED_IN = "r_client_type_passed_in";
 
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, ClientListActivity.class);
+    public static Intent makeIntent(Context context, int type) {
+        Intent intent =  new Intent(context, ClientSearchActivity.class);
+        intent.putExtra(R_CLIENT_TYPE_PASSED_IN, type);
+        return intent;
+    }
+    private void extractIntent(){
+        Intent intent = getIntent();
+        this.type = intent.getIntExtra(R_CLIENT_TYPE_PASSED_IN, 0);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_list);
-
+        setContentView(R.layout.activity_client_search);
+        extractIntent();
         ToolbarButtons();
-        sectionDropDownMenu();
         villageDropDownMenu();
+        sectionDropDownMenu();
 
         List<Client> clientList = clientManager.getClients();
 
         populateAllClientsFromList(clientList);
-        clickClient();
+        switch(this.type){
+            case 1:
+                clickNewVisit();
+                break;
+            case 2:
+                clickNewReferral();
+                break;
+        }
+
         searchBoxes();
     }
 
     private void searchBoxes(){
-        AutoCompleteTextView first_name_text = findViewById(R.id.firstName_clientList);
-        AutoCompleteTextView last_name_text = findViewById(R.id.lastName_clientList);
-        Spinner village_spinner = findViewById(R.id.filter_village_clientList);
-        Spinner section_spinner = findViewById(R.id.filter_section_clientList);
-        EditText village_num_text = findViewById(R.id.filter_villageNum_clientList);
-        Button search_button = findViewById(R.id.search_button_clientList);
+        AutoCompleteTextView first_name_text = findViewById(R.id.firstName_clientSearch);
+        AutoCompleteTextView last_name_text = findViewById(R.id.lastName_clientSearch);
+        Spinner village_spinner = findViewById(R.id.filter_village_clientSearch);
+        Spinner section_spinner = findViewById(R.id.filter_section_clientSearch);
+        EditText village_num_text = findViewById(R.id.filter_villageNum_clientSearch);
+        Button search_button = findViewById(R.id.search_button_clientSearch);
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,14 +83,14 @@ public class ClientListActivity extends AppCompatActivity {
                 String section = section_spinner.getSelectedItem().toString();
                 String village_num = village_num_text.getText().toString().trim();
                 searched_clients =  clientManager.getSearchedClients(first_name,
-                         last_name, village, section, village_num);
+                        last_name, village, section, village_num);
                 populateAllClientsFromList(searched_clients);
             }
         });
     }
 
     private void villageDropDownMenu(){
-        Spinner spinner = findViewById(R.id.filter_village_clientList);
+        Spinner spinner = findViewById(R.id.filter_village_clientSearch);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.dashboard_locations, android.R.layout.simple_spinner_item);
 
@@ -89,7 +99,7 @@ public class ClientListActivity extends AppCompatActivity {
     }
 
     private void sectionDropDownMenu(){
-        Spinner spinner = findViewById(R.id.filter_section_clientList);
+        Spinner spinner = findViewById(R.id.filter_section_clientSearch);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.options_array, android.R.layout.simple_spinner_item);
 
@@ -99,37 +109,49 @@ public class ClientListActivity extends AppCompatActivity {
 
     private void populateAllClientsFromList(List<Client> clientList) {
         this.searched_clients = clientList;
-        ArrayAdapter<Client> adapter = new MyListAdapter(clientList);
-        ListView list = findViewById(R.id.clientList);
+        ArrayAdapter<Client> adapter = new ClientSearchActivity.MyListAdapter(clientList);
+        ListView list = findViewById(R.id.search_client_list);
         list.setAdapter(adapter);
     }
 
-    private void clickClient() {
-        ListView list = findViewById(R.id.clientList);
+    private void clickNewVisit() {
+        ListView list = findViewById(R.id.search_client_list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position, searched_clients.get(position).getId());
+                Intent intent = NewVisitActivity.makeIntent(ClientSearchActivity.this, position, searched_clients.get(position).getId());
+                startActivity(intent);
+            }
+        });
+    }
+
+    // TODO make it go to new referral page (need to switch intent and how the back end works)
+    private void clickNewReferral() {
+        ListView list = findViewById(R.id.search_client_list);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = NewVisitActivity.makeIntent(ClientSearchActivity.this, position, searched_clients.get(position).getId());
                 startActivity(intent);
             }
         });
     }
 
     private void ToolbarButtons(){
-        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TaskViewActivity.makeIntent(ClientListActivity.this);
+                Intent intent = TaskViewActivity.makeIntent(ClientSearchActivity.this);
                 startActivity(intent);
             }
         });
 
-        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        ImageButton profileBtn = findViewById(R.id.profileButton);
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = ProfileActivity.makeIntent(ClientListActivity.this);
+                Intent intent = ProfileActivity.makeIntent(ClientSearchActivity.this);
                 startActivity(intent);
             }
         });
@@ -139,7 +161,7 @@ public class ClientListActivity extends AppCompatActivity {
         private List<Client> clients;
 
         public MyListAdapter(List<Client> clients) {
-            super(ClientListActivity.this, R.layout.client_list, clients);
+            super(ClientSearchActivity.this, R.layout.client_list, clients);
             this.clients = clients;
         }
 
