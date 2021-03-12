@@ -26,12 +26,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     private DatabaseHelper db;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ToolbarButtons();
         profilePageButtons();
+        Cursor cursor = db.viewData();
         CBRWorker cbrWorker = new CBRWorker();
 
         firstNameTextView = findViewById(R.id.profileFname);
@@ -40,8 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
         zoneTextView = findViewById(R.id.profileZone);
         profilePictureImageView = findViewById(R.id.imageView);
 
-
-        Cursor cursor = db.viewData();
 
         if(cursor.moveToFirst()) {
             firstName = cursor.getString(cursor.getColumnIndex(cbrWorker.getFirstName()));
