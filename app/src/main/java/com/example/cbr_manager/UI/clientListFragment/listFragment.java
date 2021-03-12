@@ -78,7 +78,7 @@ public class listFragment extends Fragment {
         Button search_button = v.findViewById(R.id.search_button_clientList);
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String first_name = first_name_text.getText().toString().trim();
                 String last_name = last_name_text.getText().toString().trim();
                 String village = village_spinner.getSelectedItem().toString();
