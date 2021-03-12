@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 public class TaskViewActivity extends AppCompatActivity {
+    private DatabaseHelper db;
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, TaskViewActivity.class);
@@ -227,9 +228,7 @@ public class TaskViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = ProfileActivity.makeIntent(TaskViewActivity.this);
                 startActivity(intent);
-//                Intent intent = new Intent(getApplicationContext(), ViewDataCBR.class);
-//
-//                startActivity(intent);
+
             }
         });
     }
