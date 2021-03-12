@@ -1018,6 +1018,8 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void insertClient() {
+        newClient.setIsSynced(0);
+
         boolean success = mydb.registerClient(newClient);
 
         if(success) {

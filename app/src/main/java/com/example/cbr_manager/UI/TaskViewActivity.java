@@ -127,6 +127,10 @@ public class TaskViewActivity extends AppCompatActivity {
                     Cursor c = mydb.executeQuery(query);
                     JSONArray localDataJSON = cur2Json(c);
 
+                    //Deleting local data
+                    String deleteClients = "DELETE FROM CLIENT_DATA";
+                    mydb.executeQuery(deleteClients);
+
                     String dataToSend =  localDataJSON.toString();
 
                     String URL = "https://mycbr-server.herokuapp.com/clients";
@@ -174,6 +178,7 @@ public class TaskViewActivity extends AppCompatActivity {
                                             client.setSocialStatusRate((String) object.get("SOCIAL_RATE"));
                                             client.setSocialStatusRequire((String) object.get("SOCIAL_REQUIREMENT"));
                                             client.setSocialStatusIndividualGoal((String) object.get("SOCIAL_GOAL"));
+                                            client.setIsSynced(1);
 
                                             mydb.registerClient(client);
                                         }
