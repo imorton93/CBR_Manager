@@ -57,7 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 emailTextBox.getText().toString(), BCrypt.withDefaults().hashToString(12, password1TextBox.getText().toString().toCharArray()));
                         boolean success = mydb.registerWorker(cbrWorker);
                         if(success) {
-                            cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getEmail())));
+                            cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
                             Toast.makeText(SignUpActivity.this, "Sign Up Successful!", Toast.LENGTH_LONG).show();
                             Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
                             startActivity(intent);

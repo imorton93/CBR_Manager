@@ -35,7 +35,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 public class TaskViewActivity extends AppCompatActivity {
-
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, TaskViewActivity.class);
         return intent;
@@ -61,7 +60,7 @@ public class TaskViewActivity extends AppCompatActivity {
             return false;
         }
     }
-    
+
     private void clickIcons() {
         ImageView newClient = findViewById(R.id.newclient);
         newClient.setOnClickListener(new OnClickListener() {
@@ -72,15 +71,14 @@ public class TaskViewActivity extends AppCompatActivity {
             }
         });
 
-        // TODO DELETE THIS BUTTON MAKE IT BASELINE ACTIVITY
-//        ImageView newVisit = findViewById(R.id.newVisit);
-//        newVisit.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = NewVisitActivity.makeIntent(TaskViewActivity.this);
-//                startActivity(intent);
-//            }
-//        });
+        ImageView newVisit = findViewById(R.id.newVisit);
+        newVisit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = ClientSearchActivity.makeIntent(TaskViewActivity.this, 1);
+                startActivity(intent);
+            }
+        });
 
         ImageView newReferral = findViewById(R.id.referral);
         newReferral.setOnClickListener(new OnClickListener() {
@@ -144,10 +142,10 @@ public class TaskViewActivity extends AppCompatActivity {
                                     }
                                 }
                             }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse (VolleyError e) {
-                                        Toast.makeText(TaskViewActivity.this, "Sync failed.", Toast.LENGTH_LONG).show();
-                                    }
+                        @Override
+                        public void onErrorResponse (VolleyError e) {
+                            Toast.makeText(TaskViewActivity.this, "Sync failed.", Toast.LENGTH_LONG).show();
+                        }
                     })
                     {
                         @Override
@@ -173,6 +171,8 @@ public class TaskViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = DashboardActivity.makeIntent(TaskViewActivity.this);
+                String current_username = getIntent().getStringExtra("Worker Username");
+                intent.putExtra("Worker Username", current_username);
                 startActivity(intent);
             }
         });
