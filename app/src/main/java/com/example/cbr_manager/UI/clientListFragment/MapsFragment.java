@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientListActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,6 +33,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     GoogleMap mMap;
 
     private ClientListActivity clientListActivity;
+    private ClientManager clientManager;
 
     @Nullable
     @Override
@@ -81,12 +84,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setAllGesturesEnabled(true);
         mMap.getUiSettings().setScrollGesturesEnabled(true);
 
-        // For dropping a marker at a point on the Map
-        LatLng northernUganda = new LatLng(2.8780, 32.7181);
-        mMap.addMarker(new MarkerOptions().position(northernUganda).title("Marker Title").snippet("Marker Description"));
-
         // For zooming automatically to the location of the marker
+        LatLng northernUganda = new LatLng(2.8780, 32.7181);
         CameraPosition cameraPosition = new CameraPosition.Builder().target(northernUganda).zoom(6).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        clientManager = ClientManager.getInstance(clientListActivity);
+
+        for (Client client: clientManager.getClients()) {
+            mMap.addMarker(new MarkerOptions().position(new LatLng(client.getLatitude(), client.getLongitude())).title(client.getFirstName()));
+        }
+
     }
 }
