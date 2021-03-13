@@ -63,9 +63,13 @@ public class NewReferralActivity extends AppCompatActivity {
 
     NewReferral newReferral;
 
+    public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
+    public static final String R_CLIENT_POS_PASSED_IN = "r_client_pos_passed_in";
 
-    public static Intent makeIntent(Context context) {
+    public static Intent makeIntent(Context context, int position, long id) {
         Intent intent =  new Intent(context, NewReferralActivity.class);
+        intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
+        intent.putExtra(R_CLIENT_POS_PASSED_IN, position);
         return intent;
     }
 

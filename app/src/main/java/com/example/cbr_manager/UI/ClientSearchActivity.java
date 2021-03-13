@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
+import com.example.cbr_manager.Forms.NewReferral;
 import com.example.cbr_manager.R;
 
 import java.util.List;
@@ -131,7 +132,7 @@ public class ClientSearchActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = NewVisitActivity.makeIntent(ClientSearchActivity.this, position, searched_clients.get(position).getId());
+                Intent intent = NewReferralActivity.makeIntent(ClientSearchActivity.this, position, searched_clients.get(position).getId());
                 startActivity(intent);
             }
         });
