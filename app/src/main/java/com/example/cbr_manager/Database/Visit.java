@@ -1,11 +1,6 @@
 package com.example.cbr_manager.Database;
 
-import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import static android.content.ContentValues.TAG;
 
 public class Visit {
 

@@ -2,6 +2,7 @@ package com.example.cbr_manager.UI.clientInfoFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,11 +100,43 @@ public class VisitsFragment extends Fragment {
 
             TextView date = view.findViewById(R.id.dateOfVisit);
             TextView purpose = view.findViewById(R.id.purpose_vlist);
+            TextView outcome = view.findViewById(R.id.outcome_vlist);
 
-            date.setText(currentVisit.getDate());
-            purpose.setText(currentVisit.getPurposeOfVisit());
+            String dateOfVisit = "<b>" + currentVisit.getDate() + "</b>";
+            String purposeOfVisit = "<b>Purpose of Visit:</b> " + currentVisit.getPurposeOfVisit();
+
+            date.setText(Html.fromHtml(dateOfVisit));
+            purpose.setText(Html.fromHtml(purposeOfVisit));
+            outcome.setText(Html.fromHtml(getOutcome(currentVisit)));
 
             return view;
+        }
+
+        private String getOutcome(Visit currentVisit){
+            String healthOutcome = "<b>Health Outcome:</b> ";
+            String educationOutcome = "<b>Education Outcome:</b> ";
+            String socialOutcome = "<b>Social Status Outcome:</b> ";
+
+            if(currentVisit.getHealthGoalMet().equals("Concluded")){
+                healthOutcome += currentVisit.getHealthIfConcluded();
+            }else{
+                healthOutcome += currentVisit.getHealthGoalMet();
+            }
+
+            if(currentVisit.getSocialGoalMet().equals("Concluded")){
+                socialOutcome += currentVisit.getSocialIfConcluded();
+            }else{
+                socialOutcome += currentVisit.getSocialGoalMet();
+            }
+
+            if(currentVisit.getEducationGoalMet().equals("Concluded")){
+                educationOutcome += currentVisit.getEducationIfConcluded();
+            }else{
+                educationOutcome += currentVisit.getEducationGoalMet();
+            }
+
+
+            return healthOutcome + "<br>" + educationOutcome + "<br>" + socialOutcome;
         }
     }
 }
