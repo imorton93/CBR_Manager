@@ -6,22 +6,22 @@ public class Referral {
     private String serviceReq;
     private byte[] referralPhoto;
     private String basicOrInter;
-    private double hipWidth;
+    private int hipWidth;
     private Boolean hasWheelchair;
     private Boolean wheelchairReparable;
     private Boolean bringToCentre;
-    private ArrayList<String> conditions = new ArrayList<>();
-    private String injuryLocationKnee;
-    private String injuryLocationElbow;
+    private String condition;
+    private String injuryLocation;
     private String status;
     private String outcome;
     private Long clientID;
+    private String otherExplanation;
 
     public Referral() {
 
     }
 
-    public Referral(String serviceReq, byte[] referralPhoto, String basicOrInter, double hipWidth, Boolean hasWheelchair, Boolean wheelchairReparable, Boolean bringToCentre, ArrayList<String> conditions, String injuryLocationKnee, String injuryLocationElbow, String status, String outcome, Long clientID) {
+    public Referral(String serviceReq, byte[] referralPhoto, String basicOrInter, int hipWidth, Boolean hasWheelchair, Boolean wheelchairReparable, Boolean bringToCentre, String condition, String injuryLocation, String status, String outcome, Long clientID) {
         this.serviceReq = serviceReq;
         this.referralPhoto = referralPhoto;
         this.basicOrInter = basicOrInter;
@@ -29,9 +29,8 @@ public class Referral {
         this.hasWheelchair = hasWheelchair;
         this.wheelchairReparable = wheelchairReparable;
         this.bringToCentre = bringToCentre;
-        this.conditions = conditions;
-        this.injuryLocationKnee = injuryLocationKnee;
-        this.injuryLocationElbow = injuryLocationElbow;
+        this.condition = condition;
+        this.injuryLocation = injuryLocation;
         this.status = status;
         this.outcome = outcome;
         this.clientID = clientID;
@@ -61,11 +60,11 @@ public class Referral {
         this.basicOrInter = basicOrInter;
     }
 
-    public double getHipWidth() {
+    public int getHipWidth() {
         return hipWidth;
     }
 
-    public void setHipWidth(double hipWidth) {
+    public void setHipWidth(int hipWidth) {
         this.hipWidth = hipWidth;
     }
 
@@ -93,32 +92,20 @@ public class Referral {
         this.bringToCentre = bringToCentre;
     }
 
-    public ArrayList<String> getConditions() {
-        return conditions;
+    public String getCondition() {
+        return condition;
     }
 
-    public String conditionsToString() {
-        return android.text.TextUtils.join(",", conditions);
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
-    public void setConditions(ArrayList<String> conditions) {
-        this.conditions = conditions;
+    public String getInjuryLocation() {
+        return injuryLocation;
     }
 
-    public String getInjuryLocationKnee() {
-        return injuryLocationKnee;
-    }
-
-    public void setInjuryLocationKnee(String injuryLocationKnee) {
-        this.injuryLocationKnee = injuryLocationKnee;
-    }
-
-    public String getInjuryLocationElbow() {
-        return injuryLocationElbow;
-    }
-
-    public void setInjuryLocationElbow(String injuryLocationElbow) {
-        this.injuryLocationElbow = injuryLocationElbow;
+    public void setInjuryLocation(String injuryLocation) {
+        this.injuryLocation = injuryLocation;
     }
 
     public String getStatus() {
@@ -143,5 +130,13 @@ public class Referral {
 
     public void setClientID(Long clientID) {
         this.clientID = clientID;
+    }
+
+    public String getOtherExplanation() {
+        return otherExplanation;
+    }
+
+    public void setOtherExplanation(String otherExplanation) {
+        this.otherExplanation = otherExplanation;
     }
 }

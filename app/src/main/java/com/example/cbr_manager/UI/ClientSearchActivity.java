@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.CycleInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
-import com.example.cbr_manager.Forms.NewReferral;
 import com.example.cbr_manager.R;
 
 import java.util.List;

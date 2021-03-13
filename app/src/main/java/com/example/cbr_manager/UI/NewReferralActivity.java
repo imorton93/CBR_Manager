@@ -30,10 +30,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.Referral;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
 import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
-import com.example.cbr_manager.Forms.NewReferral;
 import com.example.cbr_manager.Forms.Question;
 import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
@@ -61,7 +61,7 @@ public class NewReferralActivity extends AppCompatActivity {
 
     ImageView imageView;
 
-    NewReferral newReferral;
+    Referral referral;
 
     public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
     public static final String R_CLIENT_POS_PASSED_IN = "r_client_pos_passed_in";
@@ -95,9 +95,9 @@ public class NewReferralActivity extends AppCompatActivity {
         imageView = new ImageView(this);
         LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(imageViewLayoutParams);
-        //newReferral to save form information
-        newReferral = new NewReferral();
-        newReferral.setId(client_id);
+        //referral to save form information
+        referral = new Referral();
+        referral.setClientID(client_id);
 
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
@@ -388,7 +388,7 @@ public class NewReferralActivity extends AppCompatActivity {
         String data = null;
 
         if(tag.equals(getString(R.string.otherDescribe))){
-            data = newReferral.getOtherDescription();
+            data = referral.getOtherExplanation();
         }
 
         if(data != null){
@@ -412,10 +412,10 @@ public class NewReferralActivity extends AppCompatActivity {
         String tag = question.getQuestionTag();
         Boolean data = null;
         if(tag.equals(getString(R.string.existingChair))){
-            data = newReferral.getExistingWheelchair();
+            data = referral.getHasWheelchair();
         }
         else if(tag.equals(getString(R.string.repairChair))){
-            data = newReferral.getCanChairRepair();
+            data = referral.getWheelchairReparable();
         }
 
         if(data != null){
@@ -436,13 +436,13 @@ public class NewReferralActivity extends AppCompatActivity {
         String data = null;
 
         if(tag.equals(getString(R.string.serviceRequire))){
-            data = newReferral.getService();
+            data = referral.getServiceReq();
         }
         else if(tag.equals(getString(R.string.basicIntermediateUser))){
-            data = newReferral.getLevelWheelchairUser();
+            data = referral.getBasicOrInter();
         }
         else if(tag.equals(getString(R.string.injuryLocation))){
-            data = newReferral.getInjuryLocation();
+            data = referral.getInjuryLocation();
         }
 
         if(data != null){
@@ -460,7 +460,7 @@ public class NewReferralActivity extends AppCompatActivity {
         String tag = question.getQuestionTag();
         int data = -1;
         if(tag.equals(getString(R.string.hipWidth))){
-            data = newReferral.getHipWidth();
+            data = referral.getHipWidth();
         }
 
         if(data != -1){
@@ -474,7 +474,7 @@ public class NewReferralActivity extends AppCompatActivity {
         String tag = question.getQuestionTag();
         String data = null;
         if(tag.equals(getString(R.string.clientCondition))){
-            data = newReferral.getClientCondition();
+            data = referral.getCondition();
         }
 
         if(data != null){
@@ -513,7 +513,7 @@ public class NewReferralActivity extends AppCompatActivity {
         String tag = question.getQuestionTag();
         EditText input = (EditText) form.findViewWithTag(tag);
         if(tag.equals(getString(R.string.otherDescribe))){
-            newReferral.setOtherDescription(input.getText().toString());
+            referral.setOtherExplanation(input.getText().toString());
         }
     }
 
@@ -534,11 +534,11 @@ public class NewReferralActivity extends AppCompatActivity {
         RadioButton radioButton = consent.findViewById(buttonId);
 
         if(tag.equals(getString(R.string.existingChair))){
-            newReferral.setExistingWheelchair(radioButton.getText().equals("Yes"));
+            referral.setHasWheelchair(radioButton.getText().equals("Yes"));
         }
         else if(tag.equals(getString(R.string.repairChair))){
             if(buttonId != -1){
-                newReferral.setCanChairRepair(radioButton.getText().equals("Yes"));
+                referral.setWheelchairReparable(radioButton.getText().equals("Yes"));
             }
 
         }
@@ -552,13 +552,13 @@ public class NewReferralActivity extends AppCompatActivity {
             radioButton = (RadioButton) radioGroup.getChildAt(i);
             if(radioButton.isChecked()){
                 if(tag.equals(getString(R.string.serviceRequire))){
-                    newReferral.setService(radioButton.getText().toString());
+                    referral.setServiceReq(radioButton.getText().toString());
                 }
                 else if(tag.equals(getString(R.string.basicIntermediateUser))){
-                    newReferral.setLevelWheelchairUser(radioButton.getText().toString());
+                    referral.setBasicOrInter(radioButton.getText().toString());
                 }
                 else if(tag.equals(getString(R.string.injuryLocation))){
-                    newReferral.setInjuryLocation(radioButton.getText().toString());
+                    referral.setInjuryLocation(radioButton.getText().toString());
                 }
             }
         }
@@ -570,7 +570,7 @@ public class NewReferralActivity extends AppCompatActivity {
         String inputStr = input.getText().toString();
         int num = Integer.parseInt(inputStr);
         if(tag.equals(getString(R.string.hipWidth))){
-            newReferral.setHipWidth(num);
+            referral.setHipWidth(num);
         }
     }
 
@@ -579,7 +579,7 @@ public class NewReferralActivity extends AppCompatActivity {
         Spinner spinner = (Spinner) form.findViewWithTag(tag);
         String selected = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
         if(tag.equals(getString(R.string.clientCondition))) {
-            newReferral.setClientCondition(selected);
+            referral.setCondition(selected);
         }
     }
 
@@ -660,45 +660,45 @@ public class NewReferralActivity extends AppCompatActivity {
 
     private void reviewPage(){
         TextView serviceTypeView = new TextView(this);
-        String serviceType = newReferral.getService();
+        String serviceType = referral.getServiceReq();
         serviceTypeView.setText(serviceType);
         form.addView(serviceTypeView);
         if(serviceType.equals("Physiotherapy")){
-            String condition = newReferral.getClientCondition();
+            String condition = referral.getCondition();
             TextView conditionView = new TextView(this);
             conditionView.setText("Condition: " + condition);
             form.addView(conditionView);
         }
         else if(serviceType.equals("Prosthetic")){
-            String injuryLocation = newReferral.getInjuryLocation();
+            String injuryLocation = referral.getInjuryLocation();
             TextView injuryLocationView = new TextView(this);
             injuryLocationView.setText("Injury above or below the knee: " + injuryLocation);
             form.addView(injuryLocationView);
         }
         else if(serviceType.equals("Orthotic")){
-            String injuryLocation = newReferral.getInjuryLocation();
+            String injuryLocation = referral.getInjuryLocation();
             TextView injuryLocationView = new TextView(this);
             injuryLocationView.setText("Injury above or below the knee: " + injuryLocation);
             form.addView(injuryLocationView);
         }
         else if(serviceType.equals("Wheelchair")){
-            String userType = newReferral.getLevelWheelchairUser();
+            String userType = referral.getBasicOrInter();
             TextView userTypeView = new TextView(this);
             userTypeView.setText("Type of user: " + userType);
             form.addView(userTypeView);
 
-            int hipWidth = newReferral.getHipWidth();
+            int hipWidth = referral.getHipWidth();
             String hipWidthString = Integer.toString(hipWidth);
             TextView hipWidthView = new TextView(this);
             hipWidthView.setText("Hip Width(inches): " + hipWidthString);
             form.addView(hipWidthView);
 
-            Boolean existingChair = newReferral.getExistingWheelchair();
+            Boolean existingChair = referral.getHasWheelchair();
             TextView existingChairView = new TextView(this);
             if(existingChair){
                 existingChairView.setText("Existing Chair: Yes");
                 form.addView(existingChairView);
-                Boolean canBeFixed = newReferral.getCanChairRepair();
+                Boolean canBeFixed = referral.getWheelchairReparable();
                 TextView canBeFixedView = new TextView(this);
                 if(canBeFixed){
                     canBeFixedView.setText("Can be Fixed: Yes");
@@ -718,9 +718,9 @@ public class NewReferralActivity extends AppCompatActivity {
 
         }
         else if(serviceType.equals("Other")){
-            String otherExplanation = newReferral.getOtherDescription();
+            String otherExplanation = referral.getOtherExplanation();
             TextView otherExplanationView = new TextView(this);
-            otherExplanationView.setText("Explanation" + otherExplanation);
+            otherExplanationView.setText("Explanation: " + otherExplanation);
             form.addView(otherExplanationView);
         }
     }
