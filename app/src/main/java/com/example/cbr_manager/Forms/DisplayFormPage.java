@@ -112,9 +112,9 @@ public class DisplayFormPage {
         TextView selectDate = new TextView(context);
         Calendar calendar = Calendar.getInstance();
         int year1 = calendar.get(Calendar.YEAR);
-        int month1 = calendar.get(Calendar.MONTH);
+        int month1 = calendar.get(Calendar.MONTH)+1;
         int dayOfMonth1 = calendar.get(Calendar.DAY_OF_MONTH);
-        String date = month1 + "/" + dayOfMonth1 + "/" + year1;
+        String date = dayOfMonth1 + "/" + month1 + "/" + year1;
         selectDate.setText(date);
         selectDate.setTextSize(24);
         selectDate.setTag(question.getQuestionTag());
@@ -122,8 +122,7 @@ public class DisplayFormPage {
         DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = month + "/" + dayOfMonth + "/" + year;
+                String date = dayOfMonth + "/" + month + "/" + year;
                 selectDate.setText(date);
             }
         };
