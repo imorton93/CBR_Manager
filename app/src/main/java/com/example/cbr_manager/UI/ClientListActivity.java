@@ -10,23 +10,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClientListActivity extends AppCompatActivity {
 
+    private ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
+    private List<Client> searched_clients;
+
     public static Intent makeIntent(Context context) {
-        Intent intent =  new Intent(context, ClientListActivity.class);
-        return intent;
+        return new Intent(context, ClientListActivity.class);
     }
 
     @Override
@@ -35,19 +47,73 @@ public class ClientListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_list);
 
         ToolbarButtons();
-        createDropDownMenu();
+        sectionDropDownMenu();
+        villageDropDownMenu();
 
-        populateListView();
+        List<Client> clientList = clientManager.getClients();
+
+        populateAllClientsFromList(clientList);
         clickClient();
+        searchBoxes();
     }
 
-    private void createDropDownMenu(){
-        Spinner spinner = findViewById(R.id.filterDropdownButton);
+    private void searchBoxes(){
+        AutoCompleteTextView first_name_text = findViewById(R.id.firstName_clientList);
+        AutoCompleteTextView last_name_text = findViewById(R.id.lastName_clientList);
+        Spinner village_spinner = findViewById(R.id.filter_village_clientList);
+        Spinner section_spinner = findViewById(R.id.filter_section_clientList);
+        EditText village_num_text = findViewById(R.id.filter_villageNum_clientList);
+        Button search_button = findViewById(R.id.search_button_clientList);
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String first_name = first_name_text.getText().toString().trim();
+                String last_name = last_name_text.getText().toString().trim();
+                String village = village_spinner.getSelectedItem().toString();
+                String section = section_spinner.getSelectedItem().toString();
+                String village_num = village_num_text.getText().toString().trim();
+                searched_clients =  clientManager.getSearchedClients(first_name,
+                         last_name, village, section, village_num);
+                populateAllClientsFromList(searched_clients);
+            }
+        });
+
+    }
+
+    private void villageDropDownMenu(){
+        Spinner spinner = findViewById(R.id.filter_village_clientList);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.dashboard_locations, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    private void sectionDropDownMenu(){
+        Spinner spinner = findViewById(R.id.filter_section_clientList);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.options_array, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+    }
+
+    private void populateAllClientsFromList(List<Client> clientList) {
+        this.searched_clients = clientList;
+        ArrayAdapter<Client> adapter = new MyListAdapter(clientList);
+        ListView list = findViewById(R.id.clientList);
+        list.setAdapter(adapter);
+    }
+
+    private void clickClient() {
+        ListView list = findViewById(R.id.clientList);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position, searched_clients.get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void ToolbarButtons(){
@@ -70,49 +136,36 @@ public class ClientListActivity extends AppCompatActivity {
         });
     }
 
-    private void populateListView() {
-        DatabaseHelper handler = new DatabaseHelper(this);
-        Cursor todoCursor = handler.getAllRows();
-        ListView lvItems = findViewById(R.id.clientList);
-        TodoCursorAdapter todoAdapter = new TodoCursorAdapter(this, todoCursor);
-        lvItems.setAdapter(todoAdapter);
-    }
+    private class MyListAdapter extends ArrayAdapter<Client> {
+        private List<Client> clients;
 
-    private void clickClient() {
-        ListView list = findViewById(R.id.clientList);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, id);
-                startActivity(intent);
+        public MyListAdapter(List<Client> clients) {
+            super(ClientListActivity.this, R.layout.client_list, clients);
+            this.clients = clients;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View view = convertView;
+
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.client_list, parent, false);
             }
-        });
-    }
 
-    public class TodoCursorAdapter extends CursorAdapter {
-        public TodoCursorAdapter(Context context, Cursor cursor) {
-            super(context, cursor, 0);
-        }
+            Client currentClient;
 
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            return LayoutInflater.from(context).inflate(R.layout.client_list, parent, false);
-        }
+            currentClient = this.clients.get(position);
 
-        @Override
-        public void bindView(View view, Context context, Cursor cursor) {
             TextView firstName = view.findViewById(R.id.fname_clist);
             TextView lastName = view.findViewById(R.id.lname_clist);
             TextView village = view.findViewById(R.id.Village_clist);
 
-            String first_name = cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME"));
-            String last_name = cursor.getString(cursor.getColumnIndexOrThrow("LAST_NAME"));
-            String villageString = cursor.getString(cursor.getColumnIndexOrThrow("LOCATION"));
+            firstName.setText(currentClient.getFirstName());
+            lastName.setText(currentClient.getLastName());
+            village.setText(currentClient.getLocation());
 
-            firstName.setText(first_name);
-            lastName.setText(last_name);
-            village.setText(villageString);
+            return view;
         }
     }
-
 }

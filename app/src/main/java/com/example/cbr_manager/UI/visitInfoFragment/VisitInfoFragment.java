@@ -12,9 +12,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.Visit;
+import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.VisitInfoActivity;
+
+import java.util.List;
 
 public class VisitInfoFragment extends Fragment {
     private VisitInfoActivity visitInfoActivity;
@@ -43,25 +49,18 @@ public class VisitInfoFragment extends Fragment {
     }
 
     private void getVisitInfo(View v) {
-        DatabaseHelper handler = new DatabaseHelper(this.visitInfoActivity);
-
-        Cursor todoCursor = handler.getVisit(visitInfoActivity.getVisit_id());
+        VisitManager visitManager = VisitManager.getInstance(visitInfoActivity);
+        Visit currentVisit = visitManager.getVisitById(visitInfoActivity.getVisit_id());
+        System.out.println("In VISIT INFO FRAG ID: " + visitInfoActivity.getVisit_id());
 
         TextView purposeOfVisit = v.findViewById(R.id.purposeOfVisit);
         TextView dateOfVisit = v.findViewById(R.id.dateOfVisit2);
         TextView locationOfVisit = v.findViewById(R.id.locationOfVisit);
         TextView villageNumber = v.findViewById(R.id.villageNumber);
 
-        if(todoCursor.getCount() >= 1) {
-            String purpose_of_visit = todoCursor.getString(todoCursor.getColumnIndexOrThrow("PURPOSE_OF_VISIT"));
-            String date_of_visit = todoCursor.getString(todoCursor.getColumnIndexOrThrow("VISIT_DATE"));
-            String location_of_visit = todoCursor.getString(todoCursor.getColumnIndexOrThrow("LOCATION"));
-            String village_number = todoCursor.getString(todoCursor.getColumnIndexOrThrow("VILLAGE_NUMBER"));
-
-            purposeOfVisit.setText("PURPOSE OF VISIT: " + purpose_of_visit);
-            dateOfVisit.setText("DATE: " + date_of_visit);
-            locationOfVisit.setText("LOCATION: " + location_of_visit);
-            villageNumber.setText("VILLAGE NUMBER: " + village_number);
-        }
+        purposeOfVisit.setText(currentVisit.getPurposeOfVisit());
+        dateOfVisit.setText(currentVisit.getDate());
+        locationOfVisit.setText(currentVisit.getLocation());
+        villageNumber.setText(String.valueOf(currentVisit.getVillageNumber()));
     }
 }

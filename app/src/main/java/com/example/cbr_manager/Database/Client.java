@@ -2,9 +2,10 @@ package com.example.cbr_manager.Database;
 
 import java.util.ArrayList;
 
-public class Client {
+public class Client implements Comparable<Client>{
     //Saved answers to questions
     //all open to change depending on saving to database
+    private long id;
     private Boolean consentToInterview;
     private String date;
     private String firstName;
@@ -27,7 +28,19 @@ public class Client {
 
     private byte[] photo;
 
-    public Client(byte[] photo, Boolean consentToInterview, String date, String firstName, String lastName, int age, String gender, String location, int villageNumber, String contactPhoneNumber, Boolean caregiverPresent, String caregiverPhoneNumber, ArrayList<String> disabilities, String healthRate, String healthRequire, String healthIndividualGoal, String educationRate, String educationRequire, String educationIndividualGoal, String socialStatusRate, String socialStatusRequire, String socialStatusIndividualGoal) {
+    private String socialStatusRequire;
+    private String socialStatusIndividualGoal;
+
+    private int priority = 0; // For dashboard to calculate priority of a client
+
+
+    public Client(Boolean consentToInterview, String date, String firstName, String lastName,
+                  int age, String gender, String location, int villageNumber, String contactPhoneNumber,
+                  Boolean caregiverPresent, String caregiverPhoneNumber, byte[] photo, ArrayList<String> disabilities,
+                  String healthRate, String healthRequire, String healthIndividualGoal, String educationRate,
+                  String educationRequire, String educationIndividualGoal, String socialStatusRate,
+                  String socialStatusRequire, String socialStatusIndividualGoal) {
+
         this.consentToInterview = consentToInterview;
         this.date = date;
         this.firstName = firstName;
@@ -53,10 +66,15 @@ public class Client {
         this.photo = photo;
     }
 
-    private String socialStatusRequire;
-    private String socialStatusIndividualGoal;
-
     public Client() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Boolean getConsentToInterview() {
@@ -241,4 +259,19 @@ public class Client {
     public byte[] getPhoto() {
         return photo;
     }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(Client client) {
+        return Integer.compare(this.priority, client.getPriority());
+
+    }
+
 }

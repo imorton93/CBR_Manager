@@ -14,6 +14,8 @@ import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText firstNameTextBox, lastNameTextBox, emailTextBox, password1TextBox, password2TextBox;
@@ -52,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if(validateEntries()) {
                     if (validatePasswords()) {
                         cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
-                                emailTextBox.getText().toString(), password1TextBox.getText().toString());
+                                emailTextBox.getText().toString(), BCrypt.withDefaults().hashToString(12, password1TextBox.getText().toString().toCharArray()));
                         boolean success = mydb.registerWorker(cbrWorker);
                         if(success) {
                             cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getEmail())));

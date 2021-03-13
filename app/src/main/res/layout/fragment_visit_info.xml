@@ -8,48 +8,99 @@
     tools:context=".UI.visitInfoFragment.VisitInfoFragment">
 
     <TextView
-        android:id="@+id/purposeOfVisit"
-        android:layout_width="285dp"
-        android:layout_height="139dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
+        android:id="@+id/villageText"
+        android:layout_width="144dp"
+        android:layout_height="58dp"
         android:layout_marginTop="44dp"
-        android:text="@string/purposeOfVisit"
+        android:gravity="left"
+        android:text="Village Number:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/locationText"
+        app:layout_constraintTop_toBottomOf="@+id/locationText" />
+
+    <TextView
+        android:id="@+id/locationText"
+        android:layout_width="144dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="44dp"
+        android:gravity="left"
+        android:text="Location:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/dateText"
+        app:layout_constraintTop_toBottomOf="@+id/dateText" />
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="144dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="44dp"
+        android:gravity="left"
+        android:text="Date:"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/purposeText"
+        android:layout_width="143dp"
+        android:layout_height="108dp"
+        android:layout_marginTop="44dp"
+        android:gravity="left"
+        android:text="Purpose of Visit:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/villageText"
+        app:layout_constraintTop_toBottomOf="@+id/villageText" />
+
+    <TextView
+        android:id="@+id/purposeOfVisit"
+        android:layout_width="197dp"
+        android:layout_height="222dp"
+        android:gravity="right"
+        android:text="@string/purposeOfVisit"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/villageNumber"
+        app:layout_constraintTop_toTopOf="@+id/purposeText" />
+
+    <TextView
         android:id="@+id/dateOfVisit2"
-        android:layout_width="283dp"
-        android:layout_height="109dp"
-        android:layout_marginTop="54dp"
+        android:layout_width="152dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="right"
         android:text="@string/date"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/purposeOfVisit"
-        app:layout_constraintTop_toBottomOf="@+id/purposeOfVisit" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dateText" />
 
     <TextView
         android:id="@+id/locationOfVisit"
-        android:layout_width="276dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="54dp"
+        android:layout_width="153dp"
+        android:layout_height="58dp"
+        android:gravity="right"
         android:text="@string/location"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/dateOfVisit2"
-        app:layout_constraintTop_toBottomOf="@+id/dateOfVisit2" />
+        app:layout_constraintEnd_toEndOf="@+id/dateOfVisit2"
+        app:layout_constraintTop_toTopOf="@+id/locationText" />
 
     <TextView
         android:id="@+id/villageNumber"
-        android:layout_width="278dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="54dp"
+        android:layout_width="149dp"
+        android:layout_height="53dp"
+        android:gravity="right"
         android:text="@string/villageNumber"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/locationOfVisit"
-        app:layout_constraintTop_toBottomOf="@+id/locationOfVisit" />
+        app:layout_constraintEnd_toEndOf="@+id/locationOfVisit"
+        app:layout_constraintTop_toTopOf="@+id/villageText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
