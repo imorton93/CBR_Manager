@@ -127,10 +127,6 @@ public class TaskViewActivity extends AppCompatActivity {
                     Cursor c = mydb.executeQuery(query);
                     JSONArray localDataJSON = cur2Json(c);
 
-                    //Deleting local data
-                    String deleteClients = "DELETE FROM CLIENT_DATA";
-                    mydb.executeQuery(deleteClients);
-
                     String dataToSend =  localDataJSON.toString();
 
                     String URL = "https://mycbr-server.herokuapp.com/clients";
@@ -143,6 +139,10 @@ public class TaskViewActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String response) {
                                     try {
+                                        //Deleting local data
+                                        String deleteClients = "DELETE FROM CLIENT_DATA";
+                                        mydb.executeQuery(deleteClients);
+
                                         JSONArray serverData = new JSONArray(response);
 
                                         JSONObject object = new JSONObject();
