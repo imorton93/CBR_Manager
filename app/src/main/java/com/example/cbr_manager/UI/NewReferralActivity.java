@@ -475,6 +475,13 @@ public class NewReferralActivity extends AppCompatActivity {
         String data = null;
         if(tag.equals(getString(R.string.clientCondition))){
             data = referral.getCondition();
+            if(data != null){
+                if(data.equals("Other")){
+                    String explanation = referral.getConditionOtherExplanation();
+                    EditText otherExplanationView = form.findViewWithTag(getString(R.string.otherConditionDescribe));
+                    otherExplanationView.setText(explanation);
+                }
+            }
         }
 
         if(data != null){
@@ -485,6 +492,7 @@ public class NewReferralActivity extends AppCompatActivity {
                 }
             }
         }
+
     }
 
 
@@ -581,6 +589,10 @@ public class NewReferralActivity extends AppCompatActivity {
         String selected = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
         if(tag.equals(getString(R.string.clientCondition))) {
             referral.setCondition(selected);
+            if(selected.equals("Other")){
+                EditText input = (EditText) form.findViewWithTag(getString(R.string.otherConditionDescribe));
+                referral.setConditionOtherExplanation(input.getText().toString());
+            }
         }
     }
 
@@ -639,8 +651,10 @@ public class NewReferralActivity extends AppCompatActivity {
         physioPages.add(physioOne);
 
         MultipleChoiceQuestion physioCondition = new MultipleChoiceQuestion(getString(R.string.clientCondition),getString(R.string.clientConditionQuestion_newReferralForm), QuestionType.DROP_DOWN, res.getStringArray(R.array.physioConditionType), true);
+        TextQuestion otherConditionExplanation = new TextQuestion(getString(R.string.otherConditionDescribe), getString(R.string.conditionOtherExplanation_newReferralForm), QuestionType.PLAIN_TEXT, false);
         FormPage physioTwo = new FormPage();
         physioTwo.addToPage(physioCondition);
+        physioTwo.addToPage(otherConditionExplanation);
         physioPages.add(physioTwo);
 
 

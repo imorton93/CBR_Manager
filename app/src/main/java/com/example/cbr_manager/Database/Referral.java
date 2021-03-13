@@ -11,6 +11,7 @@ public class Referral {
     private Boolean wheelchairReparable;
     private Boolean bringToCentre;
     private String condition;
+    private String conditionOtherExplanation;
     private String injuryLocation;
     private String status;
     private String outcome;
@@ -138,5 +139,13 @@ public class Referral {
 
     public void setOtherExplanation(String otherExplanation) {
         this.otherExplanation = otherExplanation;
+    }
+
+    public String getConditionOtherExplanation() {
+        return conditionOtherExplanation;
+    }
+
+    public void setConditionOtherExplanation(String conditionOtherExplanation) {
+        this.conditionOtherExplanation = conditionOtherExplanation;
     }
 }
