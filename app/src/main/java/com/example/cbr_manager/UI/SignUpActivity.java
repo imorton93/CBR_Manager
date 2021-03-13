@@ -78,7 +78,6 @@ public class SignUpActivity extends AppCompatActivity {
                         boolean success = mydb.registerWorker(cbrWorker);
                         if(success) {
                             cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getEmail())));
-                            Toast.makeText(SignUpActivity.this, "Sign Up Successful!", Toast.LENGTH_LONG).show();
                             syncLoginData();
                             Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
                             startActivity(intent);
@@ -173,6 +172,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 mydb.registerWorker(worker);
                             }
 
+                            Toast.makeText(SignUpActivity.this, "Sign up successful!", Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             Toast.makeText(SignUpActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                         }
@@ -180,7 +180,11 @@ public class SignUpActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse (VolleyError e) {
-                Toast.makeText(SignUpActivity.this, "Sync failed.", Toast.LENGTH_LONG).show();
+                if (e.networkResponse.statusCode == 409) { //409 CONFLICT: email already exists on server
+                    Toast.makeText(SignUpActivity.this, "Email is already taken. Try again.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Sign up failed.", Toast.LENGTH_LONG).show();
+                }
             }
         })
         {
