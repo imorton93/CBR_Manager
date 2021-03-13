@@ -65,8 +65,6 @@ public class InfoFragment extends Fragment {
         String disabilities = Arrays.toString(currentClient.getDisabilities().toArray()).replace("[", "").replace("]", "");
         DatabaseHelper handler = new DatabaseHelper(this.infoActivity);
         Cursor todoCursor = handler.getRow(infoActivity.getId());
-        // TODO DELETE -- KEEPING FOR TESTING JUST IN CASE
-//        byte[] blob = todoCursor.getBlob(todoCursor.getColumnIndexOrThrow("PHOTO"));
         Bitmap bmp = BitmapFactory.decodeByteArray(currentClient.getPhoto(), 0 , currentClient.getPhoto().length);
 
         profile.setImageBitmap(bmp);

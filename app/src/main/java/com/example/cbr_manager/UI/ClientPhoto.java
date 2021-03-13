@@ -55,25 +55,6 @@ public class ClientPhoto extends AppCompatActivity
                     }
                 });
 
-
-//        btnadd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String NewEntry = editText.getText().toString();
-//                byte[] NewEntry7 = imageViewToByte(editImage);
-//                if (editText.length() != 0)
-//                {
-//                    AddData(NewEntry7);
-//                    Intent intent = new Intent(ClientPhoto.this, NewClientActivity.class);
-//                    startActivity(intent);
-//                } else {
-//                    Toast("Field mandatory");
-//                }
-//            }
-
-//
-//        });
-
     }
 
     private  void Toast(String s)
