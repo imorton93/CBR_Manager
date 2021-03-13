@@ -312,6 +312,11 @@ public class NewReferralActivity extends AppCompatActivity {
                         returnBool = false;
                     }
                 }
+                else if(type == QuestionType.DROP_DOWN){
+                    if(!isDropDownAnswered(question)){
+                        returnBool = false;
+                    }
+                }
             }
 
         }
@@ -360,6 +365,25 @@ public class NewReferralActivity extends AppCompatActivity {
 
 
         return isAnswered && repairCondition;
+    }
+
+    private Boolean isDropDownAnswered(Question question){
+        Boolean returnBool = true;
+        String tag = question.getQuestionTag();
+        Spinner spinner = (Spinner) form.findViewWithTag(tag);
+        String selected = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+        if(tag.equals(getString(R.string.clientCondition))) {
+            if(selected.equals("Other")){
+                returnBool = false;
+                EditText input = (EditText) form.findViewWithTag(getString(R.string.otherConditionDescribe));
+                if(input.getText().toString().trim().length() > 0){
+                    returnBool = true;
+                }
+            }
+        }
+
+        return returnBool;
+
     }
 
 
