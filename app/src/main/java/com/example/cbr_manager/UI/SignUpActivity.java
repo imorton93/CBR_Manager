@@ -78,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
                         boolean success = mydb.registerWorker(cbrWorker);
                         if(success) {
                             cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getEmail())));
-                            //Toast.makeText(SignUpActivity.this, "Sign Up Successful!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUpActivity.this, "Sign Up Successful!", Toast.LENGTH_LONG).show();
                             syncLoginData();
                             Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
                             startActivity(intent);
@@ -141,10 +141,6 @@ public class SignUpActivity extends AppCompatActivity {
         Cursor c = mydb.executeQuery(query);
         JSONArray localDataJSON = cur2Json(c);
 
-        /*Deleting local data
-        String deleteWorkers = "DELETE FROM WORKER_DATA";
-        mydb.executeQuery(deleteWorkers);*/
-
         String dataToSend = localDataJSON.toString();
 
         String URL = "https://mycbr-server.herokuapp.com/workers";
@@ -157,11 +153,25 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            //Deleting local data
+                            String deleteWorkers = "DELETE FROM WORKER_DATA";
+                            mydb.executeQuery(deleteWorkers);
+
                             JSONArray serverData = new JSONArray(response);
                             JSONObject object = new JSONObject();
                             CBRWorker worker = new CBRWorker();
 
-                            //Handle incoming data here
+                            for (int i = 0; i < serverData.length(); i++) {
+                                object = serverData.getJSONObject(i);
+
+                                worker.setFirstName((String) object.get("FIRST_NAME"));
+                                worker.setLastName((String) object.get("LAST_NAME"));
+                                worker.setEmail((String) object.get("EMAIL"));
+                                worker.setPassword((String) object.get("PASSWORD"));
+                                worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
+
+                                mydb.registerWorker(worker);
+                            }
 
                         } catch (JSONException e) {
                             Toast.makeText(SignUpActivity.this, e.toString(), Toast.LENGTH_LONG).show();
@@ -191,7 +201,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public JSONArray cur2Json(Cursor cursor) {
-
         JSONArray resultSet = new JSONArray();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
