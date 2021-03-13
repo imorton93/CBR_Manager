@@ -83,6 +83,7 @@ public class NewClientActivity extends AppCompatActivity {
     double latitude;
     double longitude;
     TextView textLatLong;
+    byte[] imageEntry;
 
 
     public static Intent makeIntent(Context context) {
@@ -333,7 +334,7 @@ public class NewClientActivity extends AppCompatActivity {
             //set capture Image to imageview
             imageView.setImageBitmap(captureImage);
 
-            byte[] imageEntry = imageViewToByte(imageView);
+            imageEntry = imageViewToByte(imageView);
 
 //            addData(imageEntry);
         }
@@ -663,8 +664,11 @@ public class NewClientActivity extends AppCompatActivity {
             }
 
             else if(type == QuestionType.GPS){
-                Log.e(TAG, "IN GPS");
                 saveGPS(question);
+            }
+            else if(type == QuestionType.PICTURE){
+                savePicture(question);
+
             }
 
         }
@@ -676,6 +680,15 @@ public class NewClientActivity extends AppCompatActivity {
             newClient.setLongitude(longitude);
         }
     }
+
+    private void savePicture(Question question) {
+        String tag = question.getQuestionTag();
+        if (tag.equals("PICTURE")) {
+            newClient.setPhoto(imageEntry);
+
+        }
+    }
+
 
     private void saveText(Question question){
         String tag = question.getQuestionTag();

@@ -1,11 +1,8 @@
 package com.example.cbr_manager.UI.clientInfoFragment;
 
-<<<<<<< HEAD
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-=======
->>>>>>> master
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
 import java.util.Arrays;
@@ -65,8 +63,9 @@ public class InfoFragment extends Fragment {
         String name_string = currentClient.getFirstName() + " " + currentClient.getLastName();
 
         String disabilities = Arrays.toString(currentClient.getDisabilities().toArray()).replace("[", "").replace("]", "");
-
-        byte[] blob = todoCursor.getBlob(todoCursor.getColumnIndexOrThrow("CLIENT_PHOTO"));
+        DatabaseHelper handler = new DatabaseHelper(this.infoActivity);
+        Cursor todoCursor = handler.getRow(infoActivity.getId());
+        byte[] blob = todoCursor.getBlob(todoCursor.getColumnIndexOrThrow("PHOTO"));
         Bitmap bmp = BitmapFactory.decodeByteArray(blob, 0 , blob.length);
 
         profile.setImageBitmap(bmp);

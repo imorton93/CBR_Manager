@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_contact = "CONTACT";
     private static final String client_caregiver_presence = "CAREGIVER_PRESENCE";
     private static final String client_caregiver_number = "CAREGIVER_NUMBER";
-    private static final String client_photo = "CLIENT_PHOTO";
+    private static final String client_photo = "PHOTO";
     private static final String client_disability = "DISABILITY";
     private static final String client_heath_rate = "HEALTH_RATE";
     private static final String client_health_requirement = "HEALTH_REQUIREMENT";
@@ -185,7 +185,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_social_goal, client.getSocialStatusIndividualGoal());
         cv.put(client_social_requirement, client.getSocialStatusRequire());
 
-//        cv.put(client_photo, client.getPhoto());
+        cv.put(client_photo, client.getPhoto());
 
         long result = db.insert(client_table_name, null, cv);
         if (result == -1)

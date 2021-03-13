@@ -267,6 +267,9 @@ public class Client implements Comparable<Client>{
         return photo;
     }
 
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
     public int getPriority() {
         return priority;
     }

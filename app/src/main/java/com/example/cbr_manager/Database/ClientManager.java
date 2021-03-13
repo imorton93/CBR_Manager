@@ -32,6 +32,7 @@ public class ClientManager implements Iterable<Client>{
     private static final String client_contact = "CONTACT";
     private static final String client_caregiver_presence = "CAREGIVER_PRESENCE";
     private static final String client_caregiver_number = "CAREGIVER_NUMBER";
+    private static final String client_photo = "PHOTO";
     private static final String client_disability = "DISABILITY";
     private static final String client_heath_rate = "HEALTH_RATE";
     private static final String client_health_requirement = "HEALTH_REQUIREMENT";
@@ -87,6 +88,7 @@ public class ClientManager implements Iterable<Client>{
         int longitudeI = c.getColumnIndex(client_longitude);
         int contactI = c.getColumnIndex(client_contact);
         int caregiverPresentI = c.getColumnIndex(client_caregiver_presence);
+        int photoI = c.getColumnIndex(client_photo);
         int caregiverNumI = c.getColumnIndex(client_caregiver_number);
         int disabilityI = c.getColumnIndex(client_disability);
         int healthRateI = c.getColumnIndex(client_heath_rate);
@@ -115,6 +117,7 @@ public class ClientManager implements Iterable<Client>{
             String contactPhoneNumber = c.getString(contactI);
             Boolean caregiverPresent = (c.getInt(caregiverPresentI) > 0);
             String caregiverPhoneNumber = c.getString(caregiverNumI);
+            byte[] photo = c.getBlob(photoI);
             ArrayList<String> disabilities = new ArrayList<>(Arrays.asList(c.getString(disabilityI).split(",")));
             String healthRate = c.getString(healthRateI);
             String healthRequire = c.getString(healthReqI);
@@ -127,7 +130,7 @@ public class ClientManager implements Iterable<Client>{
             String socialStatusIndividualGoal = c.getString(socialGoalI);
 
             Client newClient = new Client(consent, date, firstName, lastName, age, gender, location,
-                    villageNumber, latitude, longitude, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber, disabilities,
+                    villageNumber, latitude, longitude, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber,photo, disabilities,
                     healthRate, healthRequire, healthIndividualGoal, educationRate, educationRequire,
                     educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal);
 
