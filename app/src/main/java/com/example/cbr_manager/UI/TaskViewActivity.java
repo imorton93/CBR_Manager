@@ -25,6 +25,7 @@ import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.VisitManager;
+import com.example.cbr_manager.GoogleMaps.MainActivity;
 import com.example.cbr_manager.R;
 
 import org.json.JSONArray;
@@ -123,8 +124,10 @@ public class TaskViewActivity extends AppCompatActivity {
                     String dataToSend =  localDataJSON.toString();
 
                     //TODO - Replace 'localhost' your WIFI IPv4 address in the URL string, with port 8080
+
 //                    String URL = "http://localhost:8080/clients";
                     String URL = "https://mycbr-server.herokuapp.com/clients";
+
                     //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
                     StringRequest requestToServer = new StringRequest(
                             Request.Method.POST,
