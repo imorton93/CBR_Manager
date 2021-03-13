@@ -65,9 +65,12 @@ public class InfoFragment extends Fragment {
         String disabilities = Arrays.toString(currentClient.getDisabilities().toArray()).replace("[", "").replace("]", "");
         DatabaseHelper handler = new DatabaseHelper(this.infoActivity);
         Cursor todoCursor = handler.getRow(infoActivity.getId());
-        Bitmap bmp = BitmapFactory.decodeByteArray(currentClient.getPhoto(), 0 , currentClient.getPhoto().length);
+        if (currentClient.getPhoto() != null){
+            Bitmap bmp = BitmapFactory.decodeByteArray(currentClient.getPhoto(), 0 , currentClient.getPhoto().length);
+            profile.setImageBitmap(bmp);
+        }
 
-        profile.setImageBitmap(bmp);
+
 
         name.setText(name_string);
         gender.setText(currentClient.getGender());
