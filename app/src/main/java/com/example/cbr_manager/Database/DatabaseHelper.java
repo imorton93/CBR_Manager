@@ -253,12 +253,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public void addData(byte[] img) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(client_photo, img);
-        db.insert(client_table_name,null, contentValues);
-    }
+//    public void addData(byte[] img) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(client_photo, img);
+//        db.insert(client_table_name,null, contentValues);
+//    }
 
     public Cursor getdata() {
         SQLiteDatabase db = this.getWritableDatabase();

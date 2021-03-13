@@ -234,9 +234,9 @@ public class NewClientActivity extends AppCompatActivity {
         form.addView(imageView);
     }
 
-    private void addData(byte[] newEntry7) {
-        mydb.addData(newEntry7);
-    }
+//    private void addData(byte[] newEntry7) {
+//        mydb.addData(newEntry7);
+//    }
 
     public byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
@@ -255,7 +255,8 @@ public class NewClientActivity extends AppCompatActivity {
             imageView.setImageBitmap(captureImage);
 
             byte[] imageEntry = imageViewToByte(imageView);
-            addData(imageEntry);
+
+//            addData(imageEntry);
         }
     }
 
