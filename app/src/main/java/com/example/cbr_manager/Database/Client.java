@@ -18,6 +18,7 @@ public class Client implements Comparable<Client>{
     private Boolean caregiverPresent;
     private String caregiverPhoneNumber;
     private ArrayList<String> disabilities = new ArrayList<>();
+    private String otherExplanation;
     private String healthRate;
     private String healthRequire;
     private String healthIndividualGoal;
@@ -59,6 +60,14 @@ public class Client implements Comparable<Client>{
     }
 
     public Client() {
+    }
+
+    public String getOtherExplanation() {
+        return otherExplanation;
+    }
+
+    public void setOtherExplanation(String otherExplanation) {
+        this.otherExplanation = otherExplanation;
     }
 
     public long getId() {
