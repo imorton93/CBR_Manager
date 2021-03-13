@@ -1,14 +1,23 @@
 package com.example.cbr_manager.Forms;
 
 public class NewReferral {
-    String service;
-    String levelWheelchairUser;
-    int hipWidth;
-    Boolean existingWheelchair;
-    Boolean canChairRepair;
-    String clientCondition;
-    String injuryLocation;
-    String otherDescription;
+    private long id;
+    private String service;
+    private String levelWheelchairUser;
+    private int hipWidth;
+    private Boolean existingWheelchair;
+    private Boolean canChairRepair;
+    private String clientCondition;
+    private String injuryLocation;
+    private String otherDescription;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getService() {
         return service;

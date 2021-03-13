@@ -65,6 +65,8 @@ public class NewReferralActivity extends AppCompatActivity {
 
     public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
     public static final String R_CLIENT_POS_PASSED_IN = "r_client_pos_passed_in";
+    private static long client_id;
+    private static int client_pos;
 
     public static Intent makeIntent(Context context, int position, long id) {
         Intent intent =  new Intent(context, NewReferralActivity.class);
@@ -73,11 +75,18 @@ public class NewReferralActivity extends AppCompatActivity {
         return intent;
     }
 
+    private void extractIntent(){
+        Intent intent = getIntent();
+        client_id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        client_pos = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_referral);
         ToolbarButtons();
+        extractIntent();
 
         //Button setup
         next = (Button) findViewById(R.id.nextBtnVisit);
@@ -88,6 +97,7 @@ public class NewReferralActivity extends AppCompatActivity {
         imageView.setLayoutParams(imageViewLayoutParams);
         //newReferral to save form information
         newReferral = new NewReferral();
+        newReferral.setId(client_id);
 
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
