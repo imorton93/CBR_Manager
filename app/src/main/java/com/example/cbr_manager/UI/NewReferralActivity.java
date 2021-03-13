@@ -539,6 +539,7 @@ public class NewReferralActivity extends AppCompatActivity {
         else if(tag.equals(getString(R.string.repairChair))){
             if(buttonId != -1){
                 referral.setWheelchairReparable(radioButton.getText().equals("Yes"));
+                referral.setBringToCentre(radioButton.getText().equals("Yes"));
             }
 
         }

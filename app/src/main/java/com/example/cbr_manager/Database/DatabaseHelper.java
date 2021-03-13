@@ -223,7 +223,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(has_wheelchair, referral.getHasWheelchair());
         cv.put(wheelchair_repairable, referral.getWheelchairReparable());
         cv.put(bring_to_centre, referral.getBringToCentre());
-        //TODO: need to change
+        //TODO: need to change, only one condition
 //        cv.put(conditions, referral.conditionsToString());
 //        cv.put(injury_location_knee, referral.getInjuryLocationKnee());
 //        cv.put(injury_location_elbow, referral.getInjuryLocationElbow());
