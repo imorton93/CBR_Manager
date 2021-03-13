@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -216,22 +217,59 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(service_req, referral.getServiceReq());
+//        cv.put(service_req, referral.getServiceReq());
         //TODO: cv.put(referral_photo, referral.getReferralPhoto());
-        cv.put(basic_or_inter, referral.getBasicOrInter());
-        cv.put(hip_width, referral.getHipWidth());
-        cv.put(has_wheelchair, referral.getHasWheelchair());
-        cv.put(wheelchair_repairable, referral.getWheelchairReparable());
-        cv.put(bring_to_centre, referral.getBringToCentre());
-        //TODO: need to change, only one condition
+//        cv.put(basic_or_inter, referral.getBasicOrInter());
+//        cv.put(hip_width, referral.getHipWidth());
+//        cv.put(has_wheelchair, referral.getHasWheelchair());
+//        cv.put(wheelchair_repairable, referral.getWheelchairReparable());
+//        cv.put(bring_to_centre, referral.getBringToCentre());
+        
 //        cv.put(conditions, referral.conditionsToString());
 //        cv.put(injury_location_knee, referral.getInjuryLocationKnee());
 //        cv.put(injury_location_elbow, referral.getInjuryLocationElbow());
-        cv.put(referral_status, referral.getStatus());
-        cv.put(referral_outcome, referral.getOutcome());
-        cv.put(client_referral_id, referral.getClientID());
+//        cv.put(referral_status, referral.getStatus());
+//        cv.put(referral_outcome, referral.getOutcome());
 
-        long result = db.insert(visit_table, null, cv);
+        cv.put(client_referral_id, referral.getClientID());
+        String serviceType = referral.getServiceReq();
+
+        if(serviceType.equals("Physiotherapy")){
+            cv.put(service_req, referral.getServiceReq());
+            String condition = referral.getCondition();
+            if(condition.equals("Other")){
+                String explanation = referral.getConditionOtherExplanation();
+                cv.put(conditions, explanation);
+            }
+            else{
+                cv.put(conditions,condition);
+            }
+        }
+        else if(serviceType.equals("Prosthetic")){
+            cv.put(service_req, referral.getServiceReq());
+            cv.put(injury_location_elbow, referral.getInjuryLocation());
+        }
+        else if(serviceType.equals("Orthotic")){
+            cv.put(service_req, referral.getServiceReq());
+            cv.put(injury_location_elbow, referral.getInjuryLocation());
+        }
+        else if(serviceType.equals("Wheelchair")){
+            cv.put(service_req, referral.getServiceReq());
+            cv.put(basic_or_inter, referral.getBasicOrInter());
+            cv.put(hip_width, referral.getHipWidth());
+            Boolean hasWheelchair = referral.getHasWheelchair();
+            cv.put(has_wheelchair, hasWheelchair);
+            if(hasWheelchair){
+                cv.put(wheelchair_repairable, referral.getWheelchairReparable());
+                cv.put(bring_to_centre, referral.getBringToCentre());
+            }
+        }
+        else if(serviceType.equals("Other")){
+            String otherExplanation = referral.getOtherExplanation();
+            cv.put(service_req, otherExplanation);
+        }
+
+        long result = db.insert(referral_table, null, cv);
         if (result == -1 )
             return false;
         else

@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Referral;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
@@ -68,6 +69,8 @@ public class NewReferralActivity extends AppCompatActivity {
     private static long client_id;
     private static int client_pos;
 
+    private DatabaseHelper mydb;
+
     public static Intent makeIntent(Context context, int position, long id) {
         Intent intent =  new Intent(context, NewReferralActivity.class);
         intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
@@ -87,6 +90,8 @@ public class NewReferralActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_referral);
         ToolbarButtons();
         extractIntent();
+
+        mydb = new DatabaseHelper(NewReferralActivity.this);
 
         //Button setup
         next = (Button) findViewById(R.id.nextBtnVisit);
@@ -126,7 +131,10 @@ public class NewReferralActivity extends AppCompatActivity {
 
 
         next.setOnClickListener(v -> {
-            if(!fieldsFilled(currentPage)){
+            if(next.getText().toString().equals("Finish")){
+                insertReferral();
+            }
+            else if(!fieldsFilled(currentPage)){
                 requiredFieldsToast();
             }
             else if(currentPage < pageCount - 1){
@@ -761,6 +769,18 @@ public class NewReferralActivity extends AppCompatActivity {
             TextView otherExplanationView = new TextView(this);
             otherExplanationView.setText("Explanation: " + otherExplanation);
             form.addView(otherExplanationView);
+        }
+    }
+
+    private void insertReferral() {
+        boolean success = mydb.addReferral(referral);
+
+        if(success) {
+            Toast.makeText(NewReferralActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
+            Intent intent = ClientInfoActivity.makeIntent(NewReferralActivity.this, client_pos,  client_id);
+            startActivity(intent);
+        } else {
+            Toast.makeText(NewReferralActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
         }
     }
 }
