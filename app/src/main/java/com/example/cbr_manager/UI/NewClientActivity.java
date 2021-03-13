@@ -9,7 +9,11 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.ResultReceiver;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,6 +32,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -43,12 +48,21 @@ import com.example.cbr_manager.Forms.Question;
 import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class NewClientActivity extends AppCompatActivity {
-    private static final String TAG = "INSERTED";
+
+//    private static final String TAG = "INSERTED";
+
+
+    private static final String TAG = "ERROR";
+
     LinearLayout form;
     int currentPage;
     int pageCount;
@@ -63,6 +77,12 @@ public class NewClientActivity extends AppCompatActivity {
     //structure to save all the answers
     Client newClient;
     private DatabaseHelper mydb;
+
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
+    Location location_GPS;
+    double latitude;
+    double longitude;
+    TextView textLatLong;
 
 
     public static Intent makeIntent(Context context) {
@@ -82,6 +102,18 @@ public class NewClientActivity extends AppCompatActivity {
         next.setBackgroundColor(Color.parseColor("#6661ED24"));
 
         back = (Button) findViewById(R.id.backBtn);
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    NewClientActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_LOCATION_PERMISSION
+            );
+        } else {
+            getCurrentLocation();
+        }
+
         newClient = new Client();
         imageView = new ImageView(this);
         LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -99,12 +131,11 @@ public class NewClientActivity extends AppCompatActivity {
         createNewClientForm();
         pageCount = pages.size() + 1;
 
-        DisplayFormPage.displayPage(pages.get(currentPage-1), form, this);
+        DisplayFormPage.displayPage(pages.get(currentPage-1), form, this, latitude, longitude);
 
         progressBar.setMax(pageCount);
 
         setProgress(currentPage, pageCount);
-
 
         next.setOnClickListener(v -> {
             if (currentPage == 11) {
@@ -136,7 +167,7 @@ public class NewClientActivity extends AppCompatActivity {
                     displayPicture(pages.get(currentPage - 1));
                 }
                 else{
-                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this, latitude, longitude);
 
                 }
 
@@ -158,7 +189,6 @@ public class NewClientActivity extends AppCompatActivity {
 
             }
         });
-
         back.setOnClickListener(v -> {
                 if(currentPage == pageCount){
                     next.setText(R.string.next);
@@ -171,7 +201,7 @@ public class NewClientActivity extends AppCompatActivity {
                     displayPicture(pages.get(currentPage - 1));
                 }
                 else{
-                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this);
+                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this, latitude, longitude);
                 }
                 //load previously saved answers if any
                 loadAnswers(pages.get(currentPage - 1));
@@ -187,7 +217,6 @@ public class NewClientActivity extends AppCompatActivity {
 
         back.setBackgroundColor(Color.DKGRAY);
 
-
         //Permission for camera
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
@@ -196,6 +225,56 @@ public class NewClientActivity extends AppCompatActivity {
         progressDrawable.setColorFilter(Color.parseColor("#009fb8"), android.graphics.PorterDuff.Mode.SRC_IN);
         progressBar.setProgressDrawable(progressDrawable);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0) {
+            getCurrentLocation();
+        } else {
+            Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getCurrentLocation() {
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(3000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+            return;
+        }
+
+        LocationServices.getFusedLocationProviderClient(NewClientActivity.this)
+                .requestLocationUpdates(locationRequest, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        LocationServices.getFusedLocationProviderClient(NewClientActivity.this)
+                                .removeLocationUpdates(this);
+                        if(locationResult != null && locationResult.getLocations().size() > 0) {
+                            int latestLocationIndex = locationResult.getLocations().size() -1;
+                            latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
+                            longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
+                            textLatLong = new TextView(NewClientActivity.this);
+                            textLatLong.setText(
+                                    String.format(
+                                            "Latitude: %s\nLongitude: %s",
+                                            latitude,
+                                            longitude
+                                    )
+                            );
+                            location_GPS = new Location("providerNA");
+                            location_GPS.setLatitude(latitude);
+                            location_GPS.setLongitude(longitude);
+                        }
+
+                    }
+
+                }, Looper.getMainLooper());
+    }
+
 
     private void setProgress(int currentPage, int pageCount){
         progressBar.setProgress(currentPage);
@@ -582,6 +661,19 @@ public class NewClientActivity extends AppCompatActivity {
             else if(type == QuestionType.CHECK_BOX){
                 saveCheckBox(question);
             }
+
+            else if(type == QuestionType.GPS){
+                Log.e(TAG, "IN GPS");
+                saveGPS(question);
+            }
+
+        }
+    }
+    private void saveGPS(Question question) {
+        String tag = question.getQuestionTag();
+        if (tag.equals("GPS")) {
+            newClient.setLatitude(latitude);
+            newClient.setLongitude(longitude);
         }
     }
 
@@ -711,7 +803,6 @@ public class NewClientActivity extends AppCompatActivity {
         }
     }
 
-
     private void createNewClientForm(){
         Resources res = getResources();
         //page one: consent and date
@@ -743,10 +834,14 @@ public class NewClientActivity extends AppCompatActivity {
         MultipleChoiceQuestion location = new MultipleChoiceQuestion(getString(R.string.location),getString(R.string.location_newClientForm), QuestionType.DROP_DOWN,res.getStringArray(R.array.locations), true);
         TextQuestion villageNum = new TextQuestion(getString(R.string.villageNumber),getString(R.string.villageNumber_newClientForm), QuestionType.NUMBER, true);
         TextQuestion contactNum = new TextQuestion(getString(R.string.contactNumber),getString(R.string.contactNumber_newClientForm), QuestionType.PHONE_NUMBER, true);
+
+        TextQuestion gps = new TextQuestion("GPS", "GPS: ", QuestionType.GPS, false);
+
         FormPage pageFour = new FormPage();
         pageFour.addToPage(location);
         pageFour.addToPage(villageNum);
         pageFour.addToPage(contactNum);
+        pageFour.addToPage(gps);
         pages.add(pageFour);
 
         //page five: Caregiver
@@ -757,15 +852,12 @@ public class NewClientActivity extends AppCompatActivity {
         pageFive.addToPage(caregiverContactNumber);
         pages.add(pageFive);
 
-
         //page six: photo
         TextQuestion photo = new TextQuestion(getString(R.string.photo),getString(R.string.photo_newClientForm), QuestionType.PICTURE, false);
         imagePage = 6;
         FormPage pageSix = new FormPage();
         pageSix.addToPage(photo);
         pages.add(pageSix);
-
-
 
 
         //page seven: Type of disability
@@ -808,7 +900,6 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void reviewPage(){
-
         TextView consentView = new TextView(this);
         Boolean consent = newClient.getConsentToInterview();
         if(consent){
@@ -855,6 +946,12 @@ public class NewClientActivity extends AppCompatActivity {
         String villageNumberStr = Integer.toString(villageNumber);
         villageNumberView.setText("Village Number: " + villageNumberStr);
         form.addView(villageNumberView);
+
+        TextView gpsView = new TextView(this);
+        double lat = newClient.getLatitude();
+        double lon = newClient.getLongitude();
+        gpsView.setText("GPS: " + lat + ", " + lon);
+        form.addView(gpsView);
 
         TextView contactNumberView = new TextView(this);
         String contactNumber = newClient.getContactPhoneNumber();

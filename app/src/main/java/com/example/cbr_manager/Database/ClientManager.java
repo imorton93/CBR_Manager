@@ -2,23 +2,14 @@ package com.example.cbr_manager.Database;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.cbr_manager.R;
-import com.example.cbr_manager.UI.ClientListActivity;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-
-import static android.content.ContentValues.TAG;
 
 public class ClientManager implements Iterable<Client>{
 
@@ -36,6 +27,8 @@ public class ClientManager implements Iterable<Client>{
     private static final String client_gender = "GENDER";
     private static final String client_village_no = "VILLAGE_NUMBER";
     private static final String client_location = "LOCATION";
+    private static final String client_latitude = "LATITUDE";
+    private static final String client_longitude = "LONGITUDE";
     private static final String client_contact = "CONTACT";
     private static final String client_caregiver_presence = "CAREGIVER_PRESENCE";
     private static final String client_caregiver_number = "CAREGIVER_NUMBER";
@@ -90,6 +83,8 @@ public class ClientManager implements Iterable<Client>{
         int genderI = c.getColumnIndex(client_gender);
         int villageNoI = c.getColumnIndex(client_village_no);
         int villageLocationI = c.getColumnIndex(client_location);
+        int latitudeI = c.getColumnIndex(client_latitude);
+        int longitudeI = c.getColumnIndex(client_longitude);
         int contactI = c.getColumnIndex(client_contact);
         int caregiverPresentI = c.getColumnIndex(client_caregiver_presence);
         int caregiverNumI = c.getColumnIndex(client_caregiver_number);
@@ -115,6 +110,8 @@ public class ClientManager implements Iterable<Client>{
             String gender = c.getString(genderI);
             String location = c.getString(villageLocationI);
             int villageNumber = c.getInt(villageNoI);
+            double latitude = c.getDouble(latitudeI);
+            double longitude = c.getDouble(longitudeI);
             String contactPhoneNumber = c.getString(contactI);
             Boolean caregiverPresent = (c.getInt(caregiverPresentI) > 0);
             String caregiverPhoneNumber = c.getString(caregiverNumI);
@@ -130,7 +127,7 @@ public class ClientManager implements Iterable<Client>{
             String socialStatusIndividualGoal = c.getString(socialGoalI);
 
             Client newClient = new Client(consent, date, firstName, lastName, age, gender, location,
-                    villageNumber, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber, disabilities,
+                    villageNumber, latitude, longitude, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber, disabilities,
                     healthRate, healthRequire, healthIndividualGoal, educationRate, educationRequire,
                     educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal);
 

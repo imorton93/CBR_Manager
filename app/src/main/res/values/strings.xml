@@ -181,4 +181,8 @@
     <string name="socialIfConcluded">socialIfConcluded</string>
     <string name="baseline_survey">Baseline Survey</string>
     <string name="sign_up">SIGN UP</string>
+    <string name="search_for_client">Search For Client</string>
+    <string name="title_activity_maps">Map</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

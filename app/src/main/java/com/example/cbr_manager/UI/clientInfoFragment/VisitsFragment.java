@@ -1,15 +1,12 @@
 package com.example.cbr_manager.UI.clientInfoFragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,14 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.cbr_manager.Database.Client;
-import com.example.cbr_manager.Database.ClientManager;
-import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
-import com.example.cbr_manager.UI.ClientListActivity;
 import com.example.cbr_manager.UI.VisitInfoActivity;
 
 import java.util.List;

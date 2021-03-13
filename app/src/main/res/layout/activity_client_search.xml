@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.DashboardActivity"
+    tools:context=".UI.ClientSearchActivity"
     android:background="@drawable/backgroundgradient">
 
     <include
@@ -12,12 +12,12 @@
         layout="@layout/activity_tool_bar" />
 
     <TextView
-        android:id="@+id/dashboard_text"
-        android:layout_width="140dp"
-        android:layout_height="36dp"
+        android:id="@+id/client_search_text"
+        android:layout_width="272dp"
+        android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="@string/dashboard"
+        android:text="Please Select A Client"
         android:textColor="#009fb8"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -26,88 +26,101 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <ListView
-        android:id="@+id/dashboard_clients"
-        android:layout_width="376dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchExtraDashboardLayoutContainers">
-
-    </ListView>
-
     <LinearLayout
-        android:id="@+id/searchDashboardLayoutContainers"
+        android:id="@+id/searchNameLayoutContainers_clientSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashboard_text">
+        app:layout_constraintEnd_toEndOf="@+id/clientList"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/clientList"
+        app:layout_constraintTop_toBottomOf="@+id/client_search_text">
 
-        <Spinner
-            android:id="@+id/filter_village_dashboard"
-            android:layout_width="0dp"
+        <AutoCompleteTextView
+            android:id="@+id/firstName_clientSearch"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:hint="First Name" />
 
-        <Spinner
-            android:id="@+id/filter_section_dashboard"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
+        <AutoCompleteTextView
+            android:id="@+id/lastName_clientSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="Last Name" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/searchExtraDashboardLayoutContainers"
+        android:id="@+id/searchVillageLayoutContainers_clientSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchDashboardLayoutContainers">
+        app:layout_constraintTop_toBottomOf="@+id/searchNameLayoutContainers_clientSearch">
+
+        <Spinner
+            android:id="@+id/filter_village_clientSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+
+        <Spinner
+            android:id="@+id/filter_section_clientSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchVillageNumLayoutContainers_clientSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchVillageLayoutContainers_clientSearch">
 
         <EditText
-            android:id="@+id/filter_villageNum_dashboard"
-            android:layout_width="80dp"
+            android:id="@+id/filter_villageNum_clientSearch"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:ems="8"
             android:hint="Village #"
             android:inputType="number" />
 
         <Button
-            android:id="@+id/search_button_dashboard"
+            android:id="@+id/search_button_clientSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_weight="0.2"
             android:background="@android:color/transparent"
             android:text="Search" />
-
     </LinearLayout>
 
-    <Button
-        android:id="@+id/statistics_button"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/search_client_list"
+        android:layout_width="344dp"
         android:layout_height="wrap_content"
-        android:text="Show Statistics"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashboard_clients"
-        app:layout_constraintVertical_bias="0.903" />
+        app:layout_constraintTop_toBottomOf="@+id/searchVillageNumLayoutContainers_clientSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
