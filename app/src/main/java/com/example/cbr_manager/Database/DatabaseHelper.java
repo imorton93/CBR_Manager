@@ -338,13 +338,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-//    public void addData(byte[] img) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(client_photo, img);
-//        db.insert(client_table_name,null, contentValues);
-//    }
-
     public Cursor getdata() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * from " + " CLIENT_DATA ";

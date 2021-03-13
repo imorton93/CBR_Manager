@@ -314,10 +314,6 @@ public class NewClientActivity extends AppCompatActivity {
         form.addView(imageView);
     }
 
-//    private void addData(byte[] newEntry7) {
-//        mydb.addData(newEntry7);
-//    }
-
     public byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -331,12 +327,8 @@ public class NewClientActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 100){
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            //set capture Image to imageview
             imageView.setImageBitmap(captureImage);
-
             imageEntry = imageViewToByte(imageView);
-
-//            addData(imageEntry);
         }
     }
 
@@ -662,13 +654,11 @@ public class NewClientActivity extends AppCompatActivity {
             else if(type == QuestionType.CHECK_BOX){
                 saveCheckBox(question);
             }
-
             else if(type == QuestionType.GPS){
                 saveGPS(question);
             }
             else if(type == QuestionType.PICTURE){
                 savePicture(question);
-
             }
 
         }
@@ -683,9 +673,8 @@ public class NewClientActivity extends AppCompatActivity {
 
     private void savePicture(Question question) {
         String tag = question.getQuestionTag();
-        if (tag.equals("PICTURE")) {
+        if (tag.equals("photo")) {
             newClient.setPhoto(imageEntry);
-
         }
     }
 
