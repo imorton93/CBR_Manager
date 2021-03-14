@@ -97,7 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String create_worker_table = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
-                + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY , "
                 + COL_6 + " BOOLEAN NOT NULL DEFAULT 0);";
         db.execSQL(create_worker_table);
 
@@ -149,7 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_2, cbrWorker.getLastName());
         cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_4, cbrWorker.getPassword());
-
+        //cv.put(COL_5, cbrWorker.getId()); Delete comment after solving same username bug
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1)
             return false;
