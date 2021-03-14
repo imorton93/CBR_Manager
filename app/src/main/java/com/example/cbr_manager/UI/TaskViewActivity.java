@@ -237,7 +237,7 @@ public class TaskViewActivity extends AppCompatActivity {
                                 client.setLocation((String) object.get("LOCATION"));
                                 client.setVillageNumber(Integer.parseInt((String) object.get("VILLAGE_NUMBER")));
                                 client.setLatitude(Double.parseDouble((String) object.get("LATITUDE")));
-                                client.setLatitude(Double.parseDouble((String) object.get("LONGITUDE")));
+                                client.setLongitude(Double.parseDouble((String) object.get("LONGITUDE")));
                                 client.setContactPhoneNumber((String) object.get("CONTACT"));
                                 client.setCaregiverPresent(strToBool((String) object.get("CAREGIVER_PRESENCE")));
                                 client.setCaregiverPhoneNumber((String) object.get("CAREGIVER_NUMBER"));
