@@ -94,7 +94,7 @@ public class NewVisitActivity extends AppCompatActivity {
         createNewVisitForm();
         pageCount = pages.size() + 1;
 
-        DisplayFormPage.displayPage(pages.get(currentPage - 1), form, this);
+        DisplayFormPage.displayPage(pages.get(currentPage - 1), form, this, 0, 0);
         progressBar.setMax(pageCount);
 
         setProgress(currentPage, pageCount);
@@ -123,7 +123,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
                     clearForm();
 
-                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewVisitActivity.this);
+                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewVisitActivity.this, 0, 0);
 
                     //load previously saved answers if any
                     loadAnswers(pages.get(currentPage - 1));
@@ -157,7 +157,7 @@ public class NewVisitActivity extends AppCompatActivity {
                 setProgress(currentPage, pageCount);
                 clearForm();
 
-                DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewVisitActivity.this);
+                DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewVisitActivity.this, 0, 0);
 
                 //load previously saved answers if any
                 loadAnswers(pages.get(currentPage - 1));

@@ -24,7 +24,7 @@ import java.util.Calendar;
 
 public class DisplayFormPage {
 
-    public static void displayPage(FormPage page, LinearLayout form, android.content.Context context){
+    public static void displayPage(FormPage page, LinearLayout form, android.content.Context context, double latitude, double longitude){
         ArrayList<Question> questions = page.getQuestions();
         for(Question question : questions){
             TextQuestion txtQ;
@@ -60,6 +60,10 @@ public class DisplayFormPage {
             else if(question.getQuestionType().equals(QuestionType.CHECK_BOX_WITH_COMMENT)){
                 mcQ = (MultipleChoiceQuestion) question;
                 displayCheckBoxCommentQuestion(mcQ, form, context);
+            }
+            else if(question.getQuestionType().equals(QuestionType.GPS)){
+                txtQ = (TextQuestion) question;
+                displayGPSQuestion(txtQ, form, context, latitude, longitude);
             }
         }
     }
@@ -134,6 +138,17 @@ public class DisplayFormPage {
             dialog.show();
         });
         form.addView(selectDate);
+    }
+
+    private static void displayGPSQuestion(TextQuestion question, LinearLayout form, android.content.Context context, double latitude, double longitude){
+        displayQuestionHeading(question.getQuestionString(), form, context);
+
+        TextView location = new TextView(context);
+        location.setText("Latitude: " + String.valueOf(latitude) + " Longitude: " + String.valueOf(longitude));
+        location.setTextSize(24);
+        location.setTag(question.getQuestionTag());
+
+        form.addView(location);
     }
 
     private static void displayRadioQuestion(MultipleChoiceQuestion question, LinearLayout form, android.content.Context context){

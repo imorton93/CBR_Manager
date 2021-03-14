@@ -59,6 +59,10 @@ public class CBRWorker {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setIs_admin(boolean a){
         is_admin = a;
     }
