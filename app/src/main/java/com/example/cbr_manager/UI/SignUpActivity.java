@@ -165,7 +165,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 worker.setFirstName((String) object.get("FIRST_NAME"));
                                 worker.setLastName((String) object.get("LAST_NAME"));
-                                worker.setUsername((String) object.get("EMAIL"));
+                                worker.setUsername((String) object.get("USERNAME"));
                                 worker.setPassword((String) object.get("PASSWORD"));
                                 worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
 
