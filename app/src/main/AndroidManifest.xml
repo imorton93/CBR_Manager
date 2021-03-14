@@ -56,8 +56,10 @@
         <activity android:name=".UI.ClientPhoto" />
         <activity android:name=".UI.DashboardActivity" />
         <activity android:name=".UI.ClientListActivity" />
-        <activity android:name=".UI.NewVisitActivity" />
-        <activity android:name=".UI.NewClientActivity" />
+        <activity android:name=".UI.NewVisitActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity android:name=".UI.NewClientActivity"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".UI.ProfileActivity" />
         <activity android:name=".UI.TaskViewActivity" />
 
