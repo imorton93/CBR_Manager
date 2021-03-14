@@ -30,6 +30,7 @@ public class Client implements Comparable<Client>{
     private String educationRequire;
     private String educationIndividualGoal;
     private String socialStatusRate;
+    private int client_worker_id;
 
     private byte[] photo;
 
@@ -41,13 +42,15 @@ public class Client implements Comparable<Client>{
     private int isSynced = 0; // default 0, changes to 1 when sent to server
 
 
+
+
     public Client(Boolean consentToInterview, String date, String firstName, String lastName,
 
                   int age, String gender, String location, int villageNumber, double latitude, double longitude, String contactPhoneNumber,
-                  Boolean caregiverPresent, String caregiverPhoneNumber,byte[] photo, ArrayList<String> disabilities,
+                  Boolean caregiverPresent, String caregiverPhoneNumber, byte[] photo, ArrayList<String> disabilities,
                   String healthRate, String healthRequire, String healthIndividualGoal, String educationRate,
                   String educationRequire, String educationIndividualGoal, String socialStatusRate,
-                  String socialStatusRequire, String socialStatusIndividualGoal, int isSynced) {
+                  String socialStatusRequire, String socialStatusIndividualGoal, int client_worker_id, int isSynced) {
 
         this.consentToInterview = consentToInterview;
         this.date = date;
@@ -72,7 +75,7 @@ public class Client implements Comparable<Client>{
         this.socialStatusRate = socialStatusRate;
         this.socialStatusRequire = socialStatusRequire;
         this.socialStatusIndividualGoal = socialStatusIndividualGoal;
-
+        this.client_worker_id = client_worker_id;
         this.photo = photo;
         this.isSynced = isSynced;
     }
@@ -322,6 +325,14 @@ public class Client implements Comparable<Client>{
 
     public void setIsSynced(int isSynced) {
         this.isSynced = isSynced;
+    }
+
+    public int getClient_worker_id() {
+        return client_worker_id;
+    }
+
+    public void setClient_worker_id(int client_worker_id) {
+        this.client_worker_id = client_worker_id;
     }
 }
 
