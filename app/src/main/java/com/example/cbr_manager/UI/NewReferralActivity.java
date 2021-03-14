@@ -123,7 +123,7 @@ public class NewReferralActivity extends AppCompatActivity {
 
         pageCount = 5;
 
-        DisplayFormPage.displayPage(serviceRequirePage, form, this);
+        DisplayFormPage.displayPage(serviceRequirePage, form, this, 0, 0);
 
         progressBar.setMax(pageCount);
 
@@ -159,7 +159,7 @@ public class NewReferralActivity extends AppCompatActivity {
                     displayPicture(selectedForm.get(currentPage - 2));
                 }
                 else{
-                    DisplayFormPage.displayPage(selectedForm.get(currentPage - 2), form, NewReferralActivity.this);
+                    DisplayFormPage.displayPage(selectedForm.get(currentPage - 2), form, NewReferralActivity.this, 0, 0);
                 }
 
                 loadAnswers(selectedForm.get(currentPage - 2));
@@ -187,10 +187,10 @@ public class NewReferralActivity extends AppCompatActivity {
                 displayPicture(selectedForm.get(currentPage - 2));
             }
             else if(currentPage == 1){
-                DisplayFormPage.displayPage(serviceRequirePage, form, NewReferralActivity.this);
+                DisplayFormPage.displayPage(serviceRequirePage, form, NewReferralActivity.this, 0, 0);
             }
             else{
-                DisplayFormPage.displayPage(selectedForm.get(currentPage - 2), form, NewReferralActivity.this);
+                DisplayFormPage.displayPage(selectedForm.get(currentPage - 2), form, NewReferralActivity.this, 0, 0);
             }
             //load previously saved answers if any
 
