@@ -116,7 +116,7 @@ public class TaskViewActivity extends AppCompatActivity {
                     Toast.makeText(TaskViewActivity.this, "Not connected to internet.", Toast.LENGTH_LONG).show();
                 } else {
                     syncClientsTable();
-                    syncVisitTable();
+                    //syncVisitTable();
                     //syncReferralTable();
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
@@ -236,11 +236,13 @@ public class TaskViewActivity extends AppCompatActivity {
                                 client.setGender((String) object.get("GENDER"));
                                 client.setLocation((String) object.get("LOCATION"));
                                 client.setVillageNumber(Integer.parseInt((String) object.get("VILLAGE_NUMBER")));
+                                client.setLatitude(Double.parseDouble((String) object.get("LATITUDE")));
+                                client.setLatitude(Double.parseDouble((String) object.get("LONGITUDE")));
                                 client.setContactPhoneNumber((String) object.get("CONTACT"));
                                 client.setCaregiverPresent(strToBool((String) object.get("CAREGIVER_PRESENCE")));
                                 client.setCaregiverPhoneNumber((String) object.get("CAREGIVER_NUMBER"));
 
-                                //setting disabilities - (doesn't work 100%)
+                                //setting disabilities
                                 List<String> disabilities = new ArrayList<String>(Arrays.asList(((String) object.get("DISABILITY")).split(", ")));
                                 client.setDisabilities((ArrayList<String>) disabilities);
                                 //--
@@ -254,6 +256,8 @@ public class TaskViewActivity extends AppCompatActivity {
                                 client.setSocialStatusRate((String) object.get("SOCIAL_RATE"));
                                 client.setSocialStatusRequire((String) object.get("SOCIAL_REQUIREMENT"));
                                 client.setSocialStatusIndividualGoal((String) object.get("SOCIAL_GOAL"));
+
+                                client.setClient_worker_id(Integer.parseInt((String) object.get("WORKER_ID")));
                                 client.setIsSynced(1);
 
                                 mydb.registerClient(client);
@@ -400,16 +404,15 @@ public class TaskViewActivity extends AppCompatActivity {
                                 referral.setId(Long.parseLong((String) object.get("ID")));
                                 referral.setServiceReq((String) object.get("SERVICE_REQUIRED"));
                                 referral.setBasicOrInter((String) object.get("BASIC_OR_INTERMEDIATE"));
-                                referral.setHipWidth((Double) object.get("BASIC_OR_INTERMEDIATE"));
+                                referral.setHipWidth(Integer.parseInt((String) object.get("HIP_WIDTH")));
                                 referral.setHasWheelchair(strToBool((String) object.get("HAS_WHEELCHAIR")));
                                 referral.setWheelchairReparable(strToBool((String) object.get("WHEELCHAIR_REPAIRABLE")));
                                 referral.setBringToCentre(strToBool((String) object.get("BRING_TO_CENTRE")));
 
                                 List<String> conditions = new ArrayList<String>(Arrays.asList(((String) object.get("CONDITIONS")).split(", ")));
-                                referral.setConditions((ArrayList<String>) conditions);
+                                referral.setCondition(conditions.toString());
 
-                                referral.setInjuryLocationKnee((String) object.get("INJURY_LOCATION_KNEE"));
-                                referral.setInjuryLocationElbow((String) object.get("INJURY_LOCATION_ELBOW"));
+                                referral.setInjuryLocation((String) object.get("INJURY_LOCATION_KNEE"));
                                 referral.setStatus((String) object.get("REFERRAL_STATUS"));
                                 referral.setOutcome((String) object.get("REFERRAL_OUTCOME"));
                                 referral.setClientID(Long.parseLong((String) object.get("CLIENT_ID")));
