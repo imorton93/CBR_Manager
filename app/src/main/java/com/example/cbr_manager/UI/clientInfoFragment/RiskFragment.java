@@ -59,6 +59,11 @@ public class RiskFragment extends Fragment {
         ProgressBar educationRate = v.findViewById(R.id.progressBarEducation);
         ProgressBar socialRate = v.findViewById(R.id.progressBarSocial);
 
+        TextView healthRisk = v.findViewById(R.id.healthRisk);
+        TextView educationRisk = v.findViewById(R.id.educationRisk);
+        TextView socialRisk = v.findViewById(R.id.socialRisk);
+
+
         String final_health = "Goal: " + currentClient.getHealthIndividualGoal() + "\n\nRequires: " + currentClient.getHealthRequire();
         String final_education = "Goal: " + currentClient.getEducationIndividualGoal() + "\n\nRequires: " + currentClient.getEducationRequire();
         String final_social = "Goal: " + currentClient.getSocialStatusIndividualGoal() + "\n\nRequires: " + currentClient.getSocialStatusRequire();
@@ -66,6 +71,10 @@ public class RiskFragment extends Fragment {
         healthGoal.setText(final_health);
         educationGoal.setText(final_education);
         socialGoal.setText(final_social);
+
+        healthRisk.setText(currentClient.getHealthRate());
+        educationRisk.setText(currentClient.getEducationRate());
+        socialRisk.setText(currentClient.getSocialStatusRate());
 
         progressBarUpdate(healthRate, currentClient.getHealthRate());
         progressBarUpdate(educationRate, currentClient.getEducationRate());

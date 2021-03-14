@@ -1,6 +1,7 @@
 package com.example.cbr_manager.Forms;
 
 import android.app.DatePickerDialog;
+import android.text.Html;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,17 @@ public class DisplayFormPage {
                 txtQ = (TextQuestion) question;
                 displayGPSQuestion(txtQ, form, context, latitude, longitude);
             }
+            else if(question.getQuestionType().equals(QuestionType.NONE)){
+                txtQ = (TextQuestion) question;
+                displayNoneTypeQuestion(txtQ.getQuestionString(), form, context);
+            }
         }
+    }
+
+    private static void displayNoneTypeQuestion(String questionString, LinearLayout form, android.content.Context context){
+        TextView questionText = new TextView(context);
+        questionText.setText(Html.fromHtml(questionString));
+        form.addView(questionText);
     }
 
 
@@ -112,9 +123,9 @@ public class DisplayFormPage {
         TextView selectDate = new TextView(context);
         Calendar calendar = Calendar.getInstance();
         int year1 = calendar.get(Calendar.YEAR);
-        int month1 = calendar.get(Calendar.MONTH);
+        int month1 = calendar.get(Calendar.MONTH)+1;
         int dayOfMonth1 = calendar.get(Calendar.DAY_OF_MONTH);
-        String date = month1 + "/" + dayOfMonth1 + "/" + year1;
+        String date = dayOfMonth1 + "/" + month1 + "/" + year1;
         selectDate.setText(date);
         selectDate.setTextSize(24);
         selectDate.setTag(question.getQuestionTag());
@@ -122,8 +133,7 @@ public class DisplayFormPage {
         DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = month + "/" + dayOfMonth + "/" + year;
+                String date = dayOfMonth + "/" + month + "/" + year;
                 selectDate.setText(date);
             }
         };
