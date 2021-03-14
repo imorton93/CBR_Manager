@@ -72,13 +72,15 @@ public class TaskViewActivity extends AppCompatActivity {
             return false;
         }
     }
-    
+
     private void clickIcons() {
         ImageView newClient = findViewById(R.id.newclient);
         newClient.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                String current_username = getIntent().getStringExtra("Worker Username");
                 Intent intent = NewClientActivity.makeIntent(TaskViewActivity.this);
+                intent.putExtra("Worker Username", current_username);
                 startActivity(intent);
             }
         });
@@ -96,7 +98,7 @@ public class TaskViewActivity extends AppCompatActivity {
         newReferral.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewReferralActivity.makeIntent(TaskViewActivity.this);
+                Intent intent = ClientSearchActivity.makeIntent(TaskViewActivity.this, 2);
                 startActivity(intent);
             }
         });

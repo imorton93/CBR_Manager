@@ -1,7 +1,5 @@
 package com.example.cbr_manager.Database;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

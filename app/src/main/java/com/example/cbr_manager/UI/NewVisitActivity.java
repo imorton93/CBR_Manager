@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Visit;
+import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
 import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 
 public class NewVisitActivity extends AppCompatActivity {
 
+    private VisitManager visitManager = VisitManager.getInstance(NewVisitActivity.this);
     private static long client_id;
     private static int client_pos;
     public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
@@ -102,7 +105,7 @@ public class NewVisitActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentPage == 9) {
+                if (currentPage == 10) {
                     insertVisit();
                 }
 
@@ -172,7 +175,7 @@ public class NewVisitActivity extends AppCompatActivity {
         back.setVisibility(View.INVISIBLE);
         back.setBackgroundColor(Color.DKGRAY);
 
-        //make the progrss bar blue
+        //make the progress bar blue
         Drawable progressDrawable = progressBar.getProgressDrawable().mutate();
         progressDrawable.setColorFilter(Color.parseColor("#009fb8"), android.graphics.PorterDuff.Mode.SRC_IN);
         progressBar.setProgressDrawable(progressDrawable);
@@ -690,12 +693,17 @@ public class NewVisitActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
 
     private void createNewVisitForm(){
         Resources res = getResources();
+        FormPage pageZero = new FormPage();
+        String previousOutcome = visitManager.getPreviousVisitOutcome(this.client_id);
+        TextQuestion outcome = new TextQuestion("PreviousOutcome", previousOutcome, QuestionType.NONE, false);
+        pageZero.addToPage(outcome);
+        pages.add(pageZero);
+
         //Page One: purpose of visit, if CBR, date
         MultipleChoiceQuestion purposeOfVisit = new MultipleChoiceQuestion(getString(R.string.purposeOfVisit),getString(R.string.purposeOfVisit_newVisitForm), QuestionType.RADIO, res.getStringArray(R.array.purposeVisitChoices), true);
         MultipleChoiceQuestion ifCBR = new MultipleChoiceQuestion(getString(R.string.ifCBR), getString(R.string.ifCBR_newVisitForm), QuestionType.CHECK_BOX, res.getStringArray(R.array.ifCBRChoices), false);
@@ -714,7 +722,7 @@ public class NewVisitActivity extends AppCompatActivity {
         pageTwo.addToPage(villageNumber);
         pages.add(pageTwo);
 
-        //Page Three: health provided, goal met, if conlcuded outcome
+        //Page Three: health provided, goal met, if concluded outcome
         MultipleChoiceQuestion healthProvided = new MultipleChoiceQuestion(getString(R.string.healthProvided), getString(R.string.healthProvided_newVisitForm), QuestionType.CHECK_BOX_WITH_COMMENT, res.getStringArray(R.array.healthProvidedChoices),true);
         FormPage pageThree = new FormPage();
         pageThree.addToPage(healthProvided);

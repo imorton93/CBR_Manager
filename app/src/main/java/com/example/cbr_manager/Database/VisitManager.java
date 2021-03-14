@@ -128,4 +128,60 @@ public class VisitManager implements Iterable<Visit>{
     public void clear() {
         visits.clear();
     }
+
+    public String getPreviousVisitOutcome(long clientId){
+        List<Visit> allOtherVisits = new ArrayList<>();
+        System.out.println(clientId);
+        for(Visit currentVisit : this.visits){
+            if(currentVisit.getClient_id() == clientId){
+                allOtherVisits.add(currentVisit);
+            }
+        }
+        System.out.println("SIZE OF allothervisits: " + allOtherVisits.size());
+        if(allOtherVisits.isEmpty()){
+            return "<b>Outcome Of Previous Visit:</b><br>There are no previous visits to display.";
+        }
+
+        Visit previousVisit = getPreviousVisit(allOtherVisits);
+        String outcomeOfPrevious = getOutcome(previousVisit);
+        return outcomeOfPrevious;
+    }
+
+    private Visit getPreviousVisit(List<Visit> allOtherVisits){
+        long highestVisitID = -1;
+        Visit previousVisit = allOtherVisits.get(0);
+        for(Visit currentVisit : allOtherVisits){
+            if(currentVisit.getClient_id() > highestVisitID){
+                previousVisit = currentVisit;
+            }
+        }
+        return previousVisit;
+    }
+
+    private String getOutcome(Visit currentVisit){
+        String outcomeHeading = "<b>Outcome Of Previous Visit:</b> ";
+        String healthOutcome = "<b>Health Outcome:</b> ";
+        String educationOutcome = "<b>Education Outcome:</b> ";
+        String socialOutcome = "<b>Social Status Outcome:</b> ";
+
+        if(currentVisit.getHealthGoalMet().equals("Concluded")){
+            healthOutcome += currentVisit.getHealthIfConcluded();
+        }else{
+            healthOutcome += currentVisit.getHealthGoalMet();
+        }
+
+        if(currentVisit.getSocialGoalMet().equals("Concluded")){
+            socialOutcome += currentVisit.getSocialIfConcluded();
+        }else{
+            socialOutcome += currentVisit.getSocialGoalMet();
+        }
+
+        if(currentVisit.getEducationGoalMet().equals("Concluded")){
+            educationOutcome += currentVisit.getEducationIfConcluded();
+        }else{
+            educationOutcome += currentVisit.getEducationGoalMet();
+        }
+
+        return outcomeHeading + "<br><br>" + healthOutcome + "<br><br>" + educationOutcome + "<br><br>" + socialOutcome;
+    }
 }

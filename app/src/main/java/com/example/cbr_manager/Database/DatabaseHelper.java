@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -53,6 +54,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_social_requirement= "SOCIAL_REQUIREMENT";
     private static final String client_social_goal = "SOCIAL_GOAL";
     private static final String is_synced = "IS_SYNCED";
+    private static final String client_worker_id = "WORKER_ID";
+
 
     //Visits Table
     private static final String visit_table = "CLIENT_VISITS";
@@ -97,11 +100,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String create_worker_table = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
-                + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY , "
                 + COL_6 + " BOOLEAN NOT NULL DEFAULT 0);";
         db.execSQL(create_worker_table);
 
-        String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY , "
                 + client_consent + " BOOLEAN, " + client_date + " STRING, " + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
 
@@ -110,7 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 + " STRING, "+ client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, "
                 + client_education_requirement + " STRING, " + client_education_goal  + " STRING, " + client_social_rate + " STRING, "
-                + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
+                + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + client_worker_id + " INTEGER DEFAULT -1, "+ is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
 
         String create_visit_table = "CREATE TABLE "
@@ -149,7 +152,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_2, cbrWorker.getLastName());
         cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_4, cbrWorker.getPassword());
-
+        //cv.put(COL_5, cbrWorker.getId()); Delete comment after solving same username bug
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1)
             return false;
@@ -162,6 +165,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(client_consent, client.getConsentToInterview());
+        cv.put(client_id, client.getId());
         cv.put(client_date, client.getDate());
         cv.put(client_first_name, client.getFirstName());
         cv.put(client_last_name, client.getLastName());
@@ -185,8 +189,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_social_goal, client.getSocialStatusIndividualGoal());
         cv.put(client_social_requirement, client.getSocialStatusRequire());
         cv.put(is_synced, client.getIsSynced());
-
         cv.put(client_photo, client.getPhoto());
+        cv.put(client_worker_id, client.getClient_worker_id());
 
         long result = db.insert(client_table_name, null, cv);
         if (result == -1)
@@ -227,22 +231,63 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(service_req, referral.getServiceReq());
         //TODO: cv.put(referral_photo, referral.getReferralPhoto());
-        cv.put(basic_or_inter, referral.getBasicOrInter());
-        cv.put(hip_width, referral.getHipWidth());
-        cv.put(has_wheelchair, referral.getHasWheelchair());
-        cv.put(wheelchair_repairable, referral.getWheelchairReparable());
-        cv.put(bring_to_centre, referral.getBringToCentre());
-        cv.put(conditions, referral.conditionsToString());
-        cv.put(injury_location_knee, referral.getInjuryLocationKnee());
-        cv.put(injury_location_elbow, referral.getInjuryLocationElbow());
-        cv.put(referral_status, referral.getStatus());
-        cv.put(referral_outcome, referral.getOutcome());
-        cv.put(client_referral_id, referral.getClientID());
-        cv.put(is_synced, referral.getIsSynced());
 
-        long result = db.insert(visit_table, null, cv);
+        cv.put(client_referral_id, referral.getClientID());
+        String serviceType = referral.getServiceReq();
+
+        if(serviceType.equals("Physiotherapy")){
+            cv.put(service_req, referral.getServiceReq());
+            String condition = referral.getCondition();
+            if(condition.equals("Other")){
+                String explanation = referral.getConditionOtherExplanation();
+                cv.put(conditions, explanation);
+            }
+            else{
+                cv.put(conditions,condition);
+            }
+            cv.put(has_wheelchair, false);
+            cv.put(wheelchair_repairable, false);
+            cv.put(bring_to_centre, false);
+        }
+        else if(serviceType.equals("Prosthetic")){
+            cv.put(service_req, referral.getServiceReq());
+            cv.put(injury_location_knee, referral.getInjuryLocation());
+            cv.put(has_wheelchair, false);
+            cv.put(wheelchair_repairable, false);
+            cv.put(bring_to_centre, false);
+        }
+        else if(serviceType.equals("Orthotic")){
+            cv.put(service_req, referral.getServiceReq());
+            cv.put(injury_location_elbow, referral.getInjuryLocation());
+            cv.put(has_wheelchair, false);
+            cv.put(wheelchair_repairable, false);
+            cv.put(bring_to_centre, false);
+        }
+        else if(serviceType.equals("Wheelchair")){
+            cv.put(service_req, referral.getServiceReq());
+            cv.put(basic_or_inter, referral.getBasicOrInter());
+            cv.put(hip_width, referral.getHipWidth());
+            Boolean hasWheelchair = referral.getHasWheelchair();
+            cv.put(has_wheelchair, hasWheelchair);
+            if(hasWheelchair){
+                cv.put(wheelchair_repairable, referral.getWheelchairReparable());
+                cv.put(bring_to_centre, referral.getBringToCentre());
+            }
+            else{
+                cv.put(wheelchair_repairable, false);
+                cv.put(bring_to_centre, false);
+            }
+        }
+        else if(serviceType.equals("Other")){
+            String otherExplanation = referral.getOtherExplanation();
+            cv.put(service_req, otherExplanation);
+            cv.put(has_wheelchair, false);
+            cv.put(wheelchair_repairable, false);
+            cv.put(bring_to_centre, false);
+        }
+
+        long result = db.insert(referral_table, null, cv);
         if (result == -1 )
             return false;
         else
@@ -282,7 +327,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return c.getInt(0);
         }
         else {
-            return 0;
+            return -1;
         }
     }
 
@@ -354,18 +399,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         return data;
     }
+    public boolean isAdmin (String username ){
+        String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        if (c != null && c.getCount() > 0) {
+            c.moveToLast();
+            boolean is_admin = c.getInt(0) > 0; // convert int to boolean
+            return is_admin;
+        } else
+            return false;
+    }
 
-        public boolean isAdmin (String username ){
-            String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
-            SQLiteDatabase db = this.getWritableDatabase();
-            Cursor c = db.rawQuery(query, null);
-            if (c != null && c.getCount() > 0) {
-                c.moveToLast();
-                boolean is_admin = c.getInt(0) > 0; // convert int to boolean
-                return is_admin;
-            } else
-                return false;
-
+    public int numberOfClientsPerUser(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int worker_id = getWorkerId(username);
+        String query = "SELECT COUNT(ID) FROM " + client_table_name + " WHERE " + client_worker_id + " = " + worker_id + ";";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
         }
+        else {
+            return -1;
+        }
+    }
 
 }

@@ -10,5 +10,6 @@ public enum QuestionType {
     CHECK_BOX,
     CHECK_BOX_WITH_COMMENT,
     PICTURE,
-    GPS
+    GPS,
+    NONE
 }
