@@ -244,14 +244,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             else{
                 cv.put(conditions,condition);
             }
+            cv.put(has_wheelchair, false);
+            cv.put(wheelchair_repairable, false);
+            cv.put(bring_to_centre, false);
         }
         else if(serviceType.equals("Prosthetic")){
             cv.put(service_req, referral.getServiceReq());
             cv.put(injury_location_elbow, referral.getInjuryLocation());
+            cv.put(has_wheelchair, false);
+            cv.put(wheelchair_repairable, false);
+            cv.put(bring_to_centre, false);
         }
         else if(serviceType.equals("Orthotic")){
             cv.put(service_req, referral.getServiceReq());
             cv.put(injury_location_elbow, referral.getInjuryLocation());
+            cv.put(has_wheelchair, false);
+            cv.put(wheelchair_repairable, false);
+            cv.put(bring_to_centre, false);
         }
         else if(serviceType.equals("Wheelchair")){
             cv.put(service_req, referral.getServiceReq());
@@ -263,10 +272,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cv.put(wheelchair_repairable, referral.getWheelchairReparable());
                 cv.put(bring_to_centre, referral.getBringToCentre());
             }
+            else{
+                cv.put(wheelchair_repairable, false);
+                cv.put(bring_to_centre, false);
+            }
         }
         else if(serviceType.equals("Other")){
             String otherExplanation = referral.getOtherExplanation();
             cv.put(service_req, otherExplanation);
+            cv.put(has_wheelchair, false);
+            cv.put(wheelchair_repairable, false);
+            cv.put(bring_to_centre, false);
         }
 
         long result = db.insert(referral_table, null, cv);
