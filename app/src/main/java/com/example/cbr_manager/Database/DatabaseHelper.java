@@ -119,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, "
                 + education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, "
                 + social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING, "
-                + client_visit_id + " INTEGER);";
+                + client_visit_id + " INTEGER, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_visit_table);
 
         String create_referral_table = "CREATE TABLE "
@@ -214,6 +214,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(social_goal_status, visit.getSocialGoalMet());
         cv.put(social_outcome, visit.getSocialIfConcluded());
         cv.put(client_visit_id, visit.getClientID());
+        cv.put(is_synced, visit.getIsSynced());
 
         long result = db.insert(visit_table, null, cv);
         if (result == -1 )
