@@ -227,19 +227,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-//        cv.put(service_req, referral.getServiceReq());
         //TODO: cv.put(referral_photo, referral.getReferralPhoto());
-//        cv.put(basic_or_inter, referral.getBasicOrInter());
-//        cv.put(hip_width, referral.getHipWidth());
-//        cv.put(has_wheelchair, referral.getHasWheelchair());
-//        cv.put(wheelchair_repairable, referral.getWheelchairReparable());
-//        cv.put(bring_to_centre, referral.getBringToCentre());
-        
-//        cv.put(conditions, referral.conditionsToString());
-//        cv.put(injury_location_knee, referral.getInjuryLocationKnee());
-//        cv.put(injury_location_elbow, referral.getInjuryLocationElbow());
-//        cv.put(referral_status, referral.getStatus());
-//        cv.put(referral_outcome, referral.getOutcome());
 
         cv.put(client_referral_id, referral.getClientID());
         String serviceType = referral.getServiceReq();
@@ -260,7 +248,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         else if(serviceType.equals("Prosthetic")){
             cv.put(service_req, referral.getServiceReq());
-            cv.put(injury_location_elbow, referral.getInjuryLocation());
+            cv.put(injury_location_knee, referral.getInjuryLocation());
             cv.put(has_wheelchair, false);
             cv.put(wheelchair_repairable, false);
             cv.put(bring_to_centre, false);

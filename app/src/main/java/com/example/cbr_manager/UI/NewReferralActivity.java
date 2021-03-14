@@ -52,9 +52,10 @@ public class NewReferralActivity extends AppCompatActivity {
     FormPage serviceRequirePage;
     ArrayList<FormPage> wheelchairPages;
     ArrayList<FormPage> physioPages;
-    ArrayList<FormPage> prostheticOrthoticPages;
+    ArrayList<FormPage> orthoticPages;
     ArrayList<FormPage> otherExplanation;
     ArrayList<FormPage> selectedForm;
+    ArrayList<FormPage> prostheticPages;
     Button next;
     Button back;
     ProgressBar progressBar;
@@ -115,7 +116,8 @@ public class NewReferralActivity extends AppCompatActivity {
         otherExplanation = new ArrayList<>();
         wheelchairPages = new ArrayList<>();
         physioPages = new ArrayList<>();
-        prostheticOrthoticPages = new ArrayList<>();
+        orthoticPages = new ArrayList<>();
+        prostheticPages = new ArrayList<>();
 
         imagePage = -1;
 
@@ -270,8 +272,12 @@ public class NewReferralActivity extends AppCompatActivity {
             selectedForm = physioPages;
             imagePage = 2;
         }
-        else if(selected.equals("Prosthetic") || selected.equals("Orthotic")){
-            selectedForm = prostheticOrthoticPages;
+        else if(selected.equals("Prosthetic")){
+            selectedForm = prostheticPages;
+            imagePage = -1;
+        }
+        else if(selected.equals("Orthotic")){
+            selectedForm = orthoticPages;
             imagePage = -1;
         }
         else if(selected.equals("Wheelchair")){
@@ -690,11 +696,19 @@ public class NewReferralActivity extends AppCompatActivity {
         physioPages.add(physioTwo);
 
 
-        //set up prosthetic and orthotic pages
-        MultipleChoiceQuestion injuryLocation = new MultipleChoiceQuestion(getString(R.string.injuryLocation), getString(R.string.injuryLocationQuestion_newReferralForm), QuestionType.RADIO, res.getStringArray(R.array.aboveBelow), true);
-        FormPage firstPage = new FormPage();
-        firstPage.addToPage(injuryLocation);
-        prostheticOrthoticPages.add(firstPage);
+        //set up orthotic pages
+        MultipleChoiceQuestion ortQuestion = new MultipleChoiceQuestion(getString(R.string.injuryLocation), getString(R.string.injuryLocationElbowQuestion_newReferralForm), QuestionType.RADIO, res.getStringArray(R.array.aboveBelow), true);
+        FormPage firstPageOrth = new FormPage();
+        firstPageOrth.addToPage(ortQuestion);
+        orthoticPages.add(firstPageOrth);
+
+        //set up prosthetic
+        MultipleChoiceQuestion prosQuestion = new MultipleChoiceQuestion(getString(R.string.injuryLocation), getString(R.string.injuryLocationKneeQuestion_newReferralForm), QuestionType.RADIO, res.getStringArray(R.array.aboveBelow), true);
+        FormPage firstPagePros = new FormPage();
+        firstPagePros.addToPage(prosQuestion);
+        prostheticPages.add(firstPagePros);
+
+
 
         //Other pages
         TextQuestion explanation = new TextQuestion(getString(R.string.otherDescribe), getString(R.string.pleaseDescribe_newReferralForm), QuestionType.PLAIN_TEXT, true);
@@ -725,7 +739,7 @@ public class NewReferralActivity extends AppCompatActivity {
         else if(serviceType.equals("Orthotic")){
             String injuryLocation = referral.getInjuryLocation();
             TextView injuryLocationView = new TextView(this);
-            injuryLocationView.setText("Injury above or below the knee: " + injuryLocation);
+            injuryLocationView.setText("Injury above or below the elbow: " + injuryLocation);
             form.addView(injuryLocationView);
         }
         else if(serviceType.equals("Wheelchair")){
