@@ -101,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_6 + " BOOLEAN NOT NULL DEFAULT 0);";
         db.execSQL(create_worker_table);
 
-        String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY , "
                 + client_consent + " BOOLEAN, " + client_date + " STRING, " + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
 
@@ -162,6 +162,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(client_consent, client.getConsentToInterview());
+        cv.put(client_id, client.getId());
         cv.put(client_date, client.getDate());
         cv.put(client_first_name, client.getFirstName());
         cv.put(client_last_name, client.getLastName());
@@ -280,7 +281,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return c.getInt(0);
         }
         else {
-            return 0;
+            return -1;
         }
     }
 

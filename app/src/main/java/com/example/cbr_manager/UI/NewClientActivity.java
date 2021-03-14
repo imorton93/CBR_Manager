@@ -73,6 +73,7 @@ public class NewClientActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView progressText;
     ImageView imageView;
+    private static int client_no = 0;
 
     //structure to save all the answers
     Client newClient;
@@ -806,6 +807,7 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void createNewClientForm(){
+        setUniqueClientId();
         Resources res = getResources();
         //page one: consent and date
         MultipleChoiceQuestion consent = new MultipleChoiceQuestion(getString(R.string.consent),getString(R.string.consent_newClientForm),QuestionType.RADIO, res.getStringArray(R.array.yes_no_answer), true);
@@ -1019,16 +1021,37 @@ public class NewClientActivity extends AppCompatActivity {
 
     private void insertClient() {
         newClient.setIsSynced(0);
-
         boolean success = mydb.registerClient(newClient);
 
         if(success) {
             Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
             Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
+            String current_username = getIntent().getStringExtra("Worker Username");
+            intent.putExtra("Worker Username", current_username);
             startActivity(intent);
         } else {
             Toast.makeText(NewClientActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
         }
+    }
+    private void setUniqueClientId(){
+        DatabaseHelper db =  new DatabaseHelper(NewClientActivity.this);
+
+        client_no++;
+        // Convert both the integers to string
+        String current_username = getIntent().getStringExtra("Worker Username");
+        String s1 = String.valueOf(db.getWorkerId(current_username));
+        String s2 = String.valueOf(client_no);
+
+        // Concatenate both strings
+        String s = s1 + s2;
+
+        // Convert the concatenated string
+        // to integer
+        long c = Long.parseLong(s);
+
+        newClient.setId(c);
+        Toast.makeText(NewClientActivity.this, s, Toast.LENGTH_LONG).show();
+
     }
 }
 
