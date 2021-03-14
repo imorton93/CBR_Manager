@@ -226,7 +226,7 @@ public class TaskViewActivity extends AppCompatActivity {
                                 object = serverData.getJSONObject(i);
 
                                 client.setId(Long.parseLong((String) object.get("ID")));
-                                client.setConsentToInterview(true);
+                                client.setConsentToInterview(strToBool((String) object.get("CONSENT")));
                                 client.setDate((String) object.get("DATE"));
                                 client.setFirstName((String) object.get("FIRST_NAME"));
                                 client.setLastName((String) object.get("LAST_NAME"));
@@ -235,7 +235,7 @@ public class TaskViewActivity extends AppCompatActivity {
                                 client.setLocation((String) object.get("LOCATION"));
                                 client.setVillageNumber(Integer.parseInt((String) object.get("VILLAGE_NUMBER")));
                                 client.setContactPhoneNumber((String) object.get("CONTACT"));
-                                client.setCaregiverPresent(false);
+                                client.setCaregiverPresent(strToBool((String) object.get("CAREGIVER_PRESENCE")));
                                 client.setCaregiverPhoneNumber((String) object.get("CAREGIVER_NUMBER"));
 
                                 //setting disabilities - (doesn't work 100%)
@@ -443,7 +443,7 @@ public class TaskViewActivity extends AppCompatActivity {
     }
 
     public Boolean strToBool (String s) {
-        if (s == "1") {
+        if (s.equals("1")) {
             return true;
         } else {
             return false;
