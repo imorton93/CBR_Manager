@@ -37,6 +37,8 @@ public class Client implements Comparable<Client>{
 
     private int priority = 0; // For dashboard to calculate priority of a client
 
+    private int isSynced = 0; // default 0, changes to 1 when sent to server
+
 
     public Client(Boolean consentToInterview, String date, String firstName, String lastName,
 
@@ -44,7 +46,7 @@ public class Client implements Comparable<Client>{
                   Boolean caregiverPresent, String caregiverPhoneNumber,byte[] photo, ArrayList<String> disabilities,
                   String healthRate, String healthRequire, String healthIndividualGoal, String educationRate,
                   String educationRequire, String educationIndividualGoal, String socialStatusRate,
-                  String socialStatusRequire, String socialStatusIndividualGoal) {
+                  String socialStatusRequire, String socialStatusIndividualGoal, int isSynced) {
 
         this.consentToInterview = consentToInterview;
         this.date = date;
@@ -71,6 +73,7 @@ public class Client implements Comparable<Client>{
         this.socialStatusIndividualGoal = socialStatusIndividualGoal;
 
         this.photo = photo;
+        this.isSynced = isSynced;
     }
 
     public Client() {
@@ -180,6 +183,10 @@ public class Client implements Comparable<Client>{
         disabilities.clear();
     }
 
+    public void setDisabilities(ArrayList<String> disabilities) {
+        this.disabilities = disabilities;
+    }
+
     public ArrayList<String> getDisabilities() {
         return this.disabilities;
 
@@ -284,7 +291,6 @@ public class Client implements Comparable<Client>{
 
     }
 
-
     public double getLatitude() {
         return latitude;
     }
@@ -301,5 +307,12 @@ public class Client implements Comparable<Client>{
         this.longitude = longitude;
     }
 
+    public int getIsSynced() {
+        return isSynced;
+    }
+
+    public void setIsSynced(int isSynced) {
+        this.isSynced = isSynced;
+    }
 }
 

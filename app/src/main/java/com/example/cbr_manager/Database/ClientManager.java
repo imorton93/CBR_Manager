@@ -132,7 +132,7 @@ public class ClientManager implements Iterable<Client>{
             Client newClient = new Client(consent, date, firstName, lastName, age, gender, location,
                     villageNumber, latitude, longitude, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber,photo, disabilities,
                     healthRate, healthRequire, healthIndividualGoal, educationRate, educationRequire,
-                    educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal);
+                    educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal, 0);
 
             newClient.setId(id);
 
