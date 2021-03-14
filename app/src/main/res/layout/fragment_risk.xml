@@ -8,26 +8,87 @@
     tools:context=".UI.clientInfoFragment.RiskFragment">
 
     <TextView
-        android:id="@+id/goalSocial"
+        android:id="@+id/health"
+        android:layout_width="92dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/health"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/healthRisk"
+        android:layout_width="165dp"
+        android:layout_height="21dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginRight="58dp"
+        android:gravity="center"
+        android:text="Health Risk Level"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarHealth" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBarHealth"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="165dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/health"
+        app:layout_constraintStart_toEndOf="@+id/health"
+        app:layout_constraintTop_toTopOf="@+id/health"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/goalHealth"
         android:layout_width="296dp"
         android:layout_height="84dp"
         android:layout_marginTop="33dp"
         android:text="Goals"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/progressBarSocial"
-        app:layout_constraintStart_toStartOf="@+id/social"
-        app:layout_constraintTop_toBottomOf="@+id/social" />
+        app:layout_constraintEnd_toEndOf="@+id/progressBarHealth"
+        app:layout_constraintStart_toStartOf="@+id/health"
+        app:layout_constraintTop_toBottomOf="@+id/health" />
+
+    <TextView
+        android:id="@+id/education"
+        android:layout_width="92dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="140dp"
+        android:text="@string/education"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/health"
+        app:layout_constraintTop_toBottomOf="@+id/health" />
+
+    <TextView
+        android:id="@+id/educationRisk"
+        android:layout_width="165dp"
+        android:layout_height="21dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginRight="59dp"
+        android:gravity="center"
+        android:text="Education Risk Level"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarEducation" />
 
     <ProgressBar
-        android:id="@+id/progressBarSocial"
+        android:id="@+id/progressBarEducation"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="165dp"
         android:layout_height="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/social"
-        app:layout_constraintEnd_toEndOf="@+id/goalEducation"
-        app:layout_constraintStart_toStartOf="@+id/progressBarEducation"
-        app:layout_constraintTop_toTopOf="@+id/social" />
+        app:layout_constraintBottom_toBottomOf="@+id/education"
+        app:layout_constraintEnd_toEndOf="@+id/progressBarHealth"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/progressBarHealth"
+        app:layout_constraintTop_toTopOf="@+id/education"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/goalEducation"
@@ -41,23 +102,13 @@
         app:layout_constraintStart_toStartOf="@+id/education"
         app:layout_constraintTop_toBottomOf="@+id/education" />
 
-    <ProgressBar
-        android:id="@+id/progressBarEducation"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="165dp"
-        android:layout_height="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/education"
-        app:layout_constraintEnd_toEndOf="@+id/progressBarHealth"
-        app:layout_constraintStart_toStartOf="@+id/progressBarHealth"
-        app:layout_constraintTop_toTopOf="@+id/education" />
-
     <TextView
         android:id="@+id/social"
         android:layout_width="92dp"
         android:layout_height="31dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="140dp"
         android:text="@string/social"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -65,49 +116,38 @@
         app:layout_constraintTop_toBottomOf="@+id/education" />
 
     <TextView
-        android:id="@+id/education"
-        android:layout_width="92dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="172dp"
-        android:text="@string/education"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/health"
-        app:layout_constraintTop_toBottomOf="@+id/health" />
-
-    <TextView
-        android:id="@+id/health"
-        android:layout_width="92dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/health"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/socialRisk"
+        android:layout_width="165dp"
+        android:layout_height="21dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginRight="62dp"
+        android:gravity="center"
+        android:text="Social Risk Level"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBarSocial" />
 
     <ProgressBar
-        android:id="@+id/progressBarHealth"
+        android:id="@+id/progressBarSocial"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="165dp"
         android:layout_height="17dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/health"
-        app:layout_constraintStart_toEndOf="@+id/health"
-        app:layout_constraintTop_toTopOf="@+id/health" />
+        app:layout_constraintBottom_toBottomOf="@+id/social"
+        app:layout_constraintEnd_toEndOf="@+id/goalEducation"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="@+id/progressBarEducation"
+        app:layout_constraintTop_toTopOf="@+id/social"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/goalHealth"
+        android:id="@+id/goalSocial"
         android:layout_width="296dp"
         android:layout_height="84dp"
         android:layout_marginTop="33dp"
         android:text="Goals"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/progressBarHealth"
-        app:layout_constraintStart_toStartOf="@+id/health"
-        app:layout_constraintTop_toBottomOf="@+id/health" />
+        app:layout_constraintEnd_toEndOf="@+id/progressBarSocial"
+        app:layout_constraintStart_toStartOf="@+id/social"
+        app:layout_constraintTop_toBottomOf="@+id/social" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
