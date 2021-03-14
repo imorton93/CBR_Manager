@@ -3,6 +3,7 @@ package com.example.cbr_manager.Database;
 import java.util.ArrayList;
 
 public class Referral {
+    public Long id;
     private String serviceReq;
     private byte[] referralPhoto;
     private String basicOrInter;
@@ -17,11 +18,13 @@ public class Referral {
     private String outcome;
     private Long clientID;
 
+    private int isSynced = 0;
+
     public Referral() {
 
     }
 
-    public Referral(String serviceReq, byte[] referralPhoto, String basicOrInter, double hipWidth, Boolean hasWheelchair, Boolean wheelchairReparable, Boolean bringToCentre, ArrayList<String> conditions, String injuryLocationKnee, String injuryLocationElbow, String status, String outcome, Long clientID) {
+    public Referral(String serviceReq, byte[] referralPhoto, String basicOrInter, double hipWidth, Boolean hasWheelchair, Boolean wheelchairReparable, Boolean bringToCentre, ArrayList<String> conditions, String injuryLocationKnee, String injuryLocationElbow, String status, String outcome, Long clientID, int isSynced) {
         this.serviceReq = serviceReq;
         this.referralPhoto = referralPhoto;
         this.basicOrInter = basicOrInter;
@@ -35,6 +38,7 @@ public class Referral {
         this.status = status;
         this.outcome = outcome;
         this.clientID = clientID;
+        this.isSynced = 0;
     }
 
     public String getServiceReq() {
@@ -143,5 +147,21 @@ public class Referral {
 
     public void setClientID(Long clientID) {
         this.clientID = clientID;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getIsSynced() {
+        return isSynced;
+    }
+
+    public void setIsSynced(int isSynced) {
+        this.isSynced = isSynced;
     }
 }

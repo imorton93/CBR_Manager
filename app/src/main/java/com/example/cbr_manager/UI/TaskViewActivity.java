@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.Referral;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
@@ -114,7 +115,7 @@ public class TaskViewActivity extends AppCompatActivity {
                 } else {
                     syncClientsTable();
                     syncVisitTable();
-                    syncReferralTable();
+                    //syncReferralTable();
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
                 }
@@ -309,7 +310,7 @@ public class TaskViewActivity extends AppCompatActivity {
                             Visit visit = new Visit();
 
                             for (int i = 0; i < serverData.length(); i++) {
-                                 object = serverData.getJSONObject(i);
+                                object = serverData.getJSONObject(i);
 
                                 visit.setVisit_id(Long.parseLong((String) object.get("ID")));
                                 visit.setPurposeOfVisit((String) object.get("PURPOSE_OF_VISIT"));
@@ -366,6 +367,86 @@ public class TaskViewActivity extends AppCompatActivity {
     }
 
     public void syncReferralTable() {
+        String query = "SELECT * FROM CLIENT_REFERRALS" ; //get only data that is not synced
+        Cursor c = mydb.executeQuery(query);
+        JSONArray localDataJSON = cur2Json(c);
 
+        String dataToSend =  localDataJSON.toString();
+
+        String URL = "https://mycbr-server.herokuapp.com/referrals";
+
+        //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
+        StringRequest requestToServer = new StringRequest(
+                Request.Method.POST,
+                URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            //Deleting local data
+                            String deleteClients = "DELETE FROM CLIENT_REFERRALS";
+                            mydb.executeQuery(deleteClients);
+
+                            JSONArray serverData = new JSONArray(response);
+
+                            JSONObject object = new JSONObject();
+                            Referral referral = new Referral();
+
+                            for (int i = 0; i < serverData.length(); i++) {
+                                object = serverData.getJSONObject(i);
+
+                                referral.setId(Long.parseLong((String) object.get("ID")));
+                                referral.setServiceReq((String) object.get("SERVICE_REQUIRED"));
+                                referral.setBasicOrInter((String) object.get("BASIC_OR_INTERMEDIATE"));
+                                referral.setHipWidth((Double) object.get("BASIC_OR_INTERMEDIATE"));
+                                referral.setHasWheelchair(strToBool((String) object.get("HAS_WHEELCHAIR")));
+                                referral.setWheelchairReparable(strToBool((String) object.get("WHEELCHAIR_REPAIRABLE")));
+                                referral.setBringToCentre(strToBool((String) object.get("BRING_TO_CENTRE")));
+
+                                List<String> conditions = new ArrayList<String>(Arrays.asList(((String) object.get("CONDITIONS")).split(", ")));
+                                referral.setConditions((ArrayList<String>) conditions);
+
+                                referral.setInjuryLocationKnee((String) object.get("INJURY_LOCATION_KNEE"));
+                                referral.setInjuryLocationElbow((String) object.get("INJURY_LOCATION_ELBOW"));
+                                referral.setStatus((String) object.get("REFERRAL_STATUS"));
+                                referral.setOutcome((String) object.get("REFERRAL_OUTCOME"));
+                                referral.setClientID(Long.parseLong((String) object.get("CLIENT_ID")));
+                                referral.setIsSynced(1);
+
+                                mydb.addReferral(referral);
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(TaskViewActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError e) {
+                Toast.makeText(TaskViewActivity.this, "Sync failed.", Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Override
+            public String getBodyContentType() { return "application/json; charset=utf-8"; }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return dataToSend == null ? null : dataToSend.getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    return null;
+                }
+            }
+        };
+
+        requestQueue.add(requestToServer);
+    }
+
+    public Boolean strToBool (String s) {
+        if (s == "1") {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
