@@ -133,6 +133,7 @@ public class DisplayFormPage {
         DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month +1;
                 String date = dayOfMonth + "/" + month + "/" + year;
                 selectDate.setText(date);
             }
