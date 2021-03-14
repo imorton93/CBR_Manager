@@ -117,24 +117,23 @@ public class VisitsFragment extends Fragment {
             String educationOutcome = "<b>Education Outcome:</b> ";
             String socialOutcome = "<b>Social Status Outcome:</b> ";
 
-            if(currentVisit.getHealthGoalMet().equals("Concluded")){
+            if (currentVisit.getHealthGoalMet().equals("Concluded")) {
                 healthOutcome += currentVisit.getHealthIfConcluded();
-            }else{
+            } else {
                 healthOutcome += currentVisit.getHealthGoalMet();
             }
 
-            if(currentVisit.getSocialGoalMet().equals("Concluded")){
+            if (currentVisit.getSocialGoalMet().equals("Concluded")) {
                 socialOutcome += currentVisit.getSocialIfConcluded();
-            }else{
+            } else {
                 socialOutcome += currentVisit.getSocialGoalMet();
             }
 
-            if(currentVisit.getEducationGoalMet().equals("Concluded")){
+            if (currentVisit.getEducationGoalMet().equals("Concluded")) {
                 educationOutcome += currentVisit.getEducationIfConcluded();
-            }else{
+            } else {
                 educationOutcome += currentVisit.getEducationGoalMet();
             }
-
 
             return healthOutcome + "<br>" + educationOutcome + "<br>" + socialOutcome;
         }

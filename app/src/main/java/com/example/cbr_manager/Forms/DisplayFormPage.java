@@ -1,6 +1,7 @@
 package com.example.cbr_manager.Forms;
 
 import android.app.DatePickerDialog;
+import android.text.Html;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,17 @@ public class DisplayFormPage {
                 txtQ = (TextQuestion) question;
                 displayGPSQuestion(txtQ, form, context, latitude, longitude);
             }
+            else if(question.getQuestionType().equals(QuestionType.NONE)){
+                txtQ = (TextQuestion) question;
+                displayNoneTypeQuestion(txtQ.getQuestionString(), form, context);
+            }
         }
+    }
+
+    private static void displayNoneTypeQuestion(String questionString, LinearLayout form, android.content.Context context){
+        TextView questionText = new TextView(context);
+        questionText.setText(Html.fromHtml(questionString));
+        form.addView(questionText);
     }
 
 
