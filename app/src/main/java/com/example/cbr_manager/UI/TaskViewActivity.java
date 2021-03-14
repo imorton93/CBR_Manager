@@ -75,15 +75,14 @@ public class TaskViewActivity extends AppCompatActivity {
             }
         });
 
-        // TODO DELETE THIS BUTTON MAKE IT BASELINE ACTIVITY
-//        ImageView newVisit = findViewById(R.id.newVisit);
-//        newVisit.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = NewVisitActivity.makeIntent(TaskViewActivity.this);
-//                startActivity(intent);
-//            }
-//        });
+        ImageView newVisit = findViewById(R.id.newVisit);
+        newVisit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = ClientSearchActivity.makeIntent(TaskViewActivity.this, 1);
+                startActivity(intent);
+            }
+        });
 
         ImageView newReferral = findViewById(R.id.referral);
         newReferral.setOnClickListener(new OnClickListener() {
@@ -105,9 +104,6 @@ public class TaskViewActivity extends AppCompatActivity {
                 VisitManager visitManager = VisitManager.getInstance(TaskViewActivity.this);
                 visitManager.clear();
                 visitManager.updateList();
-
-                Client client = new Client();
-
 
                 //Steps:
                 //- Check if user is connected to the internet
@@ -219,6 +215,8 @@ public class TaskViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = DashboardActivity.makeIntent(TaskViewActivity.this);
+                String current_username = getIntent().getStringExtra("Worker Username");
+                intent.putExtra("Worker Username", current_username);
                 startActivity(intent);
             }
         });
