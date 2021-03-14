@@ -807,6 +807,7 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void createNewClientForm(){
+        setWorkerId();
         setUniqueClientId();
         Resources res = getResources();
         //page one: consent and date
@@ -1051,7 +1052,13 @@ public class NewClientActivity extends AppCompatActivity {
 
         newClient.setId(c);
         Toast.makeText(NewClientActivity.this, s, Toast.LENGTH_LONG).show();
-
     }
+
+    private void setWorkerId(){
+        DatabaseHelper db =  new DatabaseHelper(NewClientActivity.this);
+        String current_username = getIntent().getStringExtra("Worker Username");
+        newClient.setClient_worker_id(db.getWorkerId(current_username));
+    }
+
 }
 

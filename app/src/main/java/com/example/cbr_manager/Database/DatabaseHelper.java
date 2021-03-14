@@ -53,6 +53,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_social_requirement= "SOCIAL_REQUIREMENT";
     private static final String client_social_goal = "SOCIAL_GOAL";
     private static final String is_synced = "IS_SYNCED";
+    private static final String client_worker_id = "WORKER_ID";
+
 
     //Visits Table
     private static final String visit_table = "CLIENT_VISITS";
@@ -110,7 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 + " STRING, "+ client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, "
                 + client_education_requirement + " STRING, " + client_education_goal  + " STRING, " + client_social_rate + " STRING, "
-                + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
+                + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + client_worker_id + " INTEGER DEFAULT -1, "+ is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
 
         String create_visit_table = "CREATE TABLE "
@@ -186,8 +188,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_social_goal, client.getSocialStatusIndividualGoal());
         cv.put(client_social_requirement, client.getSocialStatusRequire());
         cv.put(is_synced, client.getIsSynced());
-
         cv.put(client_photo, client.getPhoto());
+        cv.put(client_worker_id, client.getClient_worker_id());
 
         long result = db.insert(client_table_name, null, cv);
         if (result == -1)

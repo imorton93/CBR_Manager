@@ -43,6 +43,7 @@ public class ClientManager implements Iterable<Client>{
     private static final String client_social_rate = "SOCIAL_RATE";
     private static final String client_social_requirement= "SOCIAL_REQUIREMENT";
     private static final String client_social_goal = "SOCIAL_GOAL";
+    private static final String client_worker_id = "WORKER_ID";
 
     public ClientManager(Context context) {
         this.databaseHelper = new DatabaseHelper(context);
@@ -100,6 +101,7 @@ public class ClientManager implements Iterable<Client>{
         int socialRateI = c.getColumnIndex(client_social_rate);
         int socialReqI = c.getColumnIndex(client_social_requirement);
         int socialGoalI = c.getColumnIndex(client_social_goal);
+        int client_worker_idI = c.getColumnIndex(client_worker_id);
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
 
@@ -128,11 +130,12 @@ public class ClientManager implements Iterable<Client>{
             String socialStatusRate = c.getString(socialRateI);
             String socialStatusRequire = c.getString(socialReqI);
             String socialStatusIndividualGoal = c.getString(socialGoalI);
+            int workerId = c.getInt(client_worker_idI);
 
             Client newClient = new Client(consent, date, firstName, lastName, age, gender, location,
                     villageNumber, latitude, longitude, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber,photo, disabilities,
                     healthRate, healthRequire, healthIndividualGoal, educationRate, educationRequire,
-                    educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal, 0);
+                    educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal, workerId, 0);
 
             newClient.setId(id);
 
