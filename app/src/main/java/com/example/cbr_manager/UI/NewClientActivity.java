@@ -73,7 +73,6 @@ public class NewClientActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView progressText;
     ImageView imageView;
-    private static int client_no = 0;
 
     //structure to save all the answers
     Client newClient;
@@ -1037,10 +1036,11 @@ public class NewClientActivity extends AppCompatActivity {
     private void setUniqueClientId(){
         DatabaseHelper db =  new DatabaseHelper(NewClientActivity.this);
 
-        client_no++;
         // Convert both the integers to string
         String current_username = getIntent().getStringExtra("Worker Username");
         String s1 = String.valueOf(db.getWorkerId(current_username));
+        int client_no = db.numberOfClientsPerUser(current_username);
+        client_no++;//next available client id
         String s2 = String.valueOf(client_no);
 
         // Concatenate both strings

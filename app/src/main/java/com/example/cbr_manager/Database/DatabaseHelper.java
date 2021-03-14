@@ -355,18 +355,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         return data;
     }
+    public boolean isAdmin (String username ){
+        String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        if (c != null && c.getCount() > 0) {
+            c.moveToLast();
+            boolean is_admin = c.getInt(0) > 0; // convert int to boolean
+            return is_admin;
+        } else
+            return false;
+    }
 
-        public boolean isAdmin (String username ){
-            String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
-            SQLiteDatabase db = this.getWritableDatabase();
-            Cursor c = db.rawQuery(query, null);
-            if (c != null && c.getCount() > 0) {
-                c.moveToLast();
-                boolean is_admin = c.getInt(0) > 0; // convert int to boolean
-                return is_admin;
-            } else
-                return false;
-
+    public int numberOfClientsPerUser(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int worker_id = getWorkerId(username);
+        String query = "SELECT COUNT(ID) FROM " + client_table_name + " WHERE " + client_worker_id + " = " + worker_id + ";";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
         }
+        else {
+            return -1;
+        }
+    }
 
 }
