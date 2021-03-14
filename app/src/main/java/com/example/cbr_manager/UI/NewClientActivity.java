@@ -198,7 +198,7 @@ public class NewClientActivity extends AppCompatActivity {
                 setProgress(currentPage, pageCount);
                 clearForm();
 
-                if(currentPage == 6){
+                if(currentPage == imagePage){
                     displayPicture(pages.get(currentPage - 1));
                 }
                 else{
@@ -209,14 +209,12 @@ public class NewClientActivity extends AppCompatActivity {
                 if(currentPage == 1){
                     back.setClickable(false);
                     back.setVisibility(View.INVISIBLE);
-                    back.setBackgroundColor(Color.DKGRAY);
 
                 }
         });
         back.setClickable(false);
         back.setVisibility(View.INVISIBLE);
 
-        back.setBackgroundColor(Color.DKGRAY);
 
         //Permission for camera
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
@@ -286,11 +284,6 @@ public class NewClientActivity extends AppCompatActivity {
         form.removeAllViews();
     }
 
-    private void finishForm(){
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(this, "End", duration);
-        toast.show();
-    }
 
     private void displayPicture(FormPage page){
         ArrayList<Question> questions = page.getQuestions();
@@ -431,14 +424,22 @@ public class NewClientActivity extends AppCompatActivity {
     private Boolean isCheckBoxAnswered(Question question){
         MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
         Boolean returnBool = false;
+        Boolean otherExplanationRequirement = true;
         CheckBox checkBox;
         for(int i = 0; i < mcq.getAnswers().length; i++){
             checkBox = (CheckBox) form.findViewWithTag(i);
             if(checkBox.isChecked()){
                 returnBool = true;
+                if(checkBox.getText().toString().equals("Other")){
+                    otherExplanationRequirement = false;
+                    EditText input = (EditText) form.findViewWithTag("otherExplanation");
+                    if(input.getText().toString().trim().length() > 0){
+                        otherExplanationRequirement = true;
+                    }
+                }
             }
         }
-        return returnBool;
+        return returnBool && otherExplanationRequirement;
     }
 
 
@@ -622,11 +623,19 @@ public class NewClientActivity extends AppCompatActivity {
         ArrayList<String> disabilities = newClient.getDisabilities();
         for(int i = 0; i < disabilities.size(); i++){
             CheckBox checkBox;
-            for(int j = 0; j < 9; j++){
+            for(int j = 0; j < 10; j++){
                 checkBox = (CheckBox) form.findViewWithTag(j);
                 if(checkBox.getText().equals(disabilities.get(i))){
+
                     checkBox.toggle();
+                    if(checkBox.getText().toString().equals("Other")){
+                        EditText explanation = (EditText) form.findViewWithTag("otherExplanation");
+                        String explanationString = newClient.getOtherExplanation();
+                        explanation.setVisibility(View.VISIBLE);
+                        explanation.setText(explanationString);
+                    }
                 }
+
             }
         }
     }
@@ -801,6 +810,11 @@ public class NewClientActivity extends AppCompatActivity {
             if(checkBox.isChecked()){
                 String selected = checkBox.getText().toString();
                 newClient.addToDisabilities(selected);
+                System.out.println(selected);
+                if(checkBox.getText().toString().equals("Other")){
+                    EditText explanation = (EditText) form.findViewWithTag("otherExplanation");
+                    newClient.setOtherExplanation(explanation.getText().toString());
+                }
             }
         }
     }

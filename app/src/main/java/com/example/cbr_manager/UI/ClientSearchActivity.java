@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.CycleInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -131,7 +130,7 @@ public class ClientSearchActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = NewVisitActivity.makeIntent(ClientSearchActivity.this, position, searched_clients.get(position).getId());
+                Intent intent = NewReferralActivity.makeIntent(ClientSearchActivity.this, position, searched_clients.get(position).getId());
                 startActivity(intent);
             }
         });

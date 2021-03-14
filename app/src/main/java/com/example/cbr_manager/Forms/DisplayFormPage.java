@@ -190,6 +190,26 @@ public class DisplayFormPage {
             checkBox.setText(answers[i]);
             checkBox.setTag(i);
             form.addView(checkBox);
+            if(answers[i].equals("Other")){
+                EditText input = new EditText(context);
+                input.setTextSize(14);
+                input.setHint(R.string.explain_newVisitForm);
+                input.setVisibility(View.GONE);
+                input.setTag("otherExplanation");
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked){
+                            input.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            input.setVisibility(View.GONE);
+                        }
+                    }
+                });
+                form.addView(input);
+            }
+
         }
 
     }
