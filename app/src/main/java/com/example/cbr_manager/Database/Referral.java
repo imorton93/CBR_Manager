@@ -3,6 +3,7 @@ package com.example.cbr_manager.Database;
 import java.util.ArrayList;
 
 public class Referral {
+    public Long id;
     private String serviceReq;
     private byte[] referralPhoto;
     private String basicOrInter;
@@ -17,6 +18,8 @@ public class Referral {
     private String outcome;
     private Long clientID;
     private String otherExplanation;
+
+    private int isSynced = 0;
 
     public Referral() {
 
@@ -35,6 +38,7 @@ public class Referral {
         this.status = status;
         this.outcome = outcome;
         this.clientID = clientID;
+        this.isSynced = 0;
     }
 
     public String getServiceReq() {
@@ -131,6 +135,22 @@ public class Referral {
 
     public void setClientID(Long clientID) {
         this.clientID = clientID;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getIsSynced() {
+        return isSynced;
+    }
+
+    public void setIsSynced(int isSynced) {
+        this.isSynced = isSynced;
     }
 
     public String getOtherExplanation() {

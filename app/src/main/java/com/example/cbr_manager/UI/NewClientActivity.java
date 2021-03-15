@@ -231,7 +231,7 @@ public class NewClientActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0) {
             getCurrentLocation();
         } else {
-            Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1065,7 +1065,6 @@ public class NewClientActivity extends AppCompatActivity {
         long c = Long.parseLong(s);
 
         newClient.setId(c);
-        Toast.makeText(NewClientActivity.this, s, Toast.LENGTH_LONG).show();
     }
 
     private void setWorkerId(){

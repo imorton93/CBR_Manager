@@ -101,7 +101,7 @@ public class VisitManager implements Iterable<Visit>{
             long client_visit_id = c.getLong(client_visit_idI);
 
             visits.add(new Visit(client_visit_id, purpose, if_cbr, date, location, villageNumber, healthProvided, healthGoal, healthOutcome,
-                        socialProvided, socialGoal, socialOutcome, educationProvided, educationGoal, educationOutcome, id));
+                        socialProvided, socialGoal, socialOutcome, educationProvided, educationGoal, educationOutcome, id, 0));
         }
 
 
