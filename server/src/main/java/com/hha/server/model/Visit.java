@@ -1,55 +1,109 @@
 package com.hha.server.model;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "CLIENT_VISITS")
 public class Visit {
+    @Id
+    @Column
+    @JsonProperty("ID")
+    private String visit_id;
 
-    private long client_id;
-    private String purposeOfVisit;
-    private ArrayList<String> ifCbr = new ArrayList<>();
+    @Column
+    @JsonProperty("VISIT_DATE")
     private String date;
+
+    @Column
+    @JsonProperty("PURPOSE_OF_VISIT")
+    private String purposeOfVisit;
+
+    @Column
+    @JsonProperty("IF_CBR")
+    private String ifCbr;
+
+    @Column
+    @JsonProperty("LOCATION")
     private String location;
+
+    @Column
+    @JsonProperty("VILLAGE_NUMBER")
     private int villageNumber;
-    private ArrayList<Provided> healthProvided = new ArrayList<>();
+
+    @Column
+    @JsonProperty("HEALTH_PROVIDED")
+    private String healthProvided;
+
+    @Column
+    @JsonProperty("HEALTH_GOAL_STATUS")
     private String healthGoalMet;
-    private  String healthIfConcluded;
-    private ArrayList<Provided> socialProvided = new ArrayList<>();
-    private String socialGoalMet;
-    private String socialIfConcluded;
-    private ArrayList<Provided> educationProvided = new ArrayList<>();
+
+    @Column
+    @JsonProperty("HEALTH_OUTCOME")
+    private String healthIfConcluded;
+
+    @Column
+    @JsonProperty("EDU_PROVIDED")
+    private String educationProvided;
+
+    @Column
+    @JsonProperty("EDU_GOAL_STATUS")
     private String educationGoalMet;
+
+    @Column
+    @JsonProperty("EDUCATION_OUTCOME")
     private String educationIfConcluded;
 
+    @Column
+    @JsonProperty("SOCIAL_PROVIDED")
+    private String socialProvided;
+
+    @Column
+    @JsonProperty("SOCIAL_GOAL_STATUS")
+    private String socialGoalMet;
+
+    @Column
+    @JsonProperty("SOCIAL_OUTCOME")
+    private String socialIfConcluded;
+
+    @Column
+    @JsonProperty("CLIENT_ID")
+    private String client_id;
+
+    @Column
+    @JsonProperty("IS_SYNCED")
+    private String isSynced;
 
     public Visit() {
     }
 
-    public class Provided{
-        private String checkBox;
-        private String explanation;
+    public Visit(String visit_id, String purposeOfVisit, String ifCbr, String date, String location, int villageNumber, String healthProvided, String healthGoalMet, String healthIfConcluded, String socialProvided, String socialGoalMet, String socialIfConcluded, String educationProvided, String educationGoalMet, String educationIfConcluded, String client_id, String isSynced) {
+        this.visit_id = visit_id;
+        this.purposeOfVisit = purposeOfVisit;
+        this.ifCbr = ifCbr;
+        this.date = date;
+        this.location = location;
+        this.villageNumber = villageNumber;
+        this.healthProvided = healthProvided;
+        this.healthGoalMet = healthGoalMet;
+        this.healthIfConcluded = healthIfConcluded;
+        this.socialProvided = socialProvided;
+        this.socialGoalMet = socialGoalMet;
+        this.socialIfConcluded = socialIfConcluded;
+        this.educationProvided = educationProvided;
+        this.educationGoalMet = educationGoalMet;
+        this.educationIfConcluded = educationIfConcluded;
+        this.client_id = client_id;
+        this.isSynced = isSynced;
+    }
 
-        public Provided(String checkBox, String explanation) {
-            this.checkBox = checkBox;
-            this.explanation = explanation;
-        }
+    public String getVisit_id() {
+        return visit_id;
+    }
 
-        public String getCheckBox() {
-            return checkBox;
-        }
-
-        public void setCheckBox(String checkBox) {
-            this.checkBox = checkBox;
-        }
-
-        public String getExplanation() {
-            return explanation;
-        }
-
-        public void setExplanation(String explanation) {
-            this.explanation = explanation;
-        }
-
-        public String toString () { return checkBox + ": " + explanation; }
+    public void setVisit_id(String visit_id) {
+        this.visit_id = visit_id;
     }
 
     public String getPurposeOfVisit() {
@@ -60,16 +114,12 @@ public class Visit {
         this.purposeOfVisit = purposeOfVisit;
     }
 
-    public ArrayList<String> getIfCbr() {
+    public String getIfCbr() {
         return ifCbr;
     }
 
-    public void addToIfCbr(String string){
-        ifCbr.add(string);
-    }
-
-    public void clearIfCbr(){
-        ifCbr.clear();
+    public void setIfCbr(String ifCbr) {
+        this.ifCbr = ifCbr;
     }
 
     public String getDate() {
@@ -96,32 +146,12 @@ public class Visit {
         this.villageNumber = villageNumber;
     }
 
-    public void addHealthProvided(String checkBox, String explanation){
-        Provided provided = new Provided(checkBox, explanation);
-        healthProvided.add(provided);
+    public String getHealthProvided() {
+        return healthProvided;
     }
 
-    public void clearHealthProvided(){
-        healthProvided.clear();
-    }
-
-    public void addSocialProvided(String checkBox, String explanation){
-        Provided provided = new Provided(checkBox, explanation);
-        socialProvided.add(provided);
-    }
-
-    public void clearSocialProvided(){
-        socialProvided.clear();
-    }
-
-
-    public void addEducationProvided(String checkBox, String explanation){
-        Provided provided = new Provided(checkBox, explanation);
-        educationProvided.add(provided);
-    }
-
-    public void clearEducationProvided(){
-        educationProvided.clear();
+    public void setHealthProvided(String healthProvided) {
+        this.healthProvided = healthProvided;
     }
 
     public String getHealthGoalMet() {
@@ -140,12 +170,12 @@ public class Visit {
         this.healthIfConcluded = healthIfConcluded;
     }
 
-    public long getClientID() {
-        return this.client_id;
+    public String getSocialProvided() {
+        return socialProvided;
     }
 
-    public void setClientID(long client_id) {
-        this.client_id = client_id;
+    public void setSocialProvided(String socialProvided) {
+        this.socialProvided = socialProvided;
     }
 
     public String getSocialGoalMet() {
@@ -164,6 +194,13 @@ public class Visit {
         this.socialIfConcluded = socialIfConcluded;
     }
 
+    public String getEducationProvided() {
+        return educationProvided;
+    }
+
+    public void setEducationProvided(String educationProvided) {
+        this.educationProvided = educationProvided;
+    }
 
     public String getEducationGoalMet() {
         return educationGoalMet;
@@ -181,44 +218,19 @@ public class Visit {
         this.educationIfConcluded = educationIfConcluded;
     }
 
-    public ArrayList<Provided> getHealthProvided() { return healthProvided; }
-
-    //TODO - look over the ProvToString() functions
-    public String healthProvToString() {
-        String result = "";
-
-        for (Provided prov : healthProvided) {
-            result += prov.toString() + ", ";
-        }
-
-        return result.substring(0, result.length() - 2);
+    public String getClient_id() {
+        return client_id;
     }
 
-    public ArrayList<Provided> getSocialProvided() {
-        return socialProvided;
+    public void setClient_id(String client_id) {
+        this.client_id = client_id;
     }
 
-    public String socialProvToString() {
-        String result = "";
-
-        for (Provided prov : socialProvided) {
-            result += prov.toString() + ", ";
-        }
-
-        return result.substring(0, result.length() - 2);
+    public String getIsSynced() {
+        return isSynced;
     }
 
-    public ArrayList<Provided> getEducationProvided() {
-        return educationProvided;
-    }
-
-    public String eduProvToString() {
-        String result = "";
-
-        for (Provided prov : educationProvided) {
-            result += prov.toString() + ", ";
-        }
-
-        return result.substring(0, result.length() - 2);
+    public void setIsSynced(String isSynced) {
+        this.isSynced = isSynced;
     }
 }
