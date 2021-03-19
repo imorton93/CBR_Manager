@@ -57,4 +57,7 @@ public class CBRWorker {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
 }
