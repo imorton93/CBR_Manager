@@ -16,7 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/new_client"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/newClient"
         app:layout_constraintStart_toStartOf="@+id/newClient"
         app:layout_constraintTop_toBottomOf="@+id/newClient" />
@@ -25,7 +27,9 @@
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
         android:text="Baseline Survey"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/baselineSurvey"
         app:layout_constraintStart_toStartOf="@+id/baselineSurvey"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
@@ -34,7 +38,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
         android:text="@string/new_visit"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/newVisit"
         app:layout_constraintStart_toStartOf="@+id/newVisit"
         app:layout_constraintTop_toTopOf="@+id/question1" />
@@ -44,7 +50,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"
         android:text="New Referral"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/newReferral"
         app:layout_constraintStart_toStartOf="@+id/newReferral"
         app:layout_constraintTop_toBottomOf="@+id/newReferral" />
@@ -53,7 +61,9 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
         android:text="@string/all_clients"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/allClients"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/allClients"
@@ -61,12 +71,14 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="70dp"
-        android:layout_height="18dp"
+        android:layout_width="79dp"
+        android:layout_height="22dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/dashboard"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/dashboard"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toStartOf="@+id/dashboard"
         app:layout_constraintTop_toBottomOf="@+id/dashboard" />
 
@@ -75,11 +87,12 @@
         android:layout_width="66dp"
         android:layout_height="16dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="85dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center_horizontal"
         android:text="Stats"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/stats"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="@+id/stats"
         app:layout_constraintTop_toBottomOf="@+id/stats" />
 
@@ -87,7 +100,9 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
         android:text="@string/sync"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="@+id/sync"
         app:layout_constraintStart_toStartOf="@+id/sync"
         app:layout_constraintTop_toTopOf="@+id/textView" />
@@ -134,7 +149,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="92dp"
         android:layout_marginLeft="92dp"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/newclient" />
