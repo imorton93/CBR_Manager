@@ -74,7 +74,7 @@ public class TaskViewActivity extends AppCompatActivity {
     }
 
     private void clickIcons() {
-        ImageView newClient = findViewById(R.id.newclient);
+        ImageView newClient = findViewById(R.id.newClient);
         newClient.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +94,7 @@ public class TaskViewActivity extends AppCompatActivity {
             }
         });
 
-        ImageView newReferral = findViewById(R.id.referral);
+        ImageView newReferral = findViewById(R.id.newReferral);
         newReferral.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +149,20 @@ public class TaskViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = ClientListActivity.makeIntent(TaskViewActivity.this);
                 startActivity(intent);
+            }
+        });
+
+        ImageView stats = findViewById(R.id.stats);
+        stats.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        ImageView baseline = findViewById(R.id.baselineSurvey);
+        baseline.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
             }
         });
     }
