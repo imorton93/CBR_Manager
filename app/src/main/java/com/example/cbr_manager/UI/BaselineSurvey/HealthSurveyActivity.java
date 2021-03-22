@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,6 +17,9 @@ import com.example.cbr_manager.UI.LoginActivity;
 import com.example.cbr_manager.UI.SignUpActivity;
 
 public class HealthSurveyActivity extends AppCompatActivity {
+
+    private Spinner healthSpinner1, healthSpinner2;
+    private RadioGroup radioGroup1, radioGroup2, radioGroup3, radioGroup4, radioGroup5, radioGroup6;
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, HealthSurveyActivity.class);
@@ -26,6 +30,14 @@ public class HealthSurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_survey);
+        healthSpinner1 = findViewById(R.id.healthSurveySpinner1);
+        healthSpinner2 = findViewById(R.id.healthSurveySpinner2);
+        radioGroup1 = findViewById(R.id.healthSurveyRadioGroup1);
+        radioGroup2 = findViewById(R.id.healthSurveyRadioGroup2);
+        radioGroup3 = findViewById(R.id.healthSurveyRadioGroup3);
+        radioGroup4 = findViewById(R.id.healthSurveyRadioGroup4);
+        radioGroup5 = findViewById(R.id.healthSurveyRadioGroup5);
+        radioGroup6 = findViewById(R.id.healthSurveyRadioGroup6);
         createSpinners();
         nextButton();
     }
@@ -35,8 +47,12 @@ public class HealthSurveyActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = EducationSurveyActivity.makeIntent(HealthSurveyActivity.this);
-                startActivity(intent);
+                if (!validateEntries())
+                    Toast.makeText(HealthSurveyActivity.this, "Please fill all the details!", Toast.LENGTH_SHORT).show();
+                else {
+                    Intent intent = EducationSurveyActivity.makeIntent(HealthSurveyActivity.this);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -49,7 +65,7 @@ public class HealthSurveyActivity extends AppCompatActivity {
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown1.setAdapter(adapter1);
 
-        Spinner dropdown2 = findViewById(R.id.spinner2);
+        Spinner dropdown2 = findViewById(R.id.healthSurveySpinner2);
         String[] items2 = new String[]{"Wheelchair", "Pprosthetic", "Orthotic", "Crutch"
                 , "Walking Stick", "Hearing Aid", "Glasses", "Standing Frame", "Corner Seat"};
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
@@ -57,8 +73,18 @@ public class HealthSurveyActivity extends AppCompatActivity {
         dropdown2.setAdapter(adapter2);
     }
 
+    private boolean validateEntries() {
+        boolean bool = true;
+        if (radioGroup1.getCheckedRadioButtonId() == -1 || radioGroup2.getCheckedRadioButtonId() == -1
+                || radioGroup3.getCheckedRadioButtonId() == -1 || radioGroup4.getCheckedRadioButtonId() == -1
+                || radioGroup5.getCheckedRadioButtonId() == -1 || radioGroup6.getCheckedRadioButtonId() == -1
+                || healthSpinner1.getSelectedItem().toString() == "" || healthSpinner2.getSelectedItem().toString() == "") {
+            bool = false;
+        }
+        return bool;
+    }
+
     //populate this to store in database
     public void onRadioButtonClicked(View view) {
-        Toast.makeText(HealthSurveyActivity.this, "This is my Toast message!", Toast.LENGTH_LONG).show();
     }
 }

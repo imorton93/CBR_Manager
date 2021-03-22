@@ -24,7 +24,7 @@ public class EducationSurveyActivity extends AppCompatActivity {
     private TextView gradeText, whyText, haveText, doText;
     private Spinner whySpinner;
     private Button nextButton, backButton;
-    private RadioButton yes, no;
+    private RadioButton doesGoYesRadio, doesGoNoRadio;
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, EducationSurveyActivity.class);
@@ -35,6 +35,7 @@ public class EducationSurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education_survey);
+
         doesGoRadio = findViewById(R.id.educationSurveyRadioGroup1);
         editGrade = findViewById(R.id.educationSurveyEditNo);
         gradeText = findViewById(R.id.textViewEducation3);
@@ -46,8 +47,8 @@ public class EducationSurveyActivity extends AppCompatActivity {
         doRadio = findViewById(R.id.educationSurveyRadioGroup3);
         nextButton = findViewById(R.id.nextButtonEducationSurvey);
         backButton = findViewById(R.id.backButtonEducationSurvey);
-        yes = findViewById(R.id.educationSurveyYesRadio1);
-        no = findViewById(R.id.educationSurveyNoRadio1);
+        doesGoYesRadio= findViewById(R.id.educationSurveyYesRadio1);
+        doesGoNoRadio = findViewById(R.id.educationSurveyNoRadio1);
 
         createSpinners();
         nextButton();
@@ -122,11 +123,11 @@ public class EducationSurveyActivity extends AppCompatActivity {
         if (doesGoRadio.getCheckedRadioButtonId() == -1) {
             bool = false;
         }
-        else if (yes.isChecked() && editGrade.length() == 0) {
+        else if (doesGoYesRadio.isChecked() && editGrade.length() == 0) {
             bool = false;
         }
-        else if ((no.isChecked()&&whySpinner.getSelectedItem().toString() == "") || (no.isChecked()&&haveRadio.getCheckedRadioButtonId() == -1)
-                || (no.isChecked()&&doRadio.getCheckedRadioButtonId() == -1)) {
+        else if ((doesGoNoRadio.isChecked()&&whySpinner.getSelectedItem().toString() == "") || (doesGoNoRadio.isChecked()&&haveRadio.getCheckedRadioButtonId() == -1)
+                || (doesGoNoRadio.isChecked()&&doRadio.getCheckedRadioButtonId() == -1)) {
             bool = false;
         }
         return bool;
