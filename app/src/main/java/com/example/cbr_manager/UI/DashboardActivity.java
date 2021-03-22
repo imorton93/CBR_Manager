@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,6 +28,7 @@ import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.clientInfoFragment.VisitsFragment;
 import com.example.cbr_manager.UI.clientListFragment.MapsFragment;
 import com.example.cbr_manager.UI.clientListFragment.listFragment;
 import com.example.cbr_manager.UI.dashboardFragment.DashboardFragment;
@@ -91,13 +93,18 @@ public class DashboardActivity extends AppCompatActivity {
         @Override public Fragment createFragment(int pos) {
             switch (pos) {
                 case 0: {
-                    return DashboardFragment.newInstance(current_username);
+                    DashboardFragment dashboardFragment = DashboardFragment.newInstance();
+                    return dashboardFragment;
                 }
                 case 1: {
-                    return NotificationFragment.newInstance();
+                    NotificationFragment notificationFragment = NotificationFragment.newInstance(current_username);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("current_username", current_username);
+                    notificationFragment.setArguments(bundle);
+                    return notificationFragment;
                 }
                 default:
-                    return DashboardFragment.newInstance(current_username);
+                    return DashboardFragment.newInstance();
             }
         }
         @Override public int getItemCount() {

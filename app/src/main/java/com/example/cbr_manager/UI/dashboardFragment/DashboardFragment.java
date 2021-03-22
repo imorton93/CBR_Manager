@@ -35,17 +35,14 @@ public class DashboardFragment extends Fragment {
     private Button statistics_button;
     private DatabaseHelper mydb;
     private DashboardActivity dashboardActivity;
-    private String current_username;
-
 
     public DashboardFragment() {
         // Required empty public constructor
     }
 
-    public static DashboardFragment newInstance(String current_username) {
+    public static DashboardFragment newInstance() {
         DashboardFragment fragment = new DashboardFragment();
         Bundle args = new Bundle();
-        args.putString("Worker Username", current_username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,8 +60,6 @@ public class DashboardFragment extends Fragment {
         mydb = new DatabaseHelper(dashboardActivity);
 
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        Bundle args = getArguments();
-        this.current_username = args.getString("current_username", "");
 
         sectionDropDownMenu(v);
         villageDropDownMenu(v);
@@ -74,27 +69,27 @@ public class DashboardFragment extends Fragment {
 
         clickClient(v);
         dashboardSearchBoxes(v);
-        StatisticsButton(v);
+//        StatisticsButton(v);
 
         return v;
     }
 
-    private void StatisticsButton(View v) {
-
-        statistics_button = v.findViewById(R.id.statistics_button);
-        statistics_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!mydb.isAdmin(current_username)){
-                    Toast.makeText(dashboardActivity, "Access Not Allowed", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                   /* Intent intent = StatisticsActivity.makeIntent(DashboardActivity.this);
-                    startActivity(intent);*/
-                }
-            }
-        });
-    }
+//    private void StatisticsButton(View v) {
+//
+//        statistics_button = v.findViewById(R.id.statistics_button);
+//        statistics_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(!mydb.isAdmin(current_username)){
+//                    Toast.makeText(dashboardActivity, "Access Not Allowed", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                   /* Intent intent = StatisticsActivity.makeIntent(DashboardActivity.this);
+//                    startActivity(intent);*/
+//                }
+//            }
+//        });
+//    }
 
     private void sectionDropDownMenu(View v){
         Spinner spinner = v.findViewById(R.id.filter_section_dashboard);
