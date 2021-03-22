@@ -49,12 +49,9 @@ public class NotificationFragment extends Fragment {
         View V =  inflater.inflate(R.layout.fragment_notification, container, false);
         Bundle args = getArguments();
 
-
         this.dashboardActivity = (DashboardActivity)getActivity();
         mydb = new DatabaseHelper(dashboardActivity);
-
         this.current_username = args.getString("current_username", "");
-        Log.e(TAG, "CURRENT USERNAME : " + current_username);
 
         newMsg(V);
 
@@ -72,6 +69,7 @@ public class NotificationFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = NewMsgActivity.makeIntent(dashboardActivity);
+                    intent.putExtra("Worker Username", current_username);
                     startActivity(intent);
                 }
             });

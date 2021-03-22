@@ -6,18 +6,28 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.cbr_manager.Database.AdminMessage;
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
+import com.example.cbr_manager.UI.LoginActivity;
+import com.example.cbr_manager.UI.SignUpActivity;
 
 import java.util.Calendar;
 
 public class NewMsgActivity extends AppCompatActivity {
+
+    private AdminMessage adminMessage;
+    private DatabaseHelper databaseHelper;
+    private int workerID = 0;
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, NewMsgActivity.class);
@@ -29,7 +39,37 @@ public class NewMsgActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_msg);
 
+        databaseHelper = new DatabaseHelper(NewMsgActivity.this);
+        String current_username = getIntent().getStringExtra("Worker Username");
+        databaseHelper.getWorkerId(current_username);
         date();
+        createMessageButton();
+    }
+
+    private void createMessageButton() {
+        Button submit = findViewById(R.id.submitButton);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adminMessage = new AdminMessage();
+
+                EditText title = findViewById(R.id.titleTextBox);
+                EditText date = findViewById(R.id.dateTextBox);
+                EditText location = findViewById(R.id.locationTextBox);
+                EditText message = findViewById(R.id.messageTextBox);
+
+                // TODO complete
+                adminMessage.setWorkerID(workerID);
+                adminMessage.setDate(date.getText().toString());
+                adminMessage.setMessage(message.getText().toString());
+
+                databaseHelper.addMessage(adminMessage);
+
+                Intent intent = DashboardActivity.makeIntent(NewMsgActivity.this);
+                startActivity(intent);
+
+            }
+        });
     }
 
     private void date(){
