@@ -3,6 +3,10 @@ package com.example.cbr_manager.UI;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,17 +27,20 @@ import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.clientListFragment.MapsFragment;
+import com.example.cbr_manager.UI.clientListFragment.listFragment;
+import com.example.cbr_manager.UI.dashboardFragment.DashboardFragment;
+import com.example.cbr_manager.UI.dashboardFragment.NotificationFragment;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    private ClientManager clientManager = ClientManager.getInstance(DashboardActivity.this);
-    private List<Client> priority_clients;
-    private Button statistics_button;
-    private DatabaseHelper mydb = new DatabaseHelper(DashboardActivity.this);
-
-
+    TabLayout tabLayout;
+    ViewPager2 viewPager;
+    private String[] titles = new String[]{"Dashboard", "Notifications"};
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, DashboardActivity.class);
@@ -43,86 +50,14 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        StatisticsButton();
         ToolbarButtons();
-        sectionDropDownMenu();
-        villageDropDownMenu();
 
-        this.priority_clients = this.clientManager.getHighPriorityClients();
-        populateAllClientsFromList(priority_clients);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabs);
 
-        clickClient();
-        dashboardSearchBoxes();
-    }
+        viewPager.setAdapter(createCardAdapter());
+        new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
 
-    private void StatisticsButton() {
-        String current_username = getIntent().getStringExtra("Worker Username");
-        statistics_button = findViewById(R.id.statistics_button);
-        statistics_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!mydb.isAdmin(current_username)){
-                    Toast.makeText(DashboardActivity.this, "Access Not Allowed", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                   /* Intent intent = StatisticsActivity.makeIntent(DashboardActivity.this);
-                    startActivity(intent);*/
-                }
-            }
-        });
-    }
-
-    private void sectionDropDownMenu(){
-        Spinner spinner = findViewById(R.id.filter_section_dashboard);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.options_array, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
-    private void villageDropDownMenu(){
-        Spinner spinner = findViewById(R.id.filter_village_dashboard);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.dashboard_locations, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
-    private void dashboardSearchBoxes(){
-        Spinner village_spinner = findViewById(R.id.filter_village_dashboard);
-        Spinner section_spinner = findViewById(R.id.filter_section_dashboard);
-        EditText village_num_text = findViewById(R.id.filter_villageNum_dashboard);
-        Button search_button = findViewById(R.id.search_button_dashboard);
-        search_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String village = village_spinner.getSelectedItem().toString();
-                String section = section_spinner.getSelectedItem().toString();
-                String village_num = village_num_text.getText().toString().trim();
-
-                priority_clients = clientManager.getDashboardSearchedClients(village, section, village_num);
-                populateAllClientsFromList(priority_clients);
-            }
-        });
-    }
-
-    private void populateAllClientsFromList(List<Client> priority_clients) {
-        ArrayAdapter<Client> adapter = new DashboardActivity.MyListAdapter(priority_clients);
-        ListView list = findViewById(R.id.dashboard_clients);
-        list.setAdapter(adapter);
-    }
-
-    private void clickClient() {
-        ListView list = findViewById(R.id.dashboard_clients);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = ClientInfoActivity.makeIntent(DashboardActivity.this, position, priority_clients.get(position).getId());
-                startActivity(intent);
-            }
-        });
     }
 
     private void ToolbarButtons(){
@@ -145,37 +80,34 @@ public class DashboardActivity extends AppCompatActivity {
         });
     }
 
-    private class MyListAdapter extends ArrayAdapter<Client> {
-        private List<Client> clients;
-
-        public MyListAdapter(List<Client> clients) {
-            super(DashboardActivity.this, R.layout.client_list, clients);
-            this.clients = clients;
+    public class ViewPagerAdapter extends FragmentStateAdapter {
+        private static final int CARD_ITEM_SIZE = 2;
+        public ViewPagerAdapter(FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
         }
 
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            View view = convertView;
+        String current_username = getIntent().getStringExtra("Worker Username");
 
-            if (view == null) {
-                view = getLayoutInflater().inflate(R.layout.client_list, parent, false);
+        @Override public Fragment createFragment(int pos) {
+            switch (pos) {
+                case 0: {
+                    return DashboardFragment.newInstance(current_username);
+                }
+                case 1: {
+                    return NotificationFragment.newInstance();
+                }
+                default:
+                    return DashboardFragment.newInstance(current_username);
             }
-
-            Client currentClient;
-
-            currentClient = this.clients.get(position);
-
-            TextView firstName = view.findViewById(R.id.fname_clist);
-            TextView lastName = view.findViewById(R.id.lname_clist);
-            TextView village = view.findViewById(R.id.Village_clist);
-
-            firstName.setText(currentClient.getFirstName());
-            lastName.setText(currentClient.getLastName());
-            village.setText(currentClient.getLocation());
-
-            return view;
         }
+        @Override public int getItemCount() {
+            return CARD_ITEM_SIZE;
+        }
+    }
+
+    private DashboardActivity.ViewPagerAdapter createCardAdapter() {
+        DashboardActivity.ViewPagerAdapter adapter = new DashboardActivity.ViewPagerAdapter(this);
+        return adapter;
     }
 
 }
