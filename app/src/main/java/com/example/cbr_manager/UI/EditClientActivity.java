@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +19,11 @@ import android.widget.TextView;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
+import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
+import com.example.cbr_manager.Forms.QuestionType;
+import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
 
 import java.util.ArrayList;
@@ -79,7 +84,18 @@ public class EditClientActivity extends AppCompatActivity {
         extractIntent();
         getClientInfo();
 
-        reviewPage();
+        createEditForm();
+        pageCount = pages.size() + 1;
+
+        DisplayFormPage.displayPage(pages.get(currentPage-1), form, this);
+
+        progressBar.setMax(pageCount);
+        setProgress(currentPage, pageCount);
+    }
+
+    private void setProgress(int currentPage, int pageCount){
+        progressBar.setProgress(currentPage);
+        progressText.setText(currentPage + "/" + pageCount);
     }
 
     private void extractIntent(){
@@ -96,6 +112,93 @@ public class EditClientActivity extends AppCompatActivity {
     }
 
 
+    private void createEditForm(){
+        Resources res = getResources();
+
+        //page one: first and last name
+        TextQuestion firstName = new TextQuestion(getString(R.string.firstName),getString(R.string.firstName_newClientForm), QuestionType.PLAIN_TEXT, true);
+        TextQuestion lastName = new TextQuestion(getString(R.string.lastName),getString(R.string.lastName_newClientForm), QuestionType.PLAIN_TEXT, true);
+        FormPage pageOne = new FormPage();
+        pageOne.addToPage(firstName);
+        pageOne.addToPage(lastName);
+        pages.add(pageOne);
+
+        //page two: Age gender
+        TextQuestion age = new TextQuestion(getString(R.string.age),getString(R.string.age_newClientForm), QuestionType.NUMBER, true);
+        MultipleChoiceQuestion gender = new MultipleChoiceQuestion(getString(R.string.gender),getString(R.string.gender_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.gender), true);
+        FormPage pageTwo = new FormPage();
+        pageTwo.addToPage(age);
+        pageTwo.addToPage(gender);
+        pages.add(pageTwo);
+
+
+        //page three: Location Village No. Contact Number   GPS LATER!!!!
+        MultipleChoiceQuestion location = new MultipleChoiceQuestion(getString(R.string.location),getString(R.string.location_newClientForm), QuestionType.DROP_DOWN,res.getStringArray(R.array.locations), true);
+        TextQuestion villageNum = new TextQuestion(getString(R.string.villageNumber),getString(R.string.villageNumber_newClientForm), QuestionType.NUMBER, true);
+        TextQuestion contactNum = new TextQuestion(getString(R.string.contactNumber),getString(R.string.contactNumber_newClientForm), QuestionType.PHONE_NUMBER, true);
+        FormPage pageThree = new FormPage();
+        pageThree.addToPage(location);
+        pageThree.addToPage(villageNum);
+        pageThree.addToPage(contactNum);
+        pages.add(pageThree);
+
+        //page four: Caregiver
+        MultipleChoiceQuestion caregiverPresent = new MultipleChoiceQuestion(getString(R.string.caregiverPresent),getString(R.string.caregiverPresent_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.yes_no_answer), true);
+        TextQuestion caregiverContactNumber = new TextQuestion(getString(R.string.caregiverContactNumber),getString(R.string.caregiverNumber_newClientForm), QuestionType.PHONE_NUMBER, false);
+        FormPage pageFour = new FormPage();
+        pageFour.addToPage(caregiverPresent);
+        pageFour.addToPage(caregiverContactNumber);
+        pages.add(pageFour);
+
+
+        //page five: photo
+        TextQuestion photo = new TextQuestion(getString(R.string.photo),getString(R.string.photo_newClientForm), QuestionType.PICTURE, false);
+        imagePage = 6;
+        FormPage pageFive = new FormPage();
+        pageFive.addToPage(photo);
+        pages.add(pageFive);
+
+
+
+
+        //page six: Type of disability
+        MultipleChoiceQuestion disability = new MultipleChoiceQuestion(getString(R.string.disabilityType),getString(R.string.disabilityType_newClientForm), QuestionType.CHECK_BOX, res.getStringArray(R.array.disability_types), true);
+        FormPage pageSix = new FormPage();
+        pageSix.addToPage(disability);
+        pages.add(pageSix);
+
+
+        //page seven: clients health rate, require individual goal
+        MultipleChoiceQuestion clientHealthRate = new MultipleChoiceQuestion(getString(R.string.healthRate),getString(R.string.healthRate_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.risk_type), true);
+        TextQuestion healthRequire = new TextQuestion(getString(R.string.healthRequire),getString(R.string.require_newClientForm), QuestionType.PLAIN_TEXT, true);
+        TextQuestion healthIndividualGoal = new TextQuestion(getString(R.string.healthIndividualGoal),getString(R.string.individualGoal_newClientForm), QuestionType.PLAIN_TEXT, true);
+        FormPage pageSeven = new FormPage();
+        pageSeven.addToPage(clientHealthRate);
+        pageSeven.addToPage(healthRequire);
+        pageSeven.addToPage(healthIndividualGoal);
+        pages.add(pageSeven);
+
+
+        //page eight: clients education rate
+        MultipleChoiceQuestion clientEducationRate = new MultipleChoiceQuestion(getString(R.string.educationRate),getString(R.string.educationStatus_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.risk_type), true);
+        TextQuestion educationRequire = new TextQuestion(getString(R.string.educationRequire),getString(R.string.require_newClientForm), QuestionType.PLAIN_TEXT, true);
+        TextQuestion educationIndividualGoal = new TextQuestion(getString(R.string.educationIndividualGoal),getString(R.string.individualGoal_newClientForm), QuestionType.PLAIN_TEXT, true);
+        FormPage pageEight = new FormPage();
+        pageEight.addToPage(clientEducationRate);
+        pageEight.addToPage(educationRequire);
+        pageEight.addToPage(educationIndividualGoal);
+        pages.add(pageEight);
+
+        //page nine: social status
+        MultipleChoiceQuestion clientSocialRate = new MultipleChoiceQuestion(getString(R.string.socialRate),getString(R.string.socialStatus_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.risk_type), true);
+        TextQuestion socialRequire = new TextQuestion(getString(R.string.socialRequire),getString(R.string.require_newClientForm), QuestionType.PLAIN_TEXT, true);
+        TextQuestion socialIndividualGoal = new TextQuestion(getString(R.string.socialIndividualGoal),getString(R.string.individualGoal_newClientForm), QuestionType.PLAIN_TEXT, true);
+        FormPage pageNine = new FormPage();
+        pageNine.addToPage(clientSocialRate);
+        pageNine.addToPage(socialRequire);
+        pageNine.addToPage(socialIndividualGoal);
+        pages.add(pageNine);
+    }
 
     private void reviewPage(){
 
