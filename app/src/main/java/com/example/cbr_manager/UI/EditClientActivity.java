@@ -101,7 +101,7 @@ public class EditClientActivity extends AppCompatActivity {
         createEditForm();
         pageCount = pages.size() + 1;
 
-        DisplayFormPage.displayPage(pages.get(currentPage-1), form, this);
+        DisplayFormPage.displayPage(pages.get(currentPage-1), form, this, 0 , 0);
         loadAnswers(pages.get(currentPage - 1));
 
         progressBar.setMax(pageCount);
@@ -137,7 +137,7 @@ public class EditClientActivity extends AppCompatActivity {
                     displayPicture(pages.get(currentPage - 1));
                 }
                 else{
-                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, EditClientActivity.this);
+                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, EditClientActivity.this, 0, 0);
 
                 }
 
@@ -172,7 +172,7 @@ public class EditClientActivity extends AppCompatActivity {
                 displayPicture(pages.get(currentPage - 1));
             }
             else{
-                DisplayFormPage.displayPage(pages.get(currentPage - 1), form, EditClientActivity.this);
+                DisplayFormPage.displayPage(pages.get(currentPage - 1), form, EditClientActivity.this, 0, 0);
             }
             //load previously saved answers if any
             loadAnswers(pages.get(currentPage - 1));
