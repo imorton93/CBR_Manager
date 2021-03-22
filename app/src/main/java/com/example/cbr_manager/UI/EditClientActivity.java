@@ -108,8 +108,8 @@ public class EditClientActivity extends AppCompatActivity {
         setProgress(currentPage, pageCount);
 
         next.setOnClickListener(v -> {
-            if (currentPage == 11) {
-//                insertClient();
+            if (currentPage == pageCount) {
+                editClient();
             }
 
             //make sure all required fields are filled in the page
@@ -218,6 +218,21 @@ public class EditClientActivity extends AppCompatActivity {
     private void getClientInfo(){
         ClientManager manager = ClientManager.getInstance(this);
         client = manager.getClientById(id);
+    }
+
+    private void editClient() {
+        client.setIsSynced(0);
+        boolean success = mydb.updateClient(client);
+
+        if(success) {
+            Toast.makeText(EditClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
+            Intent intent = TaskViewActivity.makeIntent(EditClientActivity.this);
+            String current_username = getIntent().getStringExtra("Worker Username");
+            intent.putExtra("Worker Username", current_username);
+            startActivity(intent);
+        } else {
+            Toast.makeText(EditClientActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void displayPicture(FormPage page){
