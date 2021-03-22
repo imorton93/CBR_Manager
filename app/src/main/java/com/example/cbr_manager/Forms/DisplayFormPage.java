@@ -1,6 +1,7 @@
 package com.example.cbr_manager.Forms;
 
 import android.app.DatePickerDialog;
+import android.text.Html;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 
 public class DisplayFormPage {
 
-    public static void displayPage(FormPage page, LinearLayout form, android.content.Context context){
+    public static void displayPage(FormPage page, LinearLayout form, android.content.Context context, double latitude, double longitude){
         ArrayList<Question> questions = page.getQuestions();
         for(Question question : questions){
             TextQuestion txtQ;
@@ -61,7 +62,21 @@ public class DisplayFormPage {
                 mcQ = (MultipleChoiceQuestion) question;
                 displayCheckBoxCommentQuestion(mcQ, form, context);
             }
+            else if(question.getQuestionType().equals(QuestionType.GPS)){
+                txtQ = (TextQuestion) question;
+                displayGPSQuestion(txtQ, form, context, latitude, longitude);
+            }
+            else if(question.getQuestionType().equals(QuestionType.NONE)){
+                txtQ = (TextQuestion) question;
+                displayNoneTypeQuestion(txtQ.getQuestionString(), form, context);
+            }
         }
+    }
+
+    private static void displayNoneTypeQuestion(String questionString, LinearLayout form, android.content.Context context){
+        TextView questionText = new TextView(context);
+        questionText.setText(Html.fromHtml(questionString));
+        form.addView(questionText);
     }
 
 
@@ -108,9 +123,9 @@ public class DisplayFormPage {
         TextView selectDate = new TextView(context);
         Calendar calendar = Calendar.getInstance();
         int year1 = calendar.get(Calendar.YEAR);
-        int month1 = calendar.get(Calendar.MONTH);
+        int month1 = calendar.get(Calendar.MONTH)+1;
         int dayOfMonth1 = calendar.get(Calendar.DAY_OF_MONTH);
-        String date = month1 + "/" + dayOfMonth1 + "/" + year1;
+        String date = dayOfMonth1 + "/" + month1 + "/" + year1;
         selectDate.setText(date);
         selectDate.setTextSize(24);
         selectDate.setTag(question.getQuestionTag());
@@ -118,8 +133,8 @@ public class DisplayFormPage {
         DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = month + "/" + dayOfMonth + "/" + year;
+                month = month +1;
+                String date = dayOfMonth + "/" + month + "/" + year;
                 selectDate.setText(date);
             }
         };
@@ -134,6 +149,17 @@ public class DisplayFormPage {
             dialog.show();
         });
         form.addView(selectDate);
+    }
+
+    private static void displayGPSQuestion(TextQuestion question, LinearLayout form, android.content.Context context, double latitude, double longitude){
+        displayQuestionHeading(question.getQuestionString(), form, context);
+
+        TextView location = new TextView(context);
+        location.setText("Latitude: " + String.valueOf(latitude) + " Longitude: " + String.valueOf(longitude));
+        location.setTextSize(24);
+        location.setTag(question.getQuestionTag());
+
+        form.addView(location);
     }
 
     private static void displayRadioQuestion(MultipleChoiceQuestion question, LinearLayout form, android.content.Context context){
@@ -175,6 +201,26 @@ public class DisplayFormPage {
             checkBox.setText(answers[i]);
             checkBox.setTag(i);
             form.addView(checkBox);
+            if(answers[i].equals("Other")){
+                EditText input = new EditText(context);
+                input.setTextSize(14);
+                input.setHint(R.string.explain_newVisitForm);
+                input.setVisibility(View.GONE);
+                input.setTag("otherExplanation");
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked){
+                            input.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            input.setVisibility(View.GONE);
+                        }
+                    }
+                });
+                form.addView(input);
+            }
+
         }
 
     }

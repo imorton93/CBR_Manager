@@ -9,5 +9,7 @@ public enum QuestionType {
     DROP_DOWN,
     CHECK_BOX,
     CHECK_BOX_WITH_COMMENT,
-    PICTURE
+    PICTURE,
+    GPS,
+    NONE
 }

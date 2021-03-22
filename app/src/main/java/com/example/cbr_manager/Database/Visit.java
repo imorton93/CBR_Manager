@@ -1,9 +1,8 @@
 package com.example.cbr_manager.Database;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -26,6 +25,7 @@ public class Visit {
     private String educationIfConcluded;
     private long visit_id;
 
+    private int isSynced = 0;
 
     public Visit() {
     }
@@ -34,7 +34,7 @@ public class Visit {
                  String location, int villageNumber, ArrayList<String> healthProvided,
                  String healthGoalMet, String healthIfConcluded, ArrayList<String> socialProvided,
                  String socialGoalMet, String socialIfConcluded, ArrayList<String> educationProvided,
-                 String educationGoalMet, String educationIfConcluded, long visit_id){
+                 String educationGoalMet, String educationIfConcluded, long visit_id, int isSynced){
         this.client_id = client_id;
         this.purposeOfVisit = purposeOfVisit;
         this.ifCbr = ifCbr;
@@ -51,6 +51,7 @@ public class Visit {
         this.educationGoalMet = educationGoalMet;
         this.educationIfConcluded = educationIfConcluded;
         this.visit_id = visit_id;
+        this.isSynced = isSynced;
     }
 
     public long getClient_id() {
@@ -108,6 +109,10 @@ public class Visit {
 
     public ArrayList<String> getIfCbr() {
         return ifCbr;
+    }
+
+    public void setIfCbr(ArrayList<String> ifCbr) {
+        this.ifCbr = ifCbr;
     }
 
     public void addToIfCbr(String string){
@@ -276,4 +281,66 @@ public class Visit {
         this.visit_id = visit_id;
     }
 
+    public void setHealthProvided(ArrayList<Provided> healthProvided) {
+        this.healthProvided = healthProvided;
+    }
+
+    public void setSocialProvided(ArrayList<Provided> socialProvided) {
+        this.socialProvided = socialProvided;
+    }
+
+    public void setEducationProvided(ArrayList<Provided> educationProvided) {
+        this.educationProvided = educationProvided;
+    }
+
+    public void setClient_id(long client_id) {
+        this.client_id = client_id;
+    }
+
+    public void stringToHealthProvided (String s) {
+        Provided provided;
+
+        List<String> splitOnCommas = new ArrayList<String>(Arrays.asList(s.split(", ")));
+        List<String> splitOnColon;
+
+        for (int i = 0; i < splitOnCommas.size(); i++) {
+            splitOnColon = new ArrayList<String>(Arrays.asList(splitOnCommas.get(i).split(":")));
+            provided = new Provided(splitOnColon.get(0), splitOnColon.get(1));
+            this.healthProvided.add(provided);
+        }
+    }
+
+    public void stringToEduProvided (String s) {
+        Provided provided;
+
+        List<String> splitOnCommas = new ArrayList<String>(Arrays.asList(s.split(", ")));
+        List<String> splitOnColon;
+
+        for (int i = 0; i < splitOnCommas.size(); i++) {
+            splitOnColon = new ArrayList<String>(Arrays.asList(splitOnCommas.get(i).split(":")));
+            provided = new Provided(splitOnColon.get(0), splitOnColon.get(1));
+            this.educationProvided.add(provided);
+        }
+    }
+
+    public void stringToSocialProvided (String s) {
+        Provided provided;
+
+        List<String> splitOnCommas = new ArrayList<String>(Arrays.asList(s.split(", ")));
+        List<String> splitOnColon;
+
+        for (int i = 0; i < splitOnCommas.size(); i++) {
+            splitOnColon = new ArrayList<String>(Arrays.asList(splitOnCommas.get(i).split(":")));
+            provided = new Provided(splitOnColon.get(0), splitOnColon.get(1));
+            this.socialProvided.add(provided);
+        }
+    }
+
+    public int getIsSynced() {
+        return isSynced;
+    }
+
+    public void setIsSynced(int isSynced) {
+        this.isSynced = isSynced;
+    }
 }

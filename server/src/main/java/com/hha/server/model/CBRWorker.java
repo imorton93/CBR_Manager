@@ -1,60 +1,80 @@
 package com.hha.server.model;
 
-public class CBRWorker {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private int id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.*;
 
-    public CBRWorker(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+@Entity
+@Table(name = "WORKER_DATA")
+public class CBRWorker {
+    @Column
+    @JsonProperty("FIRST_NAME")
+    private String FIRST_NAME;
+
+    @Column
+    @JsonProperty("LAST_NAME")
+    private String LAST_NAME;
+
+    @Column
+    @JsonProperty("USERNAME")
+    private String USERNAME;
+
+    @Column
+    @JsonProperty("PASSWORD")
+    private String PASSWORD;
+
+    @Id
+    @Column
+    @JsonProperty("ID")
+    private String ID;
+
+    public CBRWorker(String ID, String FIRST_NAME, String LAST_NAME, String USERNAME, String PASSWORD) {
+        this.ID = ID;
+        this.FIRST_NAME = FIRST_NAME;
+        this.LAST_NAME = LAST_NAME;
+        this.USERNAME = USERNAME;
+        this.PASSWORD = PASSWORD;
     }
 
     public CBRWorker(){
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFIRST_NAME() {
+        return FIRST_NAME;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFIRST_NAME(String FIRST_NAME) {
+        this.FIRST_NAME = FIRST_NAME;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLAST_NAME() {
+        return LAST_NAME;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLAST_NAME(String LAST_NAME) {
+        this.LAST_NAME = LAST_NAME;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUSERNAME() {
+        return USERNAME;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUSERNAME(String USERNAME) {
+        this.USERNAME = USERNAME;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPASSWORD() {
+        return PASSWORD;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPASSWORD(String PASSWORD) {
+        this.PASSWORD = PASSWORD;
     }
 
-    public String getFullName(){
-        return firstName +" " + lastName;
+    public String getID() {
+        return ID;
     }
 
-    public void setWorkerId(int id) {
-        this.id = id;
+    public void setID(String ID) {
+        this.ID = ID;
     }
-
 }

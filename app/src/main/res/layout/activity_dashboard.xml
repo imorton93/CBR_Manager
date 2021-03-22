@@ -11,103 +11,38 @@
         android:id="@+id/toolbar"
         layout="@layout/activity_tool_bar" />
 
-    <TextView
-        android:id="@+id/dashboard_text"
-        android:layout_width="140dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/dashboard"
-        android:textColor="#009fb8"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <ListView
-        android:id="@+id/dashboard_clients"
-        android:layout_width="376dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchExtraDashboardLayoutContainers">
-
-    </ListView>
-
-    <LinearLayout
-        android:id="@+id/searchDashboardLayoutContainers"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashboard_text">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <Spinner
-            android:id="@+id/filter_village_dashboard"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5" />
-
-        <Spinner
-            android:id="@+id/filter_section_dashboard"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/searchExtraDashboardLayoutContainers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchDashboardLayoutContainers">
-
-        <EditText
-            android:id="@+id/filter_villageNum_dashboard"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:ems="8"
-            android:hint="Village #"
-            android:inputType="number" />
-
-        <Button
-            android:id="@+id/search_button_dashboard"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:background="@android:color/transparent"
-            android:text="Search" />
+            android:text="Monday" />
 
-    </LinearLayout>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tuesday" />
 
-    <Button
-        android:id="@+id/statistics_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Statistics"
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wednesday" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="397dp"
+        android:layout_height="562dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashboard_clients"
-        app:layout_constraintVertical_bias="0.903" />
+        app:layout_constraintTop_toBottomOf="@+id/tabs" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
