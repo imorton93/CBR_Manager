@@ -182,7 +182,7 @@
     <string name="baseline_survey">Baseline Survey</string>
     <string name="sign_up">SIGN UP</string>
 
-<!--    new referral questions-->
+    <!--    new referral questions-->
     <string name="serviceRequireQuestion_newReferralForm">What service does the client require?*</string>
     <string name="photoQuestion_newReferralForm">Take a photo of the client and any existing assistive device.</string>
     <string name="typeUserQuestion_newReferralForm">Is the user a basic or intermediate user?*</string>
@@ -196,7 +196,7 @@
     <string name="injuryLocationElbowQuestion_newReferralForm">Is the injury below or above the elbow?*</string>
     <string name="pleaseDescribe_newReferralForm">Please Describe:*</string>
 
-<!--    new referral answers-->
+    <!--    new referral answers-->
     <array name="serviceType">
         <item>Physiotherapy</item>
         <item>Prosthetic</item>
@@ -224,7 +224,7 @@
         <item>Below</item>
     </array>
 
-<!--    new referral tags-->
+    <!--    new referral tags-->
     <string name="serviceRequire">serviceRequire</string>
     <string name="photoWheelchair">photoWheelchair</string>
     <string name="basicIntermediateUser">basicIntermediateUser</string>
@@ -242,4 +242,6 @@
     <string name="title_activity_maps">Map</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>
