@@ -102,7 +102,7 @@ public class NewClientActivity extends AppCompatActivity {
 
 
         next.setOnClickListener(v -> {
-            if (currentPage == 11) {
+            if (currentPage == pageCount) {
                 insertClient();
             }
 
@@ -162,7 +162,7 @@ public class NewClientActivity extends AppCompatActivity {
                 setProgress(currentPage, pageCount);
                 clearForm();
 
-                if(currentPage == 6){
+                if(currentPage == imagePage){
                     displayPicture(pages.get(currentPage - 1));
                 }
                 else{
@@ -201,11 +201,6 @@ public class NewClientActivity extends AppCompatActivity {
         form.removeAllViews();
     }
 
-    private void finishForm(){
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(this, "End", duration);
-        toast.show();
-    }
 
     private void displayPicture(FormPage page){
         ArrayList<Question> questions = page.getQuestions();
