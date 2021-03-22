@@ -22,13 +22,13 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".UI.BaselineSurvey.EducationSurveyActivity"></activity>
+        <activity android:name=".UI.BaselineSurvey.EducationSurveyActivity">
+        </activity>
         <activity android:name=".UI.BaselineSurvey.HealthSurveyActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".UI.MapsActivity" />
         <!--
@@ -47,7 +47,7 @@
         <activity android:name=".UI.ClientSearchActivity" />
         <activity android:name=".UI.VisitInfoActivity" />
         <activity android:name=".UI.NewReferralActivity" />
-        <activity android:name=".UI.LoginActivity"/>
+        <activity android:name=".UI.LoginActivity" />
         <activity android:name=".UI.SignUpActivity" />
         <activity android:name=".UI.ClientInfoActivity" />
         <activity android:name=".UI.ClientPhoto" />

@@ -23,10 +23,10 @@
 
         <TextView
             android:id="@+id/textViewhealth1"
-            android:layout_width="257dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Baseline Survey: Health"
+            android:text="Part I: Health"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/purple"
             android:textSize="24sp"
