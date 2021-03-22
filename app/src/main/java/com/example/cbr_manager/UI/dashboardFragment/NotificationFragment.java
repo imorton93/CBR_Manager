@@ -1,5 +1,6 @@
 package com.example.cbr_manager.UI.dashboardFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
+import com.example.cbr_manager.UI.TaskViewActivity;
 
 
 public class NotificationFragment extends Fragment {
@@ -69,7 +71,8 @@ public class NotificationFragment extends Fragment {
             addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO
+                    Intent intent = NewMsgActivity.makeIntent(dashboardActivity);
+                    startActivity(intent);
                 }
             });
         }

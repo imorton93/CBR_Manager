@@ -21,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.CBRWorker;
-import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
@@ -30,9 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -53,11 +49,11 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        firstNameTextBox = findViewById(R.id.firstnameTextBox);
-        lastNameTextBox = findViewById(R.id.lastnameTextBox);
-        emailTextBox = findViewById(R.id.emailTextBox);
+        firstNameTextBox = findViewById(R.id.titleTextBox);
+        lastNameTextBox = findViewById(R.id.dateTextBox);
+        emailTextBox = findViewById(R.id.locationTextBox);
         password1TextBox = findViewById(R.id.password1TextBox);
-        password2TextBox = findViewById(R.id.password2TextBox);
+        password2TextBox = findViewById(R.id.messageTextBox);
 
         submitButton = findViewById(R.id.submitButton);
 
