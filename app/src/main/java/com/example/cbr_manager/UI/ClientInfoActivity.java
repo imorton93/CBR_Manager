@@ -17,7 +17,7 @@ import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
 import com.example.cbr_manager.UI.clientInfoFragment.RiskFragment;
-import com.example.cbr_manager.UI.clientInfoFragment.VisitsFragment;
+import com.example.cbr_manager.UI.clientInfoFragment.ListsFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -104,11 +104,11 @@ public class ClientInfoActivity extends AppCompatActivity {
                     return InfoFragment.newInstance();
                 }
                 case 1: {
-                    VisitsFragment visitsFragment = VisitsFragment.newInstance(ClientInfoActivity.this.getId());
+                    ListsFragment listsFragment = ListsFragment.newInstance(ClientInfoActivity.this.getId());
                     Bundle bundle = new Bundle();
                     bundle.putLong("client_id", ClientInfoActivity.this.getId());
-                    visitsFragment.setArguments(bundle);
-                    return visitsFragment;
+                    listsFragment.setArguments(bundle);
+                    return listsFragment;
                 }
                 case 2: {
                     return RiskFragment.newInstance();
@@ -120,6 +120,11 @@ public class ClientInfoActivity extends AppCompatActivity {
         @Override public int getItemCount() {
             return CARD_ITEM_SIZE;
         }
+    }
+
+    private ViewPagerAdapter createCardAdapter() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        return adapter;
     }
 
     private void ToolbarButtons(){
@@ -141,12 +146,6 @@ public class ClientInfoActivity extends AppCompatActivity {
             }
         });
     }
-
-    private ViewPagerAdapter createCardAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
-        return adapter;
-    }
-
 }
 
 

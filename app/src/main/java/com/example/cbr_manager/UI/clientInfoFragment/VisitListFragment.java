@@ -1,7 +1,15 @@
 package com.example.cbr_manager.UI.clientInfoFragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,31 +19,32 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
+import com.example.cbr_manager.UI.ClientListActivity;
 import com.example.cbr_manager.UI.VisitInfoActivity;
+import com.example.cbr_manager.UI.clientListFragment.MapsFragment;
+import com.example.cbr_manager.UI.clientListFragment.listFragment;
 
 import java.util.List;
 
-public class VisitsFragment extends Fragment {
+public class VisitListFragment extends Fragment {
+
+    private static final String ARG_PARAM1 = "client_id";
 
     private ClientInfoActivity infoActivity;
     private long client_id;
+    private String mClient_id;
     private VisitManager visitManager;
 
-    public VisitsFragment() {
-    }
+    public VisitListFragment() { }
 
-    public static VisitsFragment newInstance(long client_id) {
-        VisitsFragment fragment = new VisitsFragment();
+    public static VisitListFragment newInstance(long client_id) {
+        VisitListFragment fragment = new VisitListFragment();
         Bundle args = new Bundle();
-        args.putLong("client_id", client_id);
+        args.putLong(ARG_PARAM1, client_id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,6 +52,9 @@ public class VisitsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mClient_id = getArguments().getString(ARG_PARAM1);
+        }
     }
 
     @Override
@@ -52,23 +64,21 @@ public class VisitsFragment extends Fragment {
         Bundle args = getArguments();
         this.client_id = args.getLong("client_id", 0);
         this.visitManager = VisitManager.getInstance(infoActivity);
-
-        View V = inflater.inflate(R.layout.fragment_visits, container, false);
+        View V = inflater.inflate(R.layout.fragment_visit_list, container, false);
         populateListViewFromList(V, client_id);
         clickVisit(V);
-
         return V;
     }
 
     private void populateListViewFromList(View V, long id) {
         VisitManager visitManager = VisitManager.getInstance(infoActivity);
-        ListView list = V.findViewById(R.id.visitList);
-        ArrayAdapter<Visit> adapter = new VisitsFragment.MyListAdapter(visitManager.getVisits(id));
+        ListView list = V.findViewById(R.id.VisitList);
+        ArrayAdapter<Visit> adapter = new VisitListFragment.MyListAdapter(visitManager.getVisits(id));
         list.setAdapter(adapter);
     }
 
     private void clickVisit(View V) {
-        ListView list = V.findViewById(R.id.visitList);
+        ListView list = V.findViewById(R.id.VisitList);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
