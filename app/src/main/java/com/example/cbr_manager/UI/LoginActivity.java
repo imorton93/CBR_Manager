@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.VisitManager;
@@ -40,6 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         VisitManager visitManager = VisitManager.getInstance(LoginActivity.this);
         visitManager.clear();
         visitManager.updateList();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(LoginActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
 
         buttonsClicked();
     }

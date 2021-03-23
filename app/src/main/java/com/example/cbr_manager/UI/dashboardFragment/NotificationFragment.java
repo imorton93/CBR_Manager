@@ -3,20 +3,31 @@ package com.example.cbr_manager.UI.dashboardFragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.AdminMessage;
+import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
+import com.example.cbr_manager.UI.clientListFragment.listFragment;
+
+import java.util.List;
 
 
 public class NotificationFragment extends Fragment {
@@ -24,6 +35,7 @@ public class NotificationFragment extends Fragment {
     private DatabaseHelper mydb;
     private String current_username;
     private DashboardActivity dashboardActivity;
+    private AdminMessageManager adminMessageManager;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -52,6 +64,11 @@ public class NotificationFragment extends Fragment {
         this.current_username = args.getString("current_username", "");
         newMsg(V);
 
+        adminMessageManager = AdminMessageManager.getInstance(dashboardActivity);
+        List<AdminMessage> messageList = adminMessageManager.getMessages();
+
+        populateList(messageList, V);
+
         return V;
     }
 
@@ -70,6 +87,46 @@ public class NotificationFragment extends Fragment {
                     startActivity(intent);
                 }
             });
+        }
+    }
+
+    private void populateList(List<AdminMessage> messageList, View v) {
+        ArrayAdapter<AdminMessage> adapter = new MyListAdapter(messageList);
+        ListView list = v.findViewById(R.id.notificationList);
+        list.setAdapter(adapter);
+    }
+
+    private class MyListAdapter extends ArrayAdapter<AdminMessage> {
+        private List<AdminMessage> messages;
+
+        public MyListAdapter(List<AdminMessage> messages) {
+            super(dashboardActivity, R.layout.notification_list, messages);
+            this.messages = messages;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View view = convertView;
+
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.notification_list, parent, false);
+            }
+
+            AdminMessage currentMessage;
+            currentMessage = this.messages.get(position);
+
+            TextView date = view.findViewById(R.id.date);
+            TextView location = view.findViewById(R.id.locationTitle);
+            TextView title = view.findViewById(R.id.titleText);
+            TextView message = view.findViewById(R.id.msg);
+
+            date.setText(currentMessage.getDate());
+            location.setText(currentMessage.getLocation());
+            title.setText(currentMessage.getTitle());
+            message.setText(currentMessage.getMessage());
+
+            return view;
         }
     }
 }

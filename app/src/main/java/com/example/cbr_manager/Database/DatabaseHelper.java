@@ -447,6 +447,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
     }
 
+    public Cursor getAllMessageInfo() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM ADMIN_MESSAGES", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
     public int numberOfClientsPerUser(String username){
         SQLiteDatabase db = this.getWritableDatabase();
         int worker_id = getWorkerId(username);

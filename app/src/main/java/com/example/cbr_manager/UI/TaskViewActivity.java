@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
@@ -115,7 +116,7 @@ public class TaskViewActivity extends AppCompatActivity {
                 if (!connectedToInternet()) {
                     Toast.makeText(TaskViewActivity.this, "Not connected to internet.", Toast.LENGTH_LONG).show();
                 } else {
-                    syncClientsTable();
+//                    syncClientsTable();
                     //syncVisitTable();
                     //syncReferralTable();
 
@@ -129,6 +130,10 @@ public class TaskViewActivity extends AppCompatActivity {
                 VisitManager visitManager = VisitManager.getInstance(TaskViewActivity.this);
                 visitManager.clear();
                 visitManager.updateList();
+
+                AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
+                adminMessageManager.clear();
+                adminMessageManager.updateList();
             }
         });
 
