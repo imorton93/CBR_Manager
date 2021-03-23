@@ -14,8 +14,7 @@ import com.example.cbr_manager.R;
 public class ReferralListFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "client_id";
-
-    private String mClient_id;
+    private long client_id;
 
     public ReferralListFragment() { }
 
@@ -31,7 +30,7 @@ public class ReferralListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mClient_id = getArguments().getString(ARG_PARAM1);
+            client_id = getArguments().getLong(ARG_PARAM1);
         }
     }
 

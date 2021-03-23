@@ -89,6 +89,4 @@ public class ClientListActivity extends AppCompatActivity {
         ClientListActivity.ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         return adapter;
     }
-
-
 }

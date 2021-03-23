@@ -36,7 +36,6 @@ public class VisitListFragment extends Fragment {
 
     private ClientInfoActivity infoActivity;
     private long client_id;
-    private String mClient_id;
     private VisitManager visitManager;
 
     public VisitListFragment() { }
@@ -53,7 +52,7 @@ public class VisitListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mClient_id = getArguments().getString(ARG_PARAM1);
+            client_id = getArguments().getLong(ARG_PARAM1);
         }
     }
 

@@ -36,11 +36,11 @@ import java.util.List;
 public class ListsFragment extends Fragment {
 
     private FragmentActivity infoActivity;
+    private TabLayout tabLayout;
     private long client_id;
     private VisitManager visitManager;
-    private TabLayout tabLayout;
     private ViewPager2 viewPager;
-    private String[] titles = new String[]{"Visits", "Referrals", "Baseline Survey"};
+    private String[] titles = new String[]{"Visits", "Referrals", "TODO"};
 
     public ListsFragment() {
     }
@@ -67,9 +67,14 @@ public class ListsFragment extends Fragment {
         this.visitManager = VisitManager.getInstance(infoActivity);
 
         View V = inflater.inflate(R.layout.fragment_visits, container, false);
-        ViewPager2 mViewPager = (ViewPager2) V.findViewById(R.id.listsViewPager);
+        viewPager = V.findViewById(R.id.listsViewPager);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager(), getLifecycle());
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        viewPager.setAdapter(mSectionsPagerAdapter);
+
+        tabLayout = V.findViewById(R.id.listTabs);
+        new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> {
+                tab.setText(titles[position]);
+            }).attach();
 
         return V;
     }
@@ -85,6 +90,12 @@ public class ListsFragment extends Fragment {
             switch (position) {
                 case 0:
                     return VisitListFragment.newInstance(client_id);
+                case 1:
+                    Fragment f = ReferralListFragment.newInstance(client_id);
+                    if(f == null){
+                        System.out.println("ITS NULL");
+                    }
+                    return f;
                 default:
                     return ReferralListFragment.newInstance(client_id);
             }
