@@ -21,7 +21,6 @@ import com.example.cbr_manager.UI.TaskViewActivity;
 
 public class NotificationFragment extends Fragment {
 
-    private static final String TAG = "USERNAME";
     private DatabaseHelper mydb;
     private String current_username;
     private DashboardActivity dashboardActivity;
@@ -48,11 +47,9 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View V =  inflater.inflate(R.layout.fragment_notification, container, false);
         Bundle args = getArguments();
-
         this.dashboardActivity = (DashboardActivity)getActivity();
         mydb = new DatabaseHelper(dashboardActivity);
         this.current_username = args.getString("current_username", "");
-
         newMsg(V);
 
         return V;
@@ -74,8 +71,5 @@ public class NotificationFragment extends Fragment {
                 }
             });
         }
-
     }
-
-
 }

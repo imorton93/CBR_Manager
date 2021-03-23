@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessage;
 import com.example.cbr_manager.Database.DatabaseHelper;
@@ -41,7 +42,7 @@ public class NewMsgActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(NewMsgActivity.this);
         String current_username = getIntent().getStringExtra("Worker Username");
-        databaseHelper.getWorkerId(current_username);
+        workerID = databaseHelper.getWorkerId(current_username);
         date();
         createMessageButton();
     }
@@ -58,16 +59,20 @@ public class NewMsgActivity extends AppCompatActivity {
                 EditText location = findViewById(R.id.locationTextBox);
                 EditText message = findViewById(R.id.messageTextBox);
 
-                // TODO complete
-                adminMessage.setWorkerID(workerID);
+                adminMessage.setTitle(title.getText().toString());
+                adminMessage.setAdminID(workerID);
                 adminMessage.setDate(date.getText().toString());
+                adminMessage.setLocation(location.getText().toString());
                 adminMessage.setMessage(message.getText().toString());
 
-                databaseHelper.addMessage(adminMessage);
+                boolean success = databaseHelper.addMessage(adminMessage);
 
-                Intent intent = DashboardActivity.makeIntent(NewMsgActivity.this);
-                startActivity(intent);
-
+                if(success) {
+                    finish();
+                }
+                else {
+                    Toast.makeText(NewMsgActivity.this, "Error Occurred.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
