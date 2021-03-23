@@ -1,8 +1,10 @@
 package com.example.cbr_manager.Database;
 
 public class AdminMessage {
-    private int workerID;
+    private int adminID;
+    private String title;
     private String date;
+    private String location;
     private String message;
     private int isSynced = 0;
     private int viewedStatus = 0;
@@ -10,20 +12,30 @@ public class AdminMessage {
     public AdminMessage() {
     }
 
-    public AdminMessage(int workerID, String date, String message, int isSynced, int viewedStatus) {
-        this.workerID = workerID;
+    public AdminMessage(int adminID, String title, String date, String location, String message, int isSynced, int viewedStatus) {
+        this.adminID = adminID;
+        this.title = title;
         this.date = date;
+        this.location = location;
         this.message = message;
         this.isSynced = isSynced;
         this.viewedStatus = viewedStatus;
     }
 
-    public int getWorkerID() {
-        return workerID;
+    public int getAdminID() {
+        return adminID;
     }
 
-    public void setWorkerID(int workerID) {
-        this.workerID = workerID;
+    public void setAdminID(int adminID) {
+        this.adminID = adminID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDate() {
@@ -32,6 +44,14 @@ public class AdminMessage {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getMessage() {

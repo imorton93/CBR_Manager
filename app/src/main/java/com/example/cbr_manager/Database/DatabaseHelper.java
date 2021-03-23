@@ -95,9 +95,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Admin messages table
     //WORKER ID COLUMN
-    private static final String admin_id = "ADMIN_ID";
     private static final String admin_message_table = "ADMIN_MESSAGES";
+    private static final String admin_id = "ADMIN_ID";
+    private static final String message_title = "TITLE";
     private static final String message_date = "DATE";
+    private static final String message_location = "LOCATION";
     private static final String admin_message = "MESSAGE";
     private static final String viewed_status = "IS_VIEWED";
     //IS_SYNCED COLUMN
@@ -143,9 +145,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_referral_table);
 
         String create_adminMessage_table = "CREATE TABLE "
-                + admin_message_table + " (" + admin_id + " INTEGER PRIMARY KEY, " + message_date + " STRING, "
-                + admin_message + " STRING, " + viewed_status + " INTEGER NOT NULL DEFAULT 0, "
-                + is_synced + " INTEGER NOT NULL DEFAULT 0);";
+                + admin_message_table + " (" + admin_id + " INTEGER PRIMARY KEY, " + message_title + " STRING, "
+                + message_date + " STRING, " + message_location + " STRING, " + admin_message + " STRING, "
+                + viewed_status + " INTEGER NOT NULL DEFAULT 0, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_adminMessage_table);
     }
 
@@ -314,8 +316,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        cv.put(message_title, message.getTitle());
         cv.put(message_date, message.getDate());
-        cv.put(message_date, message.getDate());
+        cv.put(message_location, message.getLocation());
         cv.put(admin_message, message.getMessage());
         cv.put(viewed_status, message.getViewedStatus());
         cv.put(is_synced, message.getIsSynced());
