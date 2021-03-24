@@ -8,96 +8,123 @@
     tools:context=".UI.clientInfoFragment.RiskFragment"
     android:background="@drawable/backgroundgradient">
 
-    <TextView
-        android:id="@+id/health"
-        android:layout_width="92dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/health"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/healthRisk"
-        android:layout_width="165dp"
-        android:layout_height="21dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginRight="58dp"
-        android:gravity="center"
-        android:text="Health Risk Level"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarHealth" />
-
-
-    <ProgressBar
-        android:id="@+id/progressBarHealth"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="165dp"
-        android:layout_height="17dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/health"
-        app:layout_constraintStart_toEndOf="@+id/health"
-        app:layout_constraintTop_toTopOf="@+id/health"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/goalHealth"
-        android:layout_width="296dp"
-        android:layout_height="84dp"
-        android:layout_marginTop="33dp"
-        android:text="Goals"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/progressBarHealth"
-        app:layout_constraintStart_toStartOf="@+id/health"
-        app:layout_constraintTop_toBottomOf="@+id/health" />
 
     <RelativeLayout
-        android:id="@+id/EducationRiskBackground"
-        android:layout_width="360dp"
-        android:layout_height="190dp"
+        android:id="@+id/HealthRiskBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="296dp"
         android:background="@drawable/loginpageroundstyle"
         android:orientation="horizontal"
         android:radius="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <TextView
-            android:id="@+id/education"
-            android:layout_width="92dp"
-            android:layout_height="31dp"
+            android:id="@+id/health"
+            android:layout_width="111dp"
+            android:layout_height="37dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/health"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/healthRisk"
+            android:layout_width="165dp"
+            android:layout_height="21dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:gravity="center"
+            android:text="Health Risk Level" />
+
+        <ProgressBar
+            android:id="@+id/progressBarHealth"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="165dp"
+            android:layout_height="17dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/goalHealth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Goals"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/EducationRiskBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/loginpageroundstyle"
+        android:orientation="horizontal"
+        android:radius="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HealthRiskBackground">
+
+        <TextView
+            android:id="@+id/education"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:text="@string/education"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/educationRisk"
             android:layout_width="165dp"
             android:layout_height="21dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="21dp"
-            android:layout_marginRight="21dp"
-            android:layout_marginBottom="133dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
             android:gravity="center"
             android:text="Education Risk Level" />
 
@@ -106,25 +133,26 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="165dp"
             android:layout_height="17dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="89dp"
-            android:layout_marginLeft="89dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginRight="21dp"
-            android:layout_marginBottom="163dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp" />
 
         <TextView
             android:id="@+id/goalEducation"
-            android:layout_width="306dp"
-            android:layout_height="88dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="22dp"
-            android:layout_marginRight="22dp"
-            android:layout_marginBottom="31dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:text="Goals"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -132,34 +160,33 @@
 
     <RelativeLayout
         android:id="@+id/SocialRiskBackground"
-        android:layout_width="360dp"
-        android:layout_height="190dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="88dp"
         android:background="@drawable/loginpageroundstyle"
         android:orientation="horizontal"
         android:radius="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EducationRiskBackground">
 
         <TextView
-            android:id="@+id/social"
-            android:layout_width="92dp"
-            android:layout_height="31dp"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="27dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:text="@string/social"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/socialRisk"
@@ -168,9 +195,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="41dp"
-            android:layout_marginEnd="33dp"
-            android:layout_marginRight="33dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
             android:gravity="center"
             android:text="Social Risk Level" />
 
@@ -182,20 +209,23 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="33dp"
-            android:layout_marginRight="33dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp" />
 
         <TextView
             android:id="@+id/goalSocial"
-            android:layout_width="296dp"
-            android:layout_height="84dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="29dp"
-            android:layout_marginLeft="29dp"
-            android:layout_marginBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:text="Goals"
             android:textColor="@color/black"
             android:textSize="18sp" />
