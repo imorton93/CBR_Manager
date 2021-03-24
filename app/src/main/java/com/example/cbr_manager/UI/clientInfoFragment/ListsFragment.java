@@ -40,7 +40,7 @@ public class ListsFragment extends Fragment {
     private long client_id;
     private VisitManager visitManager;
     private ViewPager2 viewPager;
-    private String[] titles = new String[]{"Visits", "Referrals", "TODO"};
+    private String[] titles = new String[]{"Visits", "Referrals", "Baseline Survey"};
 
     public ListsFragment() {
     }
