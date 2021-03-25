@@ -105,10 +105,10 @@ public class ReferralListFragment extends Fragment {
 
             ImageView referralPhoto = view.findViewById(R.id.referral_image);
             TextView serviceReq = view.findViewById(R.id.serviceReq);
-            TextView outcome = view.findViewById(R.id.outcome_rList);
+            TextView outcome = view.findViewById(R.id.referralNumber);
 
             String serviceReqS = "<b>Service Required: </b> " + currentReferral.getServiceReq();
-            String outcomeS = "<b>Outcome of Referral: </b> " + currentReferral.getOutcome();
+            String outcomeS = "<b>Referral Number: </b> #" + (referrals.size() - position);
 
             if (currentReferral.getReferralPhoto() != null){
                 Bitmap bmp = BitmapFactory.decodeByteArray(currentReferral.getReferralPhoto(), 0 , currentReferral.getReferralPhoto().length);
