@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AdminMessageManager {
@@ -65,4 +64,9 @@ public class AdminMessageManager {
     public void clear() {
         messages.clear();
     }
+
+    public int size() {
+        return messages.size();
+    }
+
 }

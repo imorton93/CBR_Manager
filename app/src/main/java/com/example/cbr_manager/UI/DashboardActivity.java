@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
@@ -48,6 +49,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent =  new Intent(context, DashboardActivity.class);
         return intent;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
-
     }
 
     private void ToolbarButtons(){

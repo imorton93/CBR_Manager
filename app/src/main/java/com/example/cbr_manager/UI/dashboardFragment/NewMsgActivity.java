@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,12 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessage;
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.ClientInfoActivity;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.LoginActivity;
+import com.example.cbr_manager.UI.NewVisitActivity;
 import com.example.cbr_manager.UI.SignUpActivity;
+import com.example.cbr_manager.UI.TaskViewActivity;
 
 import java.util.Calendar;
 
@@ -41,8 +46,10 @@ public class NewMsgActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_msg);
 
         databaseHelper = new DatabaseHelper(NewMsgActivity.this);
+
         String current_username = getIntent().getStringExtra("Worker Username");
         workerID = databaseHelper.getWorkerId(current_username);
+
         date();
         createMessageButton();
     }
@@ -68,7 +75,8 @@ public class NewMsgActivity extends AppCompatActivity {
                 boolean success = databaseHelper.addMessage(adminMessage);
 
                 if(success) {
-                    finish();
+                    Intent intent = TaskViewActivity.makeIntent(NewMsgActivity.this);
+                    startActivity(intent);
                 }
                 else {
                     Toast.makeText(NewMsgActivity.this, "Error Occurred.", Toast.LENGTH_LONG).show();
@@ -78,7 +86,6 @@ public class NewMsgActivity extends AppCompatActivity {
     }
 
     private void date(){
-
         EditText dateTextBox = findViewById(R.id.dateTextBox);
         Calendar calendar = Calendar.getInstance();
         int year1 = calendar.get(Calendar.YEAR);

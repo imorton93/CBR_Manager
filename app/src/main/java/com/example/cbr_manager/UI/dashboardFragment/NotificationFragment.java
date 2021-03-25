@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessage;
 import com.example.cbr_manager.Database.AdminMessageManager;
-import com.example.cbr_manager.Database.Client;
-import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
-import com.example.cbr_manager.UI.TaskViewActivity;
-import com.example.cbr_manager.UI.clientListFragment.listFragment;
+import com.example.cbr_manager.UI.LoginActivity;
 
 import java.util.List;
 
@@ -58,15 +53,16 @@ public class NotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View V =  inflater.inflate(R.layout.fragment_notification, container, false);
-        Bundle args = getArguments();
+
         this.dashboardActivity = (DashboardActivity)getActivity();
         mydb = new DatabaseHelper(dashboardActivity);
-        this.current_username = args.getString("current_username", "");
+        this.current_username = LoginActivity.username;
+
         newMsg(V);
 
         adminMessageManager = AdminMessageManager.getInstance(dashboardActivity);
-        List<AdminMessage> messageList = adminMessageManager.getMessages();
 
+        List<AdminMessage> messageList = adminMessageManager.getMessages();
         populateList(messageList, V);
 
         return V;

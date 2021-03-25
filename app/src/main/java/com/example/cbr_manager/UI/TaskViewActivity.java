@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,12 +38,13 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class TaskViewActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private DatabaseHelper mydb;
+
+    TextView badge;
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, TaskViewActivity.class);
@@ -56,10 +58,17 @@ public class TaskViewActivity extends AppCompatActivity {
 
         //Setting up request queue for web service
         requestQueue = Volley.newRequestQueue(TaskViewActivity.this);
-         mydb = new DatabaseHelper(TaskViewActivity.this);
+        mydb = new DatabaseHelper(TaskViewActivity.this);
+        badge = findViewById(R.id.cart_badge);
 
         clickIcons();
         ToolbarButtons();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
+
+        badgeNotification(adminMessageManager);
     }
 
     private boolean connectedToInternet () {
@@ -134,6 +143,8 @@ public class TaskViewActivity extends AppCompatActivity {
                 AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
                 adminMessageManager.clear();
                 adminMessageManager.updateList();
+
+                badgeNotification(adminMessageManager);
             }
         });
 
@@ -170,6 +181,24 @@ public class TaskViewActivity extends AppCompatActivity {
             public void onClick(View v) {
             }
         });
+    }
+
+    private void badgeNotification(AdminMessageManager adminMessageManager) {
+        int size = adminMessageManager.size();
+
+        if (badge != null) {
+            if (size == 0) {
+                if (badge.getVisibility() != View.GONE) {
+                    badge.setVisibility(View.GONE);
+                }
+            } else {
+                badge.setText(String.valueOf(Math.min(size, 99)));
+                if (badge.getVisibility() != View.VISIBLE) {
+                    badge.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+
     }
 
     public JSONArray cur2Json(Cursor cursor) {
