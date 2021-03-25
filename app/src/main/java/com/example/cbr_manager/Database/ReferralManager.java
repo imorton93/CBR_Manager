@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import androidx.annotation.NonNull;
 
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -80,6 +81,17 @@ public class ReferralManager implements Iterable<Referral>{
             newReferral.setId(id);
             referrals.add(newReferral);
         }
+    }
+
+    public Referral getReferralById(long id){
+        Referral referral = new Referral();
+        for(Referral ref : referrals){
+            if(ref.getId()  == id){
+                referral = ref;
+                break;
+            }
+        }
+        return referral;
     }
 
     public List<Referral> getReferrals(long id) {

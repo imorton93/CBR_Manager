@@ -100,9 +100,8 @@ public class ReferralListFragment extends Fragment {
                 view = getLayoutInflater().inflate(R.layout.referral_lists, parent, false);
             }
 
-            Referral currentReferral;
             List<Referral> referrals = referralManager.getReferrals(client_id);
-            currentReferral = referrals.get(position);
+            Referral currentReferral = referrals.get(position);
 
             ImageView referralPhoto = view.findViewById(R.id.referral_image);
             TextView serviceReq = view.findViewById(R.id.serviceReq);

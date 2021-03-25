@@ -49,8 +49,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="38dp"
-            android:layout_marginEnd="37dp"
-            android:layout_marginRight="37dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"
             android:gravity="center"
             android:text="Health Risk Level" />
 
@@ -124,8 +124,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="38dp"
-            android:layout_marginEnd="37dp"
-            android:layout_marginRight="37dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"
             android:gravity="center"
             android:text="Education Risk Level" />
 
@@ -197,8 +197,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="38dp"
-            android:layout_marginEnd="37dp"
-            android:layout_marginRight="37dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"
             android:gravity="center"
             android:text="Social Risk Level" />
 
