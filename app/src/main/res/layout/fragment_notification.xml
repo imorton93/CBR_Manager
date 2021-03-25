@@ -5,13 +5,14 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.dashboardFragment.NotificationFragment"
-    android:background="@drawable/backgroundgradient">>
+    android:background="@drawable/backgroundgradient"
+    tools:context=".UI.dashboardFragment.NotificationFragment">>
 
     <ListView
         android:id="@+id/notificationList"
-        android:layout_width="373dp"
-        android:layout_height="674dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +22,9 @@
         android:id="@+id/newMsg"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:src="@drawable/add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
