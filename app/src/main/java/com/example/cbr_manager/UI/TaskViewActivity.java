@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -168,6 +170,9 @@ public class TaskViewActivity extends AppCompatActivity {
     }
 
     public JSONArray cur2Json(Cursor cursor) {
+        byte[] photoArr;
+        String base64Photo;
+        String data;
 
         JSONArray resultSet = new JSONArray();
         cursor.moveToFirst();
@@ -176,9 +181,16 @@ public class TaskViewActivity extends AppCompatActivity {
             JSONObject rowObject = new JSONObject();
             for (int i = 0; i < totalColumn; i++) {
                 if (cursor.getColumnName(i) != null) {
+                    if (cursor.getColumnName(i).equals("PHOTO")) {
+                        photoArr = cursor.getBlob(i);
+                        base64Photo = Base64.encodeToString(photoArr, Base64.DEFAULT);
+                        data = base64Photo;
+                    } else {
+                        data = cursor.getString(i);
+                    }
+
                     try {
-                        rowObject.put(cursor.getColumnName(i),
-                                cursor.getString(i));
+                        rowObject.put(cursor.getColumnName(i), data);
                     } catch (Exception e) {
                         Toast.makeText(TaskViewActivity.this, "Exception Error", Toast.LENGTH_LONG).show();
                     }
