@@ -63,6 +63,7 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".UI.ProfileActivity" />
         <activity android:name=".UI.TaskViewActivity" />
+        <activity android:name=".UI.EditClientActivity"/>
 
         <service android:name=".GoogleMaps.FetchAddressIntentService" />
     </application>

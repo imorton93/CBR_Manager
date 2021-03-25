@@ -217,6 +217,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    public boolean updateClient(Client client) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(client_consent, client.getConsentToInterview());
+        cv.put(client_id, client.getId());
+        cv.put(client_date, client.getDate());
+        cv.put(client_first_name, client.getFirstName());
+        cv.put(client_last_name, client.getLastName());
+        cv.put(client_age, client.getAge());
+        cv.put(client_gender, client.getGender());
+        cv.put(client_village_no, client.getVillageNumber());
+        cv.put(client_location, client.getLocation());
+        cv.put(client_latitude, client.getLatitude());
+        cv.put(client_longitude, client.getLongitude());
+        cv.put(client_disability, client.disabilitiesToString());
+        cv.put(client_contact, client.getContactPhoneNumber());
+        cv.put(client_caregiver_presence, client.getCaregiverPresent());
+        cv.put(client_caregiver_number, client.getCaregiverPhoneNumber());
+        cv.put(client_heath_rate, client.getHealthRate());
+        cv.put(client_health_requirement, client.getHealthRequire());
+        cv.put(client_health_goal, client.getHealthIndividualGoal());
+        cv.put(client_education_rate, client.getEducationRate());
+        cv.put(client_education_requirement, client.getEducationRequire());
+        cv.put(client_education_goal, client.getEducationIndividualGoal());
+        cv.put(client_social_rate, client.getSocialStatusRate());
+        cv.put(client_social_goal, client.getSocialStatusIndividualGoal());
+        cv.put(client_social_requirement, client.getSocialStatusRequire());
+        cv.put(is_synced, client.getIsSynced());
+        cv.put(client_photo, client.getPhoto());
+        cv.put(client_worker_id, client.getClient_worker_id());
+
+        long id = client.getId();
+        String whereClause = client_id.concat(" = ");
+        whereClause = whereClause.concat(Long.toString(id));
+
+        long result = db.update(client_table_name,cv,whereClause, null);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
+
     public boolean addVisit(Visit visit) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();

@@ -68,6 +68,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.position = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
         this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        System.out.println("Id is " + this.id);
     }
 
     private void newVisitButton() {
@@ -87,7 +88,8 @@ public class ClientInfoActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // edit
+                Intent intent = EditClientActivity.makeIntent(ClientInfoActivity.this, position, id);
+                startActivity(intent);
             }
         });
     }

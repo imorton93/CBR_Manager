@@ -1,21 +1,18 @@
 package com.example.cbr_manager.UI;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Looper;
-import android.os.ResultReceiver;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,14 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import com.example.cbr_manager.Database.Client;
-
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
@@ -48,21 +39,10 @@ import com.example.cbr_manager.Forms.Question;
 import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-public class NewClientActivity extends AppCompatActivity {
-
-//    private static final String TAG = "INSERTED";
-
-
-    private static final String TAG = "ERROR";
-
+public class EditClientActivity extends AppCompatActivity {
     LinearLayout form;
     int currentPage;
     int pageCount;
@@ -74,48 +54,34 @@ public class NewClientActivity extends AppCompatActivity {
     TextView progressText;
     ImageView imageView;
 
-    //structure to save all the answers
-    Client newClient;
+    Client client;
     private DatabaseHelper mydb;
 
-    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
-    Location location_GPS;
-    double latitude;
-    double longitude;
-    TextView textLatLong;
-    byte[] imageEntry;
+    private long id;
+    private int position;
 
+    public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
+    public static final String R_CLIENT_POS_PASSED_IN = "r_client_POS_passed_in";
 
-    public static Intent makeIntent(Context context) {
-        Intent intent =  new Intent(context, NewClientActivity.class);
+    public static Intent makeIntent(Context context, int position, long id) {
+        Intent intent =  new Intent(context, EditClientActivity.class);
+        intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
+        intent.putExtra(R_CLIENT_POS_PASSED_IN, position);
         return intent;
-
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_client);
+        setContentView(R.layout.activity_edit_client);
 
-        mydb = new DatabaseHelper(NewClientActivity.this);
+        mydb = new DatabaseHelper(EditClientActivity.this);
         next = (Button) findViewById(R.id.nextBtnVisit);
 
         next.setBackgroundColor(Color.parseColor("#6661ED24"));
 
         back = (Button) findViewById(R.id.backBtn);
-
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    NewClientActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_CODE_LOCATION_PERMISSION
-            );
-        } else {
-            getCurrentLocation();
-        }
-
-        newClient = new Client();
         imageView = new ImageView(this);
         LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(imageViewLayoutParams);
@@ -129,18 +95,21 @@ public class NewClientActivity extends AppCompatActivity {
 
         ToolbarButtons();
 
-        createNewClientForm();
+        extractIntent();
+        getClientInfo();
+
+        createEditForm();
         pageCount = pages.size() + 1;
 
-        DisplayFormPage.displayPage(pages.get(currentPage-1), form, this, latitude, longitude);
+        DisplayFormPage.displayPage(pages.get(currentPage-1), form, this, 0 , 0);
+        loadAnswers(pages.get(currentPage - 1));
 
         progressBar.setMax(pageCount);
-
         setProgress(currentPage, pageCount);
 
         next.setOnClickListener(v -> {
             if (currentPage == pageCount) {
-                insertClient();
+                editClient();
             }
 
             //make sure all required fields are filled in the page
@@ -168,7 +137,7 @@ public class NewClientActivity extends AppCompatActivity {
                     displayPicture(pages.get(currentPage - 1));
                 }
                 else{
-                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this, latitude, longitude);
+                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, EditClientActivity.this, 0, 0);
 
                 }
 
@@ -190,30 +159,34 @@ public class NewClientActivity extends AppCompatActivity {
 
             }
         });
+
         back.setOnClickListener(v -> {
-                if(currentPage == pageCount){
-                    next.setText(R.string.next);
-                }
-                currentPage--;
-                setProgress(currentPage, pageCount);
-                clearForm();
+            if(currentPage == pageCount){
+                next.setText(R.string.next);
+            }
+            currentPage--;
+            setProgress(currentPage, pageCount);
+            clearForm();
 
-                if(currentPage == imagePage){
-                    displayPicture(pages.get(currentPage - 1));
-                }
-                else{
-                    DisplayFormPage.displayPage(pages.get(currentPage - 1), form, NewClientActivity.this, latitude, longitude);
-                }
-                //load previously saved answers if any
-                loadAnswers(pages.get(currentPage - 1));
-                if(currentPage == 1){
-                    back.setClickable(false);
-                    back.setVisibility(View.INVISIBLE);
+            if(currentPage == imagePage){
+                displayPicture(pages.get(currentPage - 1));
+            }
+            else{
+                DisplayFormPage.displayPage(pages.get(currentPage - 1), form, EditClientActivity.this, 0, 0);
+            }
+            //load previously saved answers if any
+            loadAnswers(pages.get(currentPage - 1));
+            if(currentPage == 1){
+                back.setClickable(false);
+                back.setVisibility(View.INVISIBLE);
+                back.setBackgroundColor(Color.DKGRAY);
 
-                }
+            }
         });
         back.setClickable(false);
         back.setVisibility(View.INVISIBLE);
+
+        back.setBackgroundColor(Color.DKGRAY);
 
 
         //Permission for camera
@@ -225,56 +198,6 @@ public class NewClientActivity extends AppCompatActivity {
         progressBar.setProgressDrawable(progressDrawable);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0) {
-            getCurrentLocation();
-        } else {
-            //Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void getCurrentLocation() {
-        LocationRequest locationRequest = new LocationRequest();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(3000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-            return;
-        }
-
-        LocationServices.getFusedLocationProviderClient(NewClientActivity.this)
-                .requestLocationUpdates(locationRequest, new LocationCallback() {
-                    @Override
-                    public void onLocationResult(LocationResult locationResult) {
-                        super.onLocationResult(locationResult);
-                        LocationServices.getFusedLocationProviderClient(NewClientActivity.this)
-                                .removeLocationUpdates(this);
-                        if(locationResult != null && locationResult.getLocations().size() > 0) {
-                            int latestLocationIndex = locationResult.getLocations().size() -1;
-                            latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
-                            longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
-                            textLatLong = new TextView(NewClientActivity.this);
-                            textLatLong.setText(
-                                    String.format(
-                                            "Latitude: %s\nLongitude: %s",
-                                            latitude,
-                                            longitude
-                                    )
-                            );
-                            location_GPS = new Location("providerNA");
-                            location_GPS.setLatitude(latitude);
-                            location_GPS.setLongitude(longitude);
-                        }
-
-                    }
-
-                }, Looper.getMainLooper());
-    }
-
-
     private void setProgress(int currentPage, int pageCount){
         progressBar.setProgress(currentPage);
         progressText.setText(currentPage + "/" + pageCount);
@@ -284,6 +207,33 @@ public class NewClientActivity extends AppCompatActivity {
         form.removeAllViews();
     }
 
+    private void extractIntent(){
+        Intent intent = getIntent();
+        this.position = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
+        this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        //GET RID OF PRINT!!
+        System.out.println("Id is " + this.id);
+    }
+
+    private void getClientInfo(){
+        ClientManager manager = ClientManager.getInstance(this);
+        client = manager.getClientById(id);
+    }
+
+    private void editClient() {
+        client.setIsSynced(0);
+        boolean success = mydb.updateClient(client);
+
+        if(success) {
+            Toast.makeText(EditClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
+            Intent intent = TaskViewActivity.makeIntent(EditClientActivity.this);
+            String current_username = getIntent().getStringExtra("Worker Username");
+            intent.putExtra("Worker Username", current_username);
+            startActivity(intent);
+        } else {
+            Toast.makeText(EditClientActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
+        }
+    }
 
     private void displayPicture(FormPage page){
         ArrayList<Question> questions = page.getQuestions();
@@ -307,30 +257,11 @@ public class NewClientActivity extends AppCompatActivity {
         form.addView(imageView);
     }
 
-    public byte[] imageViewToByte(ImageView image) {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 100){
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(captureImage);
-            imageEntry = imageViewToByte(imageView);
-        }
-    }
-
     private void requiredFieldsToast(){
         int duration = Toast.LENGTH_SHORT;
         Toast.makeText(this, "Fill all Required Fields", duration).show();
     }
 
-    //returns whether all required fields on the page are filled
     private Boolean requiredFieldsFilled(FormPage page){
         ArrayList<Question> questions = page.getQuestions();
         Boolean returnBool = true;
@@ -413,7 +344,7 @@ public class NewClientActivity extends AppCompatActivity {
             if (radioButton.getText().equals("Yes"))
                 consentCondition = true;
             else {
-                Toast.makeText(NewClientActivity.this, "Please provide consent to continue.", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditClientActivity.this, "Please provide consent to continue.", Toast.LENGTH_LONG).show();
                 consentCondition = false;
             }
         }
@@ -424,24 +355,15 @@ public class NewClientActivity extends AppCompatActivity {
     private Boolean isCheckBoxAnswered(Question question){
         MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
         Boolean returnBool = false;
-        Boolean otherExplanationRequirement = true;
         CheckBox checkBox;
         for(int i = 0; i < mcq.getAnswers().length; i++){
             checkBox = (CheckBox) form.findViewWithTag(i);
             if(checkBox.isChecked()){
                 returnBool = true;
-                if(checkBox.getText().toString().equals("Other")){
-                    otherExplanationRequirement = false;
-                    EditText input = (EditText) form.findViewWithTag("otherExplanation");
-                    if(input.getText().toString().trim().length() > 0){
-                        otherExplanationRequirement = true;
-                    }
-                }
             }
         }
-        return returnBool && otherExplanationRequirement;
+        return returnBool;
     }
-
 
     private void loadAnswers(FormPage page){
         ArrayList<Question> questions = page.getQuestions();
@@ -473,34 +395,34 @@ public class NewClientActivity extends AppCompatActivity {
         String data = null;
 
         if(tag.equals(getString(R.string.firstName))){
-            data = newClient.getFirstName();
+            data = client.getFirstName();
         }
         else if(tag.equals(getString(R.string.lastName))){
-            data = newClient.getLastName();
+            data = client.getLastName();
         }
         else if(tag.equals(getString(R.string.contactNumber))){
-            data = newClient.getContactPhoneNumber();
+            data = client.getContactPhoneNumber();
         }
         else if(tag.equals(getString(R.string.caregiverContactNumber))){
-            data = newClient.getCaregiverPhoneNumber();
+            data = client.getCaregiverPhoneNumber();
         }
         else if(tag.equals(getString(R.string.healthRequire))){
-            data = newClient.getHealthRequire();
+            data = client.getHealthRequire();
         }
         else if(tag.equals(getString(R.string.educationRequire))){
-            data = newClient.getEducationRequire();
+            data = client.getEducationRequire();
         }
         else if(tag.equals(getString(R.string.socialRequire))){
-            data = newClient.getSocialStatusRequire();
+            data = client.getSocialStatusRequire();
         }
         else if(tag.equals(getString(R.string.healthIndividualGoal))){
-            data = newClient.getHealthIndividualGoal();
+            data = client.getHealthIndividualGoal();
         }
         else if(tag.equals(getString(R.string.educationIndividualGoal))){
-            data = newClient.getEducationIndividualGoal();
+            data = client.getEducationIndividualGoal();
         }
         else if(tag.equals(getString(R.string.socialIndividualGoal))){
-            data = newClient.getSocialStatusIndividualGoal();
+            data = client.getSocialStatusIndividualGoal();
         }
 
         if(data != null){
@@ -514,7 +436,7 @@ public class NewClientActivity extends AppCompatActivity {
         String tag = question.getQuestionTag();
         String data = null;
         if(tag.equals(getString(R.string.date))){
-            data = newClient.getDate();
+            data = client.getDate();
         }
 
         if(data != null){
@@ -537,10 +459,10 @@ public class NewClientActivity extends AppCompatActivity {
         String tag = question.getQuestionTag();
         Boolean data = null;
         if(tag.equals(getString(R.string.consent))){
-            data = newClient.getConsentToInterview();
+            data = client.getConsentToInterview();
         }
         else if(tag.equals(getString(R.string.caregiverPresent))){
-            data = newClient.getCaregiverPresent();
+            data = client.getCaregiverPresent();
         }
 
         if(data != null){
@@ -561,16 +483,16 @@ public class NewClientActivity extends AppCompatActivity {
         String data = null;
 
         if(tag.equals(getString(R.string.gender))){
-            data = newClient.getGender();
+            data = client.getGender();
         }
         else if(tag.equals(getString(R.string.educationRate))){
-            data = newClient.getEducationRate();
+            data = client.getEducationRate();
         }
         else if(tag.equals(getString(R.string.healthRate))){
-            data = newClient.getHealthRate();
+            data = client.getHealthRate();
         }
         else if(tag.equals(getString(R.string.socialRate))){
-            data = newClient.getSocialStatusRate();
+            data = client.getSocialStatusRate();
         }
 
         if(data != null){
@@ -588,10 +510,10 @@ public class NewClientActivity extends AppCompatActivity {
         String tag = question.getQuestionTag();
         int data = -1;
         if(tag.equals(getString(R.string.age))){
-            data = newClient.getAge();
+            data = client.getAge();
         }
         else if(tag.equals(getString(R.string.villageNumber))){
-            data = newClient.getVillageNumber();
+            data = client.getVillageNumber();
         }
 
         if(data != -1){
@@ -601,14 +523,14 @@ public class NewClientActivity extends AppCompatActivity {
         }
 
     }
-    
+
     private void loadDropDown(Question question){
         String tag = question.getQuestionTag();
         String data = null;
         if(tag.equals(getString(R.string.location))){
-            data = newClient.getLocation();
+            data = client.getLocation();
         }
-        
+
         if(data != null){
             Spinner spinner = (Spinner) form.findViewWithTag(tag);
             for(int i = 0; i < spinner.getCount(); i++){
@@ -618,28 +540,19 @@ public class NewClientActivity extends AppCompatActivity {
             }
         }
     }
-    
+
     private void loadCheckBox(Question question){
-        ArrayList<String> disabilities = newClient.getDisabilities();
+        ArrayList<String> disabilities = client.getDisabilities();
         for(int i = 0; i < disabilities.size(); i++){
             CheckBox checkBox;
-            for(int j = 0; j < 10; j++){
+            for(int j = 0; j < 9; j++){
                 checkBox = (CheckBox) form.findViewWithTag(j);
                 if(checkBox.getText().equals(disabilities.get(i))){
-
                     checkBox.toggle();
-                    if(checkBox.getText().toString().equals("Other")){
-                        EditText explanation = (EditText) form.findViewWithTag("otherExplanation");
-                        String explanationString = newClient.getOtherExplanation();
-                        explanation.setVisibility(View.VISIBLE);
-                        explanation.setText(explanationString);
-                    }
                 }
-
             }
         }
     }
-
 
     private void savePage(FormPage page){
         ArrayList<Question> questions = page.getQuestions();
@@ -663,70 +576,48 @@ public class NewClientActivity extends AppCompatActivity {
             else if(type == QuestionType.CHECK_BOX){
                 saveCheckBox(question);
             }
-            else if(type == QuestionType.GPS){
-                saveGPS(question);
-            }
-            else if(type == QuestionType.PICTURE){
-                savePicture(question);
-            }
-
         }
     }
-    private void saveGPS(Question question) {
-        String tag = question.getQuestionTag();
-        if (tag.equals("GPS")) {
-            newClient.setLatitude(latitude);
-            newClient.setLongitude(longitude);
-        }
-    }
-
-    private void savePicture(Question question) {
-        String tag = question.getQuestionTag();
-        if (tag.equals("photo")) {
-            newClient.setPhoto(imageEntry);
-        }
-    }
-
 
     private void saveText(Question question){
         String tag = question.getQuestionTag();
         EditText input = (EditText) form.findViewWithTag(tag);
         if(tag.equals(getString(R.string.firstName))){
-            newClient.setFirstName(input.getText().toString());
+            client.setFirstName(input.getText().toString());
         }
         else if(tag.equals(getString(R.string.lastName))){
-            newClient.setLastName(input.getText().toString());
+            client.setLastName(input.getText().toString());
         }
         else if(tag.equals(getString(R.string.contactNumber))){
-            newClient.setContactPhoneNumber(input.getText().toString());
+            client.setContactPhoneNumber(input.getText().toString());
         }
         else if(tag.equals(getString(R.string.caregiverContactNumber))){
-            newClient.setCaregiverPhoneNumber(input.getText().toString());
+            client.setCaregiverPhoneNumber(input.getText().toString());
         }
         else if(tag.equals(getString(R.string.healthRequire))){
-            newClient.setHealthRequire(input.getText().toString());
+            client.setHealthRequire(input.getText().toString());
         }
         else if(tag.equals(getString(R.string.educationRequire))){
-            newClient.setEducationRequire(input.getText().toString());
+            client.setEducationRequire(input.getText().toString());
         }
         else if(tag.equals(getString(R.string.socialRequire))){
-            newClient.setSocialStatusRequire(input.getText().toString());
+            client.setSocialStatusRequire(input.getText().toString());
         }
         else if(tag.equals(getString(R.string.healthIndividualGoal))){
-            newClient.setHealthIndividualGoal(input.getText().toString());
+            client.setHealthIndividualGoal(input.getText().toString());
         }
         else if(tag.equals(getString(R.string.educationIndividualGoal))){
-            newClient.setEducationIndividualGoal(input.getText().toString());
+            client.setEducationIndividualGoal(input.getText().toString());
         }
         else if(tag.equals(getString(R.string.socialIndividualGoal))){
-            newClient.setSocialStatusIndividualGoal(input.getText().toString());
+            client.setSocialStatusIndividualGoal(input.getText().toString());
         }
     }
 
 
     private void saveDate(Question question){
         TextView date = (TextView) form.findViewWithTag(question.getQuestionTag());
-        newClient.setDate(date.getText().toString());
+        client.setDate(date.getText().toString());
     }
 
     private void saveRadio(Question question){
@@ -746,10 +637,10 @@ public class NewClientActivity extends AppCompatActivity {
         RadioButton radioButton = consent.findViewById(buttonId);
 
         if(tag.equals(getString(R.string.consent))){
-                newClient.setConsentToInterview(radioButton.getText().equals("Yes"));
+            client.setConsentToInterview(radioButton.getText().equals("Yes"));
         }
         else if(tag.equals(getString(R.string.caregiverPresent))){
-            newClient.setCaregiverPresent(radioButton.getText().equals("Yes"));
+            client.setCaregiverPresent(radioButton.getText().equals("Yes"));
         }
     }
 
@@ -761,16 +652,16 @@ public class NewClientActivity extends AppCompatActivity {
             radioButton = (RadioButton) radioGroup.getChildAt(i);
             if(radioButton.isChecked()){
                 if(tag.equals(getString(R.string.gender))){
-                    newClient.setGender(radioButton.getText().toString());
+                    client.setGender(radioButton.getText().toString());
                 }
                 else if(tag.equals(getString(R.string.healthRate))){
-                    newClient.setHealthRate(radioButton.getText().toString());
+                    client.setHealthRate(radioButton.getText().toString());
                 }
                 else if(tag.equals(getString(R.string.educationRate))){
-                    newClient.setEducationRate(radioButton.getText().toString());
+                    client.setEducationRate(radioButton.getText().toString());
                 }
                 else if(tag.equals(getString(R.string.socialRate))){
-                    newClient.setSocialStatusRate(radioButton.getText().toString());
+                    client.setSocialStatusRate(radioButton.getText().toString());
                 }
 
             }
@@ -783,10 +674,10 @@ public class NewClientActivity extends AppCompatActivity {
         String inputStr = input.getText().toString();
         int num = Integer.parseInt(inputStr);
         if(tag.equals(getString(R.string.age))){
-            newClient.setAge(num);
+            client.setAge(num);
         }
         else if(tag.equals(getString(R.string.villageNumber))){
-            newClient.setVillageNumber(num);
+            client.setVillageNumber(num);
         }
     }
 
@@ -796,188 +687,154 @@ public class NewClientActivity extends AppCompatActivity {
         Spinner spinner = (Spinner) form.findViewWithTag(tag);
         String selected = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
         if(tag.equals(getString(R.string.location))) {
-            newClient.setLocation(selected);
+            client.setLocation(selected);
         }
     }
 
     private void saveCheckBox(Question question){
         MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
         String tag = question.getQuestionTag();
-        newClient.clearDisabilities();
+        client.clearDisabilities();
         CheckBox checkBox;
         for(int i = 0; i < mcq.getAnswers().length; i++){
             checkBox = (CheckBox) form.findViewWithTag(i);
             if(checkBox.isChecked()){
                 String selected = checkBox.getText().toString();
-                newClient.addToDisabilities(selected);
-                System.out.println(selected);
-                if(checkBox.getText().toString().equals("Other")){
-                    EditText explanation = (EditText) form.findViewWithTag("otherExplanation");
-                    newClient.setOtherExplanation(explanation.getText().toString());
-                }
+                client.addToDisabilities(selected);
             }
         }
     }
 
-    private void createNewClientForm(){
-        setWorkerId();
-        setUniqueClientId();
-        Resources res = getResources();
-        //page one: consent and date
-        MultipleChoiceQuestion consent = new MultipleChoiceQuestion(getString(R.string.consent),getString(R.string.consent_newClientForm),QuestionType.RADIO, res.getStringArray(R.array.yes_no_answer), true);
-        TextQuestion date = new TextQuestion(getString(R.string.date),getString(R.string.date_newClientForm), QuestionType.DATE, false);
-        FormPage pageOne = new FormPage();
-        pageOne.addToPage(consent);
-        pageOne.addToPage(date);
-        pages.add(pageOne);
 
-        //page two: first and last name
+    private void createEditForm(){
+        Resources res = getResources();
+
+        //page one: first and last name
         TextQuestion firstName = new TextQuestion(getString(R.string.firstName),getString(R.string.firstName_newClientForm), QuestionType.PLAIN_TEXT, true);
         TextQuestion lastName = new TextQuestion(getString(R.string.lastName),getString(R.string.lastName_newClientForm), QuestionType.PLAIN_TEXT, true);
-        FormPage pageTwo = new FormPage();
-        pageTwo.addToPage(firstName);
-        pageTwo.addToPage(lastName);
-        pages.add(pageTwo);
+        FormPage pageOne = new FormPage();
+        pageOne.addToPage(firstName);
+        pageOne.addToPage(lastName);
+        pages.add(pageOne);
 
-        //page three: Age gender
+        //page two: Age gender
         TextQuestion age = new TextQuestion(getString(R.string.age),getString(R.string.age_newClientForm), QuestionType.NUMBER, true);
         MultipleChoiceQuestion gender = new MultipleChoiceQuestion(getString(R.string.gender),getString(R.string.gender_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.gender), true);
-        FormPage pageThree = new FormPage();
-        pageThree.addToPage(age);
-        pageThree.addToPage(gender);
-        pages.add(pageThree);
+        FormPage pageTwo = new FormPage();
+        pageTwo.addToPage(age);
+        pageTwo.addToPage(gender);
+        pages.add(pageTwo);
 
 
-        //page four: Location Village No. Contact Number   GPS LATER!!!!
+        //page three: Location Village No. Contact Number   GPS LATER!!!!
         MultipleChoiceQuestion location = new MultipleChoiceQuestion(getString(R.string.location),getString(R.string.location_newClientForm), QuestionType.DROP_DOWN,res.getStringArray(R.array.locations), true);
         TextQuestion villageNum = new TextQuestion(getString(R.string.villageNumber),getString(R.string.villageNumber_newClientForm), QuestionType.NUMBER, true);
         TextQuestion contactNum = new TextQuestion(getString(R.string.contactNumber),getString(R.string.contactNumber_newClientForm), QuestionType.PHONE_NUMBER, true);
+        FormPage pageThree = new FormPage();
+        pageThree.addToPage(location);
+        pageThree.addToPage(villageNum);
+        pageThree.addToPage(contactNum);
+        pages.add(pageThree);
 
-        TextQuestion gps = new TextQuestion("GPS", "GPS: ", QuestionType.GPS, false);
-
-        FormPage pageFour = new FormPage();
-        pageFour.addToPage(location);
-        pageFour.addToPage(villageNum);
-        pageFour.addToPage(contactNum);
-        pageFour.addToPage(gps);
-        pages.add(pageFour);
-
-        //page five: Caregiver
+        //page four: Caregiver
         MultipleChoiceQuestion caregiverPresent = new MultipleChoiceQuestion(getString(R.string.caregiverPresent),getString(R.string.caregiverPresent_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.yes_no_answer), true);
         TextQuestion caregiverContactNumber = new TextQuestion(getString(R.string.caregiverContactNumber),getString(R.string.caregiverNumber_newClientForm), QuestionType.PHONE_NUMBER, false);
+        FormPage pageFour = new FormPage();
+        pageFour.addToPage(caregiverPresent);
+        pageFour.addToPage(caregiverContactNumber);
+        pages.add(pageFour);
+
+
+        //page five: photo
+        TextQuestion photo = new TextQuestion(getString(R.string.photo),getString(R.string.photo_newClientForm), QuestionType.PICTURE, false);
+        imagePage = 5;
         FormPage pageFive = new FormPage();
-        pageFive.addToPage(caregiverPresent);
-        pageFive.addToPage(caregiverContactNumber);
+        pageFive.addToPage(photo);
         pages.add(pageFive);
 
-        //page six: photo
-        TextQuestion photo = new TextQuestion(getString(R.string.photo),getString(R.string.photo_newClientForm), QuestionType.PICTURE, false);
-        imagePage = 6;
+
+
+
+        //page six: Type of disability
+        MultipleChoiceQuestion disability = new MultipleChoiceQuestion(getString(R.string.disabilityType),getString(R.string.disabilityType_newClientForm), QuestionType.CHECK_BOX, res.getStringArray(R.array.disability_types), true);
         FormPage pageSix = new FormPage();
-        pageSix.addToPage(photo);
+        pageSix.addToPage(disability);
         pages.add(pageSix);
 
 
-        //page seven: Type of disability
-        MultipleChoiceQuestion disability = new MultipleChoiceQuestion(getString(R.string.disabilityType),getString(R.string.disabilityType_newClientForm), QuestionType.CHECK_BOX, res.getStringArray(R.array.disability_types), true);
-        FormPage pageSeven = new FormPage();
-        pageSeven.addToPage(disability);
-        pages.add(pageSeven);
-
-
-        //page eight: clients health rate, require individual goal
+        //page seven: clients health rate, require individual goal
         MultipleChoiceQuestion clientHealthRate = new MultipleChoiceQuestion(getString(R.string.healthRate),getString(R.string.healthRate_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.risk_type), true);
         TextQuestion healthRequire = new TextQuestion(getString(R.string.healthRequire),getString(R.string.require_newClientForm), QuestionType.PLAIN_TEXT, true);
         TextQuestion healthIndividualGoal = new TextQuestion(getString(R.string.healthIndividualGoal),getString(R.string.individualGoal_newClientForm), QuestionType.PLAIN_TEXT, true);
-        FormPage pageEight = new FormPage();
-        pageEight.addToPage(clientHealthRate);
-        pageEight.addToPage(healthRequire);
-        pageEight.addToPage(healthIndividualGoal);
-        pages.add(pageEight);
+        FormPage pageSeven = new FormPage();
+        pageSeven.addToPage(clientHealthRate);
+        pageSeven.addToPage(healthRequire);
+        pageSeven.addToPage(healthIndividualGoal);
+        pages.add(pageSeven);
 
 
-        //page nine: clients education rate
+        //page eight: clients education rate
         MultipleChoiceQuestion clientEducationRate = new MultipleChoiceQuestion(getString(R.string.educationRate),getString(R.string.educationStatus_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.risk_type), true);
         TextQuestion educationRequire = new TextQuestion(getString(R.string.educationRequire),getString(R.string.require_newClientForm), QuestionType.PLAIN_TEXT, true);
         TextQuestion educationIndividualGoal = new TextQuestion(getString(R.string.educationIndividualGoal),getString(R.string.individualGoal_newClientForm), QuestionType.PLAIN_TEXT, true);
-        FormPage pageNine = new FormPage();
-        pageNine.addToPage(clientEducationRate);
-        pageNine.addToPage(educationRequire);
-        pageNine.addToPage(educationIndividualGoal);
-        pages.add(pageNine);
+        FormPage pageEight = new FormPage();
+        pageEight.addToPage(clientEducationRate);
+        pageEight.addToPage(educationRequire);
+        pageEight.addToPage(educationIndividualGoal);
+        pages.add(pageEight);
 
-        //page ten: social status
+        //page nine: social status
         MultipleChoiceQuestion clientSocialRate = new MultipleChoiceQuestion(getString(R.string.socialRate),getString(R.string.socialStatus_newClientForm), QuestionType.RADIO, res.getStringArray(R.array.risk_type), true);
         TextQuestion socialRequire = new TextQuestion(getString(R.string.socialRequire),getString(R.string.require_newClientForm), QuestionType.PLAIN_TEXT, true);
         TextQuestion socialIndividualGoal = new TextQuestion(getString(R.string.socialIndividualGoal),getString(R.string.individualGoal_newClientForm), QuestionType.PLAIN_TEXT, true);
-        FormPage pageTen = new FormPage();
-        pageTen.addToPage(clientSocialRate);
-        pageTen.addToPage(socialRequire);
-        pageTen.addToPage(socialIndividualGoal);
-        pages.add(pageTen);
+        FormPage pageNine = new FormPage();
+        pageNine.addToPage(clientSocialRate);
+        pageNine.addToPage(socialRequire);
+        pageNine.addToPage(socialIndividualGoal);
+        pages.add(pageNine);
     }
 
     private void reviewPage(){
-        TextView consentView = new TextView(this);
-        Boolean consent = newClient.getConsentToInterview();
-        if(consent){
-            consentView.setText("Consent to Interview: Yes");
-        }
-        else {
-            consentView.setText("Consent to Interview: No");
-        }
-        form.addView(consentView);
-
-        TextView dateView = new TextView(this);
-        String formDate = newClient.getDate();
-        dateView.setText("Date: " + formDate);
-        form.addView(dateView);
 
         TextView firstNameView = new TextView(this);
-        String firstName = newClient.getFirstName();
+        String firstName = client.getFirstName();
         firstNameView.setText("First Name: " + firstName);
         form.addView(firstNameView);
 
         TextView lastNameView = new TextView(this);
-        String lastName = newClient.getLastName();
+        String lastName = client.getLastName();
         lastNameView.setText("Last Name: " + lastName);
         form.addView(lastNameView);
 
         TextView ageView = new TextView(this);
-        int age = newClient.getAge();
+        int age = client.getAge();
         String ageStr = Integer.toString(age);
         ageView.setText("Age: " + ageStr);
         form.addView(ageView);
 
         TextView genderView = new TextView(this);
-        String gender = newClient.getGender();
+        String gender = client.getGender();
         genderView.setText("Gender: " + gender);
         form.addView(genderView);
 
         TextView locationView = new TextView(this);
-        String location = newClient.getLocation();
+        String location = client.getLocation();
         locationView.setText("Location: " + location);
         form.addView(locationView);
 
         TextView villageNumberView = new TextView(this);
-        int villageNumber = newClient.getVillageNumber();
+        int villageNumber = client.getVillageNumber();
         String villageNumberStr = Integer.toString(villageNumber);
         villageNumberView.setText("Village Number: " + villageNumberStr);
         form.addView(villageNumberView);
 
-        TextView gpsView = new TextView(this);
-        double lat = newClient.getLatitude();
-        double lon = newClient.getLongitude();
-        gpsView.setText("GPS: " + lat + ", " + lon);
-        form.addView(gpsView);
-
         TextView contactNumberView = new TextView(this);
-        String contactNumber = newClient.getContactPhoneNumber();
+        String contactNumber = client.getContactPhoneNumber();
         contactNumberView.setText("Contact Number: " + contactNumber);
         form.addView(contactNumberView);
 
         TextView caregiverPresentView = new TextView(this);
-        Boolean caregiverPresent = newClient.getCaregiverPresent();
+        Boolean caregiverPresent = client.getCaregiverPresent();
         if(caregiverPresent){
             caregiverPresentView.setText("Caregiver Present: Yes");
         }
@@ -987,7 +844,7 @@ public class NewClientActivity extends AppCompatActivity {
         form.addView(caregiverPresentView);
 
         TextView disabilitiesView = new TextView(this);
-        ArrayList<String> disabilities = newClient.getDisabilities();
+        ArrayList<String> disabilities = client.getDisabilities();
         String disabilitiesStr = "Type of Disability: ";
         for(int i = 0; i < disabilities.size(); i++){
             disabilitiesStr = disabilitiesStr.concat(disabilities.get(i));
@@ -997,28 +854,28 @@ public class NewClientActivity extends AppCompatActivity {
         form.addView(disabilitiesView);
 
         TextView healthRateView = new TextView(this);
-        String healthRate = newClient.getHealthRate();
+        String healthRate = client.getHealthRate();
         healthRateView.setText("Rate of Client's health: " + healthRate);
         form.addView(healthRateView);
 
         TextView educationRateView = new TextView(this);
-        String educationRate = newClient.getEducationRate();
+        String educationRate = client.getEducationRate();
         educationRateView.setText("Rate of Client's Education: " + educationRate);
         form.addView(educationRateView);
 
         TextView socialRateView = new TextView(this);
-        String socialRate = newClient.getSocialStatusRate();
+        String socialRate = client.getSocialStatusRate();
         socialRateView.setText("Rate of Client's Social Status: " + socialRate);
         form.addView(socialRateView);
-    }
 
+    }
 
     private void ToolbarButtons(){
         ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
+                Intent intent = TaskViewActivity.makeIntent(EditClientActivity.this);
                 startActivity(intent);
             }
         });
@@ -1027,51 +884,9 @@ public class NewClientActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = ProfileActivity.makeIntent(NewClientActivity.this);
+                Intent intent = ProfileActivity.makeIntent(EditClientActivity.this);
                 startActivity(intent);
             }
         });
     }
-
-    private void insertClient() {
-        newClient.setIsSynced(0);
-        boolean success = mydb.registerClient(newClient);
-
-        if(success) {
-            Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
-            Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
-            String current_username = getIntent().getStringExtra("Worker Username");
-            intent.putExtra("Worker Username", current_username);
-            startActivity(intent);
-        } else {
-            Toast.makeText(NewClientActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
-        }
-    }
-    private void setUniqueClientId(){
-        DatabaseHelper db =  new DatabaseHelper(NewClientActivity.this);
-
-        // Convert both the integers to string
-        String current_username = getIntent().getStringExtra("Worker Username");
-        String s1 = String.valueOf(db.getWorkerId(current_username));
-        int client_no = db.numberOfClientsPerUser(current_username);
-        client_no++;//next available client id
-        String s2 = String.valueOf(client_no);
-
-        // Concatenate both strings
-        String s = s1 + s2;
-
-        // Convert the concatenated string
-        // to integer
-        long c = Long.parseLong(s);
-
-        newClient.setId(c);
-    }
-
-    private void setWorkerId(){
-        DatabaseHelper db =  new DatabaseHelper(NewClientActivity.this);
-        String current_username = getIntent().getStringExtra("Worker Username");
-        newClient.setClient_worker_id(db.getWorkerId(current_username));
-    }
-
 }
-
