@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.clientInfoFragment.ReferralListFragment">
+    tools:context=".UI.clientInfoFragment.ReferralListFragment"
+    android:background="#E0FFFF">
+
+    <ListView
+        android:id="@+id/referralList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

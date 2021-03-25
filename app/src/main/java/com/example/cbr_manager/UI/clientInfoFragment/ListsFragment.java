@@ -91,11 +91,7 @@ public class ListsFragment extends Fragment {
                 case 0:
                     return VisitListFragment.newInstance(client_id);
                 case 1:
-                    Fragment f = ReferralListFragment.newInstance(client_id);
-                    if(f == null){
-                        System.out.println("ITS NULL");
-                    }
-                    return f;
+                    return ReferralListFragment.newInstance(client_id);
                 default:
                     return ReferralListFragment.newInstance(client_id);
             }

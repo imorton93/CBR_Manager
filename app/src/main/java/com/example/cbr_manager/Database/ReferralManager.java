@@ -75,9 +75,27 @@ public class ReferralManager implements Iterable<Referral>{
             String outcome = c.getString(outcomeI);
             Long clientID = c.getLong(clientIDI);
 
-            referrals.add(new Referral(serviceReq, referralPhoto, basicOrInter, hipWidth, hasWheelchair, wheelchairReparable, bringToCentre, condition,
-                    injuryLocation, status, outcome, clientID));
+            Referral newReferral = new Referral(serviceReq, referralPhoto, basicOrInter, hipWidth, hasWheelchair, wheelchairReparable, bringToCentre, condition,
+                    injuryLocation, status, outcome, clientID);
+            newReferral.setId(id);
+            referrals.add(newReferral);
         }
+    }
+
+    public List<Referral> getReferrals(long id) {
+        List<Referral> finalReferrals = new ArrayList<>();
+
+        for (Referral currentReferral : this.referrals) {
+            if(currentReferral.getClientID() == id) {
+                finalReferrals.add(currentReferral);
+            }
+        }
+
+        return finalReferrals;
+    }
+
+    public void clear() {
+        referrals.clear();
     }
 
     @NonNull
