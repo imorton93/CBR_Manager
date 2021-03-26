@@ -267,6 +267,7 @@ public class TaskViewActivity extends AppCompatActivity {
                                 client.setContactPhoneNumber((String) object.get("CONTACT"));
                                 client.setCaregiverPresent(strToBool((String) object.get("CAREGIVER_PRESENCE")));
                                 client.setCaregiverPhoneNumber((String) object.get("CAREGIVER_NUMBER"));
+                                client.setPhoto(strToByteArr((String) object.get("PHOTO")));
 
                                 //setting disabilities
                                 List<String> disabilities = new ArrayList<String>(Arrays.asList(((String) object.get("DISABILITY")).split(", ")));
@@ -479,5 +480,9 @@ public class TaskViewActivity extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    public byte[] strToByteArr (String s) {
+        return Base64.decode(s, Base64.DEFAULT);
     }
 }
