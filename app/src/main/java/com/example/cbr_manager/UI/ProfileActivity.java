@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.CBRAdapter;
 import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.Client;
@@ -27,6 +28,7 @@ import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,13 +44,13 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseHelper db;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ToolbarButtons();
         profilePageButtons();
+
 
         firstNameTextView = (TextView) findViewById(R.id.profileFname);
         lastNameTextView = (TextView) findViewById(R.id.profileLname);
@@ -77,28 +79,28 @@ public class ProfileActivity extends AppCompatActivity {
 //        getClientInfo(v);
 //        return v;
 //    }
-
-    public void getClientInfo(@Nullable View convertView, @NonNull ViewGroup parent){
-
-        View view = convertView;
-
-        if (view == null) {
-            view = getLayoutInflater().inflate(R.layout.activity_profile, parent, false);
-        }
-
-        CBRWorkerManager cbrWorkerManager = CBRWorkerManager.getInstance(profileActivity);
-        CBRWorker currentCBR = cbrWorkerManager.getCBRById(profileActivity.getId());
-
-
-        TextView firstNameTextView = view.findViewById(R.id.profileFname);
-        TextView lastNameTextView = view.findViewById(R.id.profileLname);
-        TextView emailTextView = view.findViewById(R.id.profileUsername);
-
-        firstNameTextView.setText(currentCBR.getFirstName());
-        lastNameTextView.setText(currentCBR.getLastName());
-        emailTextView.setText(currentCBR.getEmail());
-
-    }
+//
+//    public void getClientInfo(@Nullable View convertView, @NonNull ViewGroup parent){
+//
+//        View view = convertView;
+//
+//        if (view == null) {
+//            view = getLayoutInflater().inflate(R.layout.activity_profile, parent, false);
+//        }
+//
+//        CBRWorkerManager cbrWorkerManager = CBRWorkerManager.getInstance(profileActivity);
+//        CBRWorker currentCBR = cbrWorkerManager.getCBRById(profileActivity.getId());
+//
+//
+//        TextView firstNameTextView = view.findViewById(R.id.profileFname);
+//        TextView lastNameTextView = view.findViewById(R.id.profileLname);
+//        TextView emailTextView = view.findViewById(R.id.profileUsername);
+//
+//        firstNameTextView.setText(currentCBR.getFirstName());
+//        lastNameTextView.setText(currentCBR.getLastName());
+//        emailTextView.setText(currentCBR.getEmail());
+//
+//    }
 
 
 
