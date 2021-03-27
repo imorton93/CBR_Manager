@@ -77,7 +77,7 @@
             android:layout_marginRight="220dp"
             android:background="@null"
             android:minWidth="70dp"
-            app:srcCompat="@drawable/baseline"
+            app:srcCompat="@drawable/baseline_purp"
             tools:layout_editor_absoluteX="25dp" />
 
         <Button
