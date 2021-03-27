@@ -72,8 +72,21 @@ public class ClientInfoActivity extends AppCompatActivity {
     }
 
     private void navbar(){
+        newClientButton();
         newVisitButton();
+        newReferralButton();
         editButton();
+    }
+
+    private void newClientButton() {
+        ImageButton newClient = findViewById(R.id.CI_newClient);
+        newClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewClientActivity.makeIntent(ClientInfoActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void newVisitButton() {
@@ -82,6 +95,17 @@ public class ClientInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, position, id);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void newReferralButton() {
+        ImageButton newReferral = findViewById(R.id.CI_newReferral);
+        newReferral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewReferralActivity.makeIntent(ClientInfoActivity.this, position, id);
                 startActivity(intent);
             }
         });
