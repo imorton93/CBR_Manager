@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -59,8 +60,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
 
-        editButton();
-        newVisitButton();
+        navbar();
         ToolbarButtons();
     }
 
@@ -71,9 +71,13 @@ public class ClientInfoActivity extends AppCompatActivity {
         System.out.println("Id is " + this.id);
     }
 
+    private void navbar(){
+        newVisitButton();
+        editButton();
+    }
+
     private void newVisitButton() {
-        ClientManager clientManager = ClientManager.getInstance(this);
-        Button newVisit = findViewById(R.id.visit);
+        ImageButton newVisit = findViewById(R.id.CI_newVisit);
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
