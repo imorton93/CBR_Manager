@@ -20,7 +20,7 @@ public class CBRFragment extends Fragment {
     public CBRFragment() {
     }
 
-    public static CBRFragment newInstance() {
+    public static CBRFragment newInstance(long id) {
         CBRFragment fragment = new CBRFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -36,7 +36,7 @@ public class CBRFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.cbrActivity = (ProfileActivity)getActivity();
-        View v = inflater.inflate(R.layout.fragment_info, container, false);
+        View v = inflater.inflate(R.layout.activity_profile, container, false);
         getCBRInfo(v);
         return v;
     }
@@ -44,7 +44,6 @@ public class CBRFragment extends Fragment {
     public View getCBRInfo(View view){
         CBRWorkerManager cbrWorkerManager = CBRWorkerManager.getInstance(cbrActivity);
         CBRWorker currentCBR = cbrWorkerManager.getCBRById(cbrActivity.getId());
-
         TextView firstNameTextView = view.findViewById(R.id.profileFname);
         TextView lastNameTextView = view.findViewById(R.id.profileLname);
         TextView emailTextView = view.findViewById(R.id.profileUsername);
