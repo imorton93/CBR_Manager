@@ -1,32 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".UI.clientListFragment.listFragment"/>-->
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".UI.clientListFragment.listFragment"
-android:background="@drawable/backgroundgradient">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.clientListFragment.listFragment">
 
     <ListView
         android:id="@+id/clientList"
-        android:layout_width="344dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchVillageNumLayoutContainers" />
+        app:layout_constraintTop_toBottomOf="@+id/searchVillageNumLayoutContainers"
+        android:background="#E0FFFF"/>
 
     <LinearLayout
         android:id="@+id/searchNameLayoutContainers"
@@ -81,10 +71,10 @@ android:background="@drawable/backgroundgradient">
         android:layout_weight="0.5"/>
 </LinearLayout>
 
-<LinearLayout
+    <RelativeLayout
     android:id="@+id/searchVillageNumLayoutContainers"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:orientation="horizontal"
@@ -93,21 +83,34 @@ android:background="@drawable/backgroundgradient">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/searchVillageLayoutContainers">
 
-    <EditText
-        android:id="@+id/filter_villageNum_clientList"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:ems="8"
-        android:hint="Village #"
-        android:inputType="number" />
+        <EditText
+            android:id="@+id/filter_villageNum_clientList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:ems="8"
+            android:hint="Village #"
+            android:inputType="number" />
 
-    <Button
-        android:id="@+id/search_button_clientList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:background="@android:color/transparent"
-        android:text="Search" />
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/search_button_clientList"
+            android:layout_width="106dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:text="Search"
+            app:srcCompat="@drawable/magnifier" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
