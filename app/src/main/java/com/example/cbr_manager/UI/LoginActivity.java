@@ -154,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                                 worker.setUsername((String) object.get("USERNAME"));
                                 worker.setPassword((String) object.get("PASSWORD"));
                                 worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
+                                worker.setIs_admin("1".equals((String) object.get("IS_ADMIN")));
 
                                 mydb.registerWorker(worker);
                             }
