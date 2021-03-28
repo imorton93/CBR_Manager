@@ -43,6 +43,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     private ClientListActivity clientListActivity;
     private ClientManager clientManager;
+    private Map<String, Long> mMarkerMap = new HashMap<>();
 
     @Nullable
     @Override
@@ -100,8 +101,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         clientManager = ClientManager.getInstance(clientListActivity);
 
-        // TODO make into list
-        Map<String, Long> mMarkerMap = new HashMap<>();
         Marker marker;
 
         for (Client client: clientManager.getClients()) {
@@ -121,5 +120,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         });
 
+
     }
+
+
 }
