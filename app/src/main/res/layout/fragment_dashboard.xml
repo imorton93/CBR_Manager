@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.dashboardFragment.DashboardFragment"
-    android:background="@drawable/backgroundgradient">
+    android:background="#E0FFFF">
 
     <ListView
         android:id="@+id/dashboard_clients"
