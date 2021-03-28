@@ -2,8 +2,10 @@ package com.example.cbr_manager.Database;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -157,6 +159,7 @@ public class ClientManager implements Iterable<Client>{
         clients.clear();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Client> getSearchedClients(String first_name, String last_name, String village,
                                            String section, String village_num){
         if(first_name.isEmpty() && last_name.isEmpty() && village.equals("Villages") &&
@@ -176,31 +179,31 @@ public class ClientManager implements Iterable<Client>{
         return getSearchedClientsHelper(first_name, last_name, village, section, village_number, village_num_exists);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Client> getSearchedClientsHelper(String first_name, String last_name, String village,
-                                     String section, int village_number, boolean village_num_exists){
+                                                  String section, int village_number, boolean village_num_exists){
         List<Client> searched_clients = new ArrayList<>();
-        for(Client current_client : this.clients){
-            if(current_client.getFirstName().equals(first_name)){
-                searched_clients.add(current_client);
-            }else if(current_client.getLastName().equals(last_name)){
-                searched_clients.add(current_client);
-            }else if(current_client.getLocation().equals(village)){
-                searched_clients.add(current_client);
-            }else if(village_num_exists && current_client.getVillageNumber() == village_number){
-                searched_clients.add(current_client);
-            }else if(section.equals("Critical Health")){
-                if(current_client.getHealthRate().equals("Critical Risk")){
-                    searched_clients.add(current_client);
-                }
-            }else if(section.equals("Critical Education")){
-                if(current_client.getEducationRate().equals("Critical Risk")){
-                    searched_clients.add(current_client);
-                }
-            }else if(section.equals("Critical Social Status")){
-                if(current_client.getSocialStatusRate().equals("Critical Risk")){
-                    searched_clients.add(current_client);
-                }
-            }
+        searched_clients.addAll(this.clients);
+        if(!first_name.isEmpty()) {
+            searched_clients.removeIf(i -> !i.getFirstName().equals(first_name));
+        }
+        if(!last_name.isEmpty()){
+            searched_clients.removeIf(i -> !i.getLastName().equals(last_name));
+        }
+        if(!village.equals("Villages")){
+            searched_clients.removeIf(i -> !i.getLocation().equals(village));
+        }
+        if(village_num_exists){
+            searched_clients.removeIf(i -> i.getVillageNumber() != village_number);
+        }
+        if(section.equals("Critical Health")){
+            searched_clients.removeIf(i -> !i.getHealthRate().equals("Critical Risk"));
+        }
+        if(section.equals("Critical Education")) {
+            searched_clients.removeIf(i -> !i.getEducationRate().equals("Critical Risk"));
+        }
+        if(section.equals("Critical Social Status")) {
+            searched_clients.removeIf(i -> !i.getSocialStatusRate().equals("Critical Risk"));
         }
         return searched_clients;
     }
