@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.ClientInfoActivity;
 import com.example.cbr_manager.UI.ClientListActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,7 +28,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
@@ -91,9 +100,26 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         clientManager = ClientManager.getInstance(clientListActivity);
 
+        // TODO make into list
+        Map<String, Long> mMarkerMap = new HashMap<>();
+        Marker marker;
+
         for (Client client: clientManager.getClients()) {
-            mMap.addMarker(new MarkerOptions().position(new LatLng(client.getLatitude(), client.getLongitude())).title(client.getFirstName()));
+            marker = mMap.addMarker(new MarkerOptions().position(new LatLng(client.getLatitude(), client.getLongitude())).title(client.getFirstName()));
+            mMarkerMap.put(marker.getId(), client.getId());
         }
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String title = marker.getTitle();
+                long position = mMarkerMap.get(marker.getId());
+                Intent intent = ClientInfoActivity.makeIntent(clientListActivity, (int) position, position);
+                startActivity(intent);
+                return false;
+            }
+
+        });
 
     }
 }
