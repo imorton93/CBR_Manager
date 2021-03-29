@@ -16,7 +16,7 @@ import static com.example.cbr_manager.UI.LoginActivity.currentCBRWorker;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView firstNameTextView, lastNameTextView, emailTextView;
+    private TextView firstNameTextView, lastNameTextView, emailTextView, zoneTextView;
     private ImageView profilePictureImageView;
 
     @Override
@@ -29,10 +29,12 @@ public class ProfileActivity extends AppCompatActivity {
         firstNameTextView = findViewById(R.id.profileFname);
         lastNameTextView = findViewById(R.id.profileLname);
         emailTextView = findViewById(R.id.profileUsername);
+        zoneTextView = findViewById(R.id.profileZone);
 
         firstNameTextView.setText(currentCBRWorker.getFirstName());
         lastNameTextView.setText(currentCBRWorker.getLastName());
         emailTextView.setText(currentCBRWorker.getUsername());
+        zoneTextView.setText(currentCBRWorker.getZone());
 
         //TODO: Include image to database
 //        profilePictureImageView = findViewById(R.id.imageView);

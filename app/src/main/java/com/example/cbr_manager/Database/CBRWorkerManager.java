@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CBRWorkerManager {
-    private static final String TAG = "ERROR";
     private List<CBRWorker> cbrWorkers = new ArrayList<>();
     private static CBRWorkerManager instance;
     private DatabaseHelper databaseHelper;
@@ -30,6 +29,7 @@ public class CBRWorkerManager {
     private static final String cbr_first_name = "FIRST_NAME";
     private static final String cbr_last_name = "LAST_NAME";
     private static final String cbr_email = "USERNAME";
+    private static final String cbr_zone ="ZONE";
     private static final String cbr_password = "PASSWORD";
 
 
@@ -76,6 +76,7 @@ public class CBRWorkerManager {
         int firstI = c.getColumnIndex(cbr_first_name);
         int lastI = c.getColumnIndex(cbr_last_name);
         int emailI = c.getColumnIndex(cbr_email);
+        int zoneI = c.getColumnIndex(cbr_zone);
         int passwordI = c.getColumnIndex(cbr_password);
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
@@ -83,9 +84,10 @@ public class CBRWorkerManager {
             String firstName = c.getString(firstI);
             String lastName = c.getString(lastI);
             String email = c.getString(emailI);
+            String zone = c.getString(zoneI);
             String password = c.getString(passwordI);
 
-            CBRWorker cbrWorker = new CBRWorker(firstName, lastName, email, password);
+            CBRWorker cbrWorker = new CBRWorker(firstName, lastName, email, zone, password);
             cbrWorkers.add(cbrWorker);
         }
     }

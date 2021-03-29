@@ -37,7 +37,7 @@ import static com.example.cbr_manager.UI.LoginActivity.username;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText firstNameTextBox, lastNameTextBox, emailTextBox, password1TextBox, password2TextBox;
+    private EditText firstNameTextBox, lastNameTextBox, emailTextBox, zoneTextBox, password1TextBox, password2TextBox;
     private Button submitButton;
     private DatabaseHelper mydb;
     private CBRWorker cbrWorker;
@@ -55,6 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
         firstNameTextBox = findViewById(R.id.titleTextBox);
         lastNameTextBox = findViewById(R.id.dateTextBox);
         emailTextBox = findViewById(R.id.locationTextBox);
+        zoneTextBox = findViewById(R.id.zoneTextBox);
         password1TextBox = findViewById(R.id.password1TextBox);
         password2TextBox = findViewById(R.id.messageTextBox);
 
@@ -73,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if(validateEntries() && connectedToInternet()) {
                     if (validatePasswords()) {
                         cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
-                                emailTextBox.getText().toString(), BCrypt.withDefaults().hashToString(12, password1TextBox.getText().toString().toCharArray()));
+                                emailTextBox.getText().toString(), zoneTextBox.getText().toString(), BCrypt.withDefaults().hashToString(12, password1TextBox.getText().toString().toCharArray()));
                         boolean success = mydb.registerWorker(cbrWorker);
                         if(success) {
                             cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
