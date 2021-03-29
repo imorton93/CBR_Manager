@@ -29,7 +29,6 @@ import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
-import com.example.cbr_manager.UI.clientInfoFragment.VisitsFragment;
 import com.example.cbr_manager.UI.clientListFragment.MapsFragment;
 import com.example.cbr_manager.UI.clientListFragment.listFragment;
 import com.example.cbr_manager.UI.dashboardFragment.DashboardFragment;

@@ -126,9 +126,9 @@ public class TaskViewActivity extends AppCompatActivity {
                 if (!connectedToInternet()) {
                     Toast.makeText(TaskViewActivity.this, "Not connected to internet.", Toast.LENGTH_LONG).show();
                 } else {
-//                    syncClientsTable();
-                    //syncVisitTable();
-                    //syncReferralTable();
+                    syncClientsTable();
+//                    syncVisitTable();
+//                    syncReferralTable();
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
                 }
