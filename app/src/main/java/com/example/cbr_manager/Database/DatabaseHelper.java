@@ -401,6 +401,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
+    public Cursor getAllReferrals(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_REFERRALS", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
     public Cursor executeQuery(String query){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
@@ -427,7 +436,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return c;
     }
-
 
     public Cursor getdata() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -467,5 +475,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return -1;
         }
     }
+
 
 }
