@@ -142,26 +142,13 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            //Deleting local data
                             String deleteWorkers = "DELETE FROM WORKER_DATA";
                             mydb.executeQuery(deleteWorkers);
 
                             JSONArray serverData = new JSONArray(response);
-                            JSONObject object = new JSONObject();
-
-                            CBRWorker worker = new CBRWorker();
 
                             for (int i = 0; i < serverData.length(); i++) {
-                                object = serverData.getJSONObject(i);
-
-                                worker.setFirstName((String) object.get("FIRST_NAME"));
-                                worker.setLastName((String) object.get("LAST_NAME"));
-                                worker.setUsername((String) object.get("USERNAME"));
-                                worker.setPassword((String) object.get("PASSWORD"));
-                                worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
-                                worker.setIs_admin("1".equals((String) object.get("IS_ADMIN")));
-
-                                mydb.registerWorker(worker);
+                                mydb.registerWorker(jsonToWorker(serverData.getJSONObject(i)));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -179,5 +166,18 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         requestQueue.add(requestToServer);
+    }
+
+    CBRWorker jsonToWorker (JSONObject object) throws JSONException {
+        CBRWorker worker = new CBRWorker();
+
+        worker.setFirstName((String) object.get("FIRST_NAME"));
+        worker.setLastName((String) object.get("LAST_NAME"));
+        worker.setUsername((String) object.get("USERNAME"));
+        worker.setPassword((String) object.get("PASSWORD"));
+        worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
+        worker.setIs_admin("1".equals((String) object.get("IS_ADMIN")));
+
+        return worker;
     }
 }
