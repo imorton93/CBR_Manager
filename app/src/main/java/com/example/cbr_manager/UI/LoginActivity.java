@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.VisitManager;
@@ -18,7 +18,7 @@ import com.example.cbr_manager.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private String username, password;
+    public static String username, password;
     private EditText usernameTextBox, passwordTextBox;
     private Button login_btn;
     private DatabaseHelper mydb;
@@ -41,6 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         visitManager.clear();
         visitManager.updateList();
 
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(LoginActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
+
         buttonsClicked();
     }
 
@@ -57,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Do something with login button
                 if (mydb.checkUser(username, password)) {
                     Intent intent = TaskViewActivity.makeIntent(LoginActivity.this);
+                    intent.putExtra("Worker Username", username);
                     startActivity(intent);
                 }
                 else{

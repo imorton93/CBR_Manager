@@ -2,40 +2,27 @@ package com.example.cbr_manager.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.CursorAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.cbr_manager.Database.Client;
-import com.example.cbr_manager.Database.ClientManager;
-import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.cbr_manager.UI.clientListFragment.MapsFragment;
+import com.example.cbr_manager.UI.clientListFragment.listFragment;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class ClientListActivity extends AppCompatActivity {
 
-    private ClientManager clientManager = ClientManager.getInstance(ClientListActivity.this);
-    private List<Client> searched_clients;
+    TabLayout tabLayout;
+    ViewPager2 viewPager;
+    private String[] titles = new String[]{"Clients", "Map"};
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, ClientListActivity.class);
@@ -47,77 +34,16 @@ public class ClientListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_list);
 
         ToolbarButtons();
-        sectionDropDownMenu();
-        villageDropDownMenu();
 
-        List<Client> clientList = clientManager.getClients();
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tab);
 
-        populateAllClientsFromList(clientList);
-        clickClient();
-        searchBoxes();
-    }
-
-    private void searchBoxes(){
-        AutoCompleteTextView first_name_text = findViewById(R.id.firstName_clientList);
-        AutoCompleteTextView last_name_text = findViewById(R.id.lastName_clientList);
-        Spinner village_spinner = findViewById(R.id.filter_village_clientList);
-        Spinner section_spinner = findViewById(R.id.filter_section_clientList);
-        EditText village_num_text = findViewById(R.id.filter_villageNum_clientList);
-        Button search_button = findViewById(R.id.search_button_clientList);
-        search_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String first_name = first_name_text.getText().toString().trim();
-                String last_name = last_name_text.getText().toString().trim();
-                String village = village_spinner.getSelectedItem().toString();
-                String section = section_spinner.getSelectedItem().toString();
-                String village_num = village_num_text.getText().toString().trim();
-                searched_clients =  clientManager.getSearchedClients(first_name,
-                         last_name, village, section, village_num);
-                populateAllClientsFromList(searched_clients);
-            }
-        });
-
-    }
-
-    private void villageDropDownMenu(){
-        Spinner spinner = findViewById(R.id.filter_village_clientList);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.dashboard_locations, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
-    private void sectionDropDownMenu(){
-        Spinner spinner = findViewById(R.id.filter_section_clientList);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.options_array, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
-    private void populateAllClientsFromList(List<Client> clientList) {
-        this.searched_clients = clientList;
-        ArrayAdapter<Client> adapter = new MyListAdapter(clientList);
-        ListView list = findViewById(R.id.clientList);
-        list.setAdapter(adapter);
-    }
-
-    private void clickClient() {
-        ListView list = findViewById(R.id.clientList);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = ClientInfoActivity.makeIntent(ClientListActivity.this, position, searched_clients.get(position).getId());
-                startActivity(intent);
-            }
-        });
+        viewPager.setAdapter(createCardAdapter());
+        new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
     }
 
     private void ToolbarButtons(){
-        ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
+        ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +52,7 @@ public class ClientListActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
+        ImageButton profileBtn = findViewById(R.id.profileButton);
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,36 +62,33 @@ public class ClientListActivity extends AppCompatActivity {
         });
     }
 
-    private class MyListAdapter extends ArrayAdapter<Client> {
-        private List<Client> clients;
-
-        public MyListAdapter(List<Client> clients) {
-            super(ClientListActivity.this, R.layout.client_list, clients);
-            this.clients = clients;
+    public class ViewPagerAdapter extends FragmentStateAdapter {
+        private static final int CARD_ITEM_SIZE = 2;
+        public ViewPagerAdapter(FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
         }
 
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            View view = convertView;
-
-            if (view == null) {
-                view = getLayoutInflater().inflate(R.layout.client_list, parent, false);
+        @Override public Fragment createFragment(int pos) {
+            switch (pos) {
+                case 0: {
+                    return listFragment.newInstance();
+                }
+                case 1: {
+                    return MapsFragment.newInstance();
+                }
+                default:
+                    return listFragment.newInstance();
             }
-
-            Client currentClient;
-
-            currentClient = this.clients.get(position);
-
-            TextView firstName = view.findViewById(R.id.fname_clist);
-            TextView lastName = view.findViewById(R.id.lname_clist);
-            TextView village = view.findViewById(R.id.Village_clist);
-
-            firstName.setText(currentClient.getFirstName());
-            lastName.setText(currentClient.getLastName());
-            village.setText(currentClient.getLocation());
-
-            return view;
+        }
+        @Override public int getItemCount() {
+            return CARD_ITEM_SIZE;
         }
     }
+
+    private ClientListActivity.ViewPagerAdapter createCardAdapter() {
+        ClientListActivity.ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        return adapter;
+    }
+
+
 }

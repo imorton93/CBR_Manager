@@ -2,23 +2,14 @@ package com.example.cbr_manager.Database;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.cbr_manager.R;
-import com.example.cbr_manager.UI.ClientListActivity;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-
-import static android.content.ContentValues.TAG;
 
 public class ClientManager implements Iterable<Client>{
 
@@ -36,9 +27,12 @@ public class ClientManager implements Iterable<Client>{
     private static final String client_gender = "GENDER";
     private static final String client_village_no = "VILLAGE_NUMBER";
     private static final String client_location = "LOCATION";
+    private static final String client_latitude = "LATITUDE";
+    private static final String client_longitude = "LONGITUDE";
     private static final String client_contact = "CONTACT";
     private static final String client_caregiver_presence = "CAREGIVER_PRESENCE";
     private static final String client_caregiver_number = "CAREGIVER_NUMBER";
+    private static final String client_photo = "PHOTO";
     private static final String client_disability = "DISABILITY";
     private static final String client_heath_rate = "HEALTH_RATE";
     private static final String client_health_requirement = "HEALTH_REQUIREMENT";
@@ -49,6 +43,7 @@ public class ClientManager implements Iterable<Client>{
     private static final String client_social_rate = "SOCIAL_RATE";
     private static final String client_social_requirement= "SOCIAL_REQUIREMENT";
     private static final String client_social_goal = "SOCIAL_GOAL";
+    private static final String client_worker_id = "WORKER_ID";
 
     public ClientManager(Context context) {
         this.databaseHelper = new DatabaseHelper(context);
@@ -90,8 +85,11 @@ public class ClientManager implements Iterable<Client>{
         int genderI = c.getColumnIndex(client_gender);
         int villageNoI = c.getColumnIndex(client_village_no);
         int villageLocationI = c.getColumnIndex(client_location);
+        int latitudeI = c.getColumnIndex(client_latitude);
+        int longitudeI = c.getColumnIndex(client_longitude);
         int contactI = c.getColumnIndex(client_contact);
         int caregiverPresentI = c.getColumnIndex(client_caregiver_presence);
+        int photoI = c.getColumnIndex(client_photo);
         int caregiverNumI = c.getColumnIndex(client_caregiver_number);
         int disabilityI = c.getColumnIndex(client_disability);
         int healthRateI = c.getColumnIndex(client_heath_rate);
@@ -103,6 +101,7 @@ public class ClientManager implements Iterable<Client>{
         int socialRateI = c.getColumnIndex(client_social_rate);
         int socialReqI = c.getColumnIndex(client_social_requirement);
         int socialGoalI = c.getColumnIndex(client_social_goal);
+        int client_worker_idI = c.getColumnIndex(client_worker_id);
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
 
@@ -115,9 +114,12 @@ public class ClientManager implements Iterable<Client>{
             String gender = c.getString(genderI);
             String location = c.getString(villageLocationI);
             int villageNumber = c.getInt(villageNoI);
+            double latitude = c.getDouble(latitudeI);
+            double longitude = c.getDouble(longitudeI);
             String contactPhoneNumber = c.getString(contactI);
             Boolean caregiverPresent = (c.getInt(caregiverPresentI) > 0);
             String caregiverPhoneNumber = c.getString(caregiverNumI);
+            byte[] photo = c.getBlob(photoI);
             ArrayList<String> disabilities = new ArrayList<>(Arrays.asList(c.getString(disabilityI).split(",")));
             String healthRate = c.getString(healthRateI);
             String healthRequire = c.getString(healthReqI);
@@ -128,11 +130,12 @@ public class ClientManager implements Iterable<Client>{
             String socialStatusRate = c.getString(socialRateI);
             String socialStatusRequire = c.getString(socialReqI);
             String socialStatusIndividualGoal = c.getString(socialGoalI);
+            int workerId = c.getInt(client_worker_idI);
 
             Client newClient = new Client(consent, date, firstName, lastName, age, gender, location,
-                    villageNumber, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber, disabilities,
+                    villageNumber, latitude, longitude, contactPhoneNumber, caregiverPresent, caregiverPhoneNumber,photo, disabilities,
                     healthRate, healthRequire, healthIndividualGoal, educationRate, educationRequire,
-                    educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal);
+                    educationIndividualGoal, socialStatusRate, socialStatusRequire, socialStatusIndividualGoal, workerId, 0);
 
             newClient.setId(id);
 

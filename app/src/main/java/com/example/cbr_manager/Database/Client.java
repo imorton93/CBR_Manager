@@ -1,5 +1,7 @@
 package com.example.cbr_manager.Database;
 
+import android.renderscript.Double4;
+
 import java.util.ArrayList;
 
 public class Client implements Comparable<Client>{
@@ -14,10 +16,13 @@ public class Client implements Comparable<Client>{
     private String gender;
     private String location;
     private int villageNumber = -1;
+    private double latitude;
+    private double longitude;
     private String contactPhoneNumber;
     private Boolean caregiverPresent;
     private String caregiverPhoneNumber;
     private ArrayList<String> disabilities = new ArrayList<>();
+    private String otherExplanation;
     private String healthRate;
     private String healthRequire;
     private String healthIndividualGoal;
@@ -25,16 +30,28 @@ public class Client implements Comparable<Client>{
     private String educationRequire;
     private String educationIndividualGoal;
     private String socialStatusRate;
+    private int client_worker_id;
+
+    private byte[] photo;
+
     private String socialStatusRequire;
     private String socialStatusIndividualGoal;
+
     private int priority = 0; // For dashboard to calculate priority of a client
 
+    private int isSynced = 0; // default 0, changes to 1 when sent to server
+
+
+
+
     public Client(Boolean consentToInterview, String date, String firstName, String lastName,
-                  int age, String gender, String location, int villageNumber, String contactPhoneNumber,
-                  Boolean caregiverPresent, String caregiverPhoneNumber, ArrayList<String> disabilities,
+
+                  int age, String gender, String location, int villageNumber, double latitude, double longitude, String contactPhoneNumber,
+                  Boolean caregiverPresent, String caregiverPhoneNumber, byte[] photo, ArrayList<String> disabilities,
                   String healthRate, String healthRequire, String healthIndividualGoal, String educationRate,
                   String educationRequire, String educationIndividualGoal, String socialStatusRate,
-                  String socialStatusRequire, String socialStatusIndividualGoal) {
+                  String socialStatusRequire, String socialStatusIndividualGoal, int client_worker_id, int isSynced) {
+
         this.consentToInterview = consentToInterview;
         this.date = date;
         this.firstName = firstName;
@@ -43,6 +60,8 @@ public class Client implements Comparable<Client>{
         this.gender = gender;
         this.location = location;
         this.villageNumber = villageNumber;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.contactPhoneNumber = contactPhoneNumber;
         this.caregiverPresent = caregiverPresent;
         this.caregiverPhoneNumber = caregiverPhoneNumber;
@@ -56,9 +75,20 @@ public class Client implements Comparable<Client>{
         this.socialStatusRate = socialStatusRate;
         this.socialStatusRequire = socialStatusRequire;
         this.socialStatusIndividualGoal = socialStatusIndividualGoal;
+        this.client_worker_id = client_worker_id;
+        this.photo = photo;
+        this.isSynced = isSynced;
     }
 
     public Client() {
+    }
+
+    public String getOtherExplanation() {
+        return otherExplanation;
+    }
+
+    public void setOtherExplanation(String otherExplanation) {
+        this.otherExplanation = otherExplanation;
     }
 
     public long getId() {
@@ -165,6 +195,10 @@ public class Client implements Comparable<Client>{
         disabilities.clear();
     }
 
+    public void setDisabilities(ArrayList<String> disabilities) {
+        this.disabilities = disabilities;
+    }
+
     public ArrayList<String> getDisabilities() {
         return this.disabilities;
 
@@ -248,6 +282,13 @@ public class Client implements Comparable<Client>{
         this.socialStatusIndividualGoal = socialStatusIndividualGoal;
     }
 
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
     public int getPriority() {
         return priority;
     }
@@ -259,5 +300,39 @@ public class Client implements Comparable<Client>{
     @Override
     public int compareTo(Client client) {
         return Integer.compare(this.priority, client.getPriority());
+
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public int getIsSynced() {
+        return isSynced;
+    }
+
+    public void setIsSynced(int isSynced) {
+        this.isSynced = isSynced;
+    }
+
+    public int getClient_worker_id() {
+        return client_worker_id;
+    }
+
+    public void setClient_worker_id(int client_worker_id) {
+        this.client_worker_id = client_worker_id;
     }
 }
+

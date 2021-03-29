@@ -3,15 +3,25 @@ package com.example.cbr_manager.Database;
 public class CBRWorker {
     private String firstName;
     private String lastName;
-    private String email;
+    private String username;
     private String password;
     private int id;
+    private boolean is_admin;
 
-    public CBRWorker(String firstName, String lastName, String email, String password) {
+    public CBRWorker(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.username = username;
         this.password = password;
+        is_admin = false;
+    }
+
+    public CBRWorker(String firstName, String lastName, String username, String password, boolean is_admin) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.is_admin = is_admin;
     }
 
     public CBRWorker(){
@@ -33,12 +43,12 @@ public class CBRWorker {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -60,4 +70,13 @@ public class CBRWorker {
     public int getId() {
         return id;
     }
+
+    public void setIs_admin(boolean a){
+        is_admin = a;
+    }
+
+    public boolean getIs_admin() {
+        return is_admin;
+    }
+
 }

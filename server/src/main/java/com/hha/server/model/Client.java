@@ -1,234 +1,354 @@
 package com.hha.server.model;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "CLIENT_DATA")
 public class Client {
-    //Saved answers to questions
-    //all open to change depending on saving to database
-    private Boolean consentToInterview;
-    private String date;
-    private String firstName;
-    private String lastName;
-    private int age = -1;
-    private String gender;
-    private String location;
-    private int villageNumber = -1;
-    private String contactPhoneNumber;
-    private Boolean caregiverPresent;
-    private String caregiverPhoneNumber;
-    private ArrayList<String> disabilities = new ArrayList<>();
-    private String healthRate;
-    private String healthRequire;
-    private String healthIndividualGoal;
-    private String educationRate;
-    private String educationRequire;
-    private String educationIndividualGoal;
-    private String socialStatusRate;
+    @Id
+    @Column
+    @JsonProperty("ID")
+    private String ID;
 
-    public Client(Boolean consentToInterview, String date, String firstName, String lastName, int age, String gender, String location, int villageNumber, String contactPhoneNumber, Boolean caregiverPresent, String caregiverPhoneNumber, ArrayList<String> disabilities, String healthRate, String healthRequire, String healthIndividualGoal, String educationRate, String educationRequire, String educationIndividualGoal, String socialStatusRate, String socialStatusRequire, String socialStatusIndividualGoal) {
-        this.consentToInterview = consentToInterview;
-        this.date = date;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.gender = gender;
-        this.location = location;
-        this.villageNumber = villageNumber;
-        this.contactPhoneNumber = contactPhoneNumber;
-        this.caregiverPresent = caregiverPresent;
-        this.caregiverPhoneNumber = caregiverPhoneNumber;
-        this.disabilities = disabilities;
-        this.healthRate = healthRate;
-        this.healthRequire = healthRequire;
-        this.healthIndividualGoal = healthIndividualGoal;
-        this.educationRate = educationRate;
-        this.educationRequire = educationRequire;
-        this.educationIndividualGoal = educationIndividualGoal;
-        this.socialStatusRate = socialStatusRate;
-        this.socialStatusRequire = socialStatusRequire;
-        this.socialStatusIndividualGoal = socialStatusIndividualGoal;
+    @Column
+    @JsonProperty("CONSENT")
+    private String CONSENT;
+
+    @Column
+    @JsonProperty("DATE")
+    private String DATE;
+
+    @Column
+    @JsonProperty("FIRST_NAME")
+    private String FIRST_NAME;
+
+    @Column
+    @JsonProperty("LAST_NAME")
+    private String LAST_NAME;
+
+    @Column
+    @JsonProperty("AGE")
+    private String AGE;
+
+    @Column
+    @JsonProperty("GENDER")
+    private String GENDER;
+
+    @Column
+    @JsonProperty("LOCATION")
+    private String LOCATION;
+
+    @Column
+    @JsonProperty("VILLAGE_NUMBER")
+    private String VILLAGE_NUMBER;
+
+    @Column
+    @JsonProperty("CONTACT")
+    private String CONTACT;
+
+    @Column
+    @JsonProperty("CAREGIVER_PRESENCE")
+    private String CAREGIVER_PRESENCE;
+
+    @Column
+    @JsonProperty("CAREGIVER_NUMBER")
+    private String CAREGIVER_NUMBER;
+
+    @Column
+    @JsonProperty("DISABILITY")
+    private String DISABILITY;
+
+    @Column
+    @JsonProperty("HEALTH_RATE")
+    private String HEALTH_RATE;
+
+    @Column
+    @JsonProperty("HEALTH_REQUIREMENT")
+    private String HEALTH_REQUIREMENT;
+
+    @Column
+    @JsonProperty("HEALTH_GOAL")
+    private String HEALTH_GOAL;
+
+    @Column
+    @JsonProperty("EDUCATION_RATE")
+    private String EDUCATION_RATE;
+
+    @Column
+    @JsonProperty("EDUCATION_REQUIRE")
+    private String EDUCATION_REQUIRE;
+
+    @Column
+    @JsonProperty("EDUCATION_GOAL")
+    private String EDUCATION_GOAL;
+
+    @Column
+    @JsonProperty("SOCIAL_RATE")
+    private String SOCIAL_RATE;
+
+    @Column
+    @JsonProperty("SOCIAL_REQUIREMENT")
+    private String SOCIAL_REQUIREMENT;
+
+    @Column
+    @JsonProperty("SOCIAL_GOAL")
+    private String SOCIAL_GOAL;
+
+    @Column
+    @JsonProperty("LATITUDE")
+    private String LATITUDE;
+
+    @Column
+    @JsonProperty("LONGITUDE")
+    private String LONGITUDE;
+
+    @Column
+    @JsonProperty("WORKER_ID")
+    private String WORKER_ID;
+
+    @Column
+    @JsonProperty("IS_SYNCED")
+    private String IS_SYNCED;
+
+
+    public Client() {}
+
+    public Client(String ID, String CONSENT, String DATE, String FIRST_NAME, String LAST_NAME, String AGE, String GENDER, String LOCATION, String VILLAGE_NUMBER, String CONTACT, String CAREGIVER_PRESENCE, String CAREGIVER_NUMBER, String DISABILITY, String HEALTH_RATE, String HEALTH_REQUIREMENT, String HEALTH_GOAL, String EDUCATION_RATE, String EDUCATION_REQUIRE, String EDUCATION_GOAL, String SOCIAL_RATE, String SOCIAL_REQUIREMENT, String SOCIAL_GOAL, String LATITUDE, String LONGITUDE, String WORKER_ID, String IS_SYNCED) {
+        this.ID = ID;
+        this.CONSENT = CONSENT;
+        this.DATE = DATE;
+        this.FIRST_NAME = FIRST_NAME;
+        this.LAST_NAME = LAST_NAME;
+        this.AGE = AGE;
+        this.GENDER = GENDER;
+        this.LOCATION = LOCATION;
+        this.VILLAGE_NUMBER = VILLAGE_NUMBER;
+        this.CONTACT = CONTACT;
+        this.CAREGIVER_PRESENCE = CAREGIVER_PRESENCE;
+        this.CAREGIVER_NUMBER = CAREGIVER_NUMBER;
+        this.DISABILITY = DISABILITY;
+        this.HEALTH_RATE = HEALTH_RATE;
+        this.HEALTH_REQUIREMENT = HEALTH_REQUIREMENT;
+        this.HEALTH_GOAL = HEALTH_GOAL;
+        this.EDUCATION_RATE = EDUCATION_RATE;
+        this.EDUCATION_REQUIRE = EDUCATION_REQUIRE;
+        this.EDUCATION_GOAL = EDUCATION_GOAL;
+        this.SOCIAL_RATE = SOCIAL_RATE;
+        this.SOCIAL_REQUIREMENT = SOCIAL_REQUIREMENT;
+        this.SOCIAL_GOAL = SOCIAL_GOAL;
+        this.LATITUDE = LATITUDE;
+        this.LONGITUDE = LONGITUDE;
+        this.WORKER_ID = WORKER_ID;
+        this.IS_SYNCED = IS_SYNCED;
     }
 
-    private String socialStatusRequire;
-    private String socialStatusIndividualGoal;
-
-    public Client() {
+    public String getID() {
+        return ID;
     }
 
-    public Boolean getConsentToInterview() {
-        return consentToInterview;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    public void setConsentToInterview(Boolean consentToInterview) {
-        this.consentToInterview = consentToInterview;
+    public String getCONSENT() {
+        return CONSENT;
     }
 
-    public String getDate() {
-        return date;
+    public void setCONSENT(String CONSENT) {
+        this.CONSENT = CONSENT;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getDATE() {
+        return DATE;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setDATE(String DATE) {
+        this.DATE = DATE;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getFIRST_NAME() {
+        return FIRST_NAME;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setFIRST_NAME(String FIRST_NAME) {
+        this.FIRST_NAME = FIRST_NAME;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getLAST_NAME() {
+        return LAST_NAME;
     }
 
-    public int getAge() {
-        return age;
+    public void setLAST_NAME(String LAST_NAME) {
+        this.LAST_NAME = LAST_NAME;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public String getAGE() {
+        return AGE;
     }
 
-    public String getGender() {
-        return gender;
+    public void setAGE(String AGE) {
+        this.AGE = AGE;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public String getGENDER() {
+        return GENDER;
     }
 
-    public String getLocation() {
-        return location;
+    public void setGENDER(String GENDER) {
+        this.GENDER = GENDER;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getLOCATION() {
+        return LOCATION;
     }
 
-    public int getVillageNumber() {
-        return villageNumber;
+    public void setLOCATION(String LOCATION) {
+        this.LOCATION = LOCATION;
     }
 
-    public void setVillageNumber(int villageNumber) {
-        this.villageNumber = villageNumber;
+    public String getVILLAGE_NUMBER() {
+        return VILLAGE_NUMBER;
     }
 
-    public String getContactPhoneNumber() {
-        return contactPhoneNumber;
+    public void setVILLAGE_NUMBER(String VILLAGE_NUMBER) {
+        this.VILLAGE_NUMBER = VILLAGE_NUMBER;
     }
 
-    public void setContactPhoneNumber(String contactPhoneNumber) {
-        this.contactPhoneNumber = contactPhoneNumber;
+    public String getCONTACT() {
+        return CONTACT;
     }
 
-    public Boolean getCaregiverPresent() {
-        return caregiverPresent;
+    public void setCONTACT(String CONTACT) {
+        this.CONTACT = CONTACT;
     }
 
-    public void setCaregiverPresent(Boolean caregiverPresent) {
-        this.caregiverPresent = caregiverPresent;
+    public String getCAREGIVER_PRESENCE() {
+        return CAREGIVER_PRESENCE;
     }
 
-    public String getCaregiverPhoneNumber() {
-        return caregiverPhoneNumber;
+    public void setCAREGIVER_PRESENCE(String CAREGIVER_PRESENCE) {
+        this.CAREGIVER_PRESENCE = CAREGIVER_PRESENCE;
     }
 
-    public void setCaregiverPhoneNumber(String caregiverPhoneNumber) {
-        this.caregiverPhoneNumber = caregiverPhoneNumber;
+    public String getCAREGIVER_NUMBER() {
+        return CAREGIVER_NUMBER;
     }
 
-    public void addToDisabilities(String disability){
-        disabilities.add(disability);
+    public void setCAREGIVER_NUMBER(String CAREGIVER_NUMBER) {
+        this.CAREGIVER_NUMBER = CAREGIVER_NUMBER;
     }
 
-    public void clearDisabilities(){
-        disabilities.clear();
+    public String getDISABILITY() {
+        return DISABILITY;
     }
 
-    public ArrayList<String> getDisabilities() {
-        return this.disabilities;
-
+    public void setDISABILITY(String DISABILITY) {
+        this.DISABILITY = DISABILITY;
     }
 
-    public Boolean isDisabilitiesEmpty(){
-        return disabilities.isEmpty();
+    public String getHEALTH_RATE() {
+        return HEALTH_RATE;
     }
 
-    public String getHealthRate() {
-        return healthRate;
+    public void setHEALTH_RATE(String HEALTH_RATE) {
+        this.HEALTH_RATE = HEALTH_RATE;
     }
 
-    public void setHealthRate(String healthRate) {
-        this.healthRate = healthRate;
+    public String getHEALTH_REQUIREMENT() {
+        return HEALTH_REQUIREMENT;
     }
 
-    public String getHealthRequire() {
-        return healthRequire;
+    public void setHEALTH_REQUIREMENT(String HEALTH_REQUIREMENT) {
+        this.HEALTH_REQUIREMENT = HEALTH_REQUIREMENT;
     }
 
-    public void setHealthRequire(String healthRequire) {
-        this.healthRequire = healthRequire;
+    public String getHEALTH_GOAL() {
+        return HEALTH_GOAL;
     }
 
-    public String getHealthIndividualGoal() {
-        return healthIndividualGoal;
+    public void setHEALTH_GOAL(String HEALTH_GOAL) {
+        this.HEALTH_GOAL = HEALTH_GOAL;
     }
 
-    public void setHealthIndividualGoal(String healthIndividualGoal) {
-        this.healthIndividualGoal = healthIndividualGoal;
+    public String getEDUCATION_RATE() {
+        return EDUCATION_RATE;
     }
 
-    public String getEducationRate() {
-        return educationRate;
+    public void setEDUCATION_RATE(String EDUCATION_RATE) {
+        this.EDUCATION_RATE = EDUCATION_RATE;
     }
 
-    public void setEducationRate(String educationRate) {
-        this.educationRate = educationRate;
+    public String getEDUCATION_REQUIRE() {
+        return EDUCATION_REQUIRE;
     }
 
-    public String getEducationRequire() {
-        return educationRequire;
+    public void setEDUCATION_REQUIRE(String EDUCATION_REQUIRE) {
+        this.EDUCATION_REQUIRE = EDUCATION_REQUIRE;
     }
 
-    public void setEducationRequire(String educationRequire) {
-        this.educationRequire = educationRequire;
+    public String getEDUCATION_GOAL() {
+        return EDUCATION_GOAL;
     }
 
-    public String getEducationIndividualGoal() {
-        return educationIndividualGoal;
+    public void setEDUCATION_GOAL(String EDUCATION_GOAL) {
+        this.EDUCATION_GOAL = EDUCATION_GOAL;
     }
 
-    public void setEducationIndividualGoal(String educationIndividualGoal) {
-        this.educationIndividualGoal = educationIndividualGoal;
+    public String getSOCIAL_RATE() {
+        return SOCIAL_RATE;
     }
 
-    public String getSocialStatusRate() {
-        return socialStatusRate;
+    public void setSOCIAL_RATE(String SOCIAL_RATE) {
+        this.SOCIAL_RATE = SOCIAL_RATE;
     }
 
-    public void setSocialStatusRate(String socialStatusRate) {
-        this.socialStatusRate = socialStatusRate;
+    public String getSOCIAL_REQUIREMENT() {
+        return SOCIAL_REQUIREMENT;
     }
 
-    public String getSocialStatusRequire() {
-        return socialStatusRequire;
+    public void setSOCIAL_REQUIREMENT(String SOCIAL_REQUIREMENT) {
+        this.SOCIAL_REQUIREMENT = SOCIAL_REQUIREMENT;
     }
 
-    public void setSocialStatusRequire(String socialStatusRequire) {
-        this.socialStatusRequire = socialStatusRequire;
+    public String getSOCIAL_GOAL() {
+        return SOCIAL_GOAL;
     }
 
-    public String getSocialStatusIndividualGoal() {
-        return socialStatusIndividualGoal;
+    public void setSOCIAL_GOAL(String SOCIAL_GOAL) {
+        this.SOCIAL_GOAL = SOCIAL_GOAL;
     }
 
-    public void setSocialStatusIndividualGoal(String socialStatusIndividualGoal) {
-        this.socialStatusIndividualGoal = socialStatusIndividualGoal;
+    public String getLATITUDE() {
+        return LATITUDE;
+    }
+
+    public void setLATITUDE(String LATITUDE) {
+        this.LATITUDE = LATITUDE;
+    }
+
+    public String getLONGITUDE() {
+        return LONGITUDE;
+    }
+
+    public void setLONGITUDE(String LONGITUDE) {
+        this.LONGITUDE = LONGITUDE;
+    }
+
+    public String getWORKER_ID() {
+        return WORKER_ID;
+    }
+
+    public void setWORKER_ID(String WORKER_ID) {
+        this.WORKER_ID = WORKER_ID;
+    }
+
+    public String getIS_SYNCED() {
+        return IS_SYNCED;
+    }
+
+    public void setIS_SYNCED(String IS_SYNCED) {
+        this.IS_SYNCED = IS_SYNCED;
     }
 }

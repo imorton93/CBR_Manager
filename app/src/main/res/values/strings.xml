@@ -1,4 +1,35 @@
 <resources>
+    <array name="purposeVisitChoices">
+        <item>CBR</item>
+        <item>Disability Centre Referral</item>
+        <item>Disability Centre Referral Follow Up</item>
+    </array>
+    <array name="ifCBRChoices">
+        <item>Health</item>
+        <item>Education</item>
+        <item>Social</item>
+    </array>
+    <array name="healthProvidedChoices">
+        <item>Wheelchair</item>
+        <item>Prosthetic</item>
+        <item>Orthotic</item>
+        <item>Wheelchair Repairs</item>
+        <item>Referral to Health Centre</item>
+        <item>Advice</item>
+        <item>Advocacy</item>
+        <item>Encouragement</item>
+    </array>
+    <array name="educationSocialProvidedChoices">
+        <item>Advice</item>
+        <item>Advocacy</item>
+        <item>Referral to other Org</item>
+        <item>Encouragement</item>
+    </array>
+    <array name="goalMetChoices">
+        <item>Cancelled</item>
+        <item>Ongoing</item>
+        <item>Concluded</item>
+    </array>
     <string name="app_name">CBR_Manager</string>
     <string name="community_based_rehab_manager">Community Based Rehab Manager</string>
     <string name="enter_username">Enter Username</string>
@@ -6,13 +37,13 @@
     <string name="login">Login</string>
     <string name="don_t_have_an_account_sign_up_here">Don\'t have an account? sign up here.</string>
     <string name="hopehealthactionlogo">HopeHealthActionLogo</string>
+
+    <!--    New Client Form Questions-->
     <string name="new_client">New Client</string>
     <string name="referral">Referral</string>
     <string name="all_clients">All Clients</string>
     <string name="dashboard">Dashboard</string>
     <string name="sync">Sync</string>
-
-    <!--    New Client Form Questions-->
     <string name="consent_newClientForm">Consent to Interview*:</string>
     <string name="date_newClientForm">Select Date*:</string>
     <string name="location_newClientForm">Location*:</string>
@@ -27,50 +58,13 @@
     <string name="photo_newClientForm">Photo of Client and Caregiver(request consent before taking photo)*</string>
     <string name="disabilityType_newClientForm">Type of Disability*:</string>
     <string name="healthRate_newClientForm">Please rate how you consider the clients health to be*:</string>
+
+    <!--    Answers-->
     <string name="educationStatus_newClientForm">Please rate how you consider the client\'s education status to be*:</string>
     <string name="socialStatus_newClientForm">Please rate how you consider the client\'s social status to be*:</string>
     <string name="require_newClientForm">Please Describe what they require*:</string>
     <string name="individualGoal_newClientForm">Set individual goal*:</string>
     <string name="finish">Finish</string>
-
-    <!--    Answers-->
-    <string-array name="yes_no_answer">
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
-    <string-array name="locations">
-        <item>BidiBidi Zone 1</item>
-        <item>BidiBidi Zone 2</item>
-        <item>BidiBidi Zone 3</item>
-        <item>BidiBidi Zone 4</item>
-        <item>BidiBidi Zone 5</item>
-        <item>Palorinya Basecamp</item>
-        <item>Palorinya Zone 1</item>
-        <item>Palorinya Zone 2</item>
-        <item>Palorinya Zone 3</item>
-    </string-array>
-    <string-array name="gender">
-        <item>Male</item>
-        <item>Female</item>
-    </string-array>
-    <string-array name="disability_types">
-        <item>Amputee</item>
-        <item>Polio</item>
-        <item>Spinal Cord Injury</item>
-        <item>Cerebral Palsy</item>
-        <item>Spina Bifida</item>
-        <item>Hydrocephalus</item>
-        <item>Visual Impairment</item>
-        <item>Hearing Impairment</item>
-        <item>Don\'t Know</item>
-        <item>Other</item>
-    </string-array>
-    <string-array name="risk_type">
-        <item>Critical Risk</item>
-        <item>High Risk</item>
-        <item>Medium Risk</item>
-        <item>Low Risk</item>
-    </string-array>
 
 
     <!--    tags new client form-->
@@ -135,44 +129,13 @@
     <string name="explain_newVisitForm">Explain Further</string>
 
     <!--    new visit answers-->
-    <array name="purposeVisitChoices">
-        <item>CBR</item>
-        <item>Disability Centre Referral</item>
-        <item>Disability Centre Referral Follow Up</item>
-    </array>
-    <array name="ifCBRChoices">
-        <item>Health</item>
-        <item>Education</item>
-        <item>Social</item>
-    </array>
-    <array name="healthProvidedChoices">
-        <item>Wheelchair</item>
-        <item>Prosthetic</item>
-        <item>Orthotic</item>
-        <item>Wheelchair Repairs</item>
-        <item>Referral to Health Centre</item>
-        <item>Advice</item>
-        <item>Advocacy</item>
-        <item>Encouragement</item>
-    </array>
-    <array name="educationSocialProvidedChoices">
-        <item>Advice</item>
-        <item>Advocacy</item>
-        <item>Referral to other Org</item>
-        <item>Encouragement</item>
-    </array>
-    <array name="goalMetChoices">
-        <item>Cancelled</item>
-        <item>Ongoing</item>
-        <item>Concluded</item>
-    </array>
-
-    <!--    new visit tags-->
     <string name="purposeOfVisit">purposeOfVisit</string>
     <string name="ifCBR">ifCBR</string>
     <string name="healthProvided">healthProvided</string>
     <string name="healthGoalMet">healthGoalMet</string>
     <string name="healthIfConcluded">healthConcluded</string>
+
+    <!--    new visit tags-->
     <string name="educationProvided">educationProvided</string>
     <string name="educationGoalMet">educationGoalMet</string>
     <string name="educationIfConcluded">educationConcluded</string>
@@ -181,4 +144,102 @@
     <string name="socialIfConcluded">socialIfConcluded</string>
     <string name="baseline_survey">Baseline Survey</string>
     <string name="sign_up">SIGN UP</string>
+
+    <!--    new referral questions-->
+    <string name="serviceRequireQuestion_newReferralForm">What service does the client require?*</string>
+    <string name="photoQuestion_newReferralForm">Take a photo of the client and any existing assistive device.</string>
+    <string name="typeUserQuestion_newReferralForm">Is the user a basic or intermediate user?*</string>
+    <string name="hipWidthQuestion_newReferralForm">What is the client\'s hip width in inches?*</string>
+    <string name="existingChairQuestion_newReferralForm">Do they have an existing wheelchair?*</string>
+    <string name="repairedQuestion_newReferralForm">If yes, can the existing wheelchair be repaired?</string>
+    <string name="bringCenter_newReferralForm">Bring wheelchair to the centre.</string>
+    <string name="clientConditionQuestion_newReferralForm">What condition does the client have?*</string>
+    <string name="conditionOtherExplanation_newReferralForm">If Other, explain further:</string>
+    <string name="injuryLocationKneeQuestion_newReferralForm">Is the injury below or above the knee?*</string>
+    <string name="injuryLocationElbowQuestion_newReferralForm">Is the injury below or above the elbow?*</string>
+    <string name="pleaseDescribe_newReferralForm">Please Describe:*</string>
+
+    <!--    new referral answers-->
+    <array name="serviceType">
+        <item>Physiotherapy</item>
+        <item>Prosthetic</item>
+        <item>Orthotic</item>
+        <item>Wheelchair</item>
+        <item>Other</item>
+    </array>
+    <array name="basicIntermediate">
+        <item>Basic</item>
+        <item>Intermediate</item>
+    </array>
+    <array name="physioConditionType">
+        <item>Amputee</item>
+        <item>Polio</item>
+        <item>Spinal Cord Injury</item>
+        <item>Cerebral Palsy</item>
+        <item>Spina Bifida</item>
+        <item>Hydrocephalus</item>
+        <item>Visual Impairment</item>
+        <item>Hearing Impairment</item>
+        <item>Other</item>
+    </array>
+    <array name="aboveBelow">
+        <item>Above</item>
+        <item>Below</item>
+    </array>
+
+    <!--    new referral tags-->
+    <string name="serviceRequire">serviceRequire</string>
+    <string name="photoWheelchair">photoWheelchair</string>
+    <string name="basicIntermediateUser">basicIntermediateUser</string>
+    <string name="hipWidth">hipWidth</string>
+    <string name="existingChair">existingChair</string>
+    <string name="repairChair">repairChair</string>
+    <string name="photoPhysio">photoPhysio</string>
+    <string name="clientCondition">clientCondition</string>
+    <string name="injuryLocation">injuryLocation</string>
+    <string name="otherDescribe">otherDescribe</string>
+    <string name="otherConditionDescribe">otherConditionDescribe</string>
+    <string name="other">Other</string>
+
+    <string name="search_for_client">Search For Client</string>
+    <string name="title_activity_maps">Map</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="yes_no_answer">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="locations">
+        <item>BidiBidi Zone 1</item>
+        <item>BidiBidi Zone 2</item>
+        <item>BidiBidi Zone 3</item>
+        <item>BidiBidi Zone 4</item>
+        <item>BidiBidi Zone 5</item>
+        <item>Palorinya Basecamp</item>
+        <item>Palorinya Zone 1</item>
+        <item>Palorinya Zone 2</item>
+        <item>Palorinya Zone 3</item>
+    </string-array>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="disability_types">
+        <item>Amputee</item>
+        <item>Polio</item>
+        <item>Spinal Cord Injury</item>
+        <item>Cerebral Palsy</item>
+        <item>Spina Bifida</item>
+        <item>Hydrocephalus</item>
+        <item>Visual Impairment</item>
+        <item>Hearing Impairment</item>
+        <item>Don\'t Know</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="risk_type">
+        <item>Critical Risk</item>
+        <item>High Risk</item>
+        <item>Medium Risk</item>
+        <item>Low Risk</item>
+    </string-array>
 </resources>

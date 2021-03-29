@@ -1,15 +1,13 @@
 package com.example.cbr_manager.UI.clientInfoFragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,14 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.cbr_manager.Database.Client;
-import com.example.cbr_manager.Database.ClientManager;
-import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
-import com.example.cbr_manager.UI.ClientListActivity;
 import com.example.cbr_manager.UI.VisitInfoActivity;
 
 import java.util.List;
@@ -106,11 +100,42 @@ public class VisitsFragment extends Fragment {
 
             TextView date = view.findViewById(R.id.dateOfVisit);
             TextView purpose = view.findViewById(R.id.purpose_vlist);
+            TextView outcome = view.findViewById(R.id.outcome_vlist);
 
-            date.setText(currentVisit.getDate());
-            purpose.setText(currentVisit.getPurposeOfVisit());
+            String dateOfVisit = "<b>" + currentVisit.getDate() + "</b>";
+            String purposeOfVisit = "<b>Purpose of Visit:</b> " + currentVisit.getPurposeOfVisit();
+
+            date.setText(Html.fromHtml(dateOfVisit));
+            purpose.setText(Html.fromHtml(purposeOfVisit));
+            outcome.setText(Html.fromHtml(getOutcome(currentVisit)));
 
             return view;
+        }
+
+        private String getOutcome(Visit currentVisit){
+            String healthOutcome = "<b>Health Outcome:</b> ";
+            String educationOutcome = "<b>Education Outcome:</b> ";
+            String socialOutcome = "<b>Social Status Outcome:</b> ";
+
+            if (currentVisit.getHealthGoalMet().equals("Concluded")) {
+                healthOutcome += currentVisit.getHealthIfConcluded();
+            } else {
+                healthOutcome += currentVisit.getHealthGoalMet();
+            }
+
+            if (currentVisit.getSocialGoalMet().equals("Concluded")) {
+                socialOutcome += currentVisit.getSocialIfConcluded();
+            } else {
+                socialOutcome += currentVisit.getSocialGoalMet();
+            }
+
+            if (currentVisit.getEducationGoalMet().equals("Concluded")) {
+                educationOutcome += currentVisit.getEducationIfConcluded();
+            } else {
+                educationOutcome += currentVisit.getEducationGoalMet();
+            }
+
+            return healthOutcome + "<br>" + educationOutcome + "<br>" + socialOutcome;
         }
     }
 }
