@@ -32,20 +32,15 @@ public class DashboardFragment extends Fragment {
 
     private ClientManager clientManager;
     private List<Client> priority_clients;
-    private Button statistics_button;
-    private DatabaseHelper mydb;
     private DashboardActivity dashboardActivity;
-    private String current_username;
-
 
     public DashboardFragment() {
         // Required empty public constructor
     }
 
-    public static DashboardFragment newInstance(String current_username) {
+    public static DashboardFragment newInstance() {
         DashboardFragment fragment = new DashboardFragment();
         Bundle args = new Bundle();
-        args.putString("Worker Username", current_username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,40 +55,18 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         this.dashboardActivity = (DashboardActivity)getActivity();
         clientManager = ClientManager.getInstance(dashboardActivity);
-        mydb = new DatabaseHelper(dashboardActivity);
 
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        Bundle args = getArguments();
-        this.current_username = args.getString("current_username", "");
 
         sectionDropDownMenu(v);
         villageDropDownMenu(v);
 
         this.priority_clients = this.clientManager.getHighPriorityClients();
         populateAllClientsFromList(priority_clients, v);
-
         clickClient(v);
         dashboardSearchBoxes(v);
-        StatisticsButton(v);
 
         return v;
-    }
-
-    private void StatisticsButton(View v) {
-
-        statistics_button = v.findViewById(R.id.statistics_button);
-        statistics_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!mydb.isAdmin(current_username)){
-                    Toast.makeText(dashboardActivity, "Access Not Allowed", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                   /* Intent intent = StatisticsActivity.makeIntent(DashboardActivity.this);
-                    startActivity(intent);*/
-                }
-            }
-        });
     }
 
     private void sectionDropDownMenu(View v){

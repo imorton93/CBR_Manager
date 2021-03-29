@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/hopeHealthActionImage">
 
         <EditText
-            android:id="@+id/firstnameTextBox"
+            android:id="@+id/titleTextBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
@@ -56,7 +56,7 @@
             app:layout_constraintHorizontal_bias="0.497" />
 
         <EditText
-            android:id="@+id/lastnameTextBox"
+            android:id="@+id/dateTextBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
@@ -67,7 +67,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/emailTextBox"
+            android:id="@+id/locationTextBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
@@ -79,7 +79,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lastnameTextBox" />
+            app:layout_constraintTop_toBottomOf="@+id/dateTextBox" />
 
         <EditText
             android:id="@+id/password1TextBox"
@@ -94,11 +94,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailTextBox" />
+            app:layout_constraintTop_toBottomOf="@+id/locationTextBox" />
 
 
         <EditText
-            android:id="@+id/password2TextBox"
+            android:id="@+id/messageTextBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
@@ -126,7 +126,7 @@
             app:backgroundTint="#02FDDF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/submitButton"
-            app:layout_constraintTop_toBottomOf="@+id/password2TextBox" />
+            app:layout_constraintTop_toBottomOf="@+id/messageTextBox" />
 
         <Button
             android:id="@+id/submitButton"

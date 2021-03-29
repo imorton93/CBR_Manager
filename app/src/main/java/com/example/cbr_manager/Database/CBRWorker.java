@@ -16,6 +16,14 @@ public class CBRWorker {
         is_admin = false;
     }
 
+    public CBRWorker(String firstName, String lastName, String username, String password, boolean is_admin) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.is_admin = is_admin;
+    }
+
     public CBRWorker(){
     }
 
