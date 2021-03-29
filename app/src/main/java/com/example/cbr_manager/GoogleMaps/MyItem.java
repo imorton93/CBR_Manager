@@ -2,7 +2,7 @@ package com.example.cbr_manager.GoogleMaps;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class MyItem implements ClusterItem {
+public class MyItem implements ClusterItem, com.google.maps.android.clustering.ClusterItem {
     private final LatLng position;
     private final String title;
     private final String snippet;

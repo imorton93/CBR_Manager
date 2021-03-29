@@ -6,8 +6,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.cbr_manager.GoogleMaps.ClusterManager;
-import com.example.cbr_manager.GoogleMaps.MyItem;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.clientListFragment.MapsFragment;
 

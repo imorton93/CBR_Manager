@@ -2,14 +2,12 @@ package com.example.cbr_manager.UI.clientListFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,23 +15,23 @@ import android.widget.Toast;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
+import com.example.cbr_manager.GoogleMaps.MyItem;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientListActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     GoogleMap mMap;
-
     private ClientListActivity clientListActivity;
     private ClientManager clientManager;
+    private ClusterManager<MyItem> clusterManager;
 
     @Nullable
     @Override
@@ -84,7 +82,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setAllGesturesEnabled(true);
         mMap.getUiSettings().setScrollGesturesEnabled(true);
 
-        // For zooming automatically to the location of the marker
+        setUpClusterer();
+    }
+
+    private void setUpClusterer() {
+        clusterManager = new ClusterManager<>(clientListActivity, mMap);
+        mMap.setOnCameraIdleListener(clusterManager);
+        mMap.setOnMarkerClickListener(clusterManager);
+        addItems();
+    }
+
+    private void addItems() {
         LatLng northernUganda = new LatLng(2.8780, 32.7181);
         CameraPosition cameraPosition = new CameraPosition.Builder().target(northernUganda).zoom(6).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -92,8 +100,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         clientManager = ClientManager.getInstance(clientListActivity);
 
         for (Client client: clientManager.getClients()) {
-            mMap.addMarker(new MarkerOptions().position(new LatLng(client.getLatitude(), client.getLongitude())).title(client.getFirstName()));
+            MyItem offsetItem = new MyItem(client.getLatitude(), client.getLongitude(), client.getFirstName(), client.getLastName());
+            clusterManager.addItem(offsetItem);
         }
-
     }
 }
