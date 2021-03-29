@@ -6,11 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="com.packagename.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-<!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" /> <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -24,8 +22,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
-        <activity android:name=".UI.MapsActivity"></activity>
+        <activity android:name=".UI.ReferralInfo"></activity>
+        <activity android:name=".UI.MapsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -42,9 +40,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".GoogleMaps.MainActivity" />
-
-
-        <activity android:name=".UI.ClientSearchActivity"></activity>
+        <activity android:name=".UI.ClientSearchActivity" />
         <activity android:name=".UI.VisitInfoActivity" />
         <activity android:name=".UI.NewReferralActivity" />
         <activity android:name=".UI.LoginActivity">
@@ -59,16 +55,17 @@
         <activity android:name=".UI.ClientPhoto" />
         <activity android:name=".UI.DashboardActivity" />
         <activity android:name=".UI.ClientListActivity" />
-        <activity android:name=".UI.NewVisitActivity"
-            android:windowSoftInputMode="adjustNothing"/>
-        <activity android:name=".UI.NewClientActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".UI.NewVisitActivity"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".UI.NewClientActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".UI.ProfileActivity" />
         <activity android:name=".UI.TaskViewActivity" />
         <activity android:name=".UI.EditClientActivity"/>
 
-        <service android:name=".GoogleMaps.FetchAddressIntentService"/>
-
+        <service android:name=".GoogleMaps.FetchAddressIntentService" />
     </application>
 
 </manifest>
