@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.CBRWorker;
+import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
@@ -31,6 +32,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+
+import static com.example.cbr_manager.UI.LoginActivity.username;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -75,6 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
                         if(success) {
                             cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
                             syncLoginData();
+
                             Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
                             startActivity(intent);
                         }

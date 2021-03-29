@@ -455,6 +455,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
+    public Cursor getAllRowsOfCBR() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM WORKER_DATA", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
     public Cursor getRow(long id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c =  db.rawQuery( "SELECT rowid _id, * FROM CLIENT_DATA WHERE ID = "+ id, null);

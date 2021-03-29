@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +16,20 @@ import androidx.annotation.Nullable;
 import com.example.cbr_manager.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CBRWorkerManager {
+    private static final String TAG = "ERROR";
     private List<CBRWorker> cbrWorkers = new ArrayList<>();
     private static CBRWorkerManager instance;
     private DatabaseHelper databaseHelper;
     private Context context;
     private SQLiteDatabase database;
     int listLayoutRes;
-    private static final String cbr_id = "ID";
     private static final String cbr_first_name = "FIRST_NAME";
     private static final String cbr_last_name = "LAST_NAME";
-    private static final String client_location = "LOCATION";
-    private static final String cbr_email = "EMAIL";
+    private static final String cbr_email = "USERNAME";
     private static final String cbr_password = "PASSWORD";
 
 
@@ -50,6 +51,43 @@ public class CBRWorkerManager {
             }
         }
         return new CBRWorker();
+    }
+
+    public List<CBRWorker> getCbrWorkers() {
+        return cbrWorkers;
+    }
+
+    public CBRWorker getCBRByUsernameAndPassword(String username){
+        for (CBRWorker cbrWorker : cbrWorkers) {
+            if(cbrWorker.getUsername().equals(username)){
+                return cbrWorker;
+            }
+        }
+        return new CBRWorker();
+    }
+
+    public void clear() {
+        cbrWorkers.clear();
+    }
+
+    public void updateList() {
+        Cursor c = databaseHelper.getAllRowsOfCBR();
+
+        int firstI = c.getColumnIndex(cbr_first_name);
+        int lastI = c.getColumnIndex(cbr_last_name);
+        int emailI = c.getColumnIndex(cbr_email);
+        int passwordI = c.getColumnIndex(cbr_password);
+
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+
+            String firstName = c.getString(firstI);
+            String lastName = c.getString(lastI);
+            String email = c.getString(emailI);
+            String password = c.getString(passwordI);
+
+            CBRWorker cbrWorker = new CBRWorker(firstName, lastName, email, password);
+            cbrWorkers.add(cbrWorker);
+        }
     }
 
 }

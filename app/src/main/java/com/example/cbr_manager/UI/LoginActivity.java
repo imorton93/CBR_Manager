@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.CBRWorker;
+import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.VisitManager;
@@ -19,9 +22,13 @@ import com.example.cbr_manager.R;
 public class LoginActivity extends AppCompatActivity {
 
     public static String username, password;
+    public static long id;
     private EditText usernameTextBox, passwordTextBox;
     private Button login_btn;
     private DatabaseHelper mydb;
+    private CBRWorkerManager cbrWorkerManager;
+
+    public static CBRWorker currentCBRWorker;
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, LoginActivity.class);
@@ -32,6 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mydb = new DatabaseHelper(LoginActivity.this);
+
+        cbrWorkerManager = CBRWorkerManager.getInstance(LoginActivity.this);
+        cbrWorkerManager.clear();
+        cbrWorkerManager.updateList();
 
         ClientManager clientManager = ClientManager.getInstance(LoginActivity.this);
         clientManager.clear();
@@ -60,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                 password = passwordTextBox.getText().toString();
                 // Do something with login button
                 if (mydb.checkUser(username, password)) {
+                    currentCBRWorker = cbrWorkerManager.getCBRByUsernameAndPassword(username);
                     Intent intent = TaskViewActivity.makeIntent(LoginActivity.this);
-                    intent.putExtra("Worker Username", username);
                     startActivity(intent);
                 }
                 else{

@@ -40,12 +40,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.cbr_manager.UI.LoginActivity.username;
+
 public class TaskViewActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private DatabaseHelper mydb;
 
     TextView badge;
-    private DatabaseHelper db;
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, TaskViewActivity.class);
