@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -59,8 +60,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
 
-        editButton();
-        newVisitButton();
+        navbar();
         ToolbarButtons();
     }
 
@@ -71,13 +71,41 @@ public class ClientInfoActivity extends AppCompatActivity {
         System.out.println("Id is " + this.id);
     }
 
+    private void navbar(){
+        newClientButton();
+        newVisitButton();
+        newReferralButton();
+        editButton();
+    }
+
+    private void newClientButton() {
+        ImageButton newClient = findViewById(R.id.CI_newClient);
+        newClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewClientActivity.makeIntent(ClientInfoActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void newVisitButton() {
-        ClientManager clientManager = ClientManager.getInstance(this);
-        Button newVisit = findViewById(R.id.visit);
+        ImageButton newVisit = findViewById(R.id.CI_newVisit);
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, position, id);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void newReferralButton() {
+        ImageButton newReferral = findViewById(R.id.CI_newReferral);
+        newReferral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewReferralActivity.makeIntent(ClientInfoActivity.this, position, id);
                 startActivity(intent);
             }
         });
