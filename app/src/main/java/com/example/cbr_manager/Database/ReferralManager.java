@@ -83,6 +83,11 @@ public class ReferralManager implements Iterable<Referral>{
         }
     }
 
+    public void addReferral(Referral referral){
+        referrals.add(referral);
+    }
+
+
     public Referral getReferralById(long id){
         Referral referral = new Referral();
         for(Referral ref : referrals){
