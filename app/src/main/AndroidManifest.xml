@@ -22,9 +22,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".UI.ReferralInfo"></activity>
+        <activity android:name=".UI.StatsActivity"></activity>
+        <activity android:name=".UI.ReferralInfo" />
         <activity android:name=".UI.MapsActivity" />
-        <activity android:name=".UI.dashboardFragment.NewMsgActivity"></activity>
+        <activity android:name=".UI.dashboardFragment.NewMsgActivity" />
         <activity android:name=".UI.MapsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -65,7 +66,7 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".UI.ProfileActivity" />
         <activity android:name=".UI.TaskViewActivity" />
-        <activity android:name=".UI.EditClientActivity"/>
+        <activity android:name=".UI.EditClientActivity" />
 
         <service android:name=".GoogleMaps.FetchAddressIntentService" />
     </application>
