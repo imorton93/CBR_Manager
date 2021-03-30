@@ -1,6 +1,10 @@
 package com.example.cbr_manager.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +13,21 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
+import com.example.cbr_manager.UI.clientInfoFragment.ListsFragment;
+import com.example.cbr_manager.UI.clientInfoFragment.RiskFragment;
+import com.example.cbr_manager.UI.statsFragment.BaselineStatsFragment;
+import com.example.cbr_manager.UI.statsFragment.ReferralStatsFragment;
+import com.example.cbr_manager.UI.statsFragment.VisitStatsFragment;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class StatsActivity extends AppCompatActivity {
+
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
+    private String[] titles = new String[]{"Baseline Surveys", "Referrals", "Visits"};
+
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, StatsActivity.class);
@@ -22,6 +39,12 @@ public class StatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
 
         ToolbarButtons();
+
+        viewPager = findViewById(R.id.statsViewPager);
+        tabLayout = findViewById(R.id.statsTabLayout);
+
+        viewPager.setAdapter(createCardAdapter());
+        new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
     }
 
     private void ToolbarButtons(){
@@ -51,5 +74,38 @@ public class StatsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public class ViewPagerAdapter extends FragmentStateAdapter {
+        private static final int CARD_ITEM_SIZE = 3;
+        public ViewPagerAdapter(FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
+        }
+
+        @Override
+        public Fragment createFragment(int pos) {
+            switch (pos) {
+                case 0: {
+                    return BaselineStatsFragment.newInstance("Test");
+                }
+                case 1: {
+                    return ReferralStatsFragment.newInstance("Test");
+                }
+                case 2: {
+                    return VisitStatsFragment.newInstance("Test");
+                }
+                default:
+                    return InfoFragment.newInstance();
+            }
+        }
+        @Override
+        public int getItemCount() {
+            return CARD_ITEM_SIZE;
+        }
+    }
+
+    private StatsActivity.ViewPagerAdapter createCardAdapter() {
+        StatsActivity.ViewPagerAdapter adapter = new StatsActivity.ViewPagerAdapter(this);
+        return adapter;
     }
 }
