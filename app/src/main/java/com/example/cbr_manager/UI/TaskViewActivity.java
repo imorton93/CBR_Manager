@@ -27,6 +27,7 @@ import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Referral;
+import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
@@ -127,9 +128,9 @@ public class TaskViewActivity extends AppCompatActivity {
                 if (!connectedToInternet()) {
                     Toast.makeText(TaskViewActivity.this, "Not connected to internet.", Toast.LENGTH_LONG).show();
                 } else {
-//                    syncClientsTable();
-                    //syncVisitTable();
-                    //syncReferralTable();
+                    syncClientsTable();
+//                    syncVisitTable();
+//                    syncReferralTable();
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
                 }
@@ -141,6 +142,10 @@ public class TaskViewActivity extends AppCompatActivity {
                 VisitManager visitManager = VisitManager.getInstance(TaskViewActivity.this);
                 visitManager.clear();
                 visitManager.updateList();
+
+                ReferralManager referralManager = ReferralManager.getInstance(TaskViewActivity.this);
+                referralManager.clear();
+                referralManager.updateList();
 
                 AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
                 adminMessageManager.clear();

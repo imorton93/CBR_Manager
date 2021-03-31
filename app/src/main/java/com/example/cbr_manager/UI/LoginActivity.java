@@ -16,6 +16,7 @@ import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
 
@@ -51,6 +52,10 @@ public class LoginActivity extends AppCompatActivity {
         VisitManager visitManager = VisitManager.getInstance(LoginActivity.this);
         visitManager.clear();
         visitManager.updateList();
+
+        ReferralManager referralManager = ReferralManager.getInstance(LoginActivity.this);
+        referralManager.clear();
+        referralManager.updateList();
 
         AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(LoginActivity.this);
         adminMessageManager.clear();

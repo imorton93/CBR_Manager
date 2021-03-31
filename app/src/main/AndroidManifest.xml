@@ -22,6 +22,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".UI.ReferralInfo"></activity>
+        <activity android:name=".UI.MapsActivity" />
         <activity android:name=".UI.dashboardFragment.NewMsgActivity"></activity>
         <activity android:name=".UI.MapsActivity" />
         <!--
