@@ -19,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.cbr_manager.Database.Client;
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
@@ -37,6 +39,7 @@ public class VisitListFragment extends Fragment {
     private ClientInfoActivity infoActivity;
     private long client_id;
     private VisitManager visitManager;
+    private ClientManager clientManager;
 
     public VisitListFragment() { }
 
@@ -63,6 +66,7 @@ public class VisitListFragment extends Fragment {
         Bundle args = getArguments();
         this.client_id = args.getLong("client_id", 0);
         this.visitManager = VisitManager.getInstance(infoActivity);
+        this.clientManager = ClientManager.getInstance(infoActivity);
         View V = inflater.inflate(R.layout.fragment_visit_list, container, false);
         populateListViewFromList(V, client_id);
         clickVisit(V);
@@ -106,19 +110,31 @@ public class VisitListFragment extends Fragment {
             Visit currentVisit;
             List<Visit> visits = visitManager.getVisits(client_id);
             currentVisit = visits.get(position);
+            Client client = clientManager.getClientById(client_id);
 
             TextView date = view.findViewById(R.id.dateOfVisit);
+            TextView goal = view.findViewById(R.id.goal_vlist);
             TextView purpose = view.findViewById(R.id.purpose_vlist);
             TextView outcome = view.findViewById(R.id.outcome_vlist);
 
             String dateOfVisit = "<b>" + currentVisit.getDate() + "</b>";
+            String goalOfClient = getGoal(client);
             String purposeOfVisit = "<b>Purpose of Visit:</b> " + currentVisit.getPurposeOfVisit();
 
             date.setText(Html.fromHtml(dateOfVisit));
+            goal.setText(Html.fromHtml(goalOfClient));
             purpose.setText(Html.fromHtml(purposeOfVisit));
             outcome.setText(Html.fromHtml(getOutcome(currentVisit)));
 
             return view;
+        }
+
+        private String getGoal(Client client){
+            String healthGoal = "<b>Health Goal:</b> " + client.getHealthIndividualGoal() + "<br>";
+            String educationGoal = "<b>Education Goal:</b> " + client.getEducationIndividualGoal() + "<br>";
+            String socialGoal = "<b>Social Status Goal:</b> " + client.getSocialStatusIndividualGoal();
+
+            return healthGoal + educationGoal + socialGoal;
         }
 
         private String getOutcome(Visit currentVisit){
