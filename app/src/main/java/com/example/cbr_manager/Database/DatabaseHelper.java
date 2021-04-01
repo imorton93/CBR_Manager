@@ -93,6 +93,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String referral_outcome = "REFERRAL_OUTCOME";
     private static final String client_referral_id = "CLIENT_ID";
 
+    //Admin messages table
+    //WORKER ID COLUMN
+    private static final String admin_message_table = "ADMIN_MESSAGES";
+    private static final String admin_id = "ADMIN_ID";
+    private static final String message_title = "TITLE";
+    private static final String message_date = "DATE";
+    private static final String message_location = "LOCATION";
+    private static final String admin_message = "MESSAGE";
+    private static final String viewed_status = "IS_VIEWED";
+    //IS_SYNCED COLUMN
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -132,6 +143,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + injury_location_knee + " TEXT, " + injury_location_elbow + " TEXT, " + referral_status + " TEXT, "
                 + referral_outcome + " STRING, " + client_referral_id + " INTEGER, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_referral_table);
+
+        String create_adminMessage_table = "CREATE TABLE "
+                + admin_message_table + " (" + admin_id + " INTEGER PRIMARY KEY, " + message_title + " STRING, "
+                + message_date + " STRING, " + message_location + " STRING, " + admin_message + " STRING, "
+                + viewed_status + " INTEGER NOT NULL DEFAULT 0, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
+        db.execSQL(create_adminMessage_table);
     }
 
     @Override
@@ -140,6 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(" DROP TABLE IF EXISTS " + client_table_name );
         db.execSQL(" DROP TABLE IF EXISTS " + visit_table );
         db.execSQL(" DROP TABLE IF EXISTS " + referral_table );
+        db.execSQL(" DROP TABLE IF EXISTS " + admin_message_table );
 
         onCreate(db);
     }
@@ -337,6 +355,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    public boolean addMessage (AdminMessage message) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(message_title, message.getTitle());
+        cv.put(message_date, message.getDate());
+        cv.put(message_location, message.getLocation());
+        cv.put(admin_message, message.getMessage());
+        cv.put(viewed_status, message.getViewedStatus());
+        cv.put(is_synced, message.getIsSynced());
+
+        long result = db.insert(admin_message_table, null, cv);
+        if (result == -1 )
+            return false;
+        else
+            return true;
+    }
+
     public boolean checkUser(String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + email + "'";
@@ -460,6 +496,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return is_admin;
         } else
             return false;
+    }
+
+    public Cursor getAllMessageInfo() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM ADMIN_MESSAGES", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public Cursor getAllCBRWorkers() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM WORKER_DATA", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
     }
 
     public int numberOfClientsPerUser(String username){

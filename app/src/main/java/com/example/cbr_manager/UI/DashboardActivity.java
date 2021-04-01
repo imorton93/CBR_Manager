@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
@@ -46,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent =  new Intent(context, DashboardActivity.class);
         return intent;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +60,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
-
     }
 
     private void ToolbarButtons(){
@@ -91,13 +93,18 @@ public class DashboardActivity extends AppCompatActivity {
         @Override public Fragment createFragment(int pos) {
             switch (pos) {
                 case 0: {
-                    return DashboardFragment.newInstance(current_username);
+                    DashboardFragment dashboardFragment = DashboardFragment.newInstance();
+                    return dashboardFragment;
                 }
                 case 1: {
-                    return NotificationFragment.newInstance();
+                    NotificationFragment notificationFragment = NotificationFragment.newInstance(current_username);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("current_username", current_username);
+                    notificationFragment.setArguments(bundle);
+                    return notificationFragment;
                 }
                 default:
-                    return DashboardFragment.newInstance(current_username);
+                    return DashboardFragment.newInstance();
             }
         }
         @Override public int getItemCount() {

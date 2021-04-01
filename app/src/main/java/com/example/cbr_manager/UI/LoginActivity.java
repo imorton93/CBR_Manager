@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.CBRWorker;
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Visit;
@@ -40,7 +40,7 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private String username, password;
+    public static String username, password;
     private EditText usernameTextBox, passwordTextBox;
     private Button login_btn;
     private DatabaseHelper mydb;
@@ -67,6 +67,10 @@ public class LoginActivity extends AppCompatActivity {
         ReferralManager referralManager = ReferralManager.getInstance(LoginActivity.this);
         referralManager.clear();
         referralManager.updateList();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(LoginActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
 
         if (connectedToInternet()) {
             requestQueue = Volley.newRequestQueue(LoginActivity.this);
