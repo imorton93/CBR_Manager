@@ -492,8 +492,13 @@ public class TaskViewActivity extends AppCompatActivity {
                     if ((cursor.getColumnName(i).equals("PHOTO")) ||
                             (cursor.getColumnName(i).equals("REFERRAL_PHOTO"))) {
                         photoArr = cursor.getBlob(i);
-                        base64Photo = Base64.encodeToString(photoArr, Base64.DEFAULT);
-                        data = base64Photo;
+
+                        if (photoArr != null) {
+                            base64Photo = Base64.encodeToString(photoArr, Base64.DEFAULT);
+                            data = base64Photo;
+                        } else {
+                            data = "";
+                        }
                     } else {
                         data = cursor.getString(i);
                     }
