@@ -89,9 +89,7 @@ public class TaskViewActivity extends AppCompatActivity {
         newClient.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String current_username = getIntent().getStringExtra("Worker Username");
                 Intent intent = NewClientActivity.makeIntent(TaskViewActivity.this);
-                intent.putExtra("Worker Username", current_username);
                 startActivity(intent);
             }
         });
@@ -158,8 +156,6 @@ public class TaskViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = DashboardActivity.makeIntent(TaskViewActivity.this);
-                String current_username = getIntent().getStringExtra("Worker Username");
-                intent.putExtra("Worker Username", current_username);
                 startActivity(intent);
             }
         });

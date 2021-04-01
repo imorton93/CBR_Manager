@@ -1040,11 +1040,9 @@ public class NewClientActivity extends AppCompatActivity {
         if(success) {
             Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
             Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
-            String current_username = getIntent().getStringExtra("Worker Username");
-            intent.putExtra("Worker Username", current_username);
             startActivity(intent);
         } else {
-            Toast.makeText(NewClientActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
+            Toast.makeText(NewClientActivity.this, String.valueOf(newClient.getId()), Toast.LENGTH_LONG).show();
         }
     }
     private void setUniqueClientId(){
@@ -1052,20 +1050,22 @@ public class NewClientActivity extends AppCompatActivity {
 
         // Convert both the integers to string
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("DATA", Context.MODE_PRIVATE);
-        String username =  sharedPref.getString("username", null);
-        String s1 = String.valueOf(db.getWorkerId(username));
-        int client_no = db.numberOfClientsPerUser(username);
+        String username = sharedPref.getString("username", null);
+
+        int worker_id = db.getWorkerId(username);
+        newClient.setClient_worker_id(worker_id);
+
+        int client_no = db.numberOfClientsPerUser(worker_id);
         client_no++;//next available client id
-        String s2 = String.valueOf(client_no);
 
         // Concatenate both strings
-        String s = s1 + s2;
+        String uniqueID = String.valueOf(worker_id) + String.valueOf(client_no);
 
         // Convert the concatenated string
         // to integer
-        long c = Long.parseLong(s);
+        long uniqueID_long = Long.parseLong(uniqueID);
 
-        newClient.setId(c);
+        newClient.setId(uniqueID_long);
     }
 }
 
