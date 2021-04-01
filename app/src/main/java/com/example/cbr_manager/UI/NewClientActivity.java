@@ -3,6 +3,7 @@ package com.example.cbr_manager.UI;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -820,7 +821,6 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void createNewClientForm(){
-        setWorkerId();
         setUniqueClientId();
         Resources res = getResources();
         //page one: consent and date
@@ -1051,9 +1051,10 @@ public class NewClientActivity extends AppCompatActivity {
         DatabaseHelper db =  new DatabaseHelper(NewClientActivity.this);
 
         // Convert both the integers to string
-        String current_username = getIntent().getStringExtra("Worker Username");
-        String s1 = String.valueOf(db.getWorkerId(current_username));
-        int client_no = db.numberOfClientsPerUser(current_username);
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("DATA", Context.MODE_PRIVATE);
+        String username =  sharedPref.getString("username", null);
+        String s1 = String.valueOf(db.getWorkerId(username));
+        int client_no = db.numberOfClientsPerUser(username);
         client_no++;//next available client id
         String s2 = String.valueOf(client_no);
 
@@ -1066,12 +1067,5 @@ public class NewClientActivity extends AppCompatActivity {
 
         newClient.setId(c);
     }
-
-    private void setWorkerId(){
-        DatabaseHelper db =  new DatabaseHelper(NewClientActivity.this);
-        String current_username = getIntent().getStringExtra("Worker Username");
-        newClient.setClient_worker_id(db.getWorkerId(current_username));
-    }
-
 }
 
