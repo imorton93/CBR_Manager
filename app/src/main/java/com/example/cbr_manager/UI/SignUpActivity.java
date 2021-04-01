@@ -67,26 +67,27 @@ public class SignUpActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEntries() && connectedToInternet()) {
-                    if (validatePasswords()) {
-                        cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
-                                emailTextBox.getText().toString(), BCrypt.withDefaults().hashToString(12, password1TextBox.getText().toString().toCharArray()));
-                        boolean success = mydb.registerWorker(cbrWorker);
-                        if(success) {
-                            cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
-                            syncLoginData();
-                            Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
-                            startActivity(intent);
+                if (!connectedToInternet()) {
+                    Toast.makeText(SignUpActivity.this, "Please connect to the internet and try again!", Toast.LENGTH_LONG).show();
+                } else {
+                    if (validateEntries()) {
+                        if (validatePasswords()) {
+                            cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
+                                    emailTextBox.getText().toString(), BCrypt.withDefaults().hashToString(12, password1TextBox.getText().toString().toCharArray()));
+                            boolean success = mydb.registerWorker(cbrWorker);
+                            if (success) {
+                                cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
+                                syncLoginData();
+                                Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
+                                startActivity(intent);
+                            } else
+                                Toast.makeText(SignUpActivity.this, "Error Occurred." + success, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                         }
-                        else
-                            Toast.makeText(SignUpActivity.this, "Error Occured."+ success, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Please enter all the details", Toast.LENGTH_SHORT).show();
                     }
-                    else {
-                        Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    Toast.makeText(SignUpActivity.this, "Please enter all the details", Toast.LENGTH_SHORT).show();
                 }
             }
         });
