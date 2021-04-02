@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.cbr_manager.R;
-import com.example.cbr_manager.UI.LoginActivity;
-import com.example.cbr_manager.UI.SignUpActivity;
+import com.example.cbr_manager.UI.TaskViewActivity;
 
 public class HealthSurveyActivity extends AppCompatActivity {
 
@@ -40,6 +40,7 @@ public class HealthSurveyActivity extends AppCompatActivity {
         radioGroup6 = findViewById(R.id.healthSurveyRadioGroup6);
         createSpinners();
         nextButton();
+        ToolbarButtons();
     }
 
     private void nextButton() {
@@ -86,5 +87,16 @@ public class HealthSurveyActivity extends AppCompatActivity {
 
     //populate this to store in database
     public void onRadioButtonClicked(View view) {
+    }
+
+    private void ToolbarButtons() {
+        ImageButton homeBtn = findViewById(R.id.homeButton);
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(HealthSurveyActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 }

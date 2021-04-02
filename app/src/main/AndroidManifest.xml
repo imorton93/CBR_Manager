@@ -22,13 +22,26 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".UI.BaselineSurvey.EducationSurveyActivity">
+        <activity android:name=".UI.BaselineSurvey.EmpowermentandShelterSurveyActivity">
+
+        </activity>
+        <activity android:name=".UI.BaselineSurvey.FoodSurveyActivity">
+
+            </activity>
+
+    <activity android:name=".UI.BaselineSurvey.LivelihoodSurveyActivity"></activity>
+
+        <activity android:name=".UI.BaselineSurvey.EducationSurveyActivity" >
+
         </activity>
         <activity android:name=".UI.BaselineSurvey.HealthSurveyActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".UI.BaselineSurvey.SocialSurveyActivity" >
+
         </activity>
         <activity android:name=".UI.MapsActivity" />
         <!--
@@ -60,7 +73,9 @@
             android:name=".UI.NewClientActivity"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".UI.ProfileActivity" />
-        <activity android:name=".UI.TaskViewActivity" />
+        <activity android:name=".UI.TaskViewActivity" >
+
+        </activity>
 
         <service android:name=".GoogleMaps.FetchAddressIntentService" />
     </application>

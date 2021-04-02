@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.TaskViewActivity;
 
 public class EducationSurveyActivity extends AppCompatActivity {
 
@@ -53,6 +55,7 @@ public class EducationSurveyActivity extends AppCompatActivity {
         createSpinners();
         nextButton();
         backButton();
+        ToolbarButtons();
     }
 
     private void nextButton() {
@@ -61,8 +64,10 @@ public class EducationSurveyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!validateEntries())
                     Toast.makeText(EducationSurveyActivity.this, "Please fill all the details", Toast.LENGTH_LONG).show();
-               // else send to activity
-
+                else {
+                    Intent intent = SocialSurveyActivity.makeIntent(EducationSurveyActivity.this);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -72,8 +77,7 @@ public class EducationSurveyActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = HealthSurveyActivity.makeIntent(EducationSurveyActivity.this);
-                startActivity(intent);
+                finish();
             }
         });
     }
@@ -131,5 +135,16 @@ public class EducationSurveyActivity extends AppCompatActivity {
             bool = false;
         }
         return bool;
+    }
+
+    private void ToolbarButtons() {
+        ImageButton homeBtn = findViewById(R.id.homeButton);
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(EducationSurveyActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 }

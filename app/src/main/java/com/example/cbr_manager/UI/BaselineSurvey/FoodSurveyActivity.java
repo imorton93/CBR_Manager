@@ -2,19 +2,30 @@ package com.example.cbr_manager.UI.BaselineSurvey;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.TaskViewActivity;
 
 public class FoodSurveyActivity extends AppCompatActivity {
 
     private Spinner foodSpinner1, foodSpinner2;
-    private RadioGroup radioGroup1, radioGroup2, radioGroup3, radioGroup4, radioGroup5, radioGroup6;
+    private RadioGroup radioGroup1, radioGroup2;
+    private Button nextButton, backButton;
+    public static Intent makeIntent(Context context) {
+        Intent intent = new Intent(context, FoodSurveyActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +35,42 @@ public class FoodSurveyActivity extends AppCompatActivity {
         foodSpinner2 = findViewById(R.id.foodSurveySpinner2);
         radioGroup1 = findViewById(R.id.foodSurveyRadioGroup1);
         radioGroup2 = findViewById(R.id.foodSurveyRadioGroup2);
+        nextButton = findViewById(R.id.nextButtonFoodSurvey);
+        backButton = findViewById(R.id.backButtonFoodSurvey);
         createSpinners();
         nextButton();
+        backButton();
+        ToolbarButtons();
+    }
+
+    private void backButton() {
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void nextButton() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!validateEntries())
+                    Toast.makeText(FoodSurveyActivity.this, "Please fill all the details", Toast.LENGTH_LONG).show();
+                else {
+                    Intent intent = EmpowermentandShelterSurveyActivity.makeIntent(FoodSurveyActivity.this);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private boolean validateEntries() {
+        if(foodSpinner2.getSelectedItem()==null||foodSpinner1.getSelectedItem()==null||
+        radioGroup1.getCheckedRadioButtonId() == -1|| radioGroup2.getCheckedRadioButtonId() == -1)
+            return false;
+        return true;
     }
 
     private void createSpinners() {
@@ -65,5 +107,15 @@ public class FoodSurveyActivity extends AppCompatActivity {
                 break;
         }
     }
-    
+
+    private void ToolbarButtons() {
+        ImageButton homeBtn = findViewById(R.id.homeButton);
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TaskViewActivity.makeIntent(FoodSurveyActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
 }
