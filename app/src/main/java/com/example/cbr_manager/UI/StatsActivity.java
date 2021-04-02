@@ -17,6 +17,8 @@ import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
 import com.example.cbr_manager.UI.clientInfoFragment.ListsFragment;
 import com.example.cbr_manager.UI.clientInfoFragment.RiskFragment;
 import com.example.cbr_manager.UI.statsFragment.BaselineStatsFragment;
+import com.example.cbr_manager.UI.statsFragment.ClientStatsFragment;
+import com.example.cbr_manager.UI.statsFragment.GeneralStatsFragment;
 import com.example.cbr_manager.UI.statsFragment.ReferralStatsFragment;
 import com.example.cbr_manager.UI.statsFragment.VisitStatsFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -77,7 +79,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     public class ViewPagerAdapter extends FragmentStateAdapter {
-        private static final int CARD_ITEM_SIZE = 3;
+        private static final int CARD_ITEM_SIZE = 5;
         public ViewPagerAdapter(FragmentActivity fragmentActivity) {
             super(fragmentActivity);
         }
@@ -86,16 +88,22 @@ public class StatsActivity extends AppCompatActivity {
         public Fragment createFragment(int pos) {
             switch (pos) {
                 case 0: {
-                    return BaselineStatsFragment.newInstance("Test");
+                    return GeneralStatsFragment.newInstance("Test");
                 }
                 case 1: {
-                    return ReferralStatsFragment.newInstance("Test");
+                    return ClientStatsFragment.newInstance("Test");
                 }
                 case 2: {
+                    return BaselineStatsFragment.newInstance("Test");
+                }
+                case 3: {
+                    return ReferralStatsFragment.newInstance("Test");
+                }
+                case 4: {
                     return VisitStatsFragment.newInstance("Test");
                 }
                 default:
-                    return InfoFragment.newInstance();
+                    return GeneralStatsFragment.newInstance("Test");
             }
         }
         @Override
