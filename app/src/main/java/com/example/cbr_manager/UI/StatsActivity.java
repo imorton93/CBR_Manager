@@ -26,7 +26,7 @@ public class StatsActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-    private String[] titles = new String[]{"Baseline Surveys", "Referrals", "Visits"};
+    private String[] titles = new String[]{"General", "Clients", "Baseline Surveys", "Referrals", "Visits"};
 
 
     public static Intent makeIntent(Context context) {
