@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -75,7 +76,7 @@ public class listFragment extends Fragment {
         Spinner village_spinner = v.findViewById(R.id.filter_village_clientList);
         Spinner section_spinner = v.findViewById(R.id.filter_section_clientList);
         EditText village_num_text = v.findViewById(R.id.filter_villageNum_clientList);
-        Button search_button = v.findViewById(R.id.search_button_clientList);
+        ImageButton search_button = v.findViewById(R.id.search_button_clientList);
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,13 +150,15 @@ public class listFragment extends Fragment {
 
             currentClient = this.clients.get(position);
 
-            TextView firstName = view.findViewById(R.id.fname_clist);
-            TextView lastName = view.findViewById(R.id.lname_clist);
+            TextView name = view.findViewById(R.id.name_clist);
             TextView village = view.findViewById(R.id.Village_clist);
+            TextView villageNum = view.findViewById(R.id.VillageNum_clist);
 
-            firstName.setText(currentClient.getFirstName());
-            lastName.setText(currentClient.getLastName());
+            String nameConcat = currentClient.getFirstName() + " " + currentClient.getLastName();
+
+            name.setText(nameConcat);
             village.setText(currentClient.getLocation());
+            villageNum.setText("" + currentClient.getVillageNumber());
 
             return view;
         }
