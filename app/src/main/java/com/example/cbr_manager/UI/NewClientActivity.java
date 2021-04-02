@@ -1062,7 +1062,7 @@ public class NewClientActivity extends AppCompatActivity {
         client_no++;//next available client id
 
         // Concatenate both strings
-        String uniqueID = String.valueOf(worker_id) + String.valueOf(client_no);
+        String uniqueID = String.valueOf(worker_id * 1000) + String.valueOf(client_no);
 
         // Convert the concatenated string
         // to integer
