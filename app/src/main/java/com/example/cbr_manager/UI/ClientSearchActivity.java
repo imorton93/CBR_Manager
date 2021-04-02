@@ -72,7 +72,7 @@ public class ClientSearchActivity extends AppCompatActivity {
         Spinner village_spinner = findViewById(R.id.filter_village_clientSearch);
         Spinner section_spinner = findViewById(R.id.filter_section_clientSearch);
         EditText village_num_text = findViewById(R.id.filter_villageNum_clientSearch);
-        Button search_button = findViewById(R.id.search_button_clientSearch);
+        ImageButton search_button = findViewById(R.id.search_button_clientSearch);
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,13 +177,15 @@ public class ClientSearchActivity extends AppCompatActivity {
 
             currentClient = this.clients.get(position);
 
-            TextView firstName = view.findViewById(R.id.fname_clist);
-            TextView lastName = view.findViewById(R.id.lname_clist);
+            TextView name = view.findViewById(R.id.name_clist);
             TextView village = view.findViewById(R.id.Village_clist);
+            TextView villageNum = view.findViewById(R.id.VillageNum_clist);
 
-            firstName.setText(currentClient.getFirstName());
-            lastName.setText(currentClient.getLastName());
+            String nameConcat = currentClient.getFirstName() + " " + currentClient.getLastName();
+
+            name.setText(nameConcat);
             village.setText(currentClient.getLocation());
+            villageNum.setText("" + currentClient.getVillageNumber());
 
             return view;
         }

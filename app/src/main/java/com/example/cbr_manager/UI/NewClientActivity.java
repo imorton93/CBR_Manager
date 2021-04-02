@@ -41,6 +41,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.cbr_manager.Database.Client;
 
+import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
@@ -1036,8 +1037,10 @@ public class NewClientActivity extends AppCompatActivity {
     private void insertClient() {
         newClient.setIsSynced(0);
         boolean success = mydb.registerClient(newClient);
-
         if(success) {
+            ClientManager clientManager = ClientManager.getInstance(this);
+            clientManager.addClient(newClient);
+
             Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
             Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
             startActivity(intent);
