@@ -3,6 +3,7 @@ package com.example.cbr_manager.UI.BaselineSurvey;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,4 +21,6 @@ public class SocialSurveyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_social_survey);
     }
 
+    public void onRadioButtonClicked(View view) {
+    }
 }
