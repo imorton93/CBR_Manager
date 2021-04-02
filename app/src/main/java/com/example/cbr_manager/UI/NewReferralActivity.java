@@ -658,6 +658,8 @@ public class NewReferralActivity extends AppCompatActivity {
 
 
     private void createNewReferralForm(){
+        setUniqueReferralId();
+
         Resources res = getResources();
         //first Page
         MultipleChoiceQuestion require = new MultipleChoiceQuestion(getString(R.string.serviceRequire), getString(R.string.serviceRequireQuestion_newReferralForm), QuestionType.RADIO, res.getStringArray(R.array.serviceType), true);
@@ -799,5 +801,20 @@ public class NewReferralActivity extends AppCompatActivity {
         } else {
             Toast.makeText(NewReferralActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void setUniqueReferralId(){
+        DatabaseHelper db =  new DatabaseHelper(NewReferralActivity.this);
+
+        int referral_no = db.numberOfReferralsPerClient(referral.getClientID());
+        referral_no++;//next available referral id
+
+        // Concatenate both strings
+        String uniqueID = String.valueOf(referral.getClientID()) + String.valueOf(referral_no);
+
+        // Convert the concatenated string to integer
+        long uniqueID_long = Long.parseLong(uniqueID);
+
+        referral.setId(uniqueID_long);
     }
 }

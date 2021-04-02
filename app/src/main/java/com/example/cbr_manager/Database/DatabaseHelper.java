@@ -137,7 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_visit_table);
 
         String create_referral_table = "CREATE TABLE "
-                + referral_table + " (" + referral_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + service_req + " TEXT, "
+                + referral_table + " (" + referral_id + " INTEGER PRIMARY KEY, " + service_req + " TEXT, "
                 + referral_photo + " BLOB, " + basic_or_inter + " TEXT, " + hip_width + " REAL, " + has_wheelchair + " BOOLEAN, "
                 + wheelchair_repairable + " BOOLEAN, " + bring_to_centre + " BOOLEAN, " + conditions + " TEXT, "
                 + injury_location_knee + " TEXT, " + injury_location_elbow + " TEXT, " + referral_status + " TEXT, "
@@ -295,6 +295,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //TODO: cv.put(referral_photo, referral.getReferralPhoto());
 
+        cv.put(referral_id, referral.getId());
         cv.put(client_referral_id, referral.getClientID());
         String serviceType = referral.getServiceReq();
 
@@ -533,6 +534,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int numberOfVisitsPerClient(long client_id){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT COUNT(ID) FROM " + visit_table + " WHERE " + client_visit_id + " = " + client_id + ";";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int numberOfReferralsPerClient(long client_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(ID) FROM " + referral_table + " WHERE " + client_referral_id + " = " + client_id + ";";
         Cursor c = db.rawQuery(query, null);
         if(c!= null && c.getCount()>0) {
             c.moveToLast();

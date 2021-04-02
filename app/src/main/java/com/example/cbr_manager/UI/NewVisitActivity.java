@@ -897,7 +897,7 @@ public class NewVisitActivity extends AppCompatActivity {
         DatabaseHelper db =  new DatabaseHelper(NewVisitActivity.this);
 
         int visit_no = db.numberOfVisitsPerClient(newVisit.getClientID());
-        visit_no++;//next available client id
+        visit_no++;//next available visit id
 
         // Concatenate both strings
         String uniqueID = String.valueOf(newVisit.getClientID()) + String.valueOf(visit_no);
