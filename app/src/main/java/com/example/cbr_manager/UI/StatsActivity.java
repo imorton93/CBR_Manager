@@ -91,16 +91,16 @@ public class StatsActivity extends AppCompatActivity {
                     return GeneralStatsFragment.newInstance("Test");
                 }
                 case 1: {
-                    return ClientStatsFragment.newInstance("Test");
+                    return ClientStatsFragment.newInstance();
                 }
                 case 2: {
                     return BaselineStatsFragment.newInstance("Test");
                 }
                 case 3: {
-                    return ReferralStatsFragment.newInstance("Test");
+                    return ReferralStatsFragment.newInstance();
                 }
                 case 4: {
-                    return VisitStatsFragment.newInstance("Test");
+                    return VisitStatsFragment.newInstance();
                 }
                 default:
                     return GeneralStatsFragment.newInstance("Test");

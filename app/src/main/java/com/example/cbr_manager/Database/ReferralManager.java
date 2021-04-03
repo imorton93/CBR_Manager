@@ -43,6 +43,10 @@ public class ReferralManager implements Iterable<Referral>{
         return instance;
     }
 
+    public List<Referral> getReferrals(){
+        return referrals;
+    }
+
     public void updateList() {
         Cursor c = databaseHelper.getAllReferrals();
 

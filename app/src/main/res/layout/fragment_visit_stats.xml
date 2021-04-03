@@ -36,29 +36,58 @@
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical" >
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="Health Goals Met"/>
+
                 <com.github.mikephil.charting.charts.BarChart
                     android:layout_height="300dp"
                     android:layout_width="match_parent"
                     android:id="@+id/visit_health_graph"
                     />
 
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="Education Goals Met"/>
+
                 <com.github.mikephil.charting.charts.BarChart
                     android:layout_height="300dp"
-                    android:layout_marginTop="50dp"
                     android:layout_width="match_parent"
                     android:id="@+id/visit_education_graph"
                     />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="Social Status Goals Met"/>
+
                 <com.github.mikephil.charting.charts.BarChart
                     android:layout_height="300dp"
-                    android:layout_marginTop="50dp"
                     android:layout_width="match_parent"
                     android:id="@+id/visit_Social_graph"
                     />
 
-                <com.github.mikephil.charting.charts.BarChart
-                    android:layout_height="300dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="Number of Visits Per Zone"/>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:layout_height="400dp"
                     android:layout_width="match_parent"
                     android:id="@+id/visits_per_zone_graph"
                     />

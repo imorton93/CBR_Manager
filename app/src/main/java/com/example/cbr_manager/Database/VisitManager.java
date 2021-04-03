@@ -51,6 +51,10 @@ public class VisitManager implements Iterable<Visit>{
         return visits.get(position);
     }
 
+    public List<Visit> getVisits(){
+        return visits;
+    }
+
     public Visit getVisitById(long id){
         for(Visit visit : visits){
             if(visit.getVisit_id() == id){

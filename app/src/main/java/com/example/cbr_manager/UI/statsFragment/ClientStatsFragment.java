@@ -35,15 +35,12 @@ public class ClientStatsFragment extends Fragment {
     private StatsActivity statsActivity;
     private ClientManager clientManager;
     private static final ArrayList<String> RISK_LEVEL = new ArrayList<String>();
-    private static final String ARG_PARAM1 = "param1";
-    private String mParam1;
 
     public ClientStatsFragment() {}
 
-    public static ClientStatsFragment newInstance(String param1) {
+    public static ClientStatsFragment newInstance() {
         ClientStatsFragment fragment = new ClientStatsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,9 +48,6 @@ public class ClientStatsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
     }
 
     @Override
