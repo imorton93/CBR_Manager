@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -83,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
     private void buttonsClicked(){
         usernameTextBox = findViewById(R.id.usernameTextBox);
         passwordTextBox = findViewById(R.id.passwordTextBox);
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("DATA", Context.MODE_PRIVATE);
 
         login_btn = findViewById(R.id.loginButton);
         login_btn.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Do something with login button
                 if (mydb.checkUser(username, password)) {
                     Intent intent = TaskViewActivity.makeIntent(LoginActivity.this);
-                    intent.putExtra("Worker Username", username);
+                    sharedPref.edit().putString("username", username).apply();
                     startActivity(intent);
                 }
                 else{
