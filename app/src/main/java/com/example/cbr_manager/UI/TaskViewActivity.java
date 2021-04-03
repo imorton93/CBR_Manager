@@ -125,11 +125,11 @@ public class TaskViewActivity extends AppCompatActivity {
                 //  - If connected, attempt a sync. Show a progress bar(?)
 
                 if (!connectedToInternet()) {
-                    Toast.makeText(TaskViewActivity.this, "Not connected to internet.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(TaskViewActivity.this, "Please connect to the internet and try again!", Toast.LENGTH_LONG).show();
                 } else {
                     syncClientsTable();
-//                    syncVisitTable();
-//                    syncReferralTable();
+                    syncVisitTable();
+                    syncReferralTable();
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
                 }
@@ -332,7 +332,7 @@ public class TaskViewActivity extends AppCompatActivity {
     }
 
     public void syncReferralTable() {
-        String query = "SELECT * FROM CLIENT_REFERRALS" ; //get only data that is not synced
+        String query = "SELECT * FROM CLIENT_REFERRALS WHERE IS_SYNCED = 0;" ; //get only data that is not synced
         Cursor c = mydb.executeQuery(query);
         JSONArray localDataJSON = cur2Json(c);
 
@@ -516,20 +516,41 @@ public class TaskViewActivity extends AppCompatActivity {
 
         referral.setId(Long.parseLong((String) object.get("ID")));
         referral.setServiceReq((String) object.get("SERVICE_REQUIRED"));
-        referral.setBasicOrInter((String) object.get("BASIC_OR_INTERMEDIATE"));
-        referral.setHipWidth(Integer.parseInt((String) object.get("HIP_WIDTH")));
+
+        if (!object.isNull("PHOTO")) {
+            referral.setReferralPhoto(strToByteArr((String) object.get("REFERRAL_PHOTO")));
+        }
+
+        if (referral.getServiceReq().equals("Physiotherapy")) {
+            List<String> conditions = new ArrayList<String>(Arrays.asList(((String) object.get("CONDITIONS")).split(", ")));
+            referral.setCondition(conditions.toString());
+        }
+
+        else if (referral.getServiceReq().equals("Prosthetic")) {
+            referral.setInjuryLocation(((String) object.get("INJURY_LOCATION_KNEE")));
+        }
+
+        else if (referral.getServiceReq().equals("Orthotic")) {
+            referral.setInjuryLocation(((String) object.get("INJURY_LOCATION_ELBOW")));
+        }
+
+        else if (referral.getServiceReq().equals("Wheelchair")) {
+            referral.setBasicOrInter((String) object.get("BASIC_OR_INTERMEDIATE"));
+            referral.setHipWidth(Integer.parseInt((String) object.get("HIP_WIDTH")));
+        }
+
+        else {
+            referral.setOtherExplanation(referral.getServiceReq());
+        }
+
         referral.setHasWheelchair(strToBool((String) object.get("HAS_WHEELCHAIR")));
         referral.setWheelchairReparable(strToBool((String) object.get("WHEELCHAIR_REPAIRABLE")));
         referral.setBringToCentre(strToBool((String) object.get("BRING_TO_CENTRE")));
-
-        List<String> conditions = new ArrayList<String>(Arrays.asList(((String) object.get("CONDITIONS")).split(", ")));
-        referral.setCondition(conditions.toString());
-
-        referral.setInjuryLocation((String) object.get("INJURY_LOCATION_KNEE"));
-        referral.setStatus((String) object.get("REFERRAL_STATUS"));
-        referral.setOutcome((String) object.get("REFERRAL_OUTCOME"));
         referral.setClientID(Long.parseLong((String) object.get("CLIENT_ID")));
         referral.setIsSynced(1);
+
+        /*referral.setStatus((String) object.get("REFERRAL_STATUS"));
+        referral.setOutcome((String) object.get("REFERRAL_OUTCOME"));*/
 
         return referral;
     }

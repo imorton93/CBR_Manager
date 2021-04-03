@@ -170,7 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_2, cbrWorker.getLastName());
         cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_4, cbrWorker.getPassword());
-        //cv.put(COL_5, cbrWorker.getId()); Delete comment after solving same username bug
+
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1)
             return false;
@@ -293,10 +293,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        //TODO: cv.put(referral_photo, referral.getReferralPhoto());
 
         cv.put(referral_id, referral.getId());
         cv.put(client_referral_id, referral.getClientID());
+        cv.put(referral_photo, referral.getReferralPhoto());
+
         String serviceType = referral.getServiceReq();
 
         if(serviceType.equals("Physiotherapy")){
@@ -349,6 +350,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put(wheelchair_repairable, false);
             cv.put(bring_to_centre, false);
         }
+
+        cv.put(is_synced, referral.getIsSynced());
 
         long result = db.insert(referral_table, null, cv);
         if (result == -1 )

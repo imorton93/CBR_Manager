@@ -1045,7 +1045,7 @@ public class NewClientActivity extends AppCompatActivity {
             Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
             startActivity(intent);
         } else {
-            Toast.makeText(NewClientActivity.this, String.valueOf(newClient.getId()), Toast.LENGTH_LONG).show();
+            Toast.makeText(NewClientActivity.this, "Entry Failed.", Toast.LENGTH_LONG).show();
         }
     }
     private void setUniqueClientId(){
@@ -1062,7 +1062,7 @@ public class NewClientActivity extends AppCompatActivity {
         client_no++;//next available client id
 
         // Concatenate both strings
-        String uniqueID = String.valueOf(worker_id * 1000) + String.valueOf(client_no);
+        String uniqueID = String.valueOf(worker_id * 100) + String.valueOf(client_no);
 
         // Convert the concatenated string
         // to integer
