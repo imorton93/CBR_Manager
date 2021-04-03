@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Referral;
+import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
 import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
@@ -790,6 +791,8 @@ public class NewReferralActivity extends AppCompatActivity {
         boolean success = mydb.addReferral(referral);
 
         if(success) {
+            ReferralManager referralManager = ReferralManager.getInstance(this);
+            referralManager.addReferral(referral);
             Toast.makeText(NewReferralActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
             Intent intent = ClientInfoActivity.makeIntent(NewReferralActivity.this, client_pos,  client_id);
             startActivity(intent);
