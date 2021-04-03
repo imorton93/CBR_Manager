@@ -80,6 +80,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_wheelchair_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -98,8 +100,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_wheelchairRepair_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:background="@drawable/table_border" />
                     </TableRow>
 
                     <TableRow
@@ -115,6 +119,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_prosthetics_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -132,6 +139,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_orthotics_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -149,6 +159,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_physiotherapy_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -166,6 +179,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_amputee_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -183,6 +199,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_polio_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -200,6 +219,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_spinalCord_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -217,6 +239,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_cerebralPalsy_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -234,6 +259,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_spinaBifida_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -251,6 +279,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_hydrocephalus_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -268,6 +299,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_visualImpairment_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -285,6 +319,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_hearingImpairment_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -302,6 +339,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/referral_other_stats"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
