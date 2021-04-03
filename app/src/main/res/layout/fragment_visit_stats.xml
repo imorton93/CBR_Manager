@@ -41,11 +41,12 @@
                     android:layout_height="wrap_content"
                     android:textSize="25dp"
                     android:textStyle="bold"
-                    android:text="Health Goals Met"/>
+                    android:text="Health Goals Met" />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:layout_height="300dp"
                     android:layout_width="match_parent"
+                    android:background="@color/white"
                     android:id="@+id/visit_health_graph"
                     />
 
@@ -61,6 +62,7 @@
                 <com.github.mikephil.charting.charts.BarChart
                     android:layout_height="300dp"
                     android:layout_width="match_parent"
+                    android:background="@color/white"
                     android:id="@+id/visit_education_graph"
                     />
 
@@ -75,6 +77,7 @@
                 <com.github.mikephil.charting.charts.BarChart
                     android:layout_height="300dp"
                     android:layout_width="match_parent"
+                    android:background="@color/white"
                     android:id="@+id/visit_Social_graph"
                     />
 
@@ -89,6 +92,7 @@
                 <com.github.mikephil.charting.charts.BarChart
                     android:layout_height="400dp"
                     android:layout_width="match_parent"
+                    android:background="@color/white"
                     android:id="@+id/visits_per_zone_graph"
                     />
 

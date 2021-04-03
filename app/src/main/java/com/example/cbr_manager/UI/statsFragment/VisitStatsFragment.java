@@ -77,6 +77,7 @@ public class VisitStatsFragment extends Fragment {
                 return GOAL_MET.get((int)value);
             }
         });
+        graph.getDescription().setEnabled(false);
         graph.invalidate();
     }
 
@@ -87,13 +88,15 @@ public class VisitStatsFragment extends Fragment {
         xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xaxis.setDrawGridLines(false);
         xaxis.setLabelCount(9);
-        xaxis.setLabelRotationAngle(-45);
+        xaxis.setLabelRotationAngle(-80);
+
         xaxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 return ZONES.get((int)value);
             }
         });
+        graph.getDescription().setEnabled(false);
         graph.invalidate();
     }
 
