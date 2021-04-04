@@ -62,7 +62,7 @@ public class InfoFragment extends Fragment {
 
         String name_string = currentClient.getFirstName() + " " + currentClient.getLastName();
 
-        String disabilities = Arrays.toString(currentClient.getDisabilities().toArray()).replace("[", "").replace("]", "");
+        String disabilities = Arrays.toString(currentClient.getDisabilities().toArray()).replace("[", "").replace("]", "").replace(",", "\n");
         DatabaseHelper handler = new DatabaseHelper(this.infoActivity);
         Cursor todoCursor = handler.getRow(infoActivity.getId());
         if (currentClient.getPhoto() != null){

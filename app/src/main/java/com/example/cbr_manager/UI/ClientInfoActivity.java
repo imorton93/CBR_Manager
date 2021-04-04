@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -17,7 +18,7 @@ import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
 import com.example.cbr_manager.UI.clientInfoFragment.RiskFragment;
-import com.example.cbr_manager.UI.clientInfoFragment.VisitsFragment;
+import com.example.cbr_manager.UI.clientInfoFragment.ListsFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -59,8 +60,7 @@ public class ClientInfoActivity extends AppCompatActivity {
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
 
-        editButton();
-        newVisitButton();
+        navbar();
         ToolbarButtons();
     }
 
@@ -71,13 +71,41 @@ public class ClientInfoActivity extends AppCompatActivity {
         System.out.println("Id is " + this.id);
     }
 
+    private void navbar(){
+        newClientButton();
+        newVisitButton();
+        newReferralButton();
+        editButton();
+    }
+
+    private void newClientButton() {
+        ImageButton newClient = findViewById(R.id.CI_newClient);
+        newClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewClientActivity.makeIntent(ClientInfoActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void newVisitButton() {
-        ClientManager clientManager = ClientManager.getInstance(this);
-        Button newVisit = findViewById(R.id.visit);
+        ImageButton newVisit = findViewById(R.id.CI_newVisit);
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, position, id);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void newReferralButton() {
+        ImageButton newReferral = findViewById(R.id.CI_newReferral);
+        newReferral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewReferralActivity.makeIntent(ClientInfoActivity.this, position, id);
                 startActivity(intent);
             }
         });
@@ -106,11 +134,11 @@ public class ClientInfoActivity extends AppCompatActivity {
                     return InfoFragment.newInstance();
                 }
                 case 1: {
-                    VisitsFragment visitsFragment = VisitsFragment.newInstance(ClientInfoActivity.this.getId());
+                    ListsFragment listsFragment = ListsFragment.newInstance(ClientInfoActivity.this.getId());
                     Bundle bundle = new Bundle();
                     bundle.putLong("client_id", ClientInfoActivity.this.getId());
-                    visitsFragment.setArguments(bundle);
-                    return visitsFragment;
+                    listsFragment.setArguments(bundle);
+                    return listsFragment;
                 }
                 case 2: {
                     return RiskFragment.newInstance();
@@ -122,6 +150,11 @@ public class ClientInfoActivity extends AppCompatActivity {
         @Override public int getItemCount() {
             return CARD_ITEM_SIZE;
         }
+    }
+
+    private ViewPagerAdapter createCardAdapter() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        return adapter;
     }
 
     private void ToolbarButtons(){
@@ -143,12 +176,6 @@ public class ClientInfoActivity extends AppCompatActivity {
             }
         });
     }
-
-    private ViewPagerAdapter createCardAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
-        return adapter;
-    }
-
 }
 
 

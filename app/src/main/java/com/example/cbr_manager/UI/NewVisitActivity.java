@@ -880,6 +880,8 @@ public class NewVisitActivity extends AppCompatActivity {
         boolean success = mydb.addVisit(newVisit);
 
         if(success) {
+            VisitManager visitManager = VisitManager.getInstance(this);
+            visitManager.addVisit(newVisit);
             Toast.makeText(NewVisitActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
             Intent intent = ClientInfoActivity.makeIntent(NewVisitActivity.this, client_pos,  client_id);
             startActivity(intent);

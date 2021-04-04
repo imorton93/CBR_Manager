@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -91,7 +92,7 @@ public class DashboardFragment extends Fragment {
         Spinner village_spinner = view.findViewById(R.id.filter_village_dashboard);
         Spinner section_spinner = view.findViewById(R.id.filter_section_dashboard);
         EditText village_num_text = view.findViewById(R.id.filter_villageNum_dashboard);
-        Button search_button = view.findViewById(R.id.search_button_dashboard);
+        ImageButton search_button = view.findViewById(R.id.search_button_dashboard);
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,13 +144,15 @@ public class DashboardFragment extends Fragment {
 
             currentClient = this.clients.get(position);
 
-            TextView firstName = view.findViewById(R.id.fname_clist);
-            TextView lastName = view.findViewById(R.id.lname_clist);
+            TextView name = view.findViewById(R.id.name_clist);
             TextView village = view.findViewById(R.id.Village_clist);
+            TextView villageNum = view.findViewById(R.id.VillageNum_clist);
 
-            firstName.setText(currentClient.getFirstName());
-            lastName.setText(currentClient.getLastName());
+            String nameConcat = currentClient.getFirstName() + " " + currentClient.getLastName();
+
+            name.setText(nameConcat);
             village.setText(currentClient.getLocation());
+            villageNum.setText("" + currentClient.getVillageNumber());
 
             return view;
         }
