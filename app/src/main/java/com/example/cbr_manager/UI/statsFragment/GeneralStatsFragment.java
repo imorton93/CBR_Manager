@@ -90,10 +90,18 @@ public class GeneralStatsFragment extends Fragment {
         graph.invalidate();
     }
 
+    private void setDatesToNumberOfPoints(){
+        while(DATES.size() < 4){
+            DATES.add("INVALID");
+            DATES_DAYS.add(0);
+        }
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void clientsOverTimeGraph(View view){
         LineChart graph = view.findViewById(R.id.general_clientsOverTime_graph);
         ArrayList<Integer> clientsOverTimeDataPoints = getClientsOverTimeDataPoints();
+        setDatesToNumberOfPoints();
         ArrayList<Entry> entries = new ArrayList<>();
 
         for(int i = 0; i < clientsOverTimeDataPoints.size(); i++){
@@ -109,6 +117,7 @@ public class GeneralStatsFragment extends Fragment {
     private ArrayList<Integer> getClientsOverTimeDataPoints(){
         ArrayList<Integer> clientsOverTimeDataPoints = new ArrayList<>();
         ArrayList<String> recentClients = getRecentClientDates();
+        System.out.println("recentClients.size: " + recentClients.size());
         if(!recentClients.isEmpty()) {
             int numberOfMissingClients = clientManager.getClients().size() - recentClients.size();
             getUniqueClientDates(recentClients);
@@ -122,22 +131,33 @@ public class GeneralStatsFragment extends Fragment {
             for(String clientDate : recentClients){
                 String [] dateSplit = clientDate.split("/");
                 int day = Integer.parseInt(dateSplit[0]);
+
                 if(day <= DATES_DAYS.get(0)){
                     count = clientsOverTimeDataPoints.get(0);
                     clientsOverTimeDataPoints.set(0, count+1);
                 }
-                if(day <= DATES_DAYS.get(1)){
-                    count = clientsOverTimeDataPoints.get(1);
-                    clientsOverTimeDataPoints.set(1, count+1);
+                if(DATES_DAYS.size() > 1) {
+                    if (day <= DATES_DAYS.get(1)) {
+                        count = clientsOverTimeDataPoints.get(1);
+                        clientsOverTimeDataPoints.set(1, count + 1);
+                    }
                 }
-                if(day <= DATES_DAYS.get(2)){
-                    count = clientsOverTimeDataPoints.get(2);
-                    clientsOverTimeDataPoints.set(2, count+1);
+                if(DATES_DAYS.size() > 2){
+                    if(day <= DATES_DAYS.get(2)){
+                        count = clientsOverTimeDataPoints.get(2);
+                        clientsOverTimeDataPoints.set(2, count+1);
+                    }
                 }
-                if(day <= DATES_DAYS.get(3)){
-                    count = clientsOverTimeDataPoints.get(3);
-                    clientsOverTimeDataPoints.set(3, count+1);
+                if(DATES_DAYS.size() > 3) {
+                    if (day <= DATES_DAYS.get(3)) {
+                        count = clientsOverTimeDataPoints.get(3);
+                        clientsOverTimeDataPoints.set(3, count + 1);
+                    }
                 }
+            }
+        }else{
+            for(int i = 0; i < NUMBER_OF_POINTS; i++){
+                clientsOverTimeDataPoints.add(0);
             }
         }
         return clientsOverTimeDataPoints;
