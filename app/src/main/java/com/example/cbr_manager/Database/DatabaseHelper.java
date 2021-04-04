@@ -22,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_1 = "FIRST_NAME";
     private static final String COL_2 = "LAST_NAME";
     private static final String COL_3 = "USERNAME";
+    private static final String COL_7 = "ZONE";
     private static final String COL_4 = "PASSWORD";
     private static final String COL_5 = "ID";
     private static final String COL_6 = "IS_ADMIN";
@@ -111,7 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String create_worker_table = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
-                + " TEXT UNIQUE NOT NULL, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY , "
+                + " TEXT UNIQUE NOT NULL, " + COL_7 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY , "
                 + COL_6 + " BOOLEAN NOT NULL DEFAULT 0);";
         db.execSQL(create_worker_table);
 
@@ -169,6 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_1, cbrWorker.getFirstName());
         cv.put(COL_2, cbrWorker.getLastName());
         cv.put(COL_3, cbrWorker.getUsername());
+        cv.put(COL_7, cbrWorker.getZone());
         cv.put(COL_4, cbrWorker.getPassword());
 
         long result = db.insert(TABLE_NAME, null, cv);
@@ -469,6 +471,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
+    public Cursor getAllRowsOfCBR() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM WORKER_DATA", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
     public Cursor getRow(long id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c =  db.rawQuery( "SELECT rowid _id, * FROM CLIENT_DATA WHERE ID = "+ id, null);
@@ -558,6 +569,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else {
             return -1;
         }
+    }
+
+
+    public Cursor viewData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c =  db.rawQuery( "SELECT rowid _id, * FROM WORKER_DATA ", null);
+        if(c != null){
+            c.moveToFirst();
+        }
+        return c;
     }
 
 
