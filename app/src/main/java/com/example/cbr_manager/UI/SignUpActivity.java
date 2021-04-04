@@ -21,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.CBRWorker;
-import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 
@@ -30,9 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -53,11 +49,11 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        firstNameTextBox = findViewById(R.id.firstnameTextBox);
-        lastNameTextBox = findViewById(R.id.lastnameTextBox);
-        emailTextBox = findViewById(R.id.emailTextBox);
+        firstNameTextBox = findViewById(R.id.titleTextBox);
+        lastNameTextBox = findViewById(R.id.dateTextBox);
+        emailTextBox = findViewById(R.id.locationTextBox);
         password1TextBox = findViewById(R.id.password1TextBox);
-        password2TextBox = findViewById(R.id.password2TextBox);
+        password2TextBox = findViewById(R.id.messageTextBox);
 
         submitButton = findViewById(R.id.submitButton);
 
@@ -71,26 +67,27 @@ public class SignUpActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEntries() && connectedToInternet()) {
-                    if (validatePasswords()) {
-                        cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
-                                emailTextBox.getText().toString(), BCrypt.withDefaults().hashToString(12, password1TextBox.getText().toString().toCharArray()));
-                        boolean success = mydb.registerWorker(cbrWorker);
-                        if(success) {
-                            cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
-                            syncLoginData();
-                            Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
-                            startActivity(intent);
+                if (!connectedToInternet()) {
+                    Toast.makeText(SignUpActivity.this, "Please connect to the internet and try again!", Toast.LENGTH_LONG).show();
+                } else {
+                    if (validateEntries()) {
+                        if (validatePasswords()) {
+                            cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
+                                    emailTextBox.getText().toString(), BCrypt.withDefaults().hashToString(12, password1TextBox.getText().toString().toCharArray()));
+                            boolean success = mydb.registerWorker(cbrWorker);
+                            if (success) {
+                                cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
+                                syncLoginData();
+                                Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
+                                startActivity(intent);
+                            } else
+                                Toast.makeText(SignUpActivity.this, "Error Occurred." + success, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                         }
-                        else
-                            Toast.makeText(SignUpActivity.this, "Error Occured."+ success, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Please enter all the details", Toast.LENGTH_SHORT).show();
                     }
-                    else {
-                        Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    Toast.makeText(SignUpActivity.this, "Please enter all the details", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -168,6 +165,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 worker.setUsername((String) object.get("USERNAME"));
                                 worker.setPassword((String) object.get("PASSWORD"));
                                 worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
+                                worker.setIs_admin("1".equals((String) object.get("IS_ADMIN")));
 
                                 mydb.registerWorker(worker);
                             }

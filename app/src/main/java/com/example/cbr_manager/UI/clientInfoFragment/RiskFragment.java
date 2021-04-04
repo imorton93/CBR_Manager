@@ -1,8 +1,6 @@
 package com.example.cbr_manager.UI.clientInfoFragment;
 
 import android.content.res.Resources;
-import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,12 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
-import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
 
@@ -55,14 +52,9 @@ public class RiskFragment extends Fragment {
         TextView educationGoal = v.findViewById(R.id.goalEducation);
         TextView socialGoal = v.findViewById(R.id.goalSocial);
 
-        ProgressBar healthRate = v.findViewById(R.id.progressBarHealth);
-        ProgressBar educationRate = v.findViewById(R.id.progressBarEducation);
-        ProgressBar socialRate = v.findViewById(R.id.progressBarSocial);
-
         TextView healthRisk = v.findViewById(R.id.healthRisk);
         TextView educationRisk = v.findViewById(R.id.educationRisk);
         TextView socialRisk = v.findViewById(R.id.socialRisk);
-
 
         String final_health = "Goal: " + currentClient.getHealthIndividualGoal() + "\n\nRequires: " + currentClient.getHealthRequire();
         String final_education = "Goal: " + currentClient.getEducationIndividualGoal() + "\n\nRequires: " + currentClient.getEducationRequire();
@@ -76,27 +68,27 @@ public class RiskFragment extends Fragment {
         educationRisk.setText(currentClient.getEducationRate());
         socialRisk.setText(currentClient.getSocialStatusRate());
 
-        progressBarUpdate(healthRate, currentClient.getHealthRate());
-        progressBarUpdate(educationRate, currentClient.getEducationRate());
-        progressBarUpdate(socialRate, currentClient.getSocialStatusRate());
+        ImageView socialDot = v.findViewById(R.id.SocialDot);
+        ImageView educationDot = v.findViewById(R.id.EducationDot);
+        ImageView healthDot = v.findViewById(R.id.healthDot);
+
+        riskDot(currentClient.getHealthRate(), v, socialDot);
+        riskDot(currentClient.getEducationRate(), v, educationDot);
+        riskDot(currentClient.getSocialStatusRate(), v, healthDot);
     }
 
-    public void progressBarUpdate(ProgressBar progressBar, String rate) {
+    public void riskDot(String rate, View v, ImageView imageView) {
         Resources res = getResources();
         String[] riskTypes = res.getStringArray(R.array.risk_type);
 
         if(rate.equals(riskTypes[0])) {
-            progressBar.setProgress(100);
-            progressBar.getProgressDrawable().setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+            imageView.setImageResource(R.drawable.red);
         } else if (rate.equals(riskTypes[1])) {
-            progressBar.setProgress(75);
-            progressBar.getProgressDrawable().setColorFilter(Color.parseColor("#FFD000"), android.graphics.PorterDuff.Mode.SRC_IN);
+            imageView.setImageResource(R.drawable.orange);
         } else if (rate.equals(riskTypes[2])) {
-            progressBar.setProgress(50);
-            progressBar.getProgressDrawable().setColorFilter(Color.parseColor("#FFF203"), android.graphics.PorterDuff.Mode.SRC_IN);
+            imageView.setImageResource(R.drawable.yellow);
         } else {
-            progressBar.setProgress(25);
-            progressBar.getProgressDrawable().setColorFilter(Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
+            imageView.setImageResource(R.drawable.green);
         }
     }
 }

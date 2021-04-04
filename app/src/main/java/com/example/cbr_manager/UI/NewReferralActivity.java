@@ -30,8 +30,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Referral;
+import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.Forms.DisplayFormPage;
 import com.example.cbr_manager.Forms.FormPage;
 import com.example.cbr_manager.Forms.MultipleChoiceQuestion;
@@ -90,6 +92,14 @@ public class NewReferralActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_referral);
         ToolbarButtons();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(NewReferralActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
+
+        TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
+        badgeNotification(adminMessageManager, badgeOnToolBar);
+
         extractIntent();
 
         mydb = new DatabaseHelper(NewReferralActivity.this);
@@ -645,6 +655,15 @@ public class NewReferralActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton notificationBtn = findViewById(R.id.notificationButton);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = DashboardActivity.makeIntent(NewReferralActivity.this);
+                startActivity(intent);
+            }
+        });
+
         ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -655,6 +674,22 @@ public class NewReferralActivity extends AppCompatActivity {
         });
     }
 
+    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
+        int size = adminMessageManager.size();
+
+        if (badge != null) {
+            if (size == 0) {
+                if (badge.getVisibility() != View.GONE) {
+                    badge.setVisibility(View.GONE);
+                }
+            } else {
+                badge.setText(String.valueOf(Math.min(size, 99)));
+                if (badge.getVisibility() != View.VISIBLE) {
+                    badge.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
 
     private void createNewReferralForm(){
         Resources res = getResources();
@@ -790,6 +825,8 @@ public class NewReferralActivity extends AppCompatActivity {
         boolean success = mydb.addReferral(referral);
 
         if(success) {
+            ReferralManager referralManager = ReferralManager.getInstance(this);
+            referralManager.addReferral(referral);
             Toast.makeText(NewReferralActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
             Intent intent = ClientInfoActivity.makeIntent(NewReferralActivity.this, client_pos,  client_id);
             startActivity(intent);

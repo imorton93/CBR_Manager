@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +23,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Referral;
+import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
@@ -36,12 +40,13 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class TaskViewActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private DatabaseHelper mydb;
+
+    TextView badge;
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, TaskViewActivity.class);
@@ -55,10 +60,19 @@ public class TaskViewActivity extends AppCompatActivity {
 
         //Setting up request queue for web service
         requestQueue = Volley.newRequestQueue(TaskViewActivity.this);
-         mydb = new DatabaseHelper(TaskViewActivity.this);
+        mydb = new DatabaseHelper(TaskViewActivity.this);
+        badge = findViewById(R.id.cart_badge);
+        TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
 
         clickIcons();
         ToolbarButtons();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
+
+        badgeNotification(adminMessageManager, badge);
+        badgeNotification(adminMessageManager, badgeOnToolBar);
     }
 
     private boolean connectedToInternet () {
@@ -78,9 +92,7 @@ public class TaskViewActivity extends AppCompatActivity {
         newClient.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String current_username = getIntent().getStringExtra("Worker Username");
                 Intent intent = NewClientActivity.makeIntent(TaskViewActivity.this);
-                intent.putExtra("Worker Username", current_username);
                 startActivity(intent);
             }
         });
@@ -116,8 +128,8 @@ public class TaskViewActivity extends AppCompatActivity {
                     Toast.makeText(TaskViewActivity.this, "Not connected to internet.", Toast.LENGTH_LONG).show();
                 } else {
                     syncClientsTable();
-                    //syncVisitTable();
-                    //syncReferralTable();
+//                    syncVisitTable();
+//                    syncReferralTable();
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
                 }
@@ -129,6 +141,16 @@ public class TaskViewActivity extends AppCompatActivity {
                 VisitManager visitManager = VisitManager.getInstance(TaskViewActivity.this);
                 visitManager.clear();
                 visitManager.updateList();
+
+                ReferralManager referralManager = ReferralManager.getInstance(TaskViewActivity.this);
+                referralManager.clear();
+                referralManager.updateList();
+
+                AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
+                adminMessageManager.clear();
+                adminMessageManager.updateList();
+
+                badgeNotification(adminMessageManager, badge);
             }
         });
 
@@ -137,8 +159,6 @@ public class TaskViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = DashboardActivity.makeIntent(TaskViewActivity.this);
-                String current_username = getIntent().getStringExtra("Worker Username");
-                intent.putExtra("Worker Username", current_username);
                 startActivity(intent);
             }
         });
@@ -167,29 +187,21 @@ public class TaskViewActivity extends AppCompatActivity {
         });
     }
 
-    public JSONArray cur2Json(Cursor cursor) {
+    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
+        int size = adminMessageManager.size();
 
-        JSONArray resultSet = new JSONArray();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            int totalColumn = cursor.getColumnCount();
-            JSONObject rowObject = new JSONObject();
-            for (int i = 0; i < totalColumn; i++) {
-                if (cursor.getColumnName(i) != null) {
-                    try {
-                        rowObject.put(cursor.getColumnName(i),
-                                cursor.getString(i));
-                    } catch (Exception e) {
-                        Toast.makeText(TaskViewActivity.this, "Exception Error", Toast.LENGTH_LONG).show();
-                    }
+        if (badge != null) {
+            if (size == 0) {
+                if (badge.getVisibility() != View.GONE) {
+                    badge.setVisibility(View.GONE);
+                }
+            } else {
+                badge.setText(String.valueOf(Math.min(size, 99)));
+                if (badge.getVisibility() != View.VISIBLE) {
+                    badge.setVisibility(View.VISIBLE);
                 }
             }
-            resultSet.put(rowObject);
-            cursor.moveToNext();
         }
-
-        cursor.close();
-        return resultSet;
     }
 
     private void ToolbarButtons(){
@@ -198,6 +210,15 @@ public class TaskViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = TaskViewActivity.makeIntent(TaskViewActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton notificationBtn = findViewById(R.id.notificationButton);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = DashboardActivity.makeIntent(TaskViewActivity.this);
                 startActivity(intent);
             }
         });
@@ -255,6 +276,10 @@ public class TaskViewActivity extends AppCompatActivity {
                                 client.setContactPhoneNumber((String) object.get("CONTACT"));
                                 client.setCaregiverPresent(strToBool((String) object.get("CAREGIVER_PRESENCE")));
                                 client.setCaregiverPhoneNumber((String) object.get("CAREGIVER_NUMBER"));
+
+                                if (!object.isNull("PHOTO")) {
+                                    client.setPhoto(strToByteArr((String) object.get("PHOTO")));
+                                }
 
                                 //setting disabilities
                                 List<String> disabilities = new ArrayList<String>(Arrays.asList(((String) object.get("DISABILITY")).split(", ")));
@@ -461,11 +486,56 @@ public class TaskViewActivity extends AppCompatActivity {
         requestQueue.add(requestToServer);
     }
 
+    public JSONArray cur2Json(Cursor cursor) {
+        byte[] photoArr;
+        String base64Photo;
+        String data;
+
+        JSONArray resultSet = new JSONArray();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int totalColumn = cursor.getColumnCount();
+            JSONObject rowObject = new JSONObject();
+            for (int i = 0; i < totalColumn; i++) {
+                if (cursor.getColumnName(i) != null) {
+                    if ((cursor.getColumnName(i).equals("PHOTO")) ||
+                            (cursor.getColumnName(i).equals("REFERRAL_PHOTO"))) {
+                        photoArr = cursor.getBlob(i);
+
+                        if (photoArr != null) {
+                            base64Photo = Base64.encodeToString(photoArr, Base64.DEFAULT);
+                            data = base64Photo;
+                        } else {
+                            data = "";
+                        }
+                    } else {
+                        data = cursor.getString(i);
+                    }
+
+                    try {
+                        rowObject.put(cursor.getColumnName(i), data);
+                    } catch (Exception e) {
+                        Toast.makeText(TaskViewActivity.this, "Exception Error", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+            resultSet.put(rowObject);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return resultSet;
+    }
+
     public Boolean strToBool (String s) {
         if (s.equals("1")) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public byte[] strToByteArr (String s) {
+        return Base64.decode(s, Base64.DEFAULT);
     }
 }
