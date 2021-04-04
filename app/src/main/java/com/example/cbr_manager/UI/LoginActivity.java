@@ -197,6 +197,12 @@ public class LoginActivity extends AppCompatActivity {
         worker.setFirstName((String) object.get("FIRST_NAME"));
         worker.setLastName((String) object.get("LAST_NAME"));
         worker.setUsername((String) object.get("USERNAME"));
+
+        if (!object.isNull("ZONE"))  {
+            worker.setZone((String) object.get("ZONE"));
+        }
+
+        //worker.setPhoto((String) object.get("PHOTO")); - Uncomment out once worker photos are implemented, surround with a null check
         worker.setPassword((String) object.get("PASSWORD"));
         worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
         worker.setIs_admin("1".equals((String) object.get("IS_ADMIN")));
