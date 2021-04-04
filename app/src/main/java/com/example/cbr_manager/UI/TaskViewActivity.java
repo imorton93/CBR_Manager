@@ -7,7 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -64,6 +63,7 @@ public class TaskViewActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(TaskViewActivity.this);
         mydb = new DatabaseHelper(TaskViewActivity.this);
         badge = findViewById(R.id.cart_badge);
+        TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
 
         clickIcons();
         ToolbarButtons();
@@ -72,7 +72,8 @@ public class TaskViewActivity extends AppCompatActivity {
         adminMessageManager.clear();
         adminMessageManager.updateList();
 
-        badgeNotification(adminMessageManager);
+        badgeNotification(adminMessageManager, badge);
+        badgeNotification(adminMessageManager, badgeOnToolBar);
     }
 
     private boolean connectedToInternet () {
@@ -150,7 +151,7 @@ public class TaskViewActivity extends AppCompatActivity {
                 adminMessageManager.clear();
                 adminMessageManager.updateList();
 
-                badgeNotification(adminMessageManager);
+                badgeNotification(adminMessageManager, badge);
             }
         });
 
@@ -187,7 +188,7 @@ public class TaskViewActivity extends AppCompatActivity {
         });
     }
 
-    private void badgeNotification(AdminMessageManager adminMessageManager) {
+    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
         int size = adminMessageManager.size();
 
         if (badge != null) {
@@ -202,7 +203,6 @@ public class TaskViewActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
     private void ToolbarButtons(){
@@ -211,6 +211,15 @@ public class TaskViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = TaskViewActivity.makeIntent(TaskViewActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton notificationBtn = findViewById(R.id.notificationButton);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = DashboardActivity.makeIntent(TaskViewActivity.this);
                 startActivity(intent);
             }
         });
