@@ -39,6 +39,7 @@
                     android:layout_height="300dp"
                     android:layout_width="match_parent"
                     android:id="@+id/client_health_graph"
+                    android:background="@color/white"
                     />
 
                 <com.github.mikephil.charting.charts.BarChart

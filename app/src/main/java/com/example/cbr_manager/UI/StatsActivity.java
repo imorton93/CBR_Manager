@@ -88,7 +88,7 @@ public class StatsActivity extends AppCompatActivity {
         public Fragment createFragment(int pos) {
             switch (pos) {
                 case 0: {
-                    return GeneralStatsFragment.newInstance("Test");
+                    return GeneralStatsFragment.newInstance();
                 }
                 case 1: {
                     return ClientStatsFragment.newInstance();
@@ -103,7 +103,7 @@ public class StatsActivity extends AppCompatActivity {
                     return VisitStatsFragment.newInstance();
                 }
                 default:
-                    return GeneralStatsFragment.newInstance("Test");
+                    return GeneralStatsFragment.newInstance();
             }
         }
         @Override
