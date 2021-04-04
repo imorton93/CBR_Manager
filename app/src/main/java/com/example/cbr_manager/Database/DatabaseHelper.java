@@ -527,9 +527,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public int numberOfClientsPerUser(String username){
+    public int numberOfClientsPerUser(int worker_id){
         SQLiteDatabase db = this.getWritableDatabase();
-        int worker_id = getWorkerId(username);
         String query = "SELECT COUNT(ID) FROM " + client_table_name + " WHERE " + client_worker_id + " = " + worker_id + ";";
         Cursor c = db.rawQuery(query, null);
         if(c!= null && c.getCount()>0) {
