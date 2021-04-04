@@ -76,6 +76,7 @@ public class DisplayFormPage {
                 displayNoneTypeQuestion(txtQ.getQuestionString(), form, context);
             }
 
+            //space between questions
             mSpace = new Space(context);
             mSpace.setMinimumHeight(50);
             form.addView(mSpace);
