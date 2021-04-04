@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.CBRWorker;
+import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Visit;
@@ -42,10 +45,17 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
 
     public static String username, password;
+    public static long id;
     private EditText usernameTextBox, passwordTextBox;
     private Button login_btn;
     private DatabaseHelper mydb;
+
+    private CBRWorkerManager cbrWorkerManager;
+
+    public static CBRWorker currentCBRWorker;
+
     private RequestQueue requestQueue;
+
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, LoginActivity.class);
@@ -56,6 +66,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mydb = new DatabaseHelper(LoginActivity.this);
+
+        cbrWorkerManager = CBRWorkerManager.getInstance(LoginActivity.this);
+        cbrWorkerManager.clear();
+        cbrWorkerManager.updateList();
 
         ClientManager clientManager = ClientManager.getInstance(LoginActivity.this);
         clientManager.clear();
@@ -94,8 +108,11 @@ public class LoginActivity extends AppCompatActivity {
                 password = passwordTextBox.getText().toString();
                 // Do something with login button
                 if (mydb.checkUser(username, password)) {
+                    currentCBRWorker = cbrWorkerManager.getCBRByUsernameAndPassword(username);
                     Intent intent = TaskViewActivity.makeIntent(LoginActivity.this);
+
                     sharedPref.edit().putString("username", username).apply();
+
                     startActivity(intent);
                 }
                 else{
