@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,10 +26,12 @@ import java.util.Calendar;
 
 public class DisplayFormPage {
 
-    private static float txtSize = 18;
+    private static float txtSize = 20;
+
 
     public static void displayPage(FormPage page, LinearLayout form, android.content.Context context, double latitude, double longitude){
         ArrayList<Question> questions = page.getQuestions();
+        Space mSpace;
         for(Question question : questions){
             TextQuestion txtQ;
             MultipleChoiceQuestion mcQ;
@@ -72,6 +75,10 @@ public class DisplayFormPage {
                 txtQ = (TextQuestion) question;
                 displayNoneTypeQuestion(txtQ.getQuestionString(), form, context);
             }
+
+            mSpace = new Space(context);
+            mSpace.setMinimumHeight(50);
+            form.addView(mSpace);
         }
     }
 
