@@ -4,14 +4,16 @@ public class CBRWorker {
     private String firstName;
     private String lastName;
     private String username;
+    private String zone;
     private String password;
     private int id;
     private boolean is_admin;
 
-    public CBRWorker(String firstName, String lastName, String username, String password) {
+    public CBRWorker(String firstName, String lastName, String username, String zone, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
+        this.zone = zone;
         this.password = password;
         is_admin = false;
     }
@@ -79,4 +81,11 @@ public class CBRWorker {
         return is_admin;
     }
 
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
 }

@@ -25,8 +25,13 @@
         <activity android:name=".UI.StatsActivity"></activity>
         <activity android:name=".UI.ReferralInfo" />
         <activity android:name=".UI.MapsActivity" />
-        <activity android:name=".UI.dashboardFragment.NewMsgActivity" />
-        <activity android:name=".UI.MapsActivity" />
+        <activity android:name=".UI.dashboardFragment.NewMsgActivity"></activity>
+        <activity android:name=".UI.BaselineSurvey.EmpowermentandShelterSurveyActivity"/>
+        <activity android:name=".UI.BaselineSurvey.FoodSurveyActivity"/>
+        <activity android:name=".UI.BaselineSurvey.LivelihoodSurveyActivity"/>
+        <activity android:name=".UI.BaselineSurvey.EducationSurveyActivity"/>
+        <activity android:name=".UI.BaselineSurvey.HealthSurveyActivity"/>
+        <activity android:name=".UI.BaselineSurvey.SocialSurveyActivity"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -46,10 +51,9 @@
         <activity android:name=".UI.ClientSearchActivity" />
         <activity android:name=".UI.VisitInfoActivity" />
         <activity android:name=".UI.NewReferralActivity" />
-        <activity android:name=".UI.LoginActivity">
+        <activity android:name=".UI.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -66,8 +70,7 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".UI.ProfileActivity" />
         <activity android:name=".UI.TaskViewActivity" />
-        <activity android:name=".UI.EditClientActivity" />
-
+        <activity android:name=".UI.EditClientActivity"/>
         <service android:name=".GoogleMaps.FetchAddressIntentService" />
     </application>
 

@@ -7,7 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -43,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.cbr_manager.UI.LoginActivity.username;
+
 public class TaskViewActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private DatabaseHelper mydb;
@@ -63,6 +64,7 @@ public class TaskViewActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(TaskViewActivity.this);
         mydb = new DatabaseHelper(TaskViewActivity.this);
         badge = findViewById(R.id.cart_badge);
+        TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
 
         clickIcons();
         ToolbarButtons();
@@ -71,7 +73,8 @@ public class TaskViewActivity extends AppCompatActivity {
         adminMessageManager.clear();
         adminMessageManager.updateList();
 
-        badgeNotification(adminMessageManager);
+        badgeNotification(adminMessageManager, badge);
+        badgeNotification(adminMessageManager, badgeOnToolBar);
     }
 
     private boolean connectedToInternet () {
@@ -91,9 +94,7 @@ public class TaskViewActivity extends AppCompatActivity {
         newClient.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String current_username = getIntent().getStringExtra("Worker Username");
                 Intent intent = NewClientActivity.makeIntent(TaskViewActivity.this);
-                intent.putExtra("Worker Username", current_username);
                 startActivity(intent);
             }
         });
@@ -151,7 +152,7 @@ public class TaskViewActivity extends AppCompatActivity {
                 adminMessageManager.clear();
                 adminMessageManager.updateList();
 
-                badgeNotification(adminMessageManager);
+                badgeNotification(adminMessageManager, badge);
             }
         });
 
@@ -160,8 +161,6 @@ public class TaskViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = DashboardActivity.makeIntent(TaskViewActivity.this);
-                String current_username = getIntent().getStringExtra("Worker Username");
-                intent.putExtra("Worker Username", current_username);
                 startActivity(intent);
             }
         });
@@ -192,7 +191,7 @@ public class TaskViewActivity extends AppCompatActivity {
         });
     }
 
-    private void badgeNotification(AdminMessageManager adminMessageManager) {
+    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
         int size = adminMessageManager.size();
 
         if (badge != null) {
@@ -207,7 +206,6 @@ public class TaskViewActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
     private void ToolbarButtons(){
@@ -216,6 +214,15 @@ public class TaskViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = TaskViewActivity.makeIntent(TaskViewActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton notificationBtn = findViewById(R.id.notificationButton);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = DashboardActivity.makeIntent(TaskViewActivity.this);
                 startActivity(intent);
             }
         });
@@ -498,8 +505,13 @@ public class TaskViewActivity extends AppCompatActivity {
                     if ((cursor.getColumnName(i).equals("PHOTO")) ||
                             (cursor.getColumnName(i).equals("REFERRAL_PHOTO"))) {
                         photoArr = cursor.getBlob(i);
-                        base64Photo = Base64.encodeToString(photoArr, Base64.DEFAULT);
-                        data = base64Photo;
+
+                        if (photoArr != null) {
+                            base64Photo = Base64.encodeToString(photoArr, Base64.DEFAULT);
+                            data = base64Photo;
+                        } else {
+                            data = "";
+                        }
                     } else {
                         data = cursor.getString(i);
                     }
