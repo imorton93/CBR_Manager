@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -90,6 +91,10 @@ public class EditCBRActivity extends AppCompatActivity {
                     Toast.makeText(EditCBRActivity.this, "Please connect to the internet and try again!", Toast.LENGTH_LONG).show();
                 } else {
                     if (validateEntries()) {
+                        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("DATA", Context.MODE_PRIVATE);
+                        String curr_username = sharedPref.getString("username", null);
+
+                        cbrWorker.setWorkerId(mydb.getWorkerId(curr_username));
                         cbrWorker.setFirstName(firstName.getText().toString());
                         cbrWorker.setLastName(lastName.getText().toString());
                         cbrWorker.setUsername(username.getText().toString());
@@ -99,6 +104,7 @@ public class EditCBRActivity extends AppCompatActivity {
                         boolean success = mydb.updateWorker(cbrWorker);
                         if(success) {
                             cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
+                            sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
 //                            syncLoginData();
                             Intent intent = LoginActivity.makeIntent(EditCBRActivity.this);
                             startActivity(intent);
