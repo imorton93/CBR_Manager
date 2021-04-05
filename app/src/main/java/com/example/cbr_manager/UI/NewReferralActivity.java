@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -726,61 +727,81 @@ public class NewReferralActivity extends AppCompatActivity {
     }
 
     private void reviewPage(){
+        ScrollView sv = new ScrollView(this);
+        sv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+        float txtSize = 18;
+        reviewTitle(txtSize);
+
         TextView serviceTypeView = new TextView(this);
         String serviceType = referral.getServiceReq();
         serviceTypeView.setText(serviceType);
-        form.addView(serviceTypeView);
+        serviceTypeView.setTextSize(txtSize);
+        layout.addView(serviceTypeView);
+
+        insertLineDivide(layout);
+
         if(serviceType.equals("Physiotherapy")){
             String condition = referral.getCondition();
             TextView conditionView = new TextView(this);
             conditionView.setText("Condition: " + condition);
-            form.addView(conditionView);
+            conditionView.setTextSize(txtSize);
+            layout.addView(conditionView);
         }
         else if(serviceType.equals("Prosthetic")){
             String injuryLocation = referral.getInjuryLocation();
             TextView injuryLocationView = new TextView(this);
             injuryLocationView.setText("Injury above or below the knee: " + injuryLocation);
-            form.addView(injuryLocationView);
+            injuryLocationView.setTextSize(txtSize);
+            layout.addView(injuryLocationView);
         }
         else if(serviceType.equals("Orthotic")){
             String injuryLocation = referral.getInjuryLocation();
             TextView injuryLocationView = new TextView(this);
             injuryLocationView.setText("Injury above or below the elbow: " + injuryLocation);
-            form.addView(injuryLocationView);
+            injuryLocationView.setTextSize(txtSize);
+            layout.addView(injuryLocationView);
         }
         else if(serviceType.equals("Wheelchair")){
             String userType = referral.getBasicOrInter();
             TextView userTypeView = new TextView(this);
             userTypeView.setText("Type of user: " + userType);
-            form.addView(userTypeView);
+            userTypeView.setTextSize(txtSize);
+            layout.addView(userTypeView);
 
             int hipWidth = referral.getHipWidth();
             String hipWidthString = Integer.toString(hipWidth);
             TextView hipWidthView = new TextView(this);
             hipWidthView.setText("Hip Width(inches): " + hipWidthString);
-            form.addView(hipWidthView);
+            hipWidthView.setTextSize(txtSize);
+            layout.addView(hipWidthView);
+
+            insertLineDivide(layout);
 
             Boolean existingChair = referral.getHasWheelchair();
             TextView existingChairView = new TextView(this);
+            existingChairView.setTextSize(txtSize);
             if(existingChair){
                 existingChairView.setText("Existing Chair: Yes");
-                form.addView(existingChairView);
+                layout.addView(existingChairView);
                 Boolean canBeFixed = referral.getWheelchairReparable();
                 TextView canBeFixedView = new TextView(this);
+                canBeFixedView.setTextSize(txtSize);
                 if(canBeFixed){
                     canBeFixedView.setText("Can be Fixed: Yes");
                 }
                 else{
                     canBeFixedView.setText("Can be Fixed: No");
                 }
-                form.addView(canBeFixedView);
+                layout.addView(canBeFixedView);
             }
             else{
                 existingChairView.setText("Existing Chair: No");
-                form.addView(existingChairView);
+                layout.addView(existingChairView);
             }
-
-
 
 
         }
@@ -788,9 +809,36 @@ public class NewReferralActivity extends AppCompatActivity {
             String otherExplanation = referral.getOtherExplanation();
             TextView otherExplanationView = new TextView(this);
             otherExplanationView.setText("Explanation: " + otherExplanation);
-            form.addView(otherExplanationView);
+            otherExplanationView.setTextSize(txtSize);
+            layout.addView(otherExplanationView);
         }
+
+        sv.addView(layout);
+        form.addView(sv);
     }
+
+    private void insertLineDivide(LinearLayout layout){
+        View view = new View(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2);
+        params.topMargin = 20;
+        params.bottomMargin = 20;
+        params.leftMargin = 10;
+        params.rightMargin = 10;
+        view.setLayoutParams(params);
+        view.setBackgroundColor(Color.BLACK);
+        layout.addView(view);
+    }
+
+    private void reviewTitle(float txtSize){
+        TextView reviewTitle = new TextView(this);
+        reviewTitle.setText("Review");
+        reviewTitle.setTextSize(txtSize);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_HORIZONTAL;
+        reviewTitle.setLayoutParams(params);
+        form.addView(reviewTitle);
+    }
+
 
     private void insertReferral() {
         boolean success = mydb.addReferral(referral);
