@@ -97,7 +97,6 @@ public class NewReferralActivity extends AppCompatActivity {
 
         //Button setup
         next = (Button) findViewById(R.id.nextBtnVisit);
-        next.setBackgroundColor(Color.parseColor("#6661ED24"));
         back = (Button) findViewById(R.id.backBtn);
         imageView = new ImageView(this);
         LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -146,6 +145,7 @@ public class NewReferralActivity extends AppCompatActivity {
                     pageCount = selectedForm.size() + 2;
                     back.setClickable(true);
                     back.setVisibility(View.VISIBLE);
+                    back.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
                     back.setBackgroundColor(Color.parseColor("#6661ED24"));
                     savePage(serviceRequirePage);
                 }

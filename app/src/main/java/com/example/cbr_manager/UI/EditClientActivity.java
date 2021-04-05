@@ -79,7 +79,6 @@ public class EditClientActivity extends AppCompatActivity {
         mydb = new DatabaseHelper(EditClientActivity.this);
         next = (Button) findViewById(R.id.nextBtnVisit);
 
-        next.setBackgroundColor(Color.parseColor("#6661ED24"));
 
         back = (Button) findViewById(R.id.backBtn);
         imageView = new ImageView(this);
@@ -121,7 +120,7 @@ public class EditClientActivity extends AppCompatActivity {
                     back.setClickable(true);
                     back.setVisibility(View.VISIBLE);
 
-                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
+                    back.setBackground(ContextCompat.getDrawable(EditClientActivity.this, R.drawable.rounded_form_buttons));
 
 
                 }

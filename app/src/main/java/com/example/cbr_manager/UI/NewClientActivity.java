@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -28,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +62,6 @@ import java.util.ArrayList;
 public class NewClientActivity extends AppCompatActivity {
 
 //    private static final String TAG = "INSERTED";
-
 
     private static final String TAG = "ERROR";
 
@@ -100,8 +101,6 @@ public class NewClientActivity extends AppCompatActivity {
 
         mydb = new DatabaseHelper(NewClientActivity.this);
         next = (Button) findViewById(R.id.nextBtnVisit);
-
-        next.setBackgroundColor(Color.parseColor("#6661ED24"));
 
         back = (Button) findViewById(R.id.backBtn);
 
@@ -153,7 +152,8 @@ public class NewClientActivity extends AppCompatActivity {
                     back.setClickable(true);
                     back.setVisibility(View.VISIBLE);
 
-                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
+//                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
+                    back.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
 
 
                 }
@@ -292,6 +292,16 @@ public class NewClientActivity extends AppCompatActivity {
         TextView questionText = new TextView(this);
         questionText.setText(picQuestion.getQuestionString());
         form.addView(questionText);
+
+//        ImageButton imageButton = new ImageButton(this);
+//        Bitmap cameraIcon = BitmapFactory.decodeResource(getResources(), R.drawable.camera_icon);
+//        Bitmap cameraIconResized = Bitmap.createScaledBitmap(cameraIcon, 200, 200, true);
+//        imageButton.setImageBitmap(cameraIconResized);
+//        imageButton.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        imageButton.setLayoutParams(params);
+
+//        form.addView(imageButton);
 
         Button picButton = new Button(this);
         picButton.setText("Take Picture");

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
@@ -82,7 +83,6 @@ public class NewVisitActivity extends AppCompatActivity {
         extractIntent();
 
         next = (Button) findViewById(R.id.nextBtnVisit);
-        next.setBackgroundColor(Color.parseColor("#6661ED24"));
         back = (Button) findViewById(R.id.backBtnVisit);
         newVisit = new Visit();
         newVisit.setClientID(client_id);
@@ -116,7 +116,7 @@ public class NewVisitActivity extends AppCompatActivity {
                     if(currentPage == 1){
                         back.setClickable(true);
                         back.setVisibility(View.VISIBLE);
-                        back.setBackgroundColor(Color.parseColor("#6661ED24"));
+                        back.setBackground(ContextCompat.getDrawable(NewVisitActivity.this, R.drawable.rounded_form_buttons));
                     }
                     //save answers
                     savePage(pages.get(currentPage - 1));
