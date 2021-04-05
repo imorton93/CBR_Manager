@@ -7,6 +7,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/client_search_text2"
+        android:layout_width="272dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Edit page"
+        android:textColor="#009fb8"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hopeHealthActionImage" />
+
     <ImageView
         android:id="@+id/hopeHealthActionImage"
         android:layout_width="match_parent"
@@ -27,8 +42,8 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="357dp"
-        android:layout_height="430dp"
+        android:layout_width="343dp"
+        android:layout_height="338dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="20dp"
@@ -39,13 +54,13 @@
         android:radius="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hopeHealthActionImage"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.478">
 
         <EditText
-            android:id="@+id/firstTextBox"
+            android:id="@+id/first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -58,7 +73,7 @@
             app:layout_constraintHorizontal_bias="0.497" />
 
         <EditText
-            android:id="@+id/lastTextBox"
+            android:id="@+id/last"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -69,7 +84,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/userTextBox"
+            android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -85,7 +100,7 @@
 
 
         <EditText
-            android:id="@+id/zoneTextBox"
+            android:id="@+id/zone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -99,35 +114,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/last" />
 
-        <EditText
-            android:id="@+id/password1TextBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="251dp"
-            android:ems="10"
-            android:hint="@string/type_password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user" />
-
-        <EditText
-            android:id="@+id/messageTextBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="308dp"
-            android:ems="10"
-            android:hint="@string/confirm_password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <Button
             android:id="@+id/backButtonSignup"
             android:layout_width="125dp"
@@ -137,7 +123,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="365dp"
+            android:layout_marginTop="250dp"
             android:text="Back"
             app:backgroundTint="#02FDDF"
             app:layout_constraintEnd_toEndOf="parent"
@@ -151,7 +137,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="365dp"
+            android:layout_marginTop="250dp"
             android:layout_marginEnd="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="202dp"

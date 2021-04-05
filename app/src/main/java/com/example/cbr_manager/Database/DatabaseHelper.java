@@ -174,10 +174,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_4, cbrWorker.getPassword());
         //cv.put(COL_5, cbrWorker.getId()); Delete comment after solving same username bug
         long result = db.insert(TABLE_NAME, null, cv);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
+    }
+
+    public boolean updateWorker(CBRWorker cbrWorker) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COL_1, cbrWorker.getFirstName());
+        cv.put(COL_2, cbrWorker.getLastName());
+        cv.put(COL_3, cbrWorker.getUsername());
+        cv.put(COL_7, cbrWorker.getZone());
+        cv.put(COL_4, cbrWorker.getPassword());
+
+        long id = cbrWorker.getId();
+        String whereClause = COL_5.concat(" = ");
+        whereClause = whereClause.concat(Long.toString(id));
+
+        long result = db.update(TABLE_NAME, cv, whereClause,null);
+        return result != -1;
     }
 
     public boolean registerClient(Client client) {
@@ -213,10 +228,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_worker_id, client.getClient_worker_id());
 
         long result = db.insert(client_table_name, null, cv);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
     public boolean updateClient(Client client) {
@@ -256,10 +268,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         whereClause = whereClause.concat(Long.toString(id));
 
         long result = db.update(client_table_name,cv,whereClause, null);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
     public boolean addVisit(Visit visit) {
@@ -284,10 +293,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(is_synced, visit.getIsSynced());
 
         long result = db.insert(visit_table, null, cv);
-        if (result == -1 )
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
     public boolean addReferral(Referral referral) {
@@ -299,62 +305,59 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_referral_id, referral.getClientID());
         String serviceType = referral.getServiceReq();
 
-        if(serviceType.equals("Physiotherapy")){
-            cv.put(service_req, referral.getServiceReq());
-            String condition = referral.getCondition();
-            if(condition.equals("Other")){
-                String explanation = referral.getConditionOtherExplanation();
-                cv.put(conditions, explanation);
-            }
-            else{
-                cv.put(conditions,condition);
-            }
-            cv.put(has_wheelchair, false);
-            cv.put(wheelchair_repairable, false);
-            cv.put(bring_to_centre, false);
-        }
-        else if(serviceType.equals("Prosthetic")){
-            cv.put(service_req, referral.getServiceReq());
-            cv.put(injury_location_knee, referral.getInjuryLocation());
-            cv.put(has_wheelchair, false);
-            cv.put(wheelchair_repairable, false);
-            cv.put(bring_to_centre, false);
-        }
-        else if(serviceType.equals("Orthotic")){
-            cv.put(service_req, referral.getServiceReq());
-            cv.put(injury_location_elbow, referral.getInjuryLocation());
-            cv.put(has_wheelchair, false);
-            cv.put(wheelchair_repairable, false);
-            cv.put(bring_to_centre, false);
-        }
-        else if(serviceType.equals("Wheelchair")){
-            cv.put(service_req, referral.getServiceReq());
-            cv.put(basic_or_inter, referral.getBasicOrInter());
-            cv.put(hip_width, referral.getHipWidth());
-            Boolean hasWheelchair = referral.getHasWheelchair();
-            cv.put(has_wheelchair, hasWheelchair);
-            if(hasWheelchair){
-                cv.put(wheelchair_repairable, referral.getWheelchairReparable());
-                cv.put(bring_to_centre, referral.getBringToCentre());
-            }
-            else{
+        switch (serviceType) {
+            case "Physiotherapy":
+                cv.put(service_req, referral.getServiceReq());
+                String condition = referral.getCondition();
+                if (condition.equals("Other")) {
+                    String explanation = referral.getConditionOtherExplanation();
+                    cv.put(conditions, explanation);
+                } else {
+                    cv.put(conditions, condition);
+                }
+                cv.put(has_wheelchair, false);
                 cv.put(wheelchair_repairable, false);
                 cv.put(bring_to_centre, false);
-            }
-        }
-        else if(serviceType.equals("Other")){
-            String otherExplanation = referral.getOtherExplanation();
-            cv.put(service_req, otherExplanation);
-            cv.put(has_wheelchair, false);
-            cv.put(wheelchair_repairable, false);
-            cv.put(bring_to_centre, false);
+                break;
+            case "Prosthetic":
+                cv.put(service_req, referral.getServiceReq());
+                cv.put(injury_location_knee, referral.getInjuryLocation());
+                cv.put(has_wheelchair, false);
+                cv.put(wheelchair_repairable, false);
+                cv.put(bring_to_centre, false);
+                break;
+            case "Orthotic":
+                cv.put(service_req, referral.getServiceReq());
+                cv.put(injury_location_elbow, referral.getInjuryLocation());
+                cv.put(has_wheelchair, false);
+                cv.put(wheelchair_repairable, false);
+                cv.put(bring_to_centre, false);
+                break;
+            case "Wheelchair":
+                cv.put(service_req, referral.getServiceReq());
+                cv.put(basic_or_inter, referral.getBasicOrInter());
+                cv.put(hip_width, referral.getHipWidth());
+                Boolean hasWheelchair = referral.getHasWheelchair();
+                cv.put(has_wheelchair, hasWheelchair);
+                if (hasWheelchair) {
+                    cv.put(wheelchair_repairable, referral.getWheelchairReparable());
+                    cv.put(bring_to_centre, referral.getBringToCentre());
+                } else {
+                    cv.put(wheelchair_repairable, false);
+                    cv.put(bring_to_centre, false);
+                }
+                break;
+            case "Other":
+                String otherExplanation = referral.getOtherExplanation();
+                cv.put(service_req, otherExplanation);
+                cv.put(has_wheelchair, false);
+                cv.put(wheelchair_repairable, false);
+                cv.put(bring_to_centre, false);
+                break;
         }
 
         long result = db.insert(referral_table, null, cv);
-        if (result == -1 )
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
     public boolean addMessage (AdminMessage message) {
@@ -369,10 +372,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(is_synced, message.getIsSynced());
 
         long result = db.insert(admin_message_table, null, cv);
-        if (result == -1 )
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
     public boolean checkUser(String email, String password){
@@ -387,7 +387,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String curPw = cursor.getString(cursor.getColumnIndex(COL_4));
             BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), curPw);
 
-            if (result.verified == true) {
+            if (result.verified) {
                 db.close();
                 cursor.close();
                 return true;

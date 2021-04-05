@@ -6,25 +6,15 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessage;
-import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
-import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
-import com.example.cbr_manager.UI.ClientInfoActivity;
-import com.example.cbr_manager.UI.DashboardActivity;
-import com.example.cbr_manager.UI.LoginActivity;
-import com.example.cbr_manager.UI.NewVisitActivity;
-import com.example.cbr_manager.UI.SignUpActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
 
 import java.util.Calendar;
@@ -61,9 +51,9 @@ public class NewMsgActivity extends AppCompatActivity {
             public void onClick(View v) {
                 adminMessage = new AdminMessage();
 
-                EditText title = findViewById(R.id.titleTextBox);
-                EditText date = findViewById(R.id.dateTextBox);
-                EditText location = findViewById(R.id.locationTextBox);
+                EditText title = findViewById(R.id.first);
+                EditText date = findViewById(R.id.last);
+                EditText location = findViewById(R.id.user);
                 EditText message = findViewById(R.id.messageTextBox);
 
                 adminMessage.setTitle(title.getText().toString());
@@ -86,7 +76,7 @@ public class NewMsgActivity extends AppCompatActivity {
     }
 
     private void date(){
-        EditText dateTextBox = findViewById(R.id.dateTextBox);
+        EditText dateTextBox = findViewById(R.id.last);
         Calendar calendar = Calendar.getInstance();
         int year1 = calendar.get(Calendar.YEAR);
         int month1 = calendar.get(Calendar.MONTH)+1;
