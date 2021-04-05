@@ -110,25 +110,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         clientManager = ClientManager.getInstance(clientListActivity);
 
-        Marker marker;
-
+        // clustering
         for (Client client: clientManager.getClients()) {
             MyItem offsetItem = new MyItem(client.getLatitude(), client.getLongitude(), client.getFirstName(), client.getLastName());
             clusterManager.addItem(offsetItem);
-            marker = mMap.addMarker(new MarkerOptions().position(new LatLng(client.getLatitude(), client.getLongitude())).title(client.getFirstName()));
-            mMarkerMap.put(marker.getId(), client.getId());
         }
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        clusterManager.setOnClusterItemInfoWindowClickListener(new ClusterManager.OnClusterItemInfoWindowClickListener<MyItem>() {
             @Override
-            public boolean onMarkerClick(Marker marker) {
-                String title = marker.getTitle();
-                long position = mMarkerMap.get(marker.getId());
+            public void onClusterItemInfoWindowClick(MyItem myItem) {
+                LatLng positionLatLng = myItem.getPosition();
+                long position = clientManager.getClientIndexByLatLng(positionLatLng);
                 Intent intent = ClientInfoActivity.makeIntent(clientListActivity, (int) position, position);
                 startActivity(intent);
-                return false;
             }
-
         });
 
 

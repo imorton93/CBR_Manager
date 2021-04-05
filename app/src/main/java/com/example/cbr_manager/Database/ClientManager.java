@@ -7,6 +7,8 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -314,6 +316,17 @@ public class ClientManager implements Iterable<Client>{
             priorityScore = 1;
         }
         return priorityScore;
+    }
+
+    public long getClientIndexByLatLng(LatLng positionLatLng) {
+        for (Client client : clients) {
+            LatLng currentLatLng = new LatLng(client.getLatitude(), client.getLongitude());
+            if (positionLatLng.equals(currentLatLng)) {
+                return client.getId();
+            }
+        }
+
+        return -1;
     }
 
 }
