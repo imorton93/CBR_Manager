@@ -21,6 +21,7 @@ public class FoodSurveyActivity extends AppCompatActivity {
 
     private Spinner foodSpinner1, foodSpinner2;
     private RadioGroup radioGroup1, radioGroup2;
+    private RadioButton yesRadio2, noRadio2;
     private Button nextButton, backButton;
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, FoodSurveyActivity.class);
@@ -35,6 +36,8 @@ public class FoodSurveyActivity extends AppCompatActivity {
         foodSpinner2 = findViewById(R.id.foodSurveySpinner2);
         radioGroup1 = findViewById(R.id.foodSurveyRadioGroup1);
         radioGroup2 = findViewById(R.id.foodSurveyRadioGroup2);
+        noRadio2 = findViewById(R.id.foodSurveyNoRadio2);
+        yesRadio2 = findViewById(R.id.foodSurveyYesRadio2);
         nextButton = findViewById(R.id.nextButtonFoodSurvey);
         backButton = findViewById(R.id.backButtonFoodSurvey);
         createSpinners();
@@ -67,8 +70,10 @@ public class FoodSurveyActivity extends AppCompatActivity {
     }
 
     private boolean validateEntries() {
-        if(foodSpinner2.getSelectedItem().toString() == "Choose Option"||foodSpinner1.getSelectedItem().toString()=="Choose Option"||
+        if(foodSpinner1.getSelectedItem().toString()=="Choose Option"||
         radioGroup1.getCheckedRadioButtonId() == -1|| radioGroup2.getCheckedRadioButtonId() == -1)
+            return false;
+        else if(foodSpinner2.getSelectedItem().toString() == "Choose Option" &&  yesRadio2.isChecked()==true )
             return false;
         return true;
     }
