@@ -11,44 +11,24 @@
         android:id="@+id/toolbar"
         layout="@layout/activity_tool_bar" />
 
-    <Button
-        android:id="@+id/visit"
-        android:layout_width="106dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:background="#6661ED24"
-        android:text="@string/new_visit"
-        android:textColor="@color/black"
+    <include
+        android:id="@+id/clientInfoToolbar"
+        layout="@layout/client_info_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/edit"
-        android:layout_width="67dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginRight="90dp"
-        android:background="#6661ED24"
-        android:text="@string/edit"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/visit"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/visit"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:tabIndicatorColor="#009FB8"
         app:tabTextColor="#000000">
 
@@ -72,12 +52,11 @@
         android:id="@+id/viewPager3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/clientInfoToolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-        app:layout_constraintVertical_bias="0.436" />
+        app:layout_constraintVertical_bias="0.436"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

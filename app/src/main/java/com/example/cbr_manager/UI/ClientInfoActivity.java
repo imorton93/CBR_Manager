@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,11 +15,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
 import com.example.cbr_manager.UI.clientInfoFragment.RiskFragment;
-import com.example.cbr_manager.UI.clientInfoFragment.VisitsFragment;
+import com.example.cbr_manager.UI.clientInfoFragment.ListsFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -59,9 +62,15 @@ public class ClientInfoActivity extends AppCompatActivity {
         viewPager.setAdapter(createCardAdapter());
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
 
-        editButton();
-        newVisitButton();
+        navbar();
         ToolbarButtons();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(ClientInfoActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
+
+        TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
+        badgeNotification(adminMessageManager, badgeOnToolBar);
     }
 
     private void extractIntent(){
@@ -71,13 +80,41 @@ public class ClientInfoActivity extends AppCompatActivity {
         System.out.println("Id is " + this.id);
     }
 
+    private void navbar(){
+        newClientButton();
+        newVisitButton();
+        newReferralButton();
+        editButton();
+    }
+
+    private void newClientButton() {
+        ImageButton newClient = findViewById(R.id.CI_newClient);
+        newClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewClientActivity.makeIntent(ClientInfoActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void newVisitButton() {
-        ClientManager clientManager = ClientManager.getInstance(this);
-        Button newVisit = findViewById(R.id.visit);
+        ImageButton newVisit = findViewById(R.id.CI_newVisit);
         newVisit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = NewVisitActivity.makeIntent(ClientInfoActivity.this, position, id);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void newReferralButton() {
+        ImageButton newReferral = findViewById(R.id.CI_newReferral);
+        newReferral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewReferralActivity.makeIntent(ClientInfoActivity.this, position, id);
                 startActivity(intent);
             }
         });
@@ -106,11 +143,11 @@ public class ClientInfoActivity extends AppCompatActivity {
                     return InfoFragment.newInstance();
                 }
                 case 1: {
-                    VisitsFragment visitsFragment = VisitsFragment.newInstance(ClientInfoActivity.this.getId());
+                    ListsFragment listsFragment = ListsFragment.newInstance(ClientInfoActivity.this.getId());
                     Bundle bundle = new Bundle();
                     bundle.putLong("client_id", ClientInfoActivity.this.getId());
-                    visitsFragment.setArguments(bundle);
-                    return visitsFragment;
+                    listsFragment.setArguments(bundle);
+                    return listsFragment;
                 }
                 case 2: {
                     return RiskFragment.newInstance();
@@ -124,12 +161,26 @@ public class ClientInfoActivity extends AppCompatActivity {
         }
     }
 
+    private ViewPagerAdapter createCardAdapter() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        return adapter;
+    }
+
     private void ToolbarButtons(){
         ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = TaskViewActivity.makeIntent(ClientInfoActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton notificationBtn = findViewById(R.id.notificationButton);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = DashboardActivity.makeIntent(ClientInfoActivity.this);
                 startActivity(intent);
             }
         });
@@ -144,11 +195,22 @@ public class ClientInfoActivity extends AppCompatActivity {
         });
     }
 
-    private ViewPagerAdapter createCardAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
-        return adapter;
-    }
+    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
+        int size = adminMessageManager.size();
 
+        if (badge != null) {
+            if (size == 0) {
+                if (badge.getVisibility() != View.GONE) {
+                    badge.setVisibility(View.GONE);
+                }
+            } else {
+                badge.setText(String.valueOf(Math.min(size, 99)));
+                if (badge.getVisibility() != View.VISIBLE) {
+                    badge.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
 }
 
 

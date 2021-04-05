@@ -103,9 +103,12 @@ public class VisitManager implements Iterable<Visit>{
             visits.add(new Visit(client_visit_id, purpose, if_cbr, date, location, villageNumber, healthProvided, healthGoal, healthOutcome,
                         socialProvided, socialGoal, socialOutcome, educationProvided, educationGoal, educationOutcome, id, 0));
         }
-
-
     }
+
+    public void addVisit(Visit visit){
+        visits.add(visit);
+    }
+
 
     @NonNull
     @Override

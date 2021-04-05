@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,20 +33,15 @@ public class DashboardFragment extends Fragment {
 
     private ClientManager clientManager;
     private List<Client> priority_clients;
-    private Button statistics_button;
-    private DatabaseHelper mydb;
     private DashboardActivity dashboardActivity;
-    private String current_username;
-
 
     public DashboardFragment() {
         // Required empty public constructor
     }
 
-    public static DashboardFragment newInstance(String current_username) {
+    public static DashboardFragment newInstance() {
         DashboardFragment fragment = new DashboardFragment();
         Bundle args = new Bundle();
-        args.putString("Worker Username", current_username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,40 +56,18 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         this.dashboardActivity = (DashboardActivity)getActivity();
         clientManager = ClientManager.getInstance(dashboardActivity);
-        mydb = new DatabaseHelper(dashboardActivity);
 
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        Bundle args = getArguments();
-        this.current_username = args.getString("current_username", "");
 
         sectionDropDownMenu(v);
         villageDropDownMenu(v);
 
         this.priority_clients = this.clientManager.getHighPriorityClients();
         populateAllClientsFromList(priority_clients, v);
-
         clickClient(v);
         dashboardSearchBoxes(v);
-        StatisticsButton(v);
 
         return v;
-    }
-
-    private void StatisticsButton(View v) {
-
-        statistics_button = v.findViewById(R.id.statistics_button);
-        statistics_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!mydb.isAdmin(current_username)){
-                    Toast.makeText(dashboardActivity, "Access Not Allowed", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                   /* Intent intent = StatisticsActivity.makeIntent(DashboardActivity.this);
-                    startActivity(intent);*/
-                }
-            }
-        });
     }
 
     private void sectionDropDownMenu(View v){
@@ -118,7 +92,7 @@ public class DashboardFragment extends Fragment {
         Spinner village_spinner = view.findViewById(R.id.filter_village_dashboard);
         Spinner section_spinner = view.findViewById(R.id.filter_section_dashboard);
         EditText village_num_text = view.findViewById(R.id.filter_villageNum_dashboard);
-        Button search_button = view.findViewById(R.id.search_button_dashboard);
+        ImageButton search_button = view.findViewById(R.id.search_button_dashboard);
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,13 +144,15 @@ public class DashboardFragment extends Fragment {
 
             currentClient = this.clients.get(position);
 
-            TextView firstName = view.findViewById(R.id.fname_clist);
-            TextView lastName = view.findViewById(R.id.lname_clist);
+            TextView name = view.findViewById(R.id.name_clist);
             TextView village = view.findViewById(R.id.Village_clist);
+            TextView villageNum = view.findViewById(R.id.VillageNum_clist);
 
-            firstName.setText(currentClient.getFirstName());
-            lastName.setText(currentClient.getLastName());
+            String nameConcat = currentClient.getFirstName() + " " + currentClient.getLastName();
+
+            name.setText(nameConcat);
             village.setText(currentClient.getLocation());
+            villageNum.setText("" + currentClient.getVillageNumber());
 
             return view;
         }
