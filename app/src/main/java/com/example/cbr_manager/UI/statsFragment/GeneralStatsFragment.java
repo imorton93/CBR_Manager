@@ -1,5 +1,6 @@
 package com.example.cbr_manager.UI.statsFragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,11 +11,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.ClientInfoActivity;
+import com.example.cbr_manager.UI.NewClientActivity;
 import com.example.cbr_manager.UI.StatsActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -68,6 +74,8 @@ public class GeneralStatsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_general_stats, container, false);
         clientsOverTimeGraph(view);
+
+        downloadButton(view);
 
         return view;
     }
@@ -207,5 +215,15 @@ public class GeneralStatsFragment extends Fragment {
         }
 
         return recentClients;
+    }
+
+    private void downloadButton(View v) {
+        ImageView downloadButton = v.findViewById(R.id.download);
+        downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO download
+            }
+        });
     }
 }
