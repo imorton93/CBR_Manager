@@ -108,7 +108,6 @@ public class EditCBRActivity extends AppCompatActivity {
                         Toast.makeText(EditCBRActivity.this, "Please enter all the details", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
         });
     }
@@ -128,4 +127,4 @@ public class EditCBRActivity extends AppCompatActivity {
         return (activeNetwork != null) && (activeNetwork.isConnectedOrConnecting());
     }
 
-    }
+}
