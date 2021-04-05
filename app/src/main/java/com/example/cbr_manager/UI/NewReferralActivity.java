@@ -292,11 +292,11 @@ public class NewReferralActivity extends AppCompatActivity {
         }
         else if(selected.equals("Prosthetic")){
             selectedForm = prostheticPages;
-            imagePage = -1;
+            imagePage = 3;
         }
         else if(selected.equals("Orthotic")){
             selectedForm = orthoticPages;
-            imagePage = -1;
+            imagePage = 3;
         }
         else if(selected.equals("Wheelchair")){
             selectedForm = wheelchairPages;
@@ -304,7 +304,7 @@ public class NewReferralActivity extends AppCompatActivity {
         }
         else if(selected.equals("Other")){
             selectedForm = otherExplanation;
-            imagePage = -1;
+            imagePage = 3;
         }
     }
 
