@@ -117,8 +117,6 @@ public class NewClientActivity extends AppCompatActivity {
 
         newClient = new Client();
         imageView = new ImageView(this);
-        LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        imageView.setLayoutParams(imageViewLayoutParams);
 
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
@@ -287,35 +285,31 @@ public class NewClientActivity extends AppCompatActivity {
 
 
     private void displayPicture(FormPage page){
+        int imageViewHeight = (int)(form.getHeight() * .7);
+        LinearLayout.LayoutParams imageViewLayoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageViewHeight);
+        imageView.setLayoutParams(imageViewLayoutParams1);
+        imageView.setBackground(ContextCompat.getDrawable(this, R.drawable.image_border));
+
+
         ArrayList<Question> questions = page.getQuestions();
         TextQuestion picQuestion = (TextQuestion) questions.get(0);
         TextView questionText = new TextView(this);
         questionText.setText(picQuestion.getQuestionString());
         form.addView(questionText);
 
-//        ImageButton imageButton = new ImageButton(this);
-//        Bitmap cameraIcon = BitmapFactory.decodeResource(getResources(), R.drawable.camera_icon);
-//        Bitmap cameraIconResized = Bitmap.createScaledBitmap(cameraIcon, 200, 200, true);
-//        imageButton.setImageBitmap(cameraIconResized);
-//        imageButton.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        imageButton.setLayoutParams(params);
-
-//        form.addView(imageButton);
-
-        Button picButton = new Button(this);
-        picButton.setText("Take Picture");
-        picButton.setBackgroundColor(Color.parseColor("#6661ED24"));
-        LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        imageViewLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-        picButton.setLayoutParams(imageViewLayoutParams);
-        picButton.setOnClickListener(v -> {
+        ImageView imageView2 = new ImageView(this);
+        imageView2.setImageResource(R.drawable.camera_icon);
+        imageView2.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(200, 200);
+        params.gravity = Gravity.CENTER;
+        imageView2.setLayoutParams(params);
+        imageView2.setOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, 100);
         });
 
-        form.addView(picButton);
         form.addView(imageView);
+        form.addView(imageView2);
     }
 
     public byte[] imageViewToByte(ImageView image) {
