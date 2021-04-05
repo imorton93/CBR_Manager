@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
@@ -42,6 +44,13 @@ public class SocialSurveyActivity extends AppCompatActivity {
         nextButton();
         backButton();
         ToolbarButtons();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(SocialSurveyActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
+
+        TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
+        badgeNotification(adminMessageManager, badgeOnToolBar);
     }
 
     public void onRadioButtonClicked(View view) {
@@ -107,5 +116,22 @@ public class SocialSurveyActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
+        int size = adminMessageManager.size();
+
+        if (badge != null) {
+            if (size == 0) {
+                if (badge.getVisibility() != View.GONE) {
+                    badge.setVisibility(View.GONE);
+                }
+            } else {
+                badge.setText(String.valueOf(Math.min(size, 99)));
+                if (badge.getVisibility() != View.VISIBLE) {
+                    badge.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 }
