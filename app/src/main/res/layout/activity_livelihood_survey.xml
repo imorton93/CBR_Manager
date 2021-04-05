@@ -113,11 +113,14 @@
 
         <Spinner
             android:id="@+id/livelihoodSurveySpinner1"
-            android:layout_width="89dp"
+            android:layout_width="103dp"
             android:layout_height="41dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:background="@android:drawable/btn_dropdown"
+            android:background="@color/Grey"
+            android:popupBackground="@color/Grey"
+            android:scrollbarThumbHorizontal="@color/Grey"
+            android:scrollbarThumbVertical="@color/Grey"
             android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textViewlivelihood5" />

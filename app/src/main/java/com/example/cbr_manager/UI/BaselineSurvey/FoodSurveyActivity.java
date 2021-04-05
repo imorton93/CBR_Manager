@@ -67,7 +67,7 @@ public class FoodSurveyActivity extends AppCompatActivity {
     }
 
     private boolean validateEntries() {
-        if(foodSpinner2.getSelectedItem()==null||foodSpinner1.getSelectedItem()==null||
+        if(foodSpinner2.getSelectedItem().toString() == "Choose Option"||foodSpinner1.getSelectedItem().toString()=="Choose Option"||
         radioGroup1.getCheckedRadioButtonId() == -1|| radioGroup2.getCheckedRadioButtonId() == -1)
             return false;
         return true;
@@ -75,13 +75,13 @@ public class FoodSurveyActivity extends AppCompatActivity {
 
     private void createSpinners() {
         Spinner dropdown1 = findViewById(R.id.foodSurveySpinner1);
-        String[] items1 = new String[]{"Good", "Fine", "Poor", "Very Poor"};
+        String[] items1 = new String[]{"Choose Option", "Good", "Fine", "Poor", "Very Poor"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown1.setAdapter(adapter1);
 
         Spinner dropdown2 = findViewById(R.id.foodSurveySpinner2);
-        String[] items2 = new String[]{"Malnourished", "Undernourished", "Well Nourished"};
+        String[] items2 = new String[]{"Choose Option", "Malnourished", "Undernourished", "Well Nourished"};
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown2.setAdapter(adapter2);

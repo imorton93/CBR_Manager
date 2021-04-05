@@ -11,4 +11,5 @@
     <color name="green">#56af31</color>
     <color name="purple">#863B8F</color>
     <color name="LightBlue">#B2F6FF</color>
+    <color name="SpinnerGrey">#EBEBEB</color>
 </resources>

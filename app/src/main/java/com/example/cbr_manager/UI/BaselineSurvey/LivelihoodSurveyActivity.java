@@ -48,7 +48,7 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
     }
 
     private void createSpinner() {
-        String[] items1 = new String[]{"Self-Employed", "Employed", "Other"};
+        String[] items1 = new String[]{"Choose Option", "Self-Employed", "Employed", "Other"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
@@ -82,7 +82,7 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
 
     boolean validateEntries(){
         boolean bool = true;
-        if(spinner1.getSelectedItem() == null||radio5.getCheckedRadioButtonId() == -1||
+        if(spinner1.getSelectedItem().toString() == "Choose Option"||radio5.getCheckedRadioButtonId() == -1||
         radio4.getCheckedRadioButtonId() == -1|| radio3.getCheckedRadioButtonId() == -1||
         radio1.getCheckedRadioButtonId() == -1||radio2.getCheckedRadioButtonId() == -1) {
             bool = false;

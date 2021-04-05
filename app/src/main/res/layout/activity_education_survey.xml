@@ -99,12 +99,16 @@
 
     <Spinner
         android:id="@+id/educationSurveySpinner1"
-        android:layout_width="90dp"
+        android:layout_width="103dp"
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="@android:drawable/btn_dropdown"
+        android:background="@color/Grey"
+        android:popupBackground="@color/Grey"
+        android:scrollbarThumbHorizontal="@color/Grey"
+        android:scrollbarThumbVertical="@color/Grey"
         android:spinnerMode="dropdown"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewEducation4" />
 

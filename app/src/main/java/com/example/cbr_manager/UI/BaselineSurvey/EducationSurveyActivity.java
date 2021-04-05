@@ -84,7 +84,7 @@ public class EducationSurveyActivity extends AppCompatActivity {
 
     private void createSpinners() {
         Spinner dropdown1 = findViewById(R.id.educationSurveySpinner1);
-        String[] items1 = new String[]{"Lack of Funding", "My Disability Stops Me", "Other"};
+        String[] items1 = new String[]{"Choose Option", "Lack of Funding", "My Disability Stops Me", "Other"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown1.setAdapter(adapter1);
@@ -130,7 +130,7 @@ public class EducationSurveyActivity extends AppCompatActivity {
         else if (doesGoYesRadio.isChecked() && editGrade.length() == 0) {
             bool = false;
         }
-        else if ((doesGoNoRadio.isChecked()&&whySpinner.getSelectedItem().toString() == "") || (doesGoNoRadio.isChecked()&&haveRadio.getCheckedRadioButtonId() == -1)
+        else if ((doesGoNoRadio.isChecked()&&whySpinner.getSelectedItem().toString() == "Choose Option") || (doesGoNoRadio.isChecked()&&haveRadio.getCheckedRadioButtonId() == -1)
                 || (doesGoNoRadio.isChecked()&&doRadio.getCheckedRadioButtonId() == -1)) {
             bool = false;
         }
