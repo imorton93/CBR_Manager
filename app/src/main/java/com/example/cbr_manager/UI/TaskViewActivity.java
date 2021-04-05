@@ -32,6 +32,7 @@ import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.BaselineSurvey.HealthSurveyActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -185,6 +186,8 @@ public class TaskViewActivity extends AppCompatActivity {
         baseline.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = HealthSurveyActivity.makeIntent(TaskViewActivity.this);
+                startActivity(intent);
             }
         });
     }

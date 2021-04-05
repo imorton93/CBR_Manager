@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.DashboardActivity;
+import com.example.cbr_manager.UI.ProfileActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
 
 public class SocialSurveyActivity extends AppCompatActivity {
@@ -78,12 +80,30 @@ public class SocialSurveyActivity extends AppCompatActivity {
         return bool;
     }
 
-    private void ToolbarButtons() {
+    private void ToolbarButtons(){
         ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = TaskViewActivity.makeIntent(SocialSurveyActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton notificationBtn = findViewById(R.id.notificationButton);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = DashboardActivity.makeIntent(SocialSurveyActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton profileBtn = findViewById(R.id.profileButton);
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = ProfileActivity.makeIntent(SocialSurveyActivity.this);
                 startActivity(intent);
             }
         });
