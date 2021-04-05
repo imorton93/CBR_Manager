@@ -82,8 +82,6 @@ public class EditClientActivity extends AppCompatActivity {
 
         back = (Button) findViewById(R.id.backBtn);
         imageView = new ImageView(this);
-        LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        imageView.setLayoutParams(imageViewLayoutParams);
 
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
@@ -235,25 +233,31 @@ public class EditClientActivity extends AppCompatActivity {
     }
 
     private void displayPicture(FormPage page){
+        int imageViewHeight = (int)(form.getHeight() * .7);
+        LinearLayout.LayoutParams imageViewLayoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageViewHeight);
+        imageView.setLayoutParams(imageViewLayoutParams1);
+        imageView.setBackground(ContextCompat.getDrawable(this, R.drawable.image_border));
+
+
         ArrayList<Question> questions = page.getQuestions();
         TextQuestion picQuestion = (TextQuestion) questions.get(0);
         TextView questionText = new TextView(this);
         questionText.setText(picQuestion.getQuestionString());
         form.addView(questionText);
 
-        Button picButton = new Button(this);
-        picButton.setText("Take Picture");
-        picButton.setBackgroundColor(Color.parseColor("#6661ED24"));
-        LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        imageViewLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-        picButton.setLayoutParams(imageViewLayoutParams);
+        ImageView picButton = new ImageView(this);
+        picButton.setImageResource(R.drawable.camera_icon);
+        picButton.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(200, 200);
+        params.gravity = Gravity.CENTER;
+        picButton.setLayoutParams(params);
         picButton.setOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, 100);
         });
 
-        form.addView(picButton);
         form.addView(imageView);
+        form.addView(picButton);
     }
 
     private void requiredFieldsToast(){

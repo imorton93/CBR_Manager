@@ -297,19 +297,19 @@ public class NewClientActivity extends AppCompatActivity {
         questionText.setText(picQuestion.getQuestionString());
         form.addView(questionText);
 
-        ImageView imageView2 = new ImageView(this);
-        imageView2.setImageResource(R.drawable.camera_icon);
-        imageView2.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
+        ImageView picButton = new ImageView(this);
+        picButton.setImageResource(R.drawable.camera_icon);
+        picButton.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(200, 200);
         params.gravity = Gravity.CENTER;
-        imageView2.setLayoutParams(params);
-        imageView2.setOnClickListener(v -> {
+        picButton.setLayoutParams(params);
+        picButton.setOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, 100);
         });
 
         form.addView(imageView);
-        form.addView(imageView2);
+        form.addView(picButton);
     }
 
     public byte[] imageViewToByte(ImageView image) {
