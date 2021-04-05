@@ -25,7 +25,6 @@
         <activity android:name=".UI.ReferralInfo"></activity>
         <activity android:name=".UI.MapsActivity" />
         <activity android:name=".UI.dashboardFragment.NewMsgActivity"></activity>
-        <activity android:name=".UI.MapsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,7 +40,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".GoogleMaps.MainActivity" />
         <activity android:name=".UI.ClientSearchActivity" />
         <activity android:name=".UI.VisitInfoActivity" />
         <activity android:name=".UI.NewReferralActivity" />
@@ -67,7 +65,6 @@
         <activity android:name=".UI.TaskViewActivity" />
         <activity android:name=".UI.EditClientActivity"/>
 
-        <service android:name=".GoogleMaps.FetchAddressIntentService" />
     </application>
 
 </manifest>
