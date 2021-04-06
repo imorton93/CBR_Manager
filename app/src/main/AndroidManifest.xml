@@ -47,7 +47,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".GoogleMaps.MainActivity" />
         <activity android:name=".UI.ClientSearchActivity" />
         <activity android:name=".UI.VisitInfoActivity" />
         <activity android:name=".UI.NewReferralActivity" />
@@ -71,7 +70,7 @@
         <activity android:name=".UI.ProfileActivity" />
         <activity android:name=".UI.TaskViewActivity" />
         <activity android:name=".UI.EditClientActivity"/>
-        <service android:name=".GoogleMaps.FetchAddressIntentService" />
+
     </application>
 
 </manifest>

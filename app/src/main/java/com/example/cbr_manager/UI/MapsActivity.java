@@ -21,4 +21,5 @@ public class MapsActivity extends FragmentActivity {
         fragmentTransaction.add(R.id.content, new MapsFragment());
         fragmentTransaction.commit();
     }
+
 }
