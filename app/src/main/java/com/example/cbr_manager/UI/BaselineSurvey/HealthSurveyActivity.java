@@ -78,46 +78,46 @@ public class HealthSurveyActivity extends AppCompatActivity {
 
         String answer1 = healthSpinner1.getSelectedItem().toString();
         byte health_condition = 0;
-        if(answer1=="Good")
+        if(answer1.equals("Good"))
             health_condition = 1;
-        else if(answer1=="Fine")
+        else if(answer1.equals("Fine"))
             health_condition = 2;
-        else if(answer1 == "Poor")
+        else if(answer1.equals("Poor"))
             health_condition = 3;
-        else if(answer1 == "Very Poor")
+        else if(answer1.equals("Very Poor"))
             health_condition = 4;
 
         String answer2 = ((RadioButton)findViewById(radioGroup1.getCheckedRadioButtonId())).getText().toString();
         boolean have_rehab;
-        if(answer2 == "No")
+        if(answer2.equals("No"))
             have_rehab = false;
         else
             have_rehab = true;
 
         String answer3 = ((RadioButton)findViewById(radioGroup2.getCheckedRadioButtonId())).getText().toString();
         boolean need_rehab;
-        if(answer3 == "No")
+        if(answer3.equals("No"))
             need_rehab = false;
         else
             need_rehab = true;
 
         String answer4 = ((RadioButton)findViewById(radioGroup3.getCheckedRadioButtonId())).getText().toString();
         boolean have_device;
-        if(answer4 == "No")
+        if(answer4.equals("No"))
             have_device = false;
         else
             have_device = true;
 
         String answer5 = ((RadioButton)findViewById(radioGroup4.getCheckedRadioButtonId())).getText().toString();
         boolean is_device;
-        if(answer5 == "No")
+        if(answer5.equals("No"))
             is_device = false;
         else
             is_device = true;
 
         String answer6 = ((RadioButton)findViewById(radioGroup5.getCheckedRadioButtonId())).getText().toString();
         boolean need_device;
-        if(answer6 == "No")
+        if(answer6.equals("No"))
             need_device = false;
         else
             need_device = true;
@@ -126,13 +126,13 @@ public class HealthSurveyActivity extends AppCompatActivity {
 
         String answer8 = healthSpinner3.getSelectedItem().toString();
         byte is_satisfied = -1;
-        if(answer8=="Good")
+        if(answer8.equals("Good"))
             is_satisfied = 1;
-        else if(answer8=="Fine")
+        else if(answer8.equals("Fine"))
             is_satisfied = 2;
-        else if(answer8 == "Poor")
+        else if(answer8.equals("Poor"))
             is_satisfied = 3;
-        else if(answer8 == "Very Poor")
+        else if(answer8.equals("Very Poor"))
             is_satisfied = 4;
 
         survey.setHealth_condition(health_condition);
