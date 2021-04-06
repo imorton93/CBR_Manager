@@ -179,6 +179,8 @@ public class TaskViewActivity extends AppCompatActivity {
         stats.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = StatsActivity.makeIntent(TaskViewActivity.this);
+                startActivity(intent);
             }
         });
 
