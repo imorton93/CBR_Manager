@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.Database.AdminMessage;
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.Client;
@@ -397,6 +398,42 @@ public class TaskViewActivity extends AppCompatActivity {
         requestQueue.add(requestToServer);
     }
 
+    public void getMessagesFromServer() {
+        String URL = "https://mycbr-server.herokuapp.com/get-admin-messages";
+
+        StringRequest requestToServer = new StringRequest(
+                Request.Method.GET,
+                URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            String deleteWorkers = "DELETE FROM ADMIN_MESSAGES";
+                            mydb.executeQuery(deleteWorkers);
+
+                            JSONArray serverData = new JSONArray(response);
+
+                            for (int i = 0; i < serverData.length(); i++) {
+                                mydb.addMessage(jsonToMessage(serverData.getJSONObject(i)));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError e) {
+                e.printStackTrace();
+            }
+        })
+        {
+            @Override
+            public String getBodyContentType() { return "application/json; charset=utf-8"; }
+        };
+
+        requestQueue.add(requestToServer);
+    }
+
     public JSONArray cur2Json(Cursor cursor) {
         byte[] photoArr;
         String base64Photo;
@@ -566,5 +603,19 @@ public class TaskViewActivity extends AppCompatActivity {
         referral.setOutcome((String) object.get("REFERRAL_OUTCOME"));*/
 
         return referral;
+    }
+
+    AdminMessage jsonToMessage (JSONObject object) throws JSONException {
+        AdminMessage message = new AdminMessage();
+
+        message.setAdminID(Integer.parseInt((String) object.get("ADMIN_ID")));
+        message.setTitle((String) object.get("TITLE"));
+        message.setDate((String) object.get("DATE"));
+        message.setLocation((String) object.get("LOCATION"));
+        message.setTitle((String) object.get("MESSAGE"));
+        //message.setIsViewed(strToBool(..));
+        message.setIsSynced(Integer.parseInt((String) object.get("IS_SYNCED")));
+
+        return message;
     }
 }
