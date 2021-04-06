@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.LoginActivity;
+import com.example.cbr_manager.UI.NewClientActivity;
 import com.example.cbr_manager.UI.NewVisitActivity;
 import com.example.cbr_manager.UI.SignUpActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
@@ -71,6 +73,7 @@ public class NewMsgActivity extends AppCompatActivity {
                 adminMessage.setDate(date.getText().toString());
                 adminMessage.setLocation(location.getText().toString());
                 adminMessage.setMessage(message.getText().toString());
+                setUniqueMessageId();
 
                 boolean success = databaseHelper.addMessage(adminMessage);
 
@@ -113,5 +116,23 @@ public class NewMsgActivity extends AppCompatActivity {
             DatePickerDialog dialog = new DatePickerDialog(NewMsgActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateSetListener, year, month, day);
             dialog.show();
         });
+    }
+
+    private void setUniqueMessageId(){
+        DatabaseHelper db =  new DatabaseHelper(getApplicationContext());
+
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("DATA", Context.MODE_PRIVATE);
+        String username = sharedPref.getString("username", null);
+
+        int admin_id = db.getWorkerId(username);
+        adminMessage.setAdminID(admin_id);
+
+        int msg_no = db.numberOfMessagesPerAdmin(admin_id);
+        msg_no++; //next available msg id
+
+        String uniqueID = String.valueOf(admin_id * 100) + String.valueOf(msg_no);
+        long uniqueID_long = Long.parseLong(uniqueID);
+
+        adminMessage.setId(uniqueID_long);
     }
 }

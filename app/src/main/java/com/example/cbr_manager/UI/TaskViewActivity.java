@@ -611,12 +611,13 @@ public class TaskViewActivity extends AppCompatActivity {
     AdminMessage jsonToMessage (JSONObject object) throws JSONException {
         AdminMessage message = new AdminMessage();
 
-        message.setAdminID(Integer.parseInt((String) object.get("ADMIN_ID")));
+        message.setId(Long.parseLong((String) object.get("ID")));
         message.setTitle((String) object.get("TITLE"));
         message.setDate((String) object.get("DATE"));
         message.setLocation((String) object.get("LOCATION"));
         message.setMessage((String) object.get("MESSAGE"));
-        //message.setIsViewed(strToBool(..));
+        message.setAdminID(Integer.parseInt((String) object.get("ADMIN_ID")));
+        message.setViewedStatus(Integer.parseInt((String) object.get("IS_VIEWED")));
         message.setIsSynced(Integer.parseInt((String) object.get("IS_SYNCED")));
 
         return message;
