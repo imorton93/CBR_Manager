@@ -173,6 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_7, cbrWorker.getZone());
         cv.put(COL_4, cbrWorker.getPassword());
+        cv.put(COL_6, cbrWorker.getIs_admin());
 
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1)
