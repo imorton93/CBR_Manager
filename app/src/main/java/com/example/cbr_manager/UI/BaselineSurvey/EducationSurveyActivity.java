@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientListActivity;
 import com.example.cbr_manager.UI.DashboardActivity;
@@ -31,6 +32,7 @@ public class EducationSurveyActivity extends AppCompatActivity {
     private Spinner whySpinner;
     private Button nextButton, backButton;
     private RadioButton doesGoYesRadio, doesGoNoRadio;
+    Survey survey;
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, EducationSurveyActivity.class);
@@ -53,8 +55,9 @@ public class EducationSurveyActivity extends AppCompatActivity {
         doRadio = findViewById(R.id.educationSurveyRadioGroup3);
         nextButton = findViewById(R.id.nextButtonEducationSurvey);
         backButton = findViewById(R.id.backButtonEducationSurvey);
-        doesGoYesRadio= findViewById(R.id.educationSurveyYesRadio1);
+        doesGoYesRadio = findViewById(R.id.educationSurveyYesRadio1);
         doesGoNoRadio = findViewById(R.id.educationSurveyNoRadio1);
+        survey = (Survey) getIntent().getSerializableExtra("Survey");
 
         createSpinners();
         nextButton();
@@ -76,11 +79,52 @@ public class EducationSurveyActivity extends AppCompatActivity {
                 if (!validateEntries())
                     Toast.makeText(EducationSurveyActivity.this, "Please fill all the details", Toast.LENGTH_LONG).show();
                 else {
+                    storeSurveyInput();
                     Intent intent = SocialSurveyActivity.makeIntent(EducationSurveyActivity.this);
+                    intent.putExtra("Survey", survey);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    private void storeSurveyInput() {
+
+        String reason = null;
+        Byte grade_no = 0;
+        boolean have_been = false, does_go = false, do_go = false;
+
+        String answer1 = ((RadioButton) findViewById(doesGoRadio.getCheckedRadioButtonId())).getText().toString();
+        if(answer1.equals("No")){
+            does_go = false;
+            grade_no = null;
+            reason = whySpinner.getSelectedItem().toString();
+            String answer4 = ((RadioButton) findViewById(haveRadio.getCheckedRadioButtonId())).getText().toString();
+        if(answer4.equals("No"))
+                have_been = false;
+            else
+                have_been = true;
+            String answer5 = ((RadioButton) findViewById(doRadio.getCheckedRadioButtonId())).getText().toString();
+        if(answer5.equals("No"))
+                do_go = false;
+            else
+                do_go = true;
+
+        } else if (answer1.equals("Yes")) {
+            does_go = true;
+            reason = null;
+            have_been = true;
+            do_go = false;
+            grade_no = Byte.valueOf(editGrade.getText().toString());
+        }
+        survey.setIs_student(does_go);
+        survey.setGrade_no(grade_no);
+        survey.setReason_no_school(reason);
+        survey.setWas_student(have_been);
+        survey.setWant_school(do_go);
+       Toast.makeText(EducationSurveyActivity.this, Byte.toString(survey.getGrade_no()), Toast.LENGTH_LONG).show();
+
+
     }
 
     private void backButton() {
@@ -137,18 +181,16 @@ public class EducationSurveyActivity extends AppCompatActivity {
         boolean bool = true;
         if (doesGoRadio.getCheckedRadioButtonId() == -1) {
             bool = false;
-        }
-        else if (doesGoYesRadio.isChecked() && editGrade.length() == 0) {
+        } else if (doesGoYesRadio.isChecked() && editGrade.length() == 0) {
             bool = false;
-        }
-        else if ((doesGoNoRadio.isChecked()&&whySpinner.getSelectedItem().toString() == "Choose Option") || (doesGoNoRadio.isChecked()&&haveRadio.getCheckedRadioButtonId() == -1)
-                || (doesGoNoRadio.isChecked()&&doRadio.getCheckedRadioButtonId() == -1)) {
+        } else if ((doesGoNoRadio.isChecked() && whySpinner.getSelectedItem().toString().equals("Choose Option")) || (doesGoNoRadio.isChecked() && haveRadio.getCheckedRadioButtonId() == -1)
+                || (doesGoNoRadio.isChecked() && doRadio.getCheckedRadioButtonId() == -1)) {
             bool = false;
         }
         return bool;
     }
 
-    private void ToolbarButtons(){
+    private void ToolbarButtons() {
         ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
