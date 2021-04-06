@@ -530,7 +530,7 @@ public class TaskViewActivity extends AppCompatActivity {
         referral.setId(Long.parseLong((String) object.get("ID")));
         referral.setServiceReq((String) object.get("SERVICE_REQUIRED"));
 
-        if (!object.isNull("PHOTO")) {
+        if (!object.isNull("REFERRAL_PHOTO")) {
             referral.setReferralPhoto(strToByteArr((String) object.get("REFERRAL_PHOTO")));
         }
 

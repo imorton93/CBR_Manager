@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -42,6 +43,7 @@ import com.example.cbr_manager.Forms.QuestionType;
 import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
 
+import java.io.ByteArrayOutputStream;
 import java.text.Normalizer;
 import java.util.ArrayList;
 
@@ -62,6 +64,7 @@ public class NewReferralActivity extends AppCompatActivity {
     Button back;
     ProgressBar progressBar;
     TextView progressText;
+    byte[] imageEntry;
 
     ImageView imageView;
 
@@ -260,18 +263,23 @@ public class NewReferralActivity extends AppCompatActivity {
         form.addView(imageView);
     }
 
-    // set taken picture to imageView
+    public byte[] imageViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 100){
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            //set capture Image to imageview
             imageView.setImageBitmap(captureImage);
+            imageEntry = imageViewToByte(imageView);
         }
     }
-
-
 
     private void getSelectedForm(){
         RadioGroup radioGroup = form.findViewWithTag(getString(R.string.serviceRequire));
@@ -284,11 +292,11 @@ public class NewReferralActivity extends AppCompatActivity {
         }
         else if(selected.equals("Prosthetic")){
             selectedForm = prostheticPages;
-            imagePage = -1;
+            imagePage = 3;
         }
         else if(selected.equals("Orthotic")){
             selectedForm = orthoticPages;
-            imagePage = -1;
+            imagePage = 3;
         }
         else if(selected.equals("Wheelchair")){
             selectedForm = wheelchairPages;
@@ -296,7 +304,7 @@ public class NewReferralActivity extends AppCompatActivity {
         }
         else if(selected.equals("Other")){
             selectedForm = otherExplanation;
-            imagePage = -1;
+            imagePage = 3;
         }
     }
 
@@ -561,6 +569,8 @@ public class NewReferralActivity extends AppCompatActivity {
             }
             else if(type == QuestionType.DROP_DOWN){
                 saveDropDown(question);
+            } else if(type == QuestionType.PICTURE){
+                referral.setReferralPhoto(imageEntry);
             }
         }
     }
@@ -739,13 +749,22 @@ public class NewReferralActivity extends AppCompatActivity {
         firstPageOrth.addToPage(ortQuestion);
         orthoticPages.add(firstPageOrth);
 
+        TextQuestion orthPhotoQuestion = new TextQuestion("photoOrth", getString(R.string.photoQuestion_newReferralForm), QuestionType.PICTURE, false);
+        FormPage secondPageOrth = new FormPage();
+        secondPageOrth.addToPage(orthPhotoQuestion);
+        orthoticPages.add(secondPageOrth);
+
+
         //set up prosthetic
         MultipleChoiceQuestion prosQuestion = new MultipleChoiceQuestion(getString(R.string.injuryLocation), getString(R.string.injuryLocationKneeQuestion_newReferralForm), QuestionType.RADIO, res.getStringArray(R.array.aboveBelow), true);
         FormPage firstPagePros = new FormPage();
         firstPagePros.addToPage(prosQuestion);
         prostheticPages.add(firstPagePros);
 
-
+        TextQuestion prosPhotoQuestion = new TextQuestion("photoPros", getString(R.string.photoQuestion_newReferralForm), QuestionType.PICTURE, false);
+        FormPage secondPagePros = new FormPage();
+        secondPagePros.addToPage(prosPhotoQuestion);
+        prostheticPages.add(secondPagePros);
 
         //Other pages
         TextQuestion explanation = new TextQuestion(getString(R.string.otherDescribe), getString(R.string.pleaseDescribe_newReferralForm), QuestionType.PLAIN_TEXT, true);
@@ -753,7 +772,10 @@ public class NewReferralActivity extends AppCompatActivity {
         otherOne.addToPage(explanation);
         otherExplanation.add(otherOne);
 
-
+        TextQuestion otherPhotoQuestion = new TextQuestion("photoOther", getString(R.string.photoQuestion_newReferralForm), QuestionType.PICTURE, false);
+        FormPage otherTwo = new FormPage();
+        otherTwo.addToPage(otherPhotoQuestion);
+        otherExplanation.add(otherTwo);
     }
 
     private void reviewPage(){
