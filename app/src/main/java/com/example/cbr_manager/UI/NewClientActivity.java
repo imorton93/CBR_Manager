@@ -60,6 +60,8 @@ import com.google.android.gms.location.LocationServices;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
 public class NewClientActivity extends AppCompatActivity {
 
 //    private static final String TAG = "INSERTED";
@@ -151,7 +153,6 @@ public class NewClientActivity extends AppCompatActivity {
                     back.setClickable(true);
                     back.setVisibility(View.VISIBLE);
 
-//                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
                     back.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
 
 
@@ -1119,7 +1120,7 @@ public class NewClientActivity extends AppCompatActivity {
         TextView reviewTitle = new TextView(this);
         reviewTitle.setText("Review");
         reviewTitle.setTextSize(txtSize);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         params.gravity = Gravity.CENTER_HORIZONTAL;
         reviewTitle.setLayoutParams(params);
         form.addView(reviewTitle);
