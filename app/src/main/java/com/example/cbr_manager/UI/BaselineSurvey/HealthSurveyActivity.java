@@ -9,12 +9,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
@@ -22,8 +24,9 @@ import com.example.cbr_manager.UI.TaskViewActivity;
 
 public class HealthSurveyActivity extends AppCompatActivity {
 
-    private Spinner healthSpinner1, healthSpinner2;
-    private RadioGroup radioGroup1, radioGroup2, radioGroup3, radioGroup4, radioGroup5, radioGroup6;
+    private Spinner healthSpinner1, healthSpinner2, healthSpinner3;
+    private RadioGroup radioGroup1, radioGroup2, radioGroup3, radioGroup4, radioGroup5;
+    private Survey survey = new Survey();
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, HealthSurveyActivity.class);
@@ -36,12 +39,12 @@ public class HealthSurveyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_health_survey);
         healthSpinner1 = findViewById(R.id.healthSurveySpinner1);
         healthSpinner2 = findViewById(R.id.healthSurveySpinner2);
+        healthSpinner3 = findViewById(R.id.healthSurveySpinner3);
         radioGroup1 = findViewById(R.id.healthSurveyRadioGroup1);
         radioGroup2 = findViewById(R.id.healthSurveyRadioGroup2);
         radioGroup3 = findViewById(R.id.healthSurveyRadioGroup3);
         radioGroup4 = findViewById(R.id.healthSurveyRadioGroup4);
         radioGroup5 = findViewById(R.id.healthSurveyRadioGroup5);
-        radioGroup6 = findViewById(R.id.healthSurveyRadioGroup6);
         createSpinners();
         nextButton();
         ToolbarButtons();
@@ -62,11 +65,84 @@ public class HealthSurveyActivity extends AppCompatActivity {
                 if (!validateEntries())
                     Toast.makeText(HealthSurveyActivity.this, "Please fill all the details!", Toast.LENGTH_SHORT).show();
                 else {
+                    storeSurveyInput();
                     Intent intent = EducationSurveyActivity.makeIntent(HealthSurveyActivity.this);
+                    intent.putExtra("Survey", survey);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    private void storeSurveyInput() {
+
+        String answer1 = healthSpinner1.getSelectedItem().toString();
+        byte health_condition = 0;
+        if(answer1=="Good")
+            health_condition = 1;
+        else if(answer1=="Fine")
+            health_condition = 2;
+        else if(answer1 == "Poor")
+            health_condition = 3;
+        else if(answer1 == "Very Poor")
+            health_condition = 4;
+
+        String answer2 = ((RadioButton)findViewById(radioGroup1.getCheckedRadioButtonId())).getText().toString();
+        boolean have_rehab;
+        if(answer2 == "No")
+            have_rehab = false;
+        else
+            have_rehab = true;
+
+        String answer3 = ((RadioButton)findViewById(radioGroup2.getCheckedRadioButtonId())).getText().toString();
+        boolean need_rehab;
+        if(answer3 == "No")
+            need_rehab = false;
+        else
+            need_rehab = true;
+
+        String answer4 = ((RadioButton)findViewById(radioGroup3.getCheckedRadioButtonId())).getText().toString();
+        boolean have_device;
+        if(answer4 == "No")
+            have_device = false;
+        else
+            have_device = true;
+
+        String answer5 = ((RadioButton)findViewById(radioGroup4.getCheckedRadioButtonId())).getText().toString();
+        boolean is_device;
+        if(answer5 == "No")
+            is_device = false;
+        else
+            is_device = true;
+
+        String answer6 = ((RadioButton)findViewById(radioGroup5.getCheckedRadioButtonId())).getText().toString();
+        boolean need_device;
+        if(answer6 == "No")
+            need_device = false;
+        else
+            need_device = true;
+
+        String what_device = healthSpinner2.getSelectedItem().toString();
+
+        String answer8 = healthSpinner3.getSelectedItem().toString();
+        byte is_satisfied = -1;
+        if(answer8=="Good")
+            is_satisfied = 1;
+        else if(answer8=="Fine")
+            is_satisfied = 2;
+        else if(answer8 == "Poor")
+            is_satisfied = 3;
+        else if(answer8 == "Very Poor")
+            is_satisfied = 4;
+
+        survey.setHealth_condition(health_condition);
+        survey.setHave_rehab_access(have_rehab);
+        survey.setNeed_rehab_access(need_rehab);
+        survey.setHave_device(have_device);
+        survey.setNeed_device(need_device);
+        survey.setDevice_type(what_device);
+        survey.setDevice_condition(is_device);
+        survey.setIs_satisfied(is_satisfied);
     }
 
 
@@ -83,14 +159,21 @@ public class HealthSurveyActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown2.setAdapter(adapter2);
+
+        Spinner dropdown3 = findViewById(R.id.healthSurveySpinner3);
+        String[] items3 = new String[]{"Choose Option", "Good", "Fine", "Poor", "Very Poor"};
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items3);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown3.setAdapter(adapter3);
     }
 
     private boolean validateEntries() {
         boolean bool = true;
         if (radioGroup1.getCheckedRadioButtonId() == -1 || radioGroup2.getCheckedRadioButtonId() == -1
                 || radioGroup3.getCheckedRadioButtonId() == -1 || radioGroup4.getCheckedRadioButtonId() == -1
-                || radioGroup5.getCheckedRadioButtonId() == -1 || radioGroup6.getCheckedRadioButtonId() == -1
-                || healthSpinner1.getSelectedItem().toString() == "Choose Option"|| healthSpinner2.getSelectedItem().toString() == "Choose Option") {
+                || radioGroup5.getCheckedRadioButtonId() == -1 || healthSpinner1.getSelectedItem().toString() == "Choose Option"
+                || healthSpinner2.getSelectedItem().toString() == "Choose Option"
+                || healthSpinner3.getSelectedItem().toString() == "Choose Option") {
             bool = false;
         }
         return bool;

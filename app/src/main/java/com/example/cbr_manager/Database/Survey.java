@@ -1,6 +1,8 @@
 package com.example.cbr_manager.Database;
 
-public class Survey {
+import java.io.Serializable;
+
+public class Survey implements Serializable {
 
     //health
     private byte health_condition; // stored as values in 1-4
@@ -9,8 +11,8 @@ public class Survey {
     private boolean have_device;
     private boolean device_condition;
     private boolean need_device;
-    private byte device_type; // stored as values in 1-9
-    private byte is_satisfied; // stored as values in 1-4
+    private String device_type;
+    private byte is_satisfied;
 
     //education
     private boolean is_student;
@@ -57,7 +59,7 @@ public class Survey {
     public Survey() {
     }
 
-    public Survey(byte health_condition, boolean have_rehab_access, boolean need_rehab_access, boolean have_device, boolean device_condition, boolean need_device, byte device_type, byte is_satisfied, boolean is_student, byte grade_no, String reason_no_school, boolean was_student, boolean want_school, boolean is_valued, boolean is_independent, boolean is_social, boolean is_socially_affected, boolean was_discriminated, boolean is_working, String work_type, boolean is_self_employed, boolean needs_met, boolean is_work_affected, boolean want_work, byte food_security, boolean is_diet_enough, byte child_condition, boolean referral_required, boolean is_member, String organisation, boolean is_aware, boolean is_influence, boolean is_shelter_adequate, boolean items_access,long client_id, boolean is_synced) {
+    public Survey(byte health_condition, boolean have_rehab_access, boolean need_rehab_access, boolean have_device, boolean device_condition, boolean need_device, String device_type, byte is_satisfied, boolean is_student, byte grade_no, String reason_no_school, boolean was_student, boolean want_school, boolean is_valued, boolean is_independent, boolean is_social, boolean is_socially_affected, boolean was_discriminated, boolean is_working, String work_type, boolean is_self_employed, boolean needs_met, boolean is_work_affected, boolean want_work, byte food_security, boolean is_diet_enough, byte child_condition, boolean referral_required, boolean is_member, String organisation, boolean is_aware, boolean is_influence, boolean is_shelter_adequate, boolean items_access,long client_id, boolean is_synced) {
         this.health_condition = health_condition;
         this.have_rehab_access = have_rehab_access;
         this.need_rehab_access = need_rehab_access;
@@ -144,11 +146,11 @@ public class Survey {
         this.need_device = need_device;
     }
 
-    public byte getDevice_type() {
+    public String getDevice_type() {
         return device_type;
     }
 
-    public void setDevice_type(byte device_type) {
+    public void setDevice_type(String device_type) {
         this.device_type = device_type;
     }
 

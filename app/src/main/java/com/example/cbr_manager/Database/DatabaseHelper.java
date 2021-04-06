@@ -208,7 +208,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String create_survey_table = "CREATE TABLE " + survey_table + " (" + survey_id
                 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + survey_health_condition + " INTEGER, " + survey_have_rehab_access
                 + " BOOLEAN, " + survey_need_rehab_access + " BOOLEAN, " + survey_have_device+ " BOOLEAN, " + survey_device_condition
-                + " BOOLEAN, " + survey_need_device + " BOOLEAN, " + survey_device_type + " INTEGER, " + survey_is_satisfied
+                + " BOOLEAN, " + survey_need_device + " BOOLEAN, " + survey_device_type + " STRING, " + survey_is_satisfied
                 + " INTEGER, " + survey_is_student + " BOOLEAN, " + survey_grade_no + " INTEGER, " + survey_reason
                 + " STRING, " + survey_was_student + " BOOLEAN, " + survey_want_school + " BOOLEAN, " + survey_is_valued
                 + " BOOLEAN, " + survey_is_independent + " BOOLEAN, " + survey_is_social + " BOOLEAN, " + survey_is_socially_affected
