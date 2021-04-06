@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
@@ -70,7 +71,6 @@ public class TaskViewActivity extends AppCompatActivity {
         badge = findViewById(R.id.cart_badge);
         TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
 
-        automaticSync();
         clickIcons();
         ToolbarButtons();
 
@@ -621,37 +621,5 @@ public class TaskViewActivity extends AppCompatActivity {
         message.setIsSynced(Integer.parseInt((String) object.get("IS_SYNCED")));
 
         return message;
-    }
-
-    //Reference:
-    //https://stackoverflow.com/questions/28028954/repeat-android-code-every-x-minutes
-    private void automaticSync() {
-        automaticSyncThread = new Thread() {
-            @Override
-            public void run() {
-                getMessagesFromServer();
-
-                while(true) {
-                    try {
-                        Thread.sleep(10000); //every 10 minutes
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
-                            adminMessageManager.clear();
-                            adminMessageManager.updateList();
-
-                            badgeNotification(adminMessageManager, badge);
-                        }
-                    });
-                }
-            }
-        };
-
-        automaticSyncThread.start();
     }
 }

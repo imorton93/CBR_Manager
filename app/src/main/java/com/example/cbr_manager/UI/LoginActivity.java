@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.Database.AutomaticSyncService;
 import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.CBRWorker;
@@ -91,6 +92,11 @@ public class LoginActivity extends AppCompatActivity {
             requestQueue = Volley.newRequestQueue(LoginActivity.this);
             syncWorkerTable();
         }
+
+        //Starting automatic sync service
+        Intent syncServiceIntent = new Intent(LoginActivity.this, AutomaticSyncService.class);
+        syncServiceIntent.setAction("com.example.cbr_manager.Database.AutomaticSyncService");
+        startService(syncServiceIntent);
 
         buttonsClicked();
     }
