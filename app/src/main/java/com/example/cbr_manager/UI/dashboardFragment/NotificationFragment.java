@@ -112,7 +112,7 @@ public class NotificationFragment extends Fragment {
             AdminMessage currentMessage;
             currentMessage = this.messages.get(position);
 
-            TextView date = view.findViewById(R.id.date);
+            TextView date = view.findViewById(R.id.dateTitle);
             TextView location = view.findViewById(R.id.locationTitle);
             TextView title = view.findViewById(R.id.titleText);
             TextView message = view.findViewById(R.id.msg);

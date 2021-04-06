@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Visit;
@@ -83,6 +84,14 @@ public class NewVisitActivity extends AppCompatActivity {
         mydb = new DatabaseHelper(NewVisitActivity.this);
 
         ToolbarButtons();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(NewVisitActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
+
+        TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
+        badgeNotification(adminMessageManager, badgeOnToolBar);
+
         extractIntent();
 
         next = (Button) findViewById(R.id.nextBtnVisit);
@@ -194,6 +203,15 @@ public class NewVisitActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton notificationBtn = findViewById(R.id.notificationButton);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = DashboardActivity.makeIntent(NewVisitActivity.this);
+                startActivity(intent);
+            }
+        });
+
         ImageButton profileBtn = (ImageButton) findViewById(R.id.profileButton);
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +220,23 @@ public class NewVisitActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
+        int size = adminMessageManager.size();
+
+        if (badge != null) {
+            if (size == 0) {
+                if (badge.getVisibility() != View.GONE) {
+                    badge.setVisibility(View.GONE);
+                }
+            } else {
+                badge.setText(String.valueOf(Math.min(size, 99)));
+                if (badge.getVisibility() != View.VISIBLE) {
+                    badge.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
     private void setProgress(int currentPage, int pageCount){

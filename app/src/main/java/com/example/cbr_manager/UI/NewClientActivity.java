@@ -41,6 +41,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.Client;
 
 import com.example.cbr_manager.Database.ClientManager;
@@ -129,6 +130,13 @@ public class NewClientActivity extends AppCompatActivity {
         pages = new ArrayList<>();
 
         ToolbarButtons();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(NewClientActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
+
+        TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
+        badgeNotification(adminMessageManager, badgeOnToolBar);
 
         createNewClientForm();
         pageCount = pages.size() + 1;
@@ -827,7 +835,6 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void createNewClientForm(){
-        setWorkerId();
         setUniqueClientId();
         Resources res = getResources();
         //page one: consent and date
@@ -1126,13 +1133,21 @@ public class NewClientActivity extends AppCompatActivity {
         form.addView(reviewTitle);
     }
 
-
     private void ToolbarButtons(){
         ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton notificationBtn = findViewById(R.id.notificationButton);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = DashboardActivity.makeIntent(NewClientActivity.this);
                 startActivity(intent);
             }
         });
@@ -1147,6 +1162,23 @@ public class NewClientActivity extends AppCompatActivity {
         });
     }
 
+    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
+        int size = adminMessageManager.size();
+
+        if (badge != null) {
+            if (size == 0) {
+                if (badge.getVisibility() != View.GONE) {
+                    badge.setVisibility(View.GONE);
+                }
+            } else {
+                badge.setText(String.valueOf(Math.min(size, 99)));
+                if (badge.getVisibility() != View.VISIBLE) {
+                    badge.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
     private void insertClient() {
         newClient.setIsSynced(0);
         boolean success = mydb.registerClient(newClient);
@@ -1156,38 +1188,32 @@ public class NewClientActivity extends AppCompatActivity {
 
             Toast.makeText(NewClientActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
             Intent intent = TaskViewActivity.makeIntent(NewClientActivity.this);
-            String current_username = getIntent().getStringExtra("Worker Username");
-            intent.putExtra("Worker Username", current_username);
             startActivity(intent);
         } else {
-            Toast.makeText(NewClientActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
+            Toast.makeText(NewClientActivity.this, String.valueOf(newClient.getId()), Toast.LENGTH_LONG).show();
         }
     }
     private void setUniqueClientId(){
         DatabaseHelper db =  new DatabaseHelper(NewClientActivity.this);
 
         // Convert both the integers to string
-        String current_username = getIntent().getStringExtra("Worker Username");
-        String s1 = String.valueOf(db.getWorkerId(current_username));
-        int client_no = db.numberOfClientsPerUser(current_username);
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("DATA", Context.MODE_PRIVATE);
+        String username = sharedPref.getString("username", null);
+
+        int worker_id = db.getWorkerId(username);
+        newClient.setClient_worker_id(worker_id);
+
+        int client_no = db.numberOfClientsPerUser(worker_id);
         client_no++;//next available client id
-        String s2 = String.valueOf(client_no);
 
         // Concatenate both strings
-        String s = s1 + s2;
+        String uniqueID = String.valueOf(worker_id) + String.valueOf(client_no);
 
         // Convert the concatenated string
         // to integer
-        long c = Long.parseLong(s);
+        long uniqueID_long = Long.parseLong(uniqueID);
 
-        newClient.setId(c);
+        newClient.setId(uniqueID_long);
     }
-
-    private void setWorkerId(){
-        DatabaseHelper db =  new DatabaseHelper(NewClientActivity.this);
-        String current_username = getIntent().getStringExtra("Worker Username");
-        newClient.setClient_worker_id(db.getWorkerId(current_username));
-    }
-
 }
 

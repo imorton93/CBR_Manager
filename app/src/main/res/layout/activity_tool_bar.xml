@@ -14,6 +14,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/cart_badge2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignStart="@+id/notificationButton"
+            android:layout_alignLeft="@+id/notificationButton"
+            android:layout_alignEnd="@+id/notificationButton"
+            android:layout_alignRight="@+id/notificationButton"
+            android:layout_alignBottom="@+id/notificationButton"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="right|end|top"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/badge_background"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="0"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:drawableTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/dashboard"
+            app:layout_constraintEnd_toStartOf="@+id/allClients" />
+
         <ImageView
             android:layout_width="100dp"
             android:layout_height="50dp"
@@ -47,7 +74,6 @@
 
         <ImageButton
             android:id="@+id/notificationButton"
-            android:padding="10dp"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
@@ -56,10 +82,12 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="90dp"
             android:layout_marginRight="90dp"
+            android:adjustViewBounds="false"
             android:background="@null"
             android:minWidth="70dp"
+            android:padding="10dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/notification"
+            app:srcCompat="@drawable/bell"
             tools:layout_editor_absoluteX="174dp" />
 
         <ImageButton
