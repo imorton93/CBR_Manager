@@ -2,6 +2,7 @@ package com.example.cbr_manager.UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -732,6 +733,8 @@ public class NewVisitActivity extends AppCompatActivity {
 
 
     private void createNewVisitForm(){
+        setUniqueVisitId();
+
         Resources res = getResources();
         FormPage pageZero = new FormPage();
         String previousOutcome = visitManager.getPreviousVisitOutcome(this.client_id);
@@ -923,5 +926,20 @@ public class NewVisitActivity extends AppCompatActivity {
         } else {
             Toast.makeText(NewVisitActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void setUniqueVisitId(){
+        DatabaseHelper db =  new DatabaseHelper(NewVisitActivity.this);
+
+        int visit_no = db.numberOfVisitsPerClient(newVisit.getClientID());
+        visit_no++;//next available visit id
+
+        // Concatenate both strings
+        String uniqueID = String.valueOf(newVisit.getClientID()) + String.valueOf(visit_no);
+
+        // Convert the concatenated string to integer
+        long uniqueID_long = Long.parseLong(uniqueID);
+
+        newVisit.setVisit_id(uniqueID_long);
     }
 }

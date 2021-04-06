@@ -22,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_1 = "FIRST_NAME";
     private static final String COL_2 = "LAST_NAME";
     private static final String COL_3 = "USERNAME";
+    private static final String COL_8 = "PHOTO";
     private static final String COL_7 = "ZONE";
     private static final String COL_4 = "PASSWORD";
     private static final String COL_5 = "ID";
@@ -129,7 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_client_table);
 
         String create_visit_table = "CREATE TABLE "
-                + visit_table + " (" + visit_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + visit_date + " STRING, "
+                + visit_table + " (" + visit_id + " INTEGER PRIMARY KEY, " + visit_date + " STRING, "
                 + visit_purpose + " STRING, " + if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, "
                 + health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, "
                 + education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, "
@@ -138,7 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_visit_table);
 
         String create_referral_table = "CREATE TABLE "
-                + referral_table + " (" + referral_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + service_req + " TEXT, "
+                + referral_table + " (" + referral_id + " INTEGER PRIMARY KEY, " + service_req + " TEXT, "
                 + referral_photo + " BLOB, " + basic_or_inter + " TEXT, " + hip_width + " REAL, " + has_wheelchair + " BOOLEAN, "
                 + wheelchair_repairable + " BOOLEAN, " + bring_to_centre + " BOOLEAN, " + conditions + " TEXT, "
                 + injury_location_knee + " TEXT, " + injury_location_elbow + " TEXT, " + referral_status + " TEXT, "
@@ -172,7 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_7, cbrWorker.getZone());
         cv.put(COL_4, cbrWorker.getPassword());
-        //cv.put(COL_5, cbrWorker.getId()); Delete comment after solving same username bug
+
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1)
             return false;
@@ -266,6 +267,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        cv.put(visit_id, visit.getVisit_id());
         cv.put(visit_purpose, visit.getPurposeOfVisit());
         cv.put(visit_date, visit.getDate());
         cv.put(if_cbr, android.text.TextUtils.join(",", visit.getIfCbr()));
@@ -294,9 +296,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        //TODO: cv.put(referral_photo, referral.getReferralPhoto());
 
+        cv.put(referral_id, referral.getId());
         cv.put(client_referral_id, referral.getClientID());
+        cv.put(referral_photo, referral.getReferralPhoto());
+
         String serviceType = referral.getServiceReq();
 
         if(serviceType.equals("Physiotherapy")){
@@ -349,6 +353,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put(wheelchair_repairable, false);
             cv.put(bring_to_centre, false);
         }
+
+        cv.put(is_synced, referral.getIsSynced());
 
         long result = db.insert(referral_table, null, cv);
         if (result == -1 )
@@ -530,6 +536,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int numberOfClientsPerUser(int worker_id){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT COUNT(ID) FROM " + client_table_name + " WHERE " + client_worker_id + " = " + worker_id + ";";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int numberOfVisitsPerClient(long client_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(ID) FROM " + visit_table + " WHERE " + client_visit_id + " = " + client_id + ";";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int numberOfReferralsPerClient(long client_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(ID) FROM " + referral_table + " WHERE " + client_referral_id + " = " + client_id + ";";
         Cursor c = db.rawQuery(query, null);
         if(c!= null && c.getCount()>0) {
             c.moveToLast();

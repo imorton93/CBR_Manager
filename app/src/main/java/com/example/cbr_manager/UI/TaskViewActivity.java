@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
@@ -127,11 +128,11 @@ public class TaskViewActivity extends AppCompatActivity {
                 //  - If connected, attempt a sync. Show a progress bar(?)
 
                 if (!connectedToInternet()) {
-                    Toast.makeText(TaskViewActivity.this, "Not connected to internet.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(TaskViewActivity.this, "Please connect to the internet and try again!", Toast.LENGTH_LONG).show();
                 } else {
                     syncClientsTable();
-//                    syncVisitTable();
-//                    syncReferralTable();
+                    syncVisitTable();
+                    syncReferralTable();
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
                 }
@@ -258,50 +259,8 @@ public class TaskViewActivity extends AppCompatActivity {
 
                             JSONArray serverData = new JSONArray(response);
 
-                            JSONObject object = new JSONObject();
-                            Client client = new Client();
-
                             for (int i = 0; i < serverData.length(); i++) {
-                                object = serverData.getJSONObject(i);
-
-                                client.setId(Long.parseLong((String) object.get("ID")));
-                                client.setConsentToInterview(strToBool((String) object.get("CONSENT")));
-                                client.setDate((String) object.get("DATE"));
-                                client.setFirstName((String) object.get("FIRST_NAME"));
-                                client.setLastName((String) object.get("LAST_NAME"));
-                                client.setAge(Integer.parseInt((String) object.get("AGE")));
-                                client.setGender((String) object.get("GENDER"));
-                                client.setLocation((String) object.get("LOCATION"));
-                                client.setVillageNumber(Integer.parseInt((String) object.get("VILLAGE_NUMBER")));
-                                client.setLatitude(Double.parseDouble((String) object.get("LATITUDE")));
-                                client.setLongitude(Double.parseDouble((String) object.get("LONGITUDE")));
-                                client.setContactPhoneNumber((String) object.get("CONTACT"));
-                                client.setCaregiverPresent(strToBool((String) object.get("CAREGIVER_PRESENCE")));
-                                client.setCaregiverPhoneNumber((String) object.get("CAREGIVER_NUMBER"));
-
-                                if (!object.isNull("PHOTO")) {
-                                    client.setPhoto(strToByteArr((String) object.get("PHOTO")));
-                                }
-
-                                //setting disabilities
-                                List<String> disabilities = new ArrayList<String>(Arrays.asList(((String) object.get("DISABILITY")).split(", ")));
-                                client.setDisabilities((ArrayList<String>) disabilities);
-                                //--
-
-                                client.setHealthRate((String) object.get("HEALTH_RATE"));
-                                client.setHealthRequire((String) object.get("HEALTH_REQUIREMENT"));
-                                client.setHealthIndividualGoal((String) object.get("HEALTH_GOAL"));
-                                client.setEducationRate((String) object.get("EDUCATION_RATE"));
-                                client.setEducationRequire((String) object.get("EDUCATION_REQUIRE"));
-                                client.setEducationIndividualGoal((String) object.get("EDUCATION_GOAL"));
-                                client.setSocialStatusRate((String) object.get("SOCIAL_RATE"));
-                                client.setSocialStatusRequire((String) object.get("SOCIAL_REQUIREMENT"));
-                                client.setSocialStatusIndividualGoal((String) object.get("SOCIAL_GOAL"));
-
-                                client.setClient_worker_id(Integer.parseInt((String) object.get("WORKER_ID")));
-                                client.setIsSynced(1);
-
-                                mydb.registerClient(client);
+                                mydb.registerClient(jsonToClient(serverData.getJSONObject(i)));
                             }
                         } catch (JSONException e) {
                             Toast.makeText(TaskViewActivity.this, e.toString(), Toast.LENGTH_LONG).show();
@@ -353,38 +312,8 @@ public class TaskViewActivity extends AppCompatActivity {
 
                             JSONArray serverData = new JSONArray(response);
 
-                            JSONObject object = new JSONObject();
-                            Visit visit = new Visit();
-
                             for (int i = 0; i < serverData.length(); i++) {
-                                object = serverData.getJSONObject(i);
-
-                                visit.setVisit_id(Long.parseLong((String) object.get("ID")));
-                                visit.setPurposeOfVisit((String) object.get("PURPOSE_OF_VISIT"));
-
-                                List<String> ifCbr = new ArrayList<String>(Arrays.asList(((String) object.get("IF_CBR")).split(", ")));
-                                visit.setIfCbr((ArrayList<String>) ifCbr);
-
-                                visit.setDate((String) object.get("VISIT_DATE"));
-                                visit.setLocation((String) object.get("LOCATION"));
-                                visit.setVillageNumber((Integer) object.get("VILLAGE_NUMBER"));
-
-                                visit.stringToHealthProvided((String) object.get("HEALTH_PROVIDED"));
-                                visit.setHealthGoalMet((String) object.get("HEALTH_GOAL_STATUS"));
-                                visit.setHealthIfConcluded((String) object.get("HEALTH_OUTCOME"));
-
-                                visit.stringToEduProvided((String) object.get("EDU_PROVIDED"));
-                                visit.setEducationGoalMet((String) object.get("EDU_GOAL_STATUS"));
-                                visit.setEducationIfConcluded((String) object.get("EDUCATION_OUTCOME"));
-
-                                visit.stringToSocialProvided((String) object.get("SOCIAL_PROVIDED"));
-                                visit.setSocialGoalMet((String) object.get("SOCIAL_GOAL_STATUS"));
-                                visit.setSocialIfConcluded((String) object.get("SOCIAL_OUTCOME"));
-
-                                visit.setClientID(Long.parseLong((String) object.get("CLIENT_ID")));
-                                visit.setIsSynced(1);
-
-                                mydb.addVisit(visit);
+                                mydb.addVisit(jsonToVisit(serverData.getJSONObject(i)));
                             }
                         } catch (JSONException e) {
                             Toast.makeText(TaskViewActivity.this, e.toString(), Toast.LENGTH_LONG).show();
@@ -414,7 +343,7 @@ public class TaskViewActivity extends AppCompatActivity {
     }
 
     public void syncReferralTable() {
-        String query = "SELECT * FROM CLIENT_REFERRALS" ; //get only data that is not synced
+        String query = "SELECT * FROM CLIENT_REFERRALS WHERE IS_SYNCED = 0;" ; //get only data that is not synced
         Cursor c = mydb.executeQuery(query);
         JSONArray localDataJSON = cur2Json(c);
 
@@ -436,30 +365,8 @@ public class TaskViewActivity extends AppCompatActivity {
 
                             JSONArray serverData = new JSONArray(response);
 
-                            JSONObject object = new JSONObject();
-                            Referral referral = new Referral();
-
                             for (int i = 0; i < serverData.length(); i++) {
-                                object = serverData.getJSONObject(i);
-
-                                referral.setId(Long.parseLong((String) object.get("ID")));
-                                referral.setServiceReq((String) object.get("SERVICE_REQUIRED"));
-                                referral.setBasicOrInter((String) object.get("BASIC_OR_INTERMEDIATE"));
-                                referral.setHipWidth(Integer.parseInt((String) object.get("HIP_WIDTH")));
-                                referral.setHasWheelchair(strToBool((String) object.get("HAS_WHEELCHAIR")));
-                                referral.setWheelchairReparable(strToBool((String) object.get("WHEELCHAIR_REPAIRABLE")));
-                                referral.setBringToCentre(strToBool((String) object.get("BRING_TO_CENTRE")));
-
-                                List<String> conditions = new ArrayList<String>(Arrays.asList(((String) object.get("CONDITIONS")).split(", ")));
-                                referral.setCondition(conditions.toString());
-
-                                referral.setInjuryLocation((String) object.get("INJURY_LOCATION_KNEE"));
-                                referral.setStatus((String) object.get("REFERRAL_STATUS"));
-                                referral.setOutcome((String) object.get("REFERRAL_OUTCOME"));
-                                referral.setClientID(Long.parseLong((String) object.get("CLIENT_ID")));
-                                referral.setIsSynced(1);
-
-                                mydb.addReferral(referral);
+                                mydb.addReferral(jsonToReferral(serverData.getJSONObject(i)));
                             }
                         } catch (JSONException e) {
                             Toast.makeText(TaskViewActivity.this, e.toString(), Toast.LENGTH_LONG).show();
@@ -539,5 +446,123 @@ public class TaskViewActivity extends AppCompatActivity {
 
     public byte[] strToByteArr (String s) {
         return Base64.decode(s, Base64.DEFAULT);
+    }
+
+    Client jsonToClient (JSONObject object) throws JSONException {
+        Client client = new Client();
+
+        client.setId(Long.parseLong((String) object.get("ID")));
+        client.setConsentToInterview(strToBool((String) object.get("CONSENT")));
+        client.setDate((String) object.get("DATE"));
+        client.setFirstName((String) object.get("FIRST_NAME"));
+        client.setLastName((String) object.get("LAST_NAME"));
+        client.setAge(Integer.parseInt((String) object.get("AGE")));
+        client.setGender((String) object.get("GENDER"));
+        client.setLocation((String) object.get("LOCATION"));
+        client.setVillageNumber(Integer.parseInt((String) object.get("VILLAGE_NUMBER")));
+        client.setLatitude(Double.parseDouble((String) object.get("LATITUDE")));
+        client.setLongitude(Double.parseDouble((String) object.get("LONGITUDE")));
+        client.setContactPhoneNumber((String) object.get("CONTACT"));
+        client.setCaregiverPresent(strToBool((String) object.get("CAREGIVER_PRESENCE")));
+        client.setCaregiverPhoneNumber((String) object.get("CAREGIVER_NUMBER"));
+
+        if (!object.isNull("PHOTO")) {
+            client.setPhoto(strToByteArr((String) object.get("PHOTO")));
+        }
+
+        //setting disabilities
+        List<String> disabilities = new ArrayList<String>(Arrays.asList(((String) object.get("DISABILITY")).split(", ")));
+        client.setDisabilities((ArrayList<String>) disabilities);
+        //--
+
+        client.setHealthRate((String) object.get("HEALTH_RATE"));
+        client.setHealthRequire((String) object.get("HEALTH_REQUIREMENT"));
+        client.setHealthIndividualGoal((String) object.get("HEALTH_GOAL"));
+        client.setEducationRate((String) object.get("EDUCATION_RATE"));
+        client.setEducationRequire((String) object.get("EDUCATION_REQUIRE"));
+        client.setEducationIndividualGoal((String) object.get("EDUCATION_GOAL"));
+        client.setSocialStatusRate((String) object.get("SOCIAL_RATE"));
+        client.setSocialStatusRequire((String) object.get("SOCIAL_REQUIREMENT"));
+        client.setSocialStatusIndividualGoal((String) object.get("SOCIAL_GOAL"));
+
+        client.setClient_worker_id(Integer.parseInt((String) object.get("WORKER_ID")));
+        client.setIsSynced(1);
+
+        return client;
+    }
+
+    Visit jsonToVisit (JSONObject object) throws JSONException {
+        Visit visit = new Visit();
+
+        visit.setVisit_id(Long.parseLong((String) object.get("ID")));
+        visit.setPurposeOfVisit((String) object.get("PURPOSE_OF_VISIT"));
+
+        List<String> ifCbr = new ArrayList<String>(Arrays.asList(((String) object.get("IF_CBR")).split(", ")));
+        visit.setIfCbr((ArrayList<String>) ifCbr);
+
+        visit.setDate((String) object.get("VISIT_DATE"));
+        visit.setLocation((String) object.get("LOCATION"));
+        visit.setVillageNumber((Integer) object.get("VILLAGE_NUMBER"));
+
+        visit.stringToHealthProvided((String) object.get("HEALTH_PROVIDED"));
+        visit.setHealthGoalMet((String) object.get("HEALTH_GOAL_STATUS"));
+        visit.setHealthIfConcluded((String) object.get("HEALTH_OUTCOME"));
+
+        visit.stringToEduProvided((String) object.get("EDU_PROVIDED"));
+        visit.setEducationGoalMet((String) object.get("EDU_GOAL_STATUS"));
+        visit.setEducationIfConcluded((String) object.get("EDUCATION_OUTCOME"));
+
+        visit.stringToSocialProvided((String) object.get("SOCIAL_PROVIDED"));
+        visit.setSocialGoalMet((String) object.get("SOCIAL_GOAL_STATUS"));
+        visit.setSocialIfConcluded((String) object.get("SOCIAL_OUTCOME"));
+
+        visit.setClientID(Long.parseLong((String) object.get("CLIENT_ID")));
+        visit.setIsSynced(1);
+
+        return visit;
+    }
+
+    Referral jsonToReferral (JSONObject object) throws JSONException {
+        Referral referral = new Referral();
+
+        referral.setId(Long.parseLong((String) object.get("ID")));
+        referral.setServiceReq((String) object.get("SERVICE_REQUIRED"));
+
+        if (!object.isNull("PHOTO")) {
+            referral.setReferralPhoto(strToByteArr((String) object.get("REFERRAL_PHOTO")));
+        }
+
+        if (referral.getServiceReq().equals("Physiotherapy")) {
+            List<String> conditions = new ArrayList<String>(Arrays.asList(((String) object.get("CONDITIONS")).split(", ")));
+            referral.setCondition(conditions.toString());
+        }
+
+        else if (referral.getServiceReq().equals("Prosthetic")) {
+            referral.setInjuryLocation(((String) object.get("INJURY_LOCATION_KNEE")));
+        }
+
+        else if (referral.getServiceReq().equals("Orthotic")) {
+            referral.setInjuryLocation(((String) object.get("INJURY_LOCATION_ELBOW")));
+        }
+
+        else if (referral.getServiceReq().equals("Wheelchair")) {
+            referral.setBasicOrInter((String) object.get("BASIC_OR_INTERMEDIATE"));
+            referral.setHipWidth(Integer.parseInt((String) object.get("HIP_WIDTH")));
+        }
+
+        else {
+            referral.setOtherExplanation(referral.getServiceReq());
+        }
+
+        referral.setHasWheelchair(strToBool((String) object.get("HAS_WHEELCHAIR")));
+        referral.setWheelchairReparable(strToBool((String) object.get("WHEELCHAIR_REPAIRABLE")));
+        referral.setBringToCentre(strToBool((String) object.get("BRING_TO_CENTRE")));
+        referral.setClientID(Long.parseLong((String) object.get("CLIENT_ID")));
+        referral.setIsSynced(1);
+
+        /*referral.setStatus((String) object.get("REFERRAL_STATUS"));
+        referral.setOutcome((String) object.get("REFERRAL_OUTCOME"));*/
+
+        return referral;
     }
 }
