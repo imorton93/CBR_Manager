@@ -242,7 +242,6 @@ public class NewReferralActivity extends AppCompatActivity {
         int imageViewHeight = (int)(form.getHeight() * .7);
         LinearLayout.LayoutParams imageViewLayoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageViewHeight);
         imageView.setLayoutParams(imageViewLayoutParams1);
-        imageView.setBackground(ContextCompat.getDrawable(this, R.drawable.image_border));
 
 
         ArrayList<Question> questions = page.getQuestions();
