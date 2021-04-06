@@ -88,6 +88,7 @@ public class FoodSurveyActivity extends AppCompatActivity {
     }
 
     private void storeSurveyInput() {
+        boolean referral_required = false;
         String child_condition = null;
         String food_security = foodSpinner1.getSelectedItem().toString();
 
@@ -107,9 +108,15 @@ public class FoodSurveyActivity extends AppCompatActivity {
         else {
             is_child = true;
             child_condition = foodSpinner2.getSelectedItem().toString();
-            if(child_condition.equals("Malnourished"))
+            if(child_condition.equals("Malnourished")) {
                 Toast.makeText(FoodSurveyActivity.this, "Child needs referral immediately!", Toast.LENGTH_LONG).show();
+                referral_required = true;
+            }
         }
+        survey.setChild_condition(child_condition);
+        survey.setFood_security(food_security);
+        survey.setIs_diet_enough(is_enough);
+        survey.setReferral_required(referral_required);
     }
 
     private boolean validateEntries() {

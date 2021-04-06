@@ -214,8 +214,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " BOOLEAN, " + survey_is_independent + " BOOLEAN, " + survey_is_social + " BOOLEAN, " + survey_is_socially_affected
                 + " BOOLEAN, " + survey_was_discriminated + " BOOLEAN, " + survey_is_working + " BOOLEAN, " + survey_work_type
                 + " STRING, " + survey_is_self_employed + " STRING, " + survey_needs_met + " BOOLEAN, " + survey_is_work_affected
-                + " BOOLEAN, " + survey_want_work + " BOOLEAN, " + survey_food_security + " INTEGER, " + survey_is_diet_enough
-                + " BOOLEAN, " + survey_child_condition + " INTEGER, " + survey_referral_required + " BOOLEAN, " + survey_is_member
+                + " BOOLEAN, " + survey_want_work + " BOOLEAN, " + survey_food_security + " STRING, " + survey_is_diet_enough
+                + " BOOLEAN, " + survey_child_condition + " STRING, " + survey_referral_required + " BOOLEAN, " + survey_is_member
                 + " BOOLEAN, " + survey_organisation + " STRING, " + survey_is_aware + " BOOLEAN, " + survey_is_influence
                 + " BOOLEAN, " + survey_is_shelter_adequate + " BOOLEAN, " + survey_items_access + " BOOLEAN, " + survey_client_id
                 + " INTEGER, " + survey_is_synced + " BOOLEAN NOT NULL DEFAULT 0);";
@@ -458,6 +458,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(survey_device_condition, survey.isDevice_condition());
         cv.put(survey_need_device, survey.isNeed_device());
         cv.put(survey_device_type, survey.getDevice_type());
+        cv.put(survey_is_satisfied, survey.getIs_satisfied());
         cv.put(survey_is_student, survey.isIs_student());
         cv.put(survey_grade_no, survey.getGrade_no());
         cv.put(survey_reason, survey.getReason_no_school());

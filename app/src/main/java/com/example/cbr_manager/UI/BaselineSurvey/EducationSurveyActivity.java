@@ -95,17 +95,17 @@ public class EducationSurveyActivity extends AppCompatActivity {
         boolean have_been = false, does_go = false, do_go = false;
 
         String answer1 = ((RadioButton) findViewById(doesGoRadio.getCheckedRadioButtonId())).getText().toString();
-        if(answer1.equals("No")){
+        if (answer1.equals("No")) {
             does_go = false;
-            grade_no = null;
+            grade_no = 0;
             reason = whySpinner.getSelectedItem().toString();
             String answer4 = ((RadioButton) findViewById(haveRadio.getCheckedRadioButtonId())).getText().toString();
-        if(answer4.equals("No"))
+            if (answer4.equals("No"))
                 have_been = false;
             else
                 have_been = true;
             String answer5 = ((RadioButton) findViewById(doRadio.getCheckedRadioButtonId())).getText().toString();
-        if(answer5.equals("No"))
+            if (answer5.equals("No"))
                 do_go = false;
             else
                 do_go = true;

@@ -37,9 +37,9 @@ public class Survey implements Serializable {
     private boolean want_work;
 
     //food and nutrition
-    private byte food_security; // stored as values in 1-4
+    private String food_security;
     private boolean is_diet_enough;
-    private byte child_condition; // stored as values in 1-3
+    private String child_condition;
     private boolean referral_required;
 
     //empowerment
@@ -59,7 +59,7 @@ public class Survey implements Serializable {
     public Survey() {
     }
 
-    public Survey(byte health_condition, boolean have_rehab_access, boolean need_rehab_access, boolean have_device, boolean device_condition, boolean need_device, String device_type, byte is_satisfied, boolean is_student, byte grade_no, String reason_no_school, boolean was_student, boolean want_school, boolean is_valued, boolean is_independent, boolean is_social, boolean is_socially_affected, boolean was_discriminated, boolean is_working, String work_type, String is_self_employed, boolean needs_met, boolean is_work_affected, boolean want_work, byte food_security, boolean is_diet_enough, byte child_condition, boolean referral_required, boolean is_member, String organisation, boolean is_aware, boolean is_influence, boolean is_shelter_adequate, boolean items_access,long client_id, boolean is_synced) {
+    public Survey(byte health_condition, boolean have_rehab_access, boolean need_rehab_access, boolean have_device, boolean device_condition, boolean need_device, String device_type, byte is_satisfied, boolean is_student, byte grade_no, String reason_no_school, boolean was_student, boolean want_school, boolean is_valued, boolean is_independent, boolean is_social, boolean is_socially_affected, boolean was_discriminated, boolean is_working, String work_type, String is_self_employed, boolean needs_met, boolean is_work_affected, boolean want_work, String food_security, boolean is_diet_enough, String child_condition, boolean referral_required, boolean is_member, String organisation, boolean is_aware, boolean is_influence, boolean is_shelter_adequate, boolean items_access,long client_id, boolean is_synced) {
         this.health_condition = health_condition;
         this.have_rehab_access = have_rehab_access;
         this.need_rehab_access = need_rehab_access;
@@ -290,11 +290,11 @@ public class Survey implements Serializable {
         this.want_work = want_work;
     }
 
-    public byte getFood_security() {
+    public String getFood_security() {
         return food_security;
     }
 
-    public void setFood_security(byte food_security) {
+    public void setFood_security(String food_security) {
         this.food_security = food_security;
     }
 
@@ -306,11 +306,11 @@ public class Survey implements Serializable {
         this.is_diet_enough = is_diet_enough;
     }
 
-    public byte getChild_condition() {
+    public String getChild_condition() {
         return child_condition;
     }
 
-    public void setChild_condition(byte child_condition) {
+    public void setChild_condition(String child_condition) {
         this.child_condition = child_condition;
     }
 

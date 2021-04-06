@@ -125,7 +125,7 @@ public class HealthSurveyActivity extends AppCompatActivity {
         String what_device = healthSpinner2.getSelectedItem().toString();
 
         String answer8 = healthSpinner3.getSelectedItem().toString();
-        byte is_satisfied = -1;
+        byte is_satisfied = 0;
         if(answer8.equals("Good"))
             is_satisfied = 1;
         else if(answer8.equals("Fine"))

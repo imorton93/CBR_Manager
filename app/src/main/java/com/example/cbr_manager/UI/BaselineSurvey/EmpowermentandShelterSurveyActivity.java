@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
@@ -23,8 +25,10 @@ import com.google.android.gms.tasks.Task;
 public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
 
     private Button submitButton, backButton;
-    private RadioGroup radio2, radio3, radio4, radio5;
+    private RadioGroup radio1, radio2, radio3, radio4, radio5;
     private RadioButton radio1Yes, radio1No;
+    Survey survey;
+
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, EmpowermentandShelterSurveyActivity.class);
         return intent;
@@ -37,10 +41,12 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
 
         radio1Yes = findViewById(R.id.empowermentSurveyYesRadio1);
         radio1No = findViewById(R.id.empowermentSurveyNoRadio1);
+        radio1 = findViewById(R.id.empowermentSurveyRadioGroup1);
         radio2 = findViewById(R.id.empowermentSurveyRadioGroup2);
         radio3 = findViewById(R.id.empowermentSurveyRadioGroup3);
         radio4 = findViewById(R.id.empowermentSurveyRadioGroup4);
         radio5 = findViewById(R.id.empowermentSurveyRadioGroup5);
+        survey = (Survey) getIntent().getSerializableExtra("Survey");
 
         submitButton= findViewById(R.id.submitButtonEmpowermentSurvey);
         backButton= findViewById(R.id.backButtonEmpowermentSurvey);
@@ -64,18 +70,71 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                 if (!validateEntries())
                     Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Please fill all the details", Toast.LENGTH_LONG).show();
                 else {
-                    Intent intent = TaskViewActivity.makeIntent(EmpowermentandShelterSurveyActivity.this);
-                    startActivity(intent);
+                    storeSurveyInput();
+                    DatabaseHelper db = new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
+                    boolean success = db.addSurvey(survey);
+                    if(success) {
+                        Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Thanks for taking the survey!", Toast.LENGTH_LONG).show();
+                        Intent intent = TaskViewActivity.makeIntent(EmpowermentandShelterSurveyActivity.this);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Try Again!", Toast.LENGTH_LONG).show();
+
+                    }
                 }
             }
         });
     }
 
+    private void storeSurveyInput() {
+        String answer1 = ((RadioButton) findViewById(radio1.getCheckedRadioButtonId())).getText().toString();
+        boolean is_member;
+        if (answer1.equals("No"))
+            is_member = false;
+        else
+            is_member = true;
+
+        String answer2 = ((RadioButton) findViewById(radio2.getCheckedRadioButtonId())).getText().toString();
+        boolean is_aware;
+        if (answer2.equals("No"))
+            is_aware = false;
+        else
+            is_aware = true;
+
+        String answer3 = ((RadioButton) findViewById(radio3.getCheckedRadioButtonId())).getText().toString();
+        boolean influence;
+        if (answer3.equals("No"))
+            influence = false;
+        else
+            influence = true;
+
+        String answer4 = ((RadioButton) findViewById(radio4.getCheckedRadioButtonId())).getText().toString();
+        boolean shelter;
+        if (answer4.equals("No"))
+            shelter = false;
+        else
+            shelter = true;
+
+        String answer5 = ((RadioButton) findViewById(radio5.getCheckedRadioButtonId())).getText().toString();
+        boolean access;
+        if (answer5.equals("No"))
+            access = false;
+        else
+            access = true;
+
+        survey.setIs_member(is_member);
+        survey.setIs_aware(is_aware);
+        survey.setIs_influence(influence);
+        survey.setIs_shelter_adequate(shelter);
+        survey.setItems_access(access);
+        survey.setOrganisation("");
+        survey.setClient_id(0);
+    }
+
     private boolean validateEntries() {
-        if(radio1Yes.isChecked()&&(radio2.getCheckedRadioButtonId() == -1||
-        radio3.getCheckedRadioButtonId() == -1||radio4.getCheckedRadioButtonId() == -1||radio5.getCheckedRadioButtonId() == -1))
-            return false;
-        else if(radio1No.isChecked()&&(radio4.getCheckedRadioButtonId() == -1||radio5.getCheckedRadioButtonId() == -1))
+        if(radio3.getCheckedRadioButtonId() == -1 || radio2.getCheckedRadioButtonId() == -1||
+        radio3.getCheckedRadioButtonId() == -1||radio4.getCheckedRadioButtonId() == -1||radio5.getCheckedRadioButtonId() == -1)
             return false;
         return true;
     }
@@ -91,7 +150,7 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
 
 
     public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
+      /*  // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
         // Check which radio button was clicked
         switch (view.getId()) {
@@ -108,7 +167,7 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                     findViewById(R.id.empowermentSurveyRadioGroup2).setVisibility(View.INVISIBLE);
                 }
                 break;
-        }
+        }*/
     }
 
     private void ToolbarButtons(){
