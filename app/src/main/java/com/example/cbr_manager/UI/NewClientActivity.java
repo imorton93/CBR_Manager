@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -29,6 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +62,14 @@ import com.google.android.gms.location.LocationServices;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
 public class NewClientActivity extends AppCompatActivity {
+
+//    private static final String TAG = "INSERTED";
+
+    private static final String TAG = "ERROR";
+
     LinearLayout form;
     int currentPage;
     int pageCount;
@@ -97,8 +107,6 @@ public class NewClientActivity extends AppCompatActivity {
         mydb = new DatabaseHelper(NewClientActivity.this);
         next = (Button) findViewById(R.id.nextBtnVisit);
 
-        next.setBackgroundColor(Color.parseColor("#6661ED24"));
-
         back = (Button) findViewById(R.id.backBtn);
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -114,8 +122,6 @@ public class NewClientActivity extends AppCompatActivity {
 
         newClient = new Client();
         imageView = new ImageView(this);
-        LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        imageView.setLayoutParams(imageViewLayoutParams);
 
         form = (LinearLayout) findViewById(R.id.form);
         progressBar = (ProgressBar) findViewById(R.id.formProgress);
@@ -156,7 +162,7 @@ public class NewClientActivity extends AppCompatActivity {
                     back.setClickable(true);
                     back.setVisibility(View.VISIBLE);
 
-                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
+                    back.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
 
 
                 }
@@ -290,25 +296,31 @@ public class NewClientActivity extends AppCompatActivity {
 
 
     private void displayPicture(FormPage page){
+        int imageViewHeight = (int)(form.getHeight() * .7);
+        LinearLayout.LayoutParams imageViewLayoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageViewHeight);
+        imageView.setLayoutParams(imageViewLayoutParams1);
+
+
+
         ArrayList<Question> questions = page.getQuestions();
         TextQuestion picQuestion = (TextQuestion) questions.get(0);
         TextView questionText = new TextView(this);
         questionText.setText(picQuestion.getQuestionString());
         form.addView(questionText);
 
-        Button picButton = new Button(this);
-        picButton.setText("Take Picture");
-        picButton.setBackgroundColor(Color.parseColor("#6661ED24"));
-        LinearLayout.LayoutParams imageViewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        imageViewLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-        picButton.setLayoutParams(imageViewLayoutParams);
+        ImageView picButton = new ImageView(this);
+        picButton.setImageResource(R.drawable.camera_icon);
+        picButton.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(200, 200);
+        params.gravity = Gravity.CENTER;
+        picButton.setLayoutParams(params);
         picButton.setOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, 100);
         });
 
-        form.addView(picButton);
         form.addView(imageView);
+        form.addView(picButton);
     }
 
     public byte[] imageViewToByte(ImageView image) {
@@ -921,7 +933,16 @@ public class NewClientActivity extends AppCompatActivity {
     }
 
     private void reviewPage(){
+        ScrollView sv = new ScrollView(this);
+        sv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+        float txtSize = 18;
+        reviewTitle(txtSize);
         TextView consentView = new TextView(this);
+        consentView.setTextSize(txtSize);
         Boolean consent = newClient.getConsentToInterview();
         if(consent){
             consentView.setText("Consent to Interview: Yes");
@@ -929,65 +950,92 @@ public class NewClientActivity extends AppCompatActivity {
         else {
             consentView.setText("Consent to Interview: No");
         }
-        form.addView(consentView);
+        layout.addView(consentView);
 
         TextView dateView = new TextView(this);
         String formDate = newClient.getDate();
         dateView.setText("Date: " + formDate);
-        form.addView(dateView);
+        dateView.setTextSize(txtSize);
+        layout.addView(dateView);
+
+        insertLineDivide(layout);
 
         TextView firstNameView = new TextView(this);
         String firstName = newClient.getFirstName();
         firstNameView.setText("First Name: " + firstName);
-        form.addView(firstNameView);
+        firstNameView.setTextSize(txtSize);
+        layout.addView(firstNameView);
 
         TextView lastNameView = new TextView(this);
         String lastName = newClient.getLastName();
         lastNameView.setText("Last Name: " + lastName);
-        form.addView(lastNameView);
+        lastNameView.setTextSize(txtSize);
+        layout.addView(lastNameView);
+
+        insertLineDivide(layout);
 
         TextView ageView = new TextView(this);
         int age = newClient.getAge();
         String ageStr = Integer.toString(age);
         ageView.setText("Age: " + ageStr);
-        form.addView(ageView);
+        ageView.setTextSize(txtSize);
+        layout.addView(ageView);
 
         TextView genderView = new TextView(this);
         String gender = newClient.getGender();
         genderView.setText("Gender: " + gender);
-        form.addView(genderView);
+        genderView.setTextSize(txtSize);
+        layout.addView(genderView);
+
+        insertLineDivide(layout);
 
         TextView locationView = new TextView(this);
         String location = newClient.getLocation();
         locationView.setText("Location: " + location);
-        form.addView(locationView);
+        locationView.setTextSize(txtSize);
+        layout.addView(locationView);
 
         TextView villageNumberView = new TextView(this);
         int villageNumber = newClient.getVillageNumber();
         String villageNumberStr = Integer.toString(villageNumber);
         villageNumberView.setText("Village Number: " + villageNumberStr);
-        form.addView(villageNumberView);
+        villageNumberView.setTextSize(txtSize);
+        layout.addView(villageNumberView);
 
         TextView gpsView = new TextView(this);
         double lat = newClient.getLatitude();
         double lon = newClient.getLongitude();
         gpsView.setText("GPS: " + lat + ", " + lon);
-        form.addView(gpsView);
+        gpsView.setTextSize(txtSize);
+        layout.addView(gpsView);
 
         TextView contactNumberView = new TextView(this);
         String contactNumber = newClient.getContactPhoneNumber();
         contactNumberView.setText("Contact Number: " + contactNumber);
-        form.addView(contactNumberView);
+        contactNumberView.setTextSize(txtSize);
+        layout.addView(contactNumberView);
+
+        insertLineDivide(layout);
 
         TextView caregiverPresentView = new TextView(this);
         Boolean caregiverPresent = newClient.getCaregiverPresent();
         if(caregiverPresent){
             caregiverPresentView.setText("Caregiver Present: Yes");
+            TextView caregiverNumberView = new TextView(this);
+            String caregiverNumber = newClient.getCaregiverPhoneNumber();
+            caregiverNumberView.setText("Caregiver Phone Number: " + caregiverNumber);
+            caregiverPresentView.setTextSize(txtSize);
+            caregiverNumberView.setTextSize(txtSize);
+            layout.addView(caregiverPresentView);
+            layout.addView(caregiverNumberView);
         }
         else {
             caregiverPresentView.setText("Caregiver Present: No");
+            caregiverPresentView.setTextSize(txtSize);
+            layout.addView(caregiverPresentView);
         }
-        form.addView(caregiverPresentView);
+
+        insertLineDivide(layout);
 
         TextView disabilitiesView = new TextView(this);
         ArrayList<String> disabilities = newClient.getDisabilities();
@@ -997,22 +1045,93 @@ public class NewClientActivity extends AppCompatActivity {
             disabilitiesStr = disabilitiesStr.concat(", ");
         }
         disabilitiesView.setText(disabilitiesStr);
-        form.addView(disabilitiesView);
+        disabilitiesView.setTextSize(txtSize);
+        layout.addView(disabilitiesView);
+
+        insertLineDivide(layout);
 
         TextView healthRateView = new TextView(this);
         String healthRate = newClient.getHealthRate();
         healthRateView.setText("Rate of Client's health: " + healthRate);
-        form.addView(healthRateView);
+        healthRateView.setTextSize(txtSize);
+        layout.addView(healthRateView);
+
+        TextView healthRequireView = new TextView(this);
+        String healthRequire = newClient.getHealthRequire();
+        healthRequireView.setText("Require: " + healthRequire);
+        healthRequireView.setTextSize(txtSize);
+        layout.addView(healthRequireView);
+
+        TextView healthGoalView = new TextView(this);
+        String healthGoal = newClient.getHealthIndividualGoal();
+        healthGoalView.setText("Individual Goal: " + healthGoal);
+        healthGoalView.setTextSize(txtSize);
+        layout.addView(healthGoalView);
+
+        insertLineDivide(layout);
 
         TextView educationRateView = new TextView(this);
         String educationRate = newClient.getEducationRate();
         educationRateView.setText("Rate of Client's Education: " + educationRate);
-        form.addView(educationRateView);
+        educationRateView.setTextSize(txtSize);
+        layout.addView(educationRateView);
+
+        TextView educationRequireView = new TextView(this);
+        String educationRequire = newClient.getEducationRequire();
+        educationRequireView.setText("Require: " + educationRequire);
+        educationRequireView.setTextSize(txtSize);
+        layout.addView(educationRequireView);
+
+        TextView educationGoalView = new TextView(this);
+        String educationGoal = newClient.getEducationIndividualGoal();
+        educationGoalView.setText("Individual Goal: " + educationGoal);
+        educationGoalView.setTextSize(txtSize);
+        layout.addView(educationGoalView);
+
+        insertLineDivide(layout);
 
         TextView socialRateView = new TextView(this);
         String socialRate = newClient.getSocialStatusRate();
         socialRateView.setText("Rate of Client's Social Status: " + socialRate);
-        form.addView(socialRateView);
+        socialRateView.setTextSize(txtSize);
+        layout.addView(socialRateView);
+
+        TextView socialRequireView = new TextView(this);
+        String socialRequire = newClient.getSocialStatusRequire();
+        socialRequireView.setText("Require: " + socialRequire);
+        socialRequireView.setTextSize(txtSize);
+        layout.addView(socialRequireView);
+
+        TextView socialGoalView = new TextView(this);
+        String socialGoal = newClient.getSocialStatusIndividualGoal();
+        socialGoalView.setText("Individual Goal: " + socialGoal);
+        socialGoalView.setTextSize(txtSize);
+        layout.addView(socialGoalView);
+
+        sv.addView(layout);
+        form.addView(sv);
+    }
+
+    private void insertLineDivide(LinearLayout layout){
+        View view = new View(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2);
+        params.topMargin = 20;
+        params.bottomMargin = 20;
+        params.leftMargin = 10;
+        params.rightMargin = 10;
+        view.setLayoutParams(params);
+        view.setBackgroundColor(Color.BLACK);
+        layout.addView(view);
+    }
+
+    private void reviewTitle(float txtSize){
+        TextView reviewTitle = new TextView(this);
+        reviewTitle.setText("Review");
+        reviewTitle.setTextSize(txtSize);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_HORIZONTAL;
+        reviewTitle.setLayoutParams(params);
+        form.addView(reviewTitle);
     }
 
     private void ToolbarButtons(){

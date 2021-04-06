@@ -7,7 +7,9 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -16,11 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.ClientManager;
@@ -92,7 +96,6 @@ public class NewVisitActivity extends AppCompatActivity {
         extractIntent();
 
         next = (Button) findViewById(R.id.nextBtnVisit);
-        next.setBackgroundColor(Color.parseColor("#6661ED24"));
         back = (Button) findViewById(R.id.backBtnVisit);
         newVisit = new Visit();
         newVisit.setClientID(client_id);
@@ -126,7 +129,7 @@ public class NewVisitActivity extends AppCompatActivity {
                     if(currentPage == 1){
                         back.setClickable(true);
                         back.setVisibility(View.VISIBLE);
-                        back.setBackgroundColor(Color.parseColor("#6661ED24"));
+                        back.setBackground(ContextCompat.getDrawable(NewVisitActivity.this, R.drawable.rounded_form_buttons));
                     }
                     //save answers
                     savePage(pages.get(currentPage - 1));
@@ -808,10 +811,20 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
     private void reviewPage(){
+        ScrollView sv = new ScrollView(this);
+        sv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+        float txtSize = 18;
+        reviewTitle(txtSize);
+
         TextView purposeView = new TextView(this);
         String purposeStr = newVisit.getPurposeOfVisit();
         purposeView.setText("Purpose of Visit: " + purposeStr);
-        form.addView(purposeView);
+        purposeView.setTextSize(txtSize);
+        layout.addView(purposeView);
 
         if(purposeStr.equals("CBR")){
             ArrayList<String> arrayList = newVisit.getIfCbr();
@@ -822,96 +835,150 @@ public class NewVisitActivity extends AppCompatActivity {
             }
             TextView cbrView = new TextView(this);
             cbrView.setText(ifcbr);
-            form.addView(cbrView);
+            cbrView.setTextSize(txtSize);
+            layout.addView(cbrView);
         }
 
         TextView dateView = new TextView(this);
         String dateStr = newVisit.getDate();
         dateView.setText("Date of Visit:" + dateStr);
-        form.addView(dateView);
+        dateView.setTextSize(txtSize);
+        layout.addView(dateView);
+
+        insertLineDivide(layout);
 
         TextView locationView = new TextView(this);
         String locationStr = newVisit.getLocation();
         locationView.setText("Location: " + locationStr);
-        form.addView(locationView);
+        locationView.setTextSize(txtSize);
+        layout.addView(locationView);
 
         TextView villageNumberView = new TextView(this);
         int villageNumber = newVisit.getVillageNumber();
         villageNumberView.setText("Village Number: " + Integer.toString(villageNumber));
-        form.addView(villageNumberView);
+        villageNumberView.setTextSize(txtSize);
+        layout.addView(villageNumberView);
+
+        insertLineDivide(layout);
 
         TextView healthProvidedView = new TextView(this);
         healthProvidedView.setText("For Health, what was provided?");
-        form.addView(healthProvidedView);
+        healthProvidedView.setTextSize(txtSize);
+        layout.addView(healthProvidedView);
         ArrayList<Visit.Provided> arrayList = newVisit.getHealthProvided();
         for(int i = 0; i < arrayList.size(); i++){
             String checkbox = arrayList.get(i).getCheckBox();
             String explanation = arrayList.get(i).getExplanation();
             TextView checkboxView = new TextView(this);
             checkboxView.setText("\t" + checkbox + ": " + explanation);
-            form.addView(checkboxView);
+            checkboxView.setTextSize(txtSize);
+            layout.addView(checkboxView);
         }
+
+        insertLineDivide(layout);
 
         TextView healthGoalMetView = new TextView(this);
         String healthGoalMet = newVisit.getHealthGoalMet();
         healthGoalMetView.setText("Goal Met? " + healthGoalMet);
-        form.addView(healthGoalMetView);
+        healthGoalMetView.setTextSize(txtSize);
+        layout.addView(healthGoalMetView);
 
         if(healthGoalMet.equals("Concluded")){
             TextView healthIfConcluded = new TextView(this);
             String ifConcluded = newVisit.getHealthIfConcluded();
             healthIfConcluded.setText("The Outcome: " + ifConcluded);
-            form.addView(healthIfConcluded);
+            healthIfConcluded.setTextSize(txtSize);
+            layout.addView(healthIfConcluded);
         }
+
+        insertLineDivide(layout);
 
         TextView socialProvidedView = new TextView(this);
         socialProvidedView.setText("For Social, what was provided?");
-        form.addView(socialProvidedView);
+        socialProvidedView.setTextSize(txtSize);
+        layout.addView(socialProvidedView);
         ArrayList<Visit.Provided> arrayList1 = newVisit.getSocialProvided();
         for(int i = 0; i < arrayList1.size(); i++){
             String checkbox = arrayList1.get(i).getCheckBox();
             String explanation = arrayList1.get(i).getExplanation();
             TextView checkboxView = new TextView(this);
             checkboxView.setText("\t" + checkbox + ": " + explanation);
-            form.addView(checkboxView);
+            checkboxView.setTextSize(txtSize);
+            layout.addView(checkboxView);
         }
+
+        insertLineDivide(layout);
 
         TextView socialGoalMetView = new TextView(this);
         String socialGoalMet = newVisit.getSocialGoalMet();
         socialGoalMetView.setText("Goal Met? " + socialGoalMet);
-        form.addView(socialGoalMetView);
+        socialGoalMetView.setTextSize(txtSize);
+        layout.addView(socialGoalMetView);
 
         if(socialGoalMet.equals("Concluded")){
             TextView socialIfConcluded = new TextView(this);
             String ifConcluded = newVisit.getSocialIfConcluded();
             socialIfConcluded.setText("The Outcome: " + ifConcluded);
-            form.addView(socialIfConcluded);
+            socialIfConcluded.setTextSize(txtSize);
+            layout.addView(socialIfConcluded);
         }
 
+        insertLineDivide(layout);
 
         TextView educationProvidedView = new TextView(this);
         educationProvidedView.setText("For Education, what was provided?");
-        form.addView(educationProvidedView);
+        educationProvidedView.setTextSize(txtSize);
+        layout.addView(educationProvidedView);
         ArrayList<Visit.Provided> arrayList2 = newVisit.getEducationProvided();
         for(int i = 0; i < arrayList2.size(); i++){
             String checkbox = arrayList2.get(i).getCheckBox();
             String explanation = arrayList2.get(i).getExplanation();
             TextView checkboxView = new TextView(this);
             checkboxView.setText("\t" + checkbox + ": " + explanation);
-            form.addView(checkboxView);
+            checkboxView.setTextSize(txtSize);
+            layout.addView(checkboxView);
         }
+
+        insertLineDivide(layout);
 
         TextView educationGoalMetView = new TextView(this);
         String educationGoalMet = newVisit.getEducationGoalMet();
         educationGoalMetView.setText("Goal Met? " + educationGoalMet);
-        form.addView(educationGoalMetView);
+        educationGoalMetView.setTextSize(txtSize);
+        layout.addView(educationGoalMetView);
 
         if(educationGoalMet.equals("Concluded")){
             TextView educationIfConcluded = new TextView(this);
             String ifConcluded = newVisit.getEducationIfConcluded();
             educationIfConcluded.setText("The Outcome: " + ifConcluded);
-            form.addView(educationIfConcluded);
+            educationIfConcluded.setTextSize(txtSize);
+            layout.addView(educationIfConcluded);
         }
+
+        sv.addView(layout);
+        form.addView(sv);
+    }
+
+    private void insertLineDivide(LinearLayout layout){
+        View view = new View(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2);
+        params.topMargin = 20;
+        params.bottomMargin = 20;
+        params.leftMargin = 10;
+        params.rightMargin = 10;
+        view.setLayoutParams(params);
+        view.setBackgroundColor(Color.BLACK);
+        layout.addView(view);
+    }
+
+    private void reviewTitle(float txtSize){
+        TextView reviewTitle = new TextView(this);
+        reviewTitle.setText("Review");
+        reviewTitle.setTextSize(txtSize);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_HORIZONTAL;
+        reviewTitle.setLayoutParams(params);
+        form.addView(reviewTitle);
     }
 
     private void insertVisit() {

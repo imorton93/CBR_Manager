@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,8 +26,12 @@ import java.util.Calendar;
 
 public class DisplayFormPage {
 
+    private static float txtSize = 20;
+
+
     public static void displayPage(FormPage page, LinearLayout form, android.content.Context context, double latitude, double longitude){
         ArrayList<Question> questions = page.getQuestions();
+        Space mSpace;
         for(Question question : questions){
             TextQuestion txtQ;
             MultipleChoiceQuestion mcQ;
@@ -70,6 +75,11 @@ public class DisplayFormPage {
                 txtQ = (TextQuestion) question;
                 displayNoneTypeQuestion(txtQ.getQuestionString(), form, context);
             }
+
+            //space between questions
+            mSpace = new Space(context);
+            mSpace.setMinimumHeight(50);
+            form.addView(mSpace);
         }
     }
 
@@ -83,6 +93,7 @@ public class DisplayFormPage {
     private static void displayQuestionHeading(String questionString, LinearLayout form, android.content.Context context){
         TextView questionText = new TextView(context);
         questionText.setText(questionString);
+        questionText.setTextSize(txtSize);
         form.addView(questionText);
     }
 
@@ -93,6 +104,7 @@ public class DisplayFormPage {
         inputText.setText("");
         inputText.setInputType(InputType.TYPE_CLASS_TEXT);
         inputText.setTag(question.getQuestionTag());
+        inputText.setTextSize(txtSize);
         form.addView(inputText);
     }
 
@@ -104,6 +116,7 @@ public class DisplayFormPage {
         inputText.setText("");
         inputText.setInputType(InputType.TYPE_CLASS_PHONE);
         inputText.setTag(question.getQuestionTag());
+        inputText.setTextSize(txtSize);
         form.addView(inputText);
     }
 
@@ -114,6 +127,7 @@ public class DisplayFormPage {
         inputText.setText("");
         inputText.setInputType(InputType.TYPE_CLASS_NUMBER);
         inputText.setTag(question.getQuestionTag());
+        inputText.setTextSize(txtSize);
         form.addView(inputText);
     }
 
@@ -127,7 +141,7 @@ public class DisplayFormPage {
         int dayOfMonth1 = calendar.get(Calendar.DAY_OF_MONTH);
         String date = dayOfMonth1 + "/" + month1 + "/" + year1;
         selectDate.setText(date);
-        selectDate.setTextSize(24);
+        selectDate.setTextSize(txtSize);
         selectDate.setTag(question.getQuestionTag());
 
         DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -156,7 +170,7 @@ public class DisplayFormPage {
 
         TextView location = new TextView(context);
         location.setText("Latitude: " + String.valueOf(latitude) + " Longitude: " + String.valueOf(longitude));
-        location.setTextSize(24);
+        location.setTextSize(txtSize);
         location.setTag(question.getQuestionTag());
 
         form.addView(location);
@@ -172,6 +186,7 @@ public class DisplayFormPage {
         for (String answer : answers) {
             rButton = new RadioButton(context);
             rButton.setText(answer);
+            rButton.setTextSize(txtSize);
             radioAnswers.addView(rButton);
         }
 
@@ -200,10 +215,11 @@ public class DisplayFormPage {
             checkBox = new CheckBox(context);
             checkBox.setText(answers[i]);
             checkBox.setTag(i);
+            checkBox.setTextSize(txtSize);
             form.addView(checkBox);
             if(answers[i].equals("Other")){
                 EditText input = new EditText(context);
-                input.setTextSize(14);
+                input.setTextSize(txtSize);
                 input.setHint(R.string.explain_newVisitForm);
                 input.setVisibility(View.GONE);
                 input.setTag("otherExplanation");
@@ -242,8 +258,9 @@ public class DisplayFormPage {
             checkBox = new CheckBox(context);
             checkBox.setText(answers[i]);
             checkBox.setTag(i);
+            checkBox.setTextSize(txtSize);
             EditText input = new EditText(context);
-            input.setTextSize(14);
+            input.setTextSize(txtSize);
             input.setHint(R.string.explain_newVisitForm);
             input.setVisibility(View.GONE);
             input.setTag(checkBox.getText().toString());
