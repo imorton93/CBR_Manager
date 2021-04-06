@@ -749,7 +749,7 @@ public class NewReferralActivity extends AppCompatActivity {
         firstPageOrth.addToPage(ortQuestion);
         orthoticPages.add(firstPageOrth);
 
-        TextQuestion orthPhotoQuestion = new TextQuestion("photoOrth", "Take a photo of the client", QuestionType.PICTURE, false);
+        TextQuestion orthPhotoQuestion = new TextQuestion("photoOrth", getString(R.string.photoQuestion_newReferralForm), QuestionType.PICTURE, false);
         FormPage secondPageOrth = new FormPage();
         secondPageOrth.addToPage(orthPhotoQuestion);
         orthoticPages.add(secondPageOrth);
@@ -761,7 +761,7 @@ public class NewReferralActivity extends AppCompatActivity {
         firstPagePros.addToPage(prosQuestion);
         prostheticPages.add(firstPagePros);
 
-        TextQuestion prosPhotoQuestion = new TextQuestion("photoPros", "Take a photo of the client", QuestionType.PICTURE, false);
+        TextQuestion prosPhotoQuestion = new TextQuestion("photoPros", getString(R.string.photoQuestion_newReferralForm), QuestionType.PICTURE, false);
         FormPage secondPagePros = new FormPage();
         secondPagePros.addToPage(prosPhotoQuestion);
         prostheticPages.add(secondPagePros);
@@ -772,7 +772,7 @@ public class NewReferralActivity extends AppCompatActivity {
         otherOne.addToPage(explanation);
         otherExplanation.add(otherOne);
 
-        TextQuestion otherPhotoQuestion = new TextQuestion("photoOther", "Take a photo of the client", QuestionType.PICTURE, false);
+        TextQuestion otherPhotoQuestion = new TextQuestion("photoOther", getString(R.string.photoQuestion_newReferralForm), QuestionType.PICTURE, false);
         FormPage otherTwo = new FormPage();
         otherTwo.addToPage(otherPhotoQuestion);
         otherExplanation.add(otherTwo);
