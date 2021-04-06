@@ -213,7 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " STRING, " + survey_was_student + " BOOLEAN, " + survey_want_school + " BOOLEAN, " + survey_is_valued
                 + " BOOLEAN, " + survey_is_independent + " BOOLEAN, " + survey_is_social + " BOOLEAN, " + survey_is_socially_affected
                 + " BOOLEAN, " + survey_was_discriminated + " BOOLEAN, " + survey_is_working + " BOOLEAN, " + survey_work_type
-                + " STRING, " + survey_is_self_employed + " BOOLEAN, " + survey_needs_met + " BOOLEAN, " + survey_is_work_affected
+                + " STRING, " + survey_is_self_employed + " STRING, " + survey_needs_met + " BOOLEAN, " + survey_is_work_affected
                 + " BOOLEAN, " + survey_want_work + " BOOLEAN, " + survey_food_security + " INTEGER, " + survey_is_diet_enough
                 + " BOOLEAN, " + survey_child_condition + " INTEGER, " + survey_referral_required + " BOOLEAN, " + survey_is_member
                 + " BOOLEAN, " + survey_organisation + " STRING, " + survey_is_aware + " BOOLEAN, " + survey_is_influence

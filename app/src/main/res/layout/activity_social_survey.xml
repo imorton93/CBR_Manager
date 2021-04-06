@@ -126,7 +126,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="40dp"
-            android:text="8. Are you satisfied with the social services you receive?"
+            android:text="5. Have you experienced discrimination because of your disability?"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"

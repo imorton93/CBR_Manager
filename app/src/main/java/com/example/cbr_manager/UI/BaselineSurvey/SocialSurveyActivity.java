@@ -45,8 +45,6 @@ public class SocialSurveyActivity extends AppCompatActivity {
         discriminatedRadio = findViewById((R.id.socialSurveyRadioGroup5));
         survey = (Survey) getIntent().getSerializableExtra("Survey");
 
-
-
         nextButton();
         backButton();
         ToolbarButtons();
@@ -71,7 +69,6 @@ public class SocialSurveyActivity extends AppCompatActivity {
                 else {
                     storeSurveyInput();
                     Intent intent = LivelihoodSurveyActivity.makeIntent(SocialSurveyActivity.this);
-                    Toast.makeText(SocialSurveyActivity.this, Boolean.toString(survey.isIs_valued()), Toast.LENGTH_LONG).show();
                     intent.putExtra("Survey", survey);
                     startActivity(intent);
                 }
@@ -84,35 +81,35 @@ public class SocialSurveyActivity extends AppCompatActivity {
         RadioButton rb = (RadioButton) findViewById(id);
         String answer1 = rb.getText().toString();
         boolean is_valued;
-        if(answer1.equals("No"))
+        if (answer1.equals("No"))
             is_valued = false;
         else
             is_valued = true;
 
-        String answer2 = ((RadioButton)findViewById(independentRadio.getCheckedRadioButtonId())).getText().toString();
+        String answer2 = ((RadioButton) findViewById(independentRadio.getCheckedRadioButtonId())).getText().toString();
         boolean is_independent;
-        if(answer2.equals("No"))
+        if (answer2.equals("No"))
             is_independent = false;
         else
             is_independent = true;
 
-        String answer3 = ((RadioButton)findViewById(participateRadio.getCheckedRadioButtonId())).getText().toString();
+        String answer3 = ((RadioButton) findViewById(participateRadio.getCheckedRadioButtonId())).getText().toString();
         boolean is_social;
-        if(answer3.equals("No"))
+        if (answer3.equals("No"))
             is_social = false;
         else
             is_social = true;
 
-        String answer4 = ((RadioButton)findViewById(disabilityRadio.getCheckedRadioButtonId())).getText().toString();
+        String answer4 = ((RadioButton) findViewById(disabilityRadio.getCheckedRadioButtonId())).getText().toString();
         boolean is_affected;
-        if(answer4.equals("No"))
+        if (answer4.equals("No"))
             is_affected = false;
         else
             is_affected = true;
 
-        String answer5 = ((RadioButton)findViewById(discriminatedRadio.getCheckedRadioButtonId())).getText().toString();
+        String answer5 = ((RadioButton) findViewById(discriminatedRadio.getCheckedRadioButtonId())).getText().toString();
         boolean was_discriminated;
-        if(answer5.equals("No"))
+        if (answer5.equals("No"))
             was_discriminated = false;
         else
             was_discriminated = true;
@@ -136,14 +133,14 @@ public class SocialSurveyActivity extends AppCompatActivity {
     private boolean validateEntries() {
         boolean bool = true;
         if (valueRadio.getCheckedRadioButtonId() == -1 || participateRadio.getCheckedRadioButtonId() == -1
-        || discriminatedRadio.getCheckedRadioButtonId() == -1 || independentRadio.getCheckedRadioButtonId() == -1 ||
-        disabilityRadio.getCheckedRadioButtonId() == -1 ) {
+                || discriminatedRadio.getCheckedRadioButtonId() == -1 || independentRadio.getCheckedRadioButtonId() == -1 ||
+                disabilityRadio.getCheckedRadioButtonId() == -1) {
             bool = false;
         }
         return bool;
     }
 
-    private void ToolbarButtons(){
+    private void ToolbarButtons() {
         ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -122,9 +122,6 @@ public class EducationSurveyActivity extends AppCompatActivity {
         survey.setReason_no_school(reason);
         survey.setWas_student(have_been);
         survey.setWant_school(do_go);
-       Toast.makeText(EducationSurveyActivity.this, Byte.toString(survey.getGrade_no()), Toast.LENGTH_LONG).show();
-
-
     }
 
     private void backButton() {

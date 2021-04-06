@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
@@ -23,8 +26,10 @@ import com.example.cbr_manager.UI.TaskViewActivity;
 public class LivelihoodSurveyActivity extends AppCompatActivity {
 
     private Button nextButton, backButton;
-    private RadioGroup radio1, radio2, radio3, radio4, radio5;
+    private RadioGroup radio1, radio3, radio4, radio5;
+    private EditText editText1;
     private Spinner spinner1;
+    Survey survey;
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, LivelihoodSurveyActivity.class);
@@ -39,11 +44,12 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButtonLivelihoodSurvey);
         backButton = findViewById(R.id.backButtonLivelihoodSurvey);
         radio1 = findViewById(R.id.livelihoodSurveyRadioGroup1);
-        radio2 = findViewById(R.id.livelihoodSurveyRadioGroup2);
         radio3 = findViewById(R.id.livelihoodSurveyRadioGroup3);
         radio4 = findViewById((R.id.livelihoodSurveyRadioGroup4));
         radio5 = findViewById((R.id.livelihoodSurveyRadioGroup5));
         spinner1 = findViewById(R.id.livelihoodSurveySpinner1);
+        editText1 = findViewById(R.id.livelihoodSurveyEditText1);
+        survey = (Survey) getIntent().getSerializableExtra("Survey");
 
         createSpinner();
         nextButton();
@@ -66,23 +72,66 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
     }
 
     public void onRadioButtonClicked(View view) {
-    }
 
-    void nextButton(){
+    }
+    void nextButton() {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!validateEntries())
                     Toast.makeText(LivelihoodSurveyActivity.this, "Please fill all the details", Toast.LENGTH_LONG).show();
                 else {
+                    storeSurveyInput();
                     Intent intent = FoodSurveyActivity.makeIntent(LivelihoodSurveyActivity.this);
+                    intent.putExtra("Survey", survey);
                     startActivity(intent);
                 }
             }
         });
     }
 
-    void backButton(){
+    private void storeSurveyInput() {
+        String is_self = spinner1.getSelectedItem().toString();
+
+        String answer2 = ((RadioButton) findViewById(radio1.getCheckedRadioButtonId())).getText().toString();
+        boolean is_working;
+        if (answer2.equals("No"))
+            is_working = false;
+        else
+            is_working = true;
+
+        String work_type = editText1.getText().toString();
+
+        String answer4 = ((RadioButton) findViewById(radio3.getCheckedRadioButtonId())).getText().toString();
+        boolean needs_met;
+        if (answer4.equals("No"))
+            needs_met = false;
+        else
+            needs_met = true;
+
+        String answer5 = ((RadioButton) findViewById(radio4.getCheckedRadioButtonId())).getText().toString();
+        boolean is_affected;
+        if (answer5.equals("No"))
+            is_affected = false;
+        else
+            is_affected = true;
+
+        String answer6 = ((RadioButton) findViewById(radio5.getCheckedRadioButtonId())).getText().toString();
+        boolean want_work;
+        if (answer6.equals("No"))
+            want_work = false;
+        else
+            want_work = true;
+
+        survey.setIs_working(is_working);
+        survey.setWant_work(want_work);
+        survey.setIs_work_affected(is_affected);
+        survey.setIs_self_employed(is_self);
+        survey.setNeeds_met(needs_met);
+        survey.setWork_type(work_type);
+    }
+
+    void backButton() {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,17 +140,17 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
         });
     }
 
-    boolean validateEntries(){
+    boolean validateEntries() {
         boolean bool = true;
-        if(spinner1.getSelectedItem().toString() == "Choose Option"||radio5.getCheckedRadioButtonId() == -1||
-        radio4.getCheckedRadioButtonId() == -1|| radio3.getCheckedRadioButtonId() == -1||
-        radio1.getCheckedRadioButtonId() == -1||radio2.getCheckedRadioButtonId() == -1) {
+        if (spinner1.getSelectedItem().toString() == "Choose Option" || radio5.getCheckedRadioButtonId() == -1 ||
+                radio4.getCheckedRadioButtonId() == -1 || radio3.getCheckedRadioButtonId() == -1 ||
+                radio1.getCheckedRadioButtonId() == -1 || editText1.getText().toString().equals("")) {
             bool = false;
         }
         return bool;
     }
 
-    private void ToolbarButtons(){
+    private void ToolbarButtons() {
         ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
