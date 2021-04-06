@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
@@ -27,6 +28,8 @@ public class FoodSurveyActivity extends AppCompatActivity {
     private RadioGroup radioGroup1, radioGroup2;
     private RadioButton yesRadio2, noRadio2;
     private Button nextButton, backButton;
+    Survey survey;
+    
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, FoodSurveyActivity.class);
         return intent;
@@ -44,6 +47,8 @@ public class FoodSurveyActivity extends AppCompatActivity {
         yesRadio2 = findViewById(R.id.foodSurveyYesRadio2);
         nextButton = findViewById(R.id.nextButtonFoodSurvey);
         backButton = findViewById(R.id.backButtonFoodSurvey);
+        survey = (Survey) getIntent().getSerializableExtra("Survey");
+        
         createSpinners();
         nextButton();
         backButton();
@@ -73,11 +78,38 @@ public class FoodSurveyActivity extends AppCompatActivity {
                 if (!validateEntries())
                     Toast.makeText(FoodSurveyActivity.this, "Please fill all the details", Toast.LENGTH_LONG).show();
                 else {
+                    storeSurveyInput();
                     Intent intent = EmpowermentandShelterSurveyActivity.makeIntent(FoodSurveyActivity.this);
+                    intent.putExtra("Survey", survey);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    private void storeSurveyInput() {
+        String child_condition = null;
+        String food_security = foodSpinner1.getSelectedItem().toString();
+
+        String answer1 = ((RadioButton) findViewById(radioGroup1.getCheckedRadioButtonId())).getText().toString();
+        boolean is_enough;
+        if (answer1.equals("No"))
+            is_enough = false;
+        else
+            is_enough = true;
+
+        String answer2 = ((RadioButton) findViewById(radioGroup2.getCheckedRadioButtonId())).getText().toString();
+        boolean is_child;
+        if (answer2.equals("No")) {
+            is_child = false;
+            child_condition = null;
+        }
+        else {
+            is_child = true;
+            child_condition = foodSpinner2.getSelectedItem().toString();
+            if(child_condition.equals("Malnourished"))
+                Toast.makeText(FoodSurveyActivity.this, "Child needs referral immediately!", Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean validateEntries() {
