@@ -70,7 +70,7 @@
         <activity android:name=".UI.ProfileActivity" />
         <activity android:name=".UI.TaskViewActivity" />
         <activity android:name=".UI.EditClientActivity"/>
-        <service android:name=".Database.AutomaticSyncService"></service>
+        <service android:name=".Database.SyncService"></service>
 
     </application>
 

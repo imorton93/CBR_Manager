@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -15,21 +14,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.cbr_manager.Database.AutomaticSyncService;
+import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.AdminMessageManager;
-import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
-import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
@@ -37,11 +33,6 @@ import com.example.cbr_manager.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -55,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public static CBRWorker currentCBRWorker;
 
-    private RequestQueue requestQueue;
+    private SyncService syncService;
 
 
     public static Intent makeIntent(Context context) {
@@ -66,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        syncService = new SyncService(LoginActivity.this);
         mydb = new DatabaseHelper(LoginActivity.this);
 
         cbrWorkerManager = CBRWorkerManager.getInstance(LoginActivity.this);
@@ -89,13 +82,12 @@ public class LoginActivity extends AppCompatActivity {
         adminMessageManager.updateList();
 
         if (connectedToInternet()) {
-            requestQueue = Volley.newRequestQueue(LoginActivity.this);
-            syncWorkerTable();
+            syncService.syncWorkerTable();
         }
 
         //Starting automatic sync service
-        Intent syncServiceIntent = new Intent(LoginActivity.this, AutomaticSyncService.class);
-        syncServiceIntent.setAction("com.example.cbr_manager.Database.AutomaticSyncService");
+        Intent syncServiceIntent = new Intent(LoginActivity.this, SyncService.class);
+        syncServiceIntent.setAction("com.example.cbr_manager.Database.SyncService");
         startService(syncServiceIntent);
 
         buttonsClicked();
@@ -161,58 +153,4 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void syncWorkerTable() {
-        String URL = "https://mycbr-server.herokuapp.com/get-workers";
-
-        StringRequest requestToServer = new StringRequest(
-                Request.Method.GET,
-                URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            String deleteWorkers = "DELETE FROM WORKER_DATA";
-                            mydb.executeQuery(deleteWorkers);
-
-                            JSONArray serverData = new JSONArray(response);
-
-                            for (int i = 0; i < serverData.length(); i++) {
-                                mydb.registerWorker(jsonToWorker(serverData.getJSONObject(i)));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse (VolleyError e) {
-                e.printStackTrace();
-            }
-        })
-        {
-            @Override
-            public String getBodyContentType() { return "application/json; charset=utf-8"; }
-        };
-
-        requestQueue.add(requestToServer);
-    }
-
-    CBRWorker jsonToWorker (JSONObject object) throws JSONException {
-        CBRWorker worker = new CBRWorker();
-
-        worker.setFirstName((String) object.get("FIRST_NAME"));
-        worker.setLastName((String) object.get("LAST_NAME"));
-        worker.setUsername((String) object.get("USERNAME"));
-
-        if (!object.isNull("ZONE"))  {
-            worker.setZone((String) object.get("ZONE"));
-        }
-
-        //worker.setPhoto((String) object.get("PHOTO")); - Uncomment out once worker photos are implemented, surround with a null check
-        worker.setPassword((String) object.get("PASSWORD"));
-        worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
-        worker.setIs_admin("1".equals((String) object.get("IS_ADMIN")));
-
-        return worker;
-    }
 }

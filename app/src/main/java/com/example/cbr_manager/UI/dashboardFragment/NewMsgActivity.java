@@ -29,6 +29,7 @@ import com.example.cbr_manager.Database.AdminMessage;
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.Forms.TextQuestion;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.ClientInfoActivity;
@@ -51,7 +52,8 @@ public class NewMsgActivity extends AppCompatActivity {
     private AdminMessage adminMessage;
     private DatabaseHelper databaseHelper;
     private int workerID = 0;
-    private RequestQueue requestQueue;
+
+    private SyncService syncService;
 
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, NewMsgActivity.class);
@@ -63,7 +65,7 @@ public class NewMsgActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_msg);
 
-        requestQueue = Volley.newRequestQueue(NewMsgActivity.this);
+        syncService = new SyncService(NewMsgActivity.this);
         databaseHelper = new DatabaseHelper(NewMsgActivity.this);
 
         String current_username = getIntent().getStringExtra("Worker Username");
@@ -95,7 +97,7 @@ public class NewMsgActivity extends AppCompatActivity {
                 boolean success = databaseHelper.addMessage(adminMessage);
 
                 if(success) {
-                    sendMsgToServer();
+                    syncService.sendMsgToServer(adminMessage);
                     Intent intent = TaskViewActivity.makeIntent(NewMsgActivity.this);
                     startActivity(intent);
                 }
@@ -154,85 +156,5 @@ public class NewMsgActivity extends AppCompatActivity {
         adminMessage.setId(uniqueID_long);
     }
 
-    private void sendMsgToServer () {
-        String query = "SELECT * FROM ADMIN_MESSAGES WHERE ID = " + adminMessage.getId();
-        Cursor c = databaseHelper.executeQuery(query);
-        JSONArray localDataJSON = cur2Json(c);
 
-        String dataToSend = localDataJSON.toString();
-
-        String URL = "https://mycbr-server.herokuapp.com/admin-messages";
-
-        //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
-        StringRequest requestToServer = new StringRequest(
-                Request.Method.POST,
-                URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //assume server isn't sending anything back for now
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse (VolleyError e) {
-
-            }
-        })
-        {
-            @Override
-            public String getBodyContentType() { return "application/json; charset=utf-8"; }
-
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                try {
-                    return dataToSend == null ? null : dataToSend.getBytes("utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    return null;
-                }
-            }
-        };
-
-        requestQueue.add(requestToServer);
-    }
-
-    public JSONArray cur2Json(Cursor cursor) {
-        byte[] photoArr;
-        String base64Photo;
-        String data;
-
-        JSONArray resultSet = new JSONArray();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            int totalColumn = cursor.getColumnCount();
-            JSONObject rowObject = new JSONObject();
-            for (int i = 0; i < totalColumn; i++) {
-                if (cursor.getColumnName(i) != null) {
-                    if ((cursor.getColumnName(i).equals("PHOTO")) ||
-                            (cursor.getColumnName(i).equals("REFERRAL_PHOTO"))) {
-                        photoArr = cursor.getBlob(i);
-
-                        if (photoArr != null) {
-                            base64Photo = Base64.encodeToString(photoArr, Base64.DEFAULT);
-                            data = base64Photo;
-                        } else {
-                            data = "";
-                        }
-                    } else {
-                        data = cursor.getString(i);
-                    }
-
-                    try {
-                        rowObject.put(cursor.getColumnName(i), data);
-                    } catch (Exception e) {
-                        Toast.makeText(NewMsgActivity.this, "Exception Error", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-            resultSet.put(rowObject);
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return resultSet;
-    }
 }
