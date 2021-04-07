@@ -129,7 +129,6 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
         survey.setIs_shelter_adequate(shelter);
         survey.setItems_access(access);
         survey.setOrganisation("");
-        survey.setClient_id(0);
     }
 
     private boolean validateEntries() {

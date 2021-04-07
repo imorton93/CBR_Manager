@@ -186,7 +186,7 @@ public class TaskViewActivity extends AppCompatActivity {
         baseline.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = HealthSurveyActivity.makeIntent(TaskViewActivity.this);
+                Intent intent = ClientSearchActivity.makeIntent(TaskViewActivity.this, 3);
                 startActivity(intent);
             }
         });

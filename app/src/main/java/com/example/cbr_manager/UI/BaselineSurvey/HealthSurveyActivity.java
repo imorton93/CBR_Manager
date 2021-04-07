@@ -19,6 +19,7 @@ import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
+import com.example.cbr_manager.UI.NewVisitActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
 
@@ -28,15 +29,31 @@ public class HealthSurveyActivity extends AppCompatActivity {
     private RadioGroup radioGroup1, radioGroup2, radioGroup3, radioGroup4, radioGroup5;
     private Survey survey = new Survey();
 
-    public static Intent makeIntent(Context context) {
-        Intent intent = new Intent(context, HealthSurveyActivity.class);
+    private static long client_id;
+    private static int client_pos;
+    public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
+    public static final String R_CLIENT_POS_PASSED_IN = "r_client_pos_passed_in";
+
+    public static Intent makeIntent(Context context, int position,long id) {
+        Intent intent =  new Intent(context, HealthSurveyActivity.class);
+        intent.putExtra(R_CLIENT_ID_PASSED_IN, id);
+        intent.putExtra(R_CLIENT_POS_PASSED_IN, position);
         return intent;
+    }
+
+    private void extractIntent(){
+        Intent intent = getIntent();
+        client_id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
+        client_pos = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_survey);
+
+        extractIntent();
+
         healthSpinner1 = findViewById(R.id.healthSurveySpinner1);
         healthSpinner2 = findViewById(R.id.healthSurveySpinner2);
         healthSpinner3 = findViewById(R.id.healthSurveySpinner3);
@@ -143,6 +160,7 @@ public class HealthSurveyActivity extends AppCompatActivity {
         survey.setDevice_type(what_device);
         survey.setDevice_condition(is_device);
         survey.setIs_satisfied(is_satisfied);
+        survey.setClient_id(client_id);
     }
 
 
