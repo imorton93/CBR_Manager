@@ -176,4 +176,15 @@ public class SurveyManager {
     public int size() {
         return surveyList.size();
     }
+
+    public List<Survey> getSurveys(long id) {
+        List<Survey> finalSurveys = new ArrayList<>();
+
+        for (Survey currentSurvey : this.surveyList) {
+            if(currentSurvey.getClient_id() == id) {
+                finalSurveys.add(currentSurvey);
+            }
+        }
+        return finalSurveys;
+    }
 }
