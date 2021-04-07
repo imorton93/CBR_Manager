@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -27,6 +28,7 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
     private Button submitButton, backButton;
     private RadioGroup radio1, radio2, radio3, radio4, radio5;
     private RadioButton radio1Yes, radio1No;
+    EditText organisationName;
     Survey survey;
 
     public static Intent makeIntent(Context context) {
@@ -41,15 +43,19 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
 
         radio1Yes = findViewById(R.id.empowermentSurveyYesRadio1);
         radio1No = findViewById(R.id.empowermentSurveyNoRadio1);
+
         radio1 = findViewById(R.id.empowermentSurveyRadioGroup1);
         radio2 = findViewById(R.id.empowermentSurveyRadioGroup2);
         radio3 = findViewById(R.id.empowermentSurveyRadioGroup3);
         radio4 = findViewById(R.id.empowermentSurveyRadioGroup4);
         radio5 = findViewById(R.id.empowermentSurveyRadioGroup5);
+
+        organisationName = findViewById(R.id.editTextOrganisation);
+
         survey = (Survey) getIntent().getSerializableExtra("Survey");
 
-        submitButton= findViewById(R.id.submitButtonEmpowermentSurvey);
-        backButton= findViewById(R.id.backButtonEmpowermentSurvey);
+        submitButton = findViewById(R.id.submitButtonEmpowermentSurvey);
+        backButton = findViewById(R.id.backButtonEmpowermentSurvey);
 
         backButton();
         submitButton();
@@ -73,12 +79,11 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                     storeSurveyInput();
                     DatabaseHelper db = new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
                     boolean success = db.addSurvey(survey);
-                    if(success) {
+                    if (success) {
                         Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Thanks for taking the survey!", Toast.LENGTH_LONG).show();
                         Intent intent = TaskViewActivity.makeIntent(EmpowermentandShelterSurveyActivity.this);
                         startActivity(intent);
-                    }
-                    else{
+                    } else {
                         Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Try Again!", Toast.LENGTH_LONG).show();
 
                     }
@@ -90,10 +95,13 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
     private void storeSurveyInput() {
         String answer1 = ((RadioButton) findViewById(radio1.getCheckedRadioButtonId())).getText().toString();
         boolean is_member;
+        String organisation_name = null;
         if (answer1.equals("No"))
             is_member = false;
-        else
+        else {
             is_member = true;
+            organisation_name = organisationName.getText().toString();
+        }
 
         String answer2 = ((RadioButton) findViewById(radio2.getCheckedRadioButtonId())).getText().toString();
         boolean is_aware;
@@ -128,12 +136,14 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
         survey.setIs_influence(influence);
         survey.setIs_shelter_adequate(shelter);
         survey.setItems_access(access);
-        survey.setOrganisation("");
+        survey.setOrganisation(organisation_name);
     }
 
     private boolean validateEntries() {
-        if(radio3.getCheckedRadioButtonId() == -1 || radio2.getCheckedRadioButtonId() == -1||
-        radio3.getCheckedRadioButtonId() == -1||radio4.getCheckedRadioButtonId() == -1||radio5.getCheckedRadioButtonId() == -1)
+        if (radio3.getCheckedRadioButtonId() == -1 || radio2.getCheckedRadioButtonId() == -1 ||
+                radio3.getCheckedRadioButtonId() == -1 || radio4.getCheckedRadioButtonId() == -1 || radio5.getCheckedRadioButtonId() == -1)
+            return false;
+        else if(radio1Yes.isChecked() && organisationName.getText().toString().equals(""))
             return false;
         return true;
     }
@@ -149,27 +159,27 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
 
 
     public void onRadioButtonClicked(View view) {
-      /*  // Is the button now checked?
+        // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
         // Check which radio button was clicked
         switch (view.getId()) {
 
             case R.id.empowermentSurveyYesRadio1:
                 if (checked) {
-                    findViewById(R.id.empowermentSurveyRadioGroup3).setVisibility(View.VISIBLE);
-                    findViewById(R.id.empowermentSurveyRadioGroup2).setVisibility(View.VISIBLE);
+                    organisationName.setVisibility(View.VISIBLE);
+                    organisationName.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.empowermentSurveyNoRadio1:
                 if (checked) {
-                    findViewById(R.id.empowermentSurveyRadioGroup3).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.empowermentSurveyRadioGroup2).setVisibility(View.INVISIBLE);
+                    organisationName.setVisibility(View.INVISIBLE);
+                    organisationName.setVisibility(View.INVISIBLE);
                 }
                 break;
-        }*/
+        }
     }
 
-    private void ToolbarButtons(){
+    private void ToolbarButtons() {
         ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
