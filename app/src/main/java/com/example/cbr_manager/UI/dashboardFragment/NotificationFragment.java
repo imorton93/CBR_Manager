@@ -56,6 +56,7 @@ public class NotificationFragment extends Fragment {
 
         this.dashboardActivity = (DashboardActivity)getActivity();
         mydb = new DatabaseHelper(dashboardActivity);
+        mydb.setStatusToRead();
         this.current_username = LoginActivity.username;
 
         newMsg(V);

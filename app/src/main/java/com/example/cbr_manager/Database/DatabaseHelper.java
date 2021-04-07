@@ -464,6 +464,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c != null) {
             c.moveToFirst();
         }
+
         return c;
     }
 
@@ -589,6 +590,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public int numberOfUnreadMessages(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(ID) FROM " + admin_message_table + " WHERE " + viewed_status + " = 0;";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public boolean msgAlreadyExists(Long msgID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + admin_message_table + " WHERE " + message_id + " = " + msgID + ";";
+        Cursor c = db.rawQuery(query, null);
+
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            c.close();
+            db.close();
+
+            return true;
+        }
+
+        c.close();
+        db.close();
+        return false;
+    }
+
+    public void setStatusToRead() {
+        String query = "UPDATE " + admin_message_table + " SET " + viewed_status + " = 1;";
+        this.executeQuery(query);
+    }
 
     public Cursor viewData(){
         SQLiteDatabase db = this.getReadableDatabase();

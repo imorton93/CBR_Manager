@@ -72,4 +72,8 @@ public class AdminMessageManager {
         return messages.size();
     }
 
+    public int numUnread() {
+        return databaseHelper.numberOfUnreadMessages();
+    }
+
 }

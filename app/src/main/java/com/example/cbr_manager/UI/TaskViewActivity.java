@@ -49,11 +49,7 @@ import java.util.List;
 import static com.example.cbr_manager.UI.LoginActivity.username;
 
 public class TaskViewActivity extends AppCompatActivity {
-    private RequestQueue requestQueue;
-    private DatabaseHelper mydb;
-
     private SyncService syncService;
-
     TextView badge;
 
     public static Intent makeIntent(Context context) {
@@ -197,7 +193,7 @@ public class TaskViewActivity extends AppCompatActivity {
     }
 
     private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
-        int size = adminMessageManager.size();
+        int size = adminMessageManager.numUnread();
 
         if (badge != null) {
             if (size == 0) {

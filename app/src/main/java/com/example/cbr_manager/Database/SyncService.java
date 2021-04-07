@@ -59,7 +59,7 @@ public class SyncService extends Service {
                 getMessagesFromServer();
             }
 
-            handler.postDelayed(autoSync, 600000); //checks every 5 minutes
+            handler.postDelayed(autoSync, 300000); //checks every 5 minutes
         }
     };
 
@@ -92,13 +92,17 @@ public class SyncService extends Service {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            String deleteWorkers = "DELETE FROM ADMIN_MESSAGES";
-                            mydb.executeQuery(deleteWorkers);
+                            /*String deleteWorkers = "DELETE FROM ADMIN_MESSAGES";
+                            mydb.executeQuery(deleteWorkers);*/
 
                             JSONArray serverData = new JSONArray(response);
+                            Long msgID;
 
                             for (int i = 0; i < serverData.length(); i++) {
-                                mydb.addMessage(jsonToMessage(serverData.getJSONObject(i)));
+                                msgID = Long.parseLong((String) serverData.getJSONObject(i).get("ID"));
+                                if (!mydb.msgAlreadyExists(msgID)) {
+                                    mydb.addMessage(jsonToMessage(serverData.getJSONObject(i)));
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
