@@ -123,37 +123,9 @@
             android:scrollbarThumbVertical="@color/SpinnerGrey"
             android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood5" />
+            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood4" />
 
-        <RadioGroup
-            android:id="@+id/livelihoodSurveyRadioGroup2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood3">
 
-            <RadioButton
-                android:id="@+id/livelihoodSurveyYesRadio2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/yes">
-
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/livelihoodSurveyNoRadio2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/no">
-
-            </RadioButton>
-
-        </RadioGroup>
 
         <RadioGroup
             android:id="@+id/livelihoodSurveyRadioGroup3"
@@ -163,7 +135,7 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood4">
+            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood5">
 
             <RadioButton
                 android:id="@+id/livelihoodSurveyYesRadio3"
@@ -309,4 +281,16 @@
             app:backgroundTint="@color/purple"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/backButtonLivelihoodSurvey"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/livelihoodSurveyEditText1"
+        android:layout_width="103dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Enter Work"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewlivelihood3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
