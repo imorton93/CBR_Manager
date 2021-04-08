@@ -28,6 +28,7 @@ import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.SurveyManager;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.Database.VisitManager;
@@ -86,6 +87,10 @@ public class LoginActivity extends AppCompatActivity {
         AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(LoginActivity.this);
         adminMessageManager.clear();
         adminMessageManager.updateList();
+
+        SurveyManager surveyManager = SurveyManager.getInstance(LoginActivity.this);
+        surveyManager.clear();
+        surveyManager.updateList();
 
         if (connectedToInternet()) {
             requestQueue = Volley.newRequestQueue(LoginActivity.this);

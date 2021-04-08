@@ -291,6 +291,13 @@
                     </TableRow>
                 </TableLayout>
 
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="300dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_health_device_graph"
+                    android:background="@color/white"
+                    />
+
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
