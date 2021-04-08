@@ -134,6 +134,7 @@ public class TaskViewActivity extends AppCompatActivity {
                     syncService.syncClientsTable();
                     syncService.syncVisitTable();
                     syncService.syncReferralTable();
+                    syncService.syncSurveyTable();
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
                 }

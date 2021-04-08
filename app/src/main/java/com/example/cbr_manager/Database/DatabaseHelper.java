@@ -208,7 +208,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_adminMessage_table);
 
         String create_survey_table = "CREATE TABLE " + survey_table + " (" + survey_id
-                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + survey_health_condition + " INTEGER, " + survey_have_rehab_access
+                + " INTEGER PRIMARY KEY, " + survey_health_condition + " INTEGER, " + survey_have_rehab_access
                 + " BOOLEAN, " + survey_need_rehab_access + " BOOLEAN, " + survey_have_device+ " BOOLEAN, " + survey_device_condition
                 + " BOOLEAN, " + survey_need_device + " BOOLEAN, " + survey_device_type + " STRING, " + survey_is_satisfied
                 + " INTEGER, " + survey_is_student + " BOOLEAN, " + survey_grade_no + " INTEGER, " + survey_reason
@@ -461,6 +461,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        cv.put(survey_id, survey.getId());
         cv.put(survey_health_condition, survey.getHealth_condition());
         cv.put(survey_have_rehab_access, survey.isHave_rehab_access());
         cv.put(survey_need_rehab_access, survey.isNeed_rehab_access());
@@ -481,7 +482,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(survey_was_discriminated, survey.isWas_discriminated());
         cv.put(survey_is_working, survey.isIs_working());
         cv.put(survey_work_type, survey.getWork_type());
-        cv.put(survey_is_self_employed, survey.isIs_self_employed());
+        cv.put(survey_is_self_employed, survey.getIs_self_employed());
         cv.put(survey_needs_met, survey.isNeeds_met());
         cv.put(survey_is_work_affected, survey.isIs_work_affected());
         cv.put(survey_want_work, survey.isWant_work());
@@ -701,6 +702,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int numberOfMessagesPerAdmin(long adminID){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT COUNT(ID) FROM " + admin_message_table + " WHERE " + admin_id + " = " + adminID + ";";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int numberOfSurveysPerClient(long client_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(ID) FROM " + survey_table + " WHERE " + survey_id + " = " + client_id + ";";
         Cursor c = db.rawQuery(query, null);
         if(c!= null && c.getCount()>0) {
             c.moveToLast();

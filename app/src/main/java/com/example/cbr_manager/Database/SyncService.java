@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.UI.BaselineSurvey.EmpowermentandShelterSurveyActivity;
 import com.example.cbr_manager.UI.SignUpActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
 import com.example.cbr_manager.UI.dashboardFragment.NewMsgActivity;
@@ -391,6 +392,59 @@ public class SyncService extends Service {
 
                             for (int i = 0; i < serverData.length(); i++) {
                                 mydb.addReferral(jsonToReferral(serverData.getJSONObject(i)));
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError e) {
+                Toast.makeText(context, "Sync failed.", Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Override
+            public String getBodyContentType() { return "application/json; charset=utf-8"; }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return dataToSend == null ? null : dataToSend.getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    return null;
+                }
+            }
+        };
+
+        requestQueue.add(requestToServer);
+    }
+
+    public void syncSurveyTable() {
+        String query = "SELECT * FROM CLIENT_SURVEYS WHERE IS_SYNCED = 0;" ; //get only data that is not synced
+        Cursor c = mydb.executeQuery(query);
+        JSONArray localDataJSON = cur2Json(c);
+
+        String dataToSend =  localDataJSON.toString();
+
+        String URL = "https://mycbr-server.herokuapp.com/surveys";
+
+        //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
+        StringRequest requestToServer = new StringRequest(
+                Request.Method.POST,
+                URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            //Deleting local data
+                            String deleteClients = "DELETE FROM CLIENT_SURVEYS";
+                            mydb.executeQuery(deleteClients);
+
+                            JSONArray serverData = new JSONArray(response);
+
+                            for (int i = 0; i < serverData.length(); i++) {
+                                //mydb.addSurvey(jsonToReferral(serverData.getJSONObject(i)));
                             }
                         } catch (JSONException e) {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
