@@ -54,7 +54,6 @@
         <activity android:name=".UI.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -71,7 +70,9 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".UI.ProfileActivity" />
         <activity android:name=".UI.TaskViewActivity" />
-        <activity android:name=".UI.EditClientActivity" />
+        <activity android:name=".UI.EditClientActivity"/>
+        <service android:name=".Database.SyncService"></service>
+
     </application>
 
 </manifest>

@@ -16,9 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
+import com.example.cbr_manager.UI.NewReferralActivity;
 import com.example.cbr_manager.UI.NewVisitActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
@@ -152,6 +154,7 @@ public class HealthSurveyActivity extends AppCompatActivity {
         else if(answer8.equals("Very Poor"))
             is_satisfied = 4;
 
+        setUniqueSurveyId();
         survey.setHealth_condition(health_condition);
         survey.setHave_rehab_access(have_rehab);
         survey.setNeed_rehab_access(need_rehab);
@@ -245,5 +248,20 @@ public class HealthSurveyActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void setUniqueSurveyId(){
+        DatabaseHelper db =  new DatabaseHelper(HealthSurveyActivity.this);
+
+        int referral_no = db.numberOfSurveysPerClient(survey.getClient_id());
+        referral_no++;//next available referral id
+
+        // Concatenate both strings
+        String uniqueID = String.valueOf(survey.getClient_id()) + String.valueOf(referral_no);
+
+        // Convert the concatenated string to integer
+        long uniqueID_long = Long.parseLong(uniqueID);
+
+        survey.setId(uniqueID_long);
     }
 }
