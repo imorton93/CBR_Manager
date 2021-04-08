@@ -27,6 +27,7 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
 
     private Button nextButton, backButton;
     private RadioGroup radio1, radio3, radio4, radio5;
+    private RadioButton yesRadio1, noRadio1;
     private EditText editText1;
     private Spinner spinner1;
     Survey survey;
@@ -49,6 +50,8 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
         radio5 = findViewById((R.id.livelihoodSurveyRadioGroup5));
         spinner1 = findViewById(R.id.livelihoodSurveySpinner1);
         editText1 = findViewById(R.id.livelihoodSurveyEditText1);
+        yesRadio1 = findViewById(R.id.livelihoodSurveyYesRadio1);
+        noRadio1 = findViewById(R.id.livelihoodSurveyNoRadio1);
         survey = (Survey) getIntent().getSerializableExtra("Survey");
 
         createSpinner();
@@ -72,8 +75,26 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
     }
 
     public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+        // Check which radio button was clicked
+        switch (view.getId()) {
 
+            case R.id.livelihoodSurveyYesRadio1:
+                if (checked) {
+                    editText1.setVisibility(View.VISIBLE);
+                    editText1.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.livelihoodSurveyNoRadio1:
+                if (checked) {
+                    editText1.setVisibility(View.INVISIBLE);
+                    editText1.setVisibility(View.INVISIBLE);
+                }
+                break;
+        }
     }
+
     void nextButton() {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,12 +116,13 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
 
         String answer2 = ((RadioButton) findViewById(radio1.getCheckedRadioButtonId())).getText().toString();
         boolean is_working;
+        String work_type = null;
         if (answer2.equals("No"))
             is_working = false;
-        else
+        else {
             is_working = true;
-
-        String work_type = editText1.getText().toString();
+            work_type = editText1.getText().toString();
+        }
 
         String answer4 = ((RadioButton) findViewById(radio3.getCheckedRadioButtonId())).getText().toString();
         boolean needs_met;
@@ -144,9 +166,10 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
         boolean bool = true;
         if (spinner1.getSelectedItem().toString() == "Choose Option" || radio5.getCheckedRadioButtonId() == -1 ||
                 radio4.getCheckedRadioButtonId() == -1 || radio3.getCheckedRadioButtonId() == -1 ||
-                radio1.getCheckedRadioButtonId() == -1 || editText1.getText().toString().equals("")) {
+                radio1.getCheckedRadioButtonId() == -1) {
             bool = false;
-        }
+        } else if (yesRadio1.isChecked() && editText1.getText().toString().equals(""))
+            bool = false;
         return bool;
     }
 
