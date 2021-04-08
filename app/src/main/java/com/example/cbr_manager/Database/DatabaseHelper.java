@@ -153,6 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //WORKER ID COLUMN
     private static final String admin_message_table = "ADMIN_MESSAGES";
     private static final String admin_id = "ADMIN_ID";
+    private static final String message_id = "ID";
     private static final String message_title = "TITLE";
     private static final String message_date = "DATE";
     private static final String message_location = "LOCATION";
@@ -201,8 +202,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_referral_table);
 
         String create_adminMessage_table = "CREATE TABLE "
-                + admin_message_table + " (" + admin_id + " INTEGER PRIMARY KEY, " + message_title + " STRING, "
-                + message_date + " STRING, " + message_location + " STRING, " + admin_message + " STRING, "
+                + admin_message_table + " (" + message_id + " INTEGER PRIMARY KEY, " + message_title + " STRING, "
+                + message_date + " STRING, " + message_location + " STRING, " + admin_message + " STRING, " + admin_id + " INTEGER, "
                 + viewed_status + " INTEGER NOT NULL DEFAULT 0, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_adminMessage_table);
 
@@ -245,6 +246,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_7, cbrWorker.getZone());
         cv.put(COL_4, cbrWorker.getPassword());
+        cv.put(COL_6, cbrWorker.getIs_admin());
 
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1)
@@ -439,10 +441,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        cv.put(message_id, message.getId());
         cv.put(message_title, message.getTitle());
         cv.put(message_date, message.getDate());
         cv.put(message_location, message.getLocation());
         cv.put(admin_message, message.getMessage());
+        cv.put(admin_id, message.getAdminID());
         cv.put(viewed_status, message.getViewedStatus());
         cv.put(is_synced, message.getIsSynced());
 
@@ -581,6 +585,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c != null) {
             c.moveToFirst();
         }
+
         return c;
     }
 
@@ -693,6 +698,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public int numberOfMessagesPerAdmin(long adminID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(ID) FROM " + admin_message_table + " WHERE " + admin_id + " = " + adminID + ";";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int numberOfUnreadMessages(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(ID) FROM " + admin_message_table + " WHERE " + viewed_status + " = 0;";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public boolean msgAlreadyExists(Long msgID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + admin_message_table + " WHERE " + message_id + " = " + msgID + ";";
+        Cursor c = db.rawQuery(query, null);
+
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            c.close();
+            db.close();
+
+            return true;
+        }
+
+        c.close();
+        db.close();
+        return false;
+    }
+
+    public void setStatusToRead() {
+        String query = "UPDATE " + admin_message_table + " SET " + viewed_status + " = 1;";
+        this.executeQuery(query);
+    }
 
     public Cursor viewData(){
         SQLiteDatabase db = this.getReadableDatabase();
