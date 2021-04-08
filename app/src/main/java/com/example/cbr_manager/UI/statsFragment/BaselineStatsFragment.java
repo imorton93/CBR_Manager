@@ -337,11 +337,13 @@ public class BaselineStatsFragment extends Fragment {
 
         for(Survey survey : surveyManager.getSurveyList()){
             String child_condition = survey.getChild_condition();
-            if(childConditionCount.containsKey(child_condition)){
-                Integer count = childConditionCount.get(child_condition);
-                childConditionCount.put(child_condition, count+1);
-            }else{
-                childConditionCount.put(child_condition, 1);
+            if(child_condition != null){
+                if (childConditionCount.containsKey(child_condition)) {
+                    Integer count = childConditionCount.get(child_condition);
+                    childConditionCount.put(child_condition, count + 1);
+                } else {
+                    childConditionCount.put(child_condition, 1);
+                }
             }
         }
 

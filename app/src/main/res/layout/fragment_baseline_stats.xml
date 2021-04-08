@@ -846,7 +846,7 @@
                     android:layout_marginTop="20dp"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:text="If Child, childs condition"/>
+                    android:text="If Child, Child's Condition"/>
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:layout_height="250dp"
