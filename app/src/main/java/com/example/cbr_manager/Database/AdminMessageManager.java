@@ -13,7 +13,6 @@ public class AdminMessageManager {
     private DatabaseHelper databaseHelper;
 
     private static final String admin_id = "ADMIN_ID";
-    private static final String message_id = "ID";
     private static final String message_title = "TITLE";
     private static final String message_date = "DATE";
     private static final String message_location = "LOCATION";
@@ -40,7 +39,6 @@ public class AdminMessageManager {
     public void updateList() {
         Cursor c = databaseHelper.getAllMessageInfo();
 
-        int msgIdI = c.getColumnIndex(message_id);
         int adminIdI = c.getColumnIndex(admin_id);
         int titleI = c.getColumnIndex(message_title);
         int dateI = c.getColumnIndex(message_date);
@@ -51,7 +49,6 @@ public class AdminMessageManager {
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             int adminId = c.getInt(adminIdI);
-            Long msgId = c.getLong(msgIdI);
             String title = c.getString(titleI);
             String date = c.getString(dateI);
             String location = c.getString(locationI);
@@ -59,7 +56,7 @@ public class AdminMessageManager {
             int isSynced = c.getInt(isSyncedI);
             int viewed = c.getInt(viewedI);
 
-            AdminMessage newMessage = new AdminMessage(adminId, msgId, title, date, location, message, isSynced, viewed);
+            AdminMessage newMessage = new AdminMessage(adminId, title, date, location, message, isSynced, viewed);
             messages.add(newMessage);
         }
     }
@@ -70,10 +67,6 @@ public class AdminMessageManager {
 
     public int size() {
         return messages.size();
-    }
-
-    public int numUnread() {
-        return databaseHelper.numberOfUnreadMessages();
     }
 
 }
