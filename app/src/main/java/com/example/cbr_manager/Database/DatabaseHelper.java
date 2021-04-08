@@ -5,14 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
-import static android.content.ContentValues.TAG;
+import static com.example.cbr_manager.UI.LoginActivity.currentCBRWorker;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "cbr.db";
@@ -22,11 +20,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_1 = "FIRST_NAME";
     private static final String COL_2 = "LAST_NAME";
     private static final String COL_3 = "USERNAME";
-    private static final String COL_8 = "PHOTO";
     private static final String COL_7 = "ZONE";
     private static final String COL_4 = "PASSWORD";
     private static final String COL_5 = "ID";
     private static final String COL_6 = "IS_ADMIN";
+    private static final String COL_8 = "PHOTO";
 
     //Client Table
     private static final String client_table_name = "CLIENT_DATA";
@@ -114,7 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String create_worker_table = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
                 + " TEXT UNIQUE NOT NULL, " + COL_7 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY , "
-                + COL_6 + " BOOLEAN NOT NULL DEFAULT 0);";
+                + COL_6 + " BOOLEAN NOT NULL DEFAULT 0, " + COL_8 + " BLOB);";
         db.execSQL(create_worker_table);
 
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY , "
@@ -173,6 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_7, cbrWorker.getZone());
         cv.put(COL_4, cbrWorker.getPassword());
+        cv.put(COL_8, cbrWorker.getPhoto());
 
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1)
@@ -180,7 +179,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
-
+    public static void saveCBRPhoto(byte[] data){
+        ContentValues cv = new ContentValues();
+        cv.put(COL_8, data);
+}
     public boolean registerClient(Client client) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -571,7 +573,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return -1;
         }
     }
-
 
     public Cursor viewData(){
         SQLiteDatabase db = this.getReadableDatabase();
