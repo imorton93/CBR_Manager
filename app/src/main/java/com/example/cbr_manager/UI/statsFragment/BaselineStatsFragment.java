@@ -27,6 +27,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -73,29 +74,49 @@ public class BaselineStatsFragment extends Fragment {
             PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), DEVICE_TYPES.get(i));
             entries.add(pieEntry);
         }
+//        R.color.purple_700, R.color.yellow,
+//                R.color.teal_700, R.color.green2,
+//                R.color.red, R.color.purple,
+//                R.color.red2, R.color.green, R.color.blue
 
-        PieDataSet pieDataSet = new PieDataSet(entries, "Assistive Devices Needed");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieDataSet pieDataSet = new PieDataSet(entries, "");
+        pieDataSet.setColors(
+                Color.parseColor("#FFEC17"), // yellow
+                Color.parseColor("#1BB300"), // green2
+                Color.parseColor("#B30003"), // red2
+                Color.parseColor("#FFBB86FC"), // purple_200
+                Color.parseColor("#FF03DAC5"), // teal_200
+                Color.parseColor("#FC0032"), // red
+                Color.parseColor("#56af31"), // green
+                Color.parseColor("#FF3700B3"), // purple_700
+                Color.parseColor("#863B8F") // purple
+        );
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         pieDataSet.setValueLineColor(Color.BLACK);
         pieDataSet.setValueLinePart1OffsetPercentage(100f);
         pieDataSet.setValueLinePart1Length(.6f);
         pieDataSet.setValueLinePart2Length(.6f);
+        pieDataSet.setValueFormatter(new PercentFormatter());
         PieData data = new PieData(pieDataSet);
-        data.setValueTextSize(10f);
+        data.setValueTextSize(15f);
         data.setValueTextColor(Color.BLACK);
         graph.setData(data);
+        graph.getDescription().setEnabled(false);
+        graph.setEntryLabelColor(Color.WHITE);
+        graph.setEntryLabelTextSize(10f);
+        graph.setDrawHoleEnabled(false);
+        graph.setUsePercentValues(true);
+        graph.getLegend().setWordWrapEnabled(true);
         graph.invalidate();
     }
 
     private ArrayList<Integer> getDeviceTypeDataPoints(){
         HashMap<String, Integer> deviceTypeCount = new HashMap<>();
         ArrayList<Integer> deviceTypesDataPoints = new ArrayList<Integer>();
-        System.out.println("Survey List: " + surveyManager.getSurveyList().size());
 
         for(Survey survey : surveyManager.getSurveyList()){
             String deviceType = survey.getDevice_type();
+            System.out.println("Device Type: " + deviceType);
             if(deviceTypeCount.containsKey(deviceType)){
                 Integer count = deviceTypeCount.get(deviceType);
                 deviceTypeCount.put(deviceType, count+1);
