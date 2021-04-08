@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.Database.SurveyManager;
 import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.AdminMessageManager;
@@ -80,6 +81,10 @@ public class LoginActivity extends AppCompatActivity {
         AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(LoginActivity.this);
         adminMessageManager.clear();
         adminMessageManager.updateList();
+
+        SurveyManager surveyManager = SurveyManager.getInstance(LoginActivity.this);
+        surveyManager.clear();
+        surveyManager.updateList();
 
         if (connectedToInternet()) {
             syncService.syncWorkerTable();

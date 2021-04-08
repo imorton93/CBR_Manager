@@ -160,13 +160,13 @@ public class SurveyManager {
             long client_id = c.getLong(client_idI);
             boolean is_synced = c.getInt(is_syncedI) > 0;
 
-            Survey newSurvey = new Survey(health_condition, have_rehab_access, need_rehab_access,
+            Survey newSurvey = new Survey(survey_id, health_condition, have_rehab_access, need_rehab_access,
                     have_device, device_condition, need_device, device_type, is_satisfied,
                     is_student, grade_no, reason_no_school, was_student, want_school, is_valued,
                     is_independent, is_social, is_socially_affected, was_discriminated, is_working,
                     work_type, is_self_employed, needs_met, is_work_affected, want_work, food_security,
                     is_diet_enough, child_condition, referral_required, is_member, organisation, is_aware,
-                    is_influence, is_shelter_adequate, items_access, client_id, is_synced, survey_id);
+                    is_influence, is_shelter_adequate, items_access, client_id, is_synced);
             surveyList.add(newSurvey);
 
         }

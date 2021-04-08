@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +85,7 @@ public class BaselineListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 List<Survey> surveys = surveyManager.getSurveys(client_id);
                 Survey currentSurvey = surveys.get(position);
-                Intent intent = SurveyInfoActivity.makeIntent(getActivity(), currentSurvey.getSurvey_id(), position);
+                Intent intent = SurveyInfoActivity.makeIntent(getActivity(), currentSurvey.getId(), position);
                 startActivity(intent);
             }
         });
@@ -105,7 +106,6 @@ public class BaselineListFragment extends Fragment {
             }
 
             List<Survey> surveys = surveyManager.getSurveys(client_id);
-            Survey currentSurvey = surveys.get(position);
 
             TextView outcome = view.findViewById(R.id.baselineNumber);
             String outcomeS = "<b>Survey Number: </b> #" + (surveys.size() - position);

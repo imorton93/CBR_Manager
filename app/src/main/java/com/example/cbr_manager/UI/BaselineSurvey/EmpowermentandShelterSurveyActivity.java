@@ -172,7 +172,7 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
         // Convert the concatenated string to integer
         long uniqueID_long = Long.parseLong(uniqueID);
 
-        survey.setSurvey_id(uniqueID_long);
+        survey.setId(uniqueID_long);
     }
 
 
