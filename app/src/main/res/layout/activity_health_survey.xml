@@ -168,6 +168,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textViewhealth8" />
 
+        <Spinner
+            android:id="@+id/healthSurveySpinner3"
+            android:layout_width="103dp"
+            android:layout_height="41dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/SpinnerGrey"
+            android:popupBackground="@color/SpinnerGrey"
+            android:scrollbarThumbHorizontal="@color/SpinnerGrey"
+            android:scrollbarThumbVertical="@color/SpinnerGrey"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewhealth9" />
+
         <RadioGroup
             android:id="@+id/healthSurveyRadioGroup1"
             android:layout_width="wrap_content"
@@ -318,35 +332,7 @@
 
         </RadioGroup>
 
-        <RadioGroup
-            android:id="@+id/healthSurveyRadioGroup6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewhealth9">
 
-            <RadioButton
-                android:id="@+id/healthSurveyYesRadio6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/yes">
-
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/healthSurveyNoRadio6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/no">
-
-            </RadioButton>
-
-        </RadioGroup>
 
         <Button
             android:id="@+id/backButtonHealthSurvey"
@@ -362,7 +348,7 @@
             android:text="Back"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:backgroundTint="@color/purple"
+            android:background="@drawable/baseline_survey_buttons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewhealth9"/>
@@ -376,11 +362,11 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
+            android:background="@drawable/baseline_survey_buttons"
             android:text="Next"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:backgroundTint="@color/purple"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/backButtonHealthSurvey"/>
+            app:layout_constraintTop_toTopOf="@+id/backButtonHealthSurvey" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

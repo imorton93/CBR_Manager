@@ -12,9 +12,14 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cbr_manager.Database.AdminMessageManager;
+import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.DashboardActivity;
+import com.example.cbr_manager.UI.ProfileActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
 
 public class FoodSurveyActivity extends AppCompatActivity {
@@ -23,6 +28,8 @@ public class FoodSurveyActivity extends AppCompatActivity {
     private RadioGroup radioGroup1, radioGroup2;
     private RadioButton yesRadio2, noRadio2;
     private Button nextButton, backButton;
+    Survey survey;
+    
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, FoodSurveyActivity.class);
         return intent;
@@ -40,10 +47,19 @@ public class FoodSurveyActivity extends AppCompatActivity {
         yesRadio2 = findViewById(R.id.foodSurveyYesRadio2);
         nextButton = findViewById(R.id.nextButtonFoodSurvey);
         backButton = findViewById(R.id.backButtonFoodSurvey);
+        survey = (Survey) getIntent().getSerializableExtra("Survey");
+        
         createSpinners();
         nextButton();
         backButton();
         ToolbarButtons();
+
+        AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(FoodSurveyActivity.this);
+        adminMessageManager.clear();
+        adminMessageManager.updateList();
+
+        TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
+        badgeNotification(adminMessageManager, badgeOnToolBar);
     }
 
     private void backButton() {
@@ -62,11 +78,45 @@ public class FoodSurveyActivity extends AppCompatActivity {
                 if (!validateEntries())
                     Toast.makeText(FoodSurveyActivity.this, "Please fill all the details", Toast.LENGTH_LONG).show();
                 else {
+                    storeSurveyInput();
                     Intent intent = EmpowermentandShelterSurveyActivity.makeIntent(FoodSurveyActivity.this);
+                    intent.putExtra("Survey", survey);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    private void storeSurveyInput() {
+        boolean referral_required = false;
+        String child_condition = null;
+        String food_security = foodSpinner1.getSelectedItem().toString();
+
+        String answer1 = ((RadioButton) findViewById(radioGroup1.getCheckedRadioButtonId())).getText().toString();
+        boolean is_enough;
+        if (answer1.equals("No"))
+            is_enough = false;
+        else
+            is_enough = true;
+
+        String answer2 = ((RadioButton) findViewById(radioGroup2.getCheckedRadioButtonId())).getText().toString();
+        boolean is_child;
+        if (answer2.equals("No")) {
+            is_child = false;
+            child_condition = null;
+        }
+        else {
+            is_child = true;
+            child_condition = foodSpinner2.getSelectedItem().toString();
+            if(child_condition.equals("Malnourished")) {
+                Toast.makeText(FoodSurveyActivity.this, "Child needs referral immediately!", Toast.LENGTH_LONG).show();
+                referral_required = true;
+            }
+        }
+        survey.setChild_condition(child_condition);
+        survey.setFood_security(food_security);
+        survey.setIs_diet_enough(is_enough);
+        survey.setReferral_required(referral_required);
     }
 
     private boolean validateEntries() {
@@ -113,7 +163,7 @@ public class FoodSurveyActivity extends AppCompatActivity {
         }
     }
 
-    private void ToolbarButtons() {
+    private void ToolbarButtons(){
         ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,5 +172,40 @@ public class FoodSurveyActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ImageButton notificationBtn = findViewById(R.id.notificationButton);
+        notificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = DashboardActivity.makeIntent(FoodSurveyActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton profileBtn = findViewById(R.id.profileButton);
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = ProfileActivity.makeIntent(FoodSurveyActivity.this);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
+        int size = adminMessageManager.size();
+
+        if (badge != null) {
+            if (size == 0) {
+                if (badge.getVisibility() != View.GONE) {
+                    badge.setVisibility(View.GONE);
+                }
+            } else {
+                badge.setText(String.valueOf(Math.min(size, 99)));
+                if (badge.getVisibility() != View.VISIBLE) {
+                    badge.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 }

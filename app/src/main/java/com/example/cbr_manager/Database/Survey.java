@@ -1,6 +1,8 @@
 package com.example.cbr_manager.Database;
 
-public class Survey {
+import java.io.Serializable;
+
+public class Survey implements Serializable {
 
     //health
     private byte health_condition; // stored as values in 1-4
@@ -9,8 +11,8 @@ public class Survey {
     private boolean have_device;
     private boolean device_condition;
     private boolean need_device;
-    private byte device_type; // stored as values in 1-9
-    private byte is_satisfied; // stored as values in 1-4
+    private String device_type;
+    private byte is_satisfied;
 
     //education
     private boolean is_student;
@@ -29,15 +31,15 @@ public class Survey {
     //Livelihood
     private boolean is_working;
     private String work_type;
-    //private boolean is_self_employed;
+    private String is_self_employed;
     private boolean needs_met;
     private boolean is_work_affected;
     private boolean want_work;
 
     //food and nutrition
-    private byte food_security; // stored as values in 1-4
+    private String food_security;
     private boolean is_diet_enough;
-    private byte child_condition; // stored as values in 1-3
+    private String child_condition;
     private boolean referral_required;
 
     //empowerment
@@ -51,12 +53,13 @@ public class Survey {
     private boolean items_access;
 
     //sync
+    private long client_id;
     private boolean is_synced = false;
 
     public Survey() {
     }
 
-    public Survey(byte health_condition, boolean have_rehab_access, boolean need_rehab_access, boolean have_device, boolean device_condition, boolean need_device, byte device_type, byte is_satisfied, boolean is_student, byte grade_no, String reason_no_school, boolean was_student, boolean want_school, boolean is_valued, boolean is_independent, boolean is_social, boolean is_socially_affected, boolean was_discriminated, boolean is_working, String work_type, boolean needs_met, boolean is_work_affected, boolean want_work, byte food_security, boolean is_diet_enough, byte child_condition, boolean referral_required, boolean is_member, String organisation, boolean is_aware, boolean is_influence, boolean is_shelter_adequate, boolean items_access, boolean is_synced) {
+    public Survey(byte health_condition, boolean have_rehab_access, boolean need_rehab_access, boolean have_device, boolean device_condition, boolean need_device, String device_type, byte is_satisfied, boolean is_student, byte grade_no, String reason_no_school, boolean was_student, boolean want_school, boolean is_valued, boolean is_independent, boolean is_social, boolean is_socially_affected, boolean was_discriminated, boolean is_working, String work_type, String is_self_employed, boolean needs_met, boolean is_work_affected, boolean want_work, String food_security, boolean is_diet_enough, String child_condition, boolean referral_required, boolean is_member, String organisation, boolean is_aware, boolean is_influence, boolean is_shelter_adequate, boolean items_access,long client_id, boolean is_synced) {
         this.health_condition = health_condition;
         this.have_rehab_access = have_rehab_access;
         this.need_rehab_access = need_rehab_access;
@@ -77,6 +80,7 @@ public class Survey {
         this.was_discriminated = was_discriminated;
         this.is_working = is_working;
         this.work_type = work_type;
+        this.is_self_employed = is_self_employed;
         this.needs_met = needs_met;
         this.is_work_affected = is_work_affected;
         this.want_work = want_work;
@@ -90,6 +94,7 @@ public class Survey {
         this.is_influence = is_influence;
         this.is_shelter_adequate = is_shelter_adequate;
         this.items_access = items_access;
+        this.client_id = client_id;
         this.is_synced = is_synced;
     }
 
@@ -141,11 +146,11 @@ public class Survey {
         this.need_device = need_device;
     }
 
-    public byte getDevice_type() {
+    public String getDevice_type() {
         return device_type;
     }
 
-    public void setDevice_type(byte device_type) {
+    public void setDevice_type(String device_type) {
         this.device_type = device_type;
     }
 
@@ -253,6 +258,14 @@ public class Survey {
         this.work_type = work_type;
     }
 
+    public String isIs_self_employed() {
+        return is_self_employed;
+    }
+
+    public void setIs_self_employed(String is_self_employed) {
+        this.is_self_employed = is_self_employed;
+    }
+
     public boolean isNeeds_met() {
         return needs_met;
     }
@@ -277,11 +290,11 @@ public class Survey {
         this.want_work = want_work;
     }
 
-    public byte getFood_security() {
+    public String getFood_security() {
         return food_security;
     }
 
-    public void setFood_security(byte food_security) {
+    public void setFood_security(String food_security) {
         this.food_security = food_security;
     }
 
@@ -293,11 +306,11 @@ public class Survey {
         this.is_diet_enough = is_diet_enough;
     }
 
-    public byte getChild_condition() {
+    public String getChild_condition() {
         return child_condition;
     }
 
-    public void setChild_condition(byte child_condition) {
+    public void setChild_condition(String child_condition) {
         this.child_condition = child_condition;
     }
 
@@ -355,6 +368,14 @@ public class Survey {
 
     public void setItems_access(boolean items_access) {
         this.items_access = items_access;
+    }
+
+    public long getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(long client_id) {
+        this.client_id = client_id;
     }
 
     public boolean isIs_synced() {
