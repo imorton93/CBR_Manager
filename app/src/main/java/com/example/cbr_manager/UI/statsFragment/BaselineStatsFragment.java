@@ -122,6 +122,14 @@ public class BaselineStatsFragment extends Fragment {
         graph = view.findViewById(R.id.baseline_isChild_graph);
         dataPoints = getChildConditionDataPoints();
         setDataPoints(graph, dataPoints);
+
+        graph = view.findViewById(R.id.baseline_grades_graph);
+        dataPoints = getGradesOfStudentDataPoints();
+        setDataPoints(graph, dataPoints);
+
+        graph = view.findViewById(R.id.baseline_workType_graph);
+        dataPoints = getWorkTypeDataPoints();
+        setDataPoints(graph, dataPoints);
     }
 
     private void setDataPoints(PieChart graph, ArrayList<Integer> deviceTypeDataPoints){
@@ -253,6 +261,29 @@ public class BaselineStatsFragment extends Fragment {
         return reasonNotInSchoolDataPoints;
     }
 
+    private ArrayList<Integer> getWorkTypeDataPoints(){
+        HashMap<String, Integer> EmploymentCount = new HashMap<>();
+        ArrayList<Integer> employmentDataPoints = new ArrayList<Integer>();
+        LABELS.clear();
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            String work_type = survey.getWork_type();
+            if (EmploymentCount.containsKey(work_type)) {
+                Integer count = EmploymentCount.get(work_type);
+                EmploymentCount.put(work_type, count + 1);
+            } else {
+                EmploymentCount.put(work_type, 1);
+            }
+        }
+
+        for(Map.Entry<String, Integer> entry : EmploymentCount.entrySet()){
+            employmentDataPoints.add(entry.getValue());
+            LABELS.add(entry.getKey());
+        }
+
+        return employmentDataPoints;
+    }
+
     private ArrayList<Integer> getIsEmployedDataPoints() {
         HashMap<String, Integer> selfEmployedCount = new HashMap<>();
         ArrayList<Integer> selfEmployedDataPoints = new ArrayList<Integer>();
@@ -322,6 +353,32 @@ public class BaselineStatsFragment extends Fragment {
         return childConditionDataPoints;
     }
 
+    private ArrayList<Integer> getGradesOfStudentDataPoints() {
+        HashMap<String, Integer> gradeCount = new HashMap<>();
+        ArrayList<Integer> gradeDataPoints = new ArrayList<Integer>();
+        LABELS.clear();
+
+        for (Survey survey : surveyManager.getSurveyList()) {
+            int grade_no = survey.getGrade_no();
+            if (grade_no != 0) {
+                String grade_no_string = String.valueOf(grade_no);
+                if (gradeCount.containsKey(grade_no_string)) {
+                    Integer count = gradeCount.get(grade_no_string);
+                    gradeCount.put(grade_no_string, count + 1);
+                } else {
+                    gradeCount.put(grade_no_string, 1);
+                }
+            }
+        }
+
+        for (Map.Entry<String, Integer> entry : gradeCount.entrySet()) {
+            gradeDataPoints.add(entry.getValue());
+            LABELS.add(entry.getKey());
+        }
+
+        return gradeDataPoints;
+    }
+
     private void setHealthTableValues(View view){
         TextView accessToRehab_yes = view.findViewById(R.id.accessToRehab_yes);
         TextView accessToRehab_no = view.findViewById(R.id.accessToRehab_no);
@@ -379,29 +436,39 @@ public class BaselineStatsFragment extends Fragment {
             totalSurveys++;
         }
 
-        String accessToRehab_yes_string = ("" + (accessToRehab_yes_count/totalSurveys)*100) + "%";
+        String accessToRehab_yes_string = "0%";
+        String accessToRehab_no_string = "0%";
+        String needAccessToRehab_yes_string = "0%";
+        String needAccessToRehab_no_string = "0%";
+        String haveAssistiveDevice_yes_string = "0%";
+        String haveAssistiveDevice_no_string = "0%";
+        String assistiveDeviceWorking_yes_string = "0%";
+        String assistiveDeviceWorking_no_string = "0%";
+        String needAssistiveDevice_yes_string = "0%";
+        String needAssistiveDevice_no_string = "0%";
+
+        if(totalSurveys != 0){
+            accessToRehab_yes_string = ("" + (accessToRehab_yes_count/totalSurveys)*100) + "%";
+            accessToRehab_no_string = ("" + (accessToRehab_no_count/totalSurveys)*100) + "%";
+            needAccessToRehab_yes_string = ("" + (needAccessToRehab_yes_count/totalSurveys)*100) + "%";
+            needAccessToRehab_no_string = ("" + (needAccessToRehab_no_count/totalSurveys)*100) + "%";
+            haveAssistiveDevice_yes_string = ("" + (haveAssistiveDevice_yes_count/totalSurveys)*100) + "%";
+            haveAssistiveDevice_no_string = ("" + (haveAssistiveDevice_no_count/totalSurveys)*100) + "%";
+            assistiveDeviceWorking_yes_string = ("" + (assistiveDeviceWorking_yes_count/totalSurveys)*100) + "%";
+            assistiveDeviceWorking_no_string = ("" + (assistiveDeviceWorking_no_count/totalSurveys)*100) + "%";
+            needAssistiveDevice_yes_string = ("" + (needAssistiveDevice_yes_count/totalSurveys)*100) + "%";
+            needAssistiveDevice_no_string = ("" + (needAssistiveDevice_no_count/totalSurveys)*100) + "%";
+        }
+
         accessToRehab_yes.setText(accessToRehab_yes_string);
-        String accessToRehab_no_string = ("" + (accessToRehab_no_count/totalSurveys)*100) + "%";
         accessToRehab_no.setText(accessToRehab_no_string);
-
-        String needAccessToRehab_yes_string = ("" + (needAccessToRehab_yes_count/totalSurveys)*100) + "%";
         needAccessToRehab_yes.setText(needAccessToRehab_yes_string);
-        String needAccessToRehab_no_string = ("" + (needAccessToRehab_no_count/totalSurveys)*100) + "%";
         needAccessToRehab_no.setText(needAccessToRehab_no_string);
-
-        String haveAssistiveDevice_yes_string = ("" + (haveAssistiveDevice_yes_count/totalSurveys)*100) + "%";
         haveAssistiveDevice_yes.setText(haveAssistiveDevice_yes_string);
-        String haveAssistiveDevice_no_string = ("" + (haveAssistiveDevice_no_count/totalSurveys)*100) + "%";
         haveAssistiveDevice_no.setText(haveAssistiveDevice_no_string);
-
-        String assistiveDeviceWorking_yes_string = ("" + (assistiveDeviceWorking_yes_count/totalSurveys)*100) + "%";
         assistiveDeviceWorking_yes.setText(assistiveDeviceWorking_yes_string);
-        String assistiveDeviceWorking_no_string = ("" + (assistiveDeviceWorking_no_count/totalSurveys)*100) + "%";
         assistiveDeviceWorking_no.setText(assistiveDeviceWorking_no_string);
-
-        String needAssistiveDevice_yes_string = ("" + (needAssistiveDevice_yes_count/totalSurveys)*100) + "%";
         needAssistiveDevice_yes.setText(needAssistiveDevice_yes_string);
-        String needAssistiveDevice_no_string = ("" + (needAssistiveDevice_no_count/totalSurveys)*100) + "%";
         needAssistiveDevice_no.setText(needAssistiveDevice_no_string);
     }
 
@@ -442,19 +509,27 @@ public class BaselineStatsFragment extends Fragment {
             totalSurveys++;
         }
 
-        String goToSchool_yes_string = ((goToSchool_yes_count/totalSurveys)*100) + "%";
+        String goToSchool_yes_string = "0%";
+        String goToSchool_no_string = "0%";
+        String beenToSchoolBefore_yes_string = "0%";
+        String beenToSchoolBefore_no_string = "0%";
+        String wantToGoToSchool_yes_string = "0%";
+        String wantToGoToSchool_no_string = "0%";
+
+        if(totalSurveys != 0){
+            goToSchool_yes_string = ((goToSchool_yes_count/totalSurveys)*100) + "%";
+            goToSchool_no_string = ((goToSchool_no_count/totalSurveys)*100) + "%";
+            beenToSchoolBefore_yes_string = ((beenToSchoolBefore_yes_count/totalSurveys)*100) + "%";
+            beenToSchoolBefore_no_string = ((beenToSchoolBefore_no_count/totalSurveys)*100) + "%";
+            wantToGoToSchool_yes_string = ((wantToGoToSchool_yes_count/totalSurveys)*100) + "%";
+            wantToGoToSchool_no_string = ((wantToGoToSchool_no_count/totalSurveys)*100) + "%";
+        }
+
         goToSchool_yes.setText(goToSchool_yes_string);
-        String goToSchool_no_string = ((goToSchool_no_count/totalSurveys)*100) + "%";
         goToSchool_no.setText(goToSchool_no_string);
-
-        String beenToSchoolBefore_yes_string = ((beenToSchoolBefore_yes_count/totalSurveys)*100) + "%";
         beenToSchoolBefore_yes.setText(beenToSchoolBefore_yes_string);
-        String beenToSchoolBefore_no_string = ((beenToSchoolBefore_no_count/totalSurveys)*100) + "%";
         beenToSchoolBefore_no.setText(beenToSchoolBefore_no_string);
-
-        String wantToGoToSchool_yes_string = ((wantToGoToSchool_yes_count/totalSurveys)*100) + "%";
         wantToGoToSchool_yes.setText(wantToGoToSchool_yes_string);
-        String wantToGoToSchool_no_string = ((wantToGoToSchool_no_count/totalSurveys)*100) + "%";
         wantToGoToSchool_no.setText(wantToGoToSchool_no_string);
     }
 
@@ -515,29 +590,39 @@ public class BaselineStatsFragment extends Fragment {
             totalSurveys++;
         }
 
-        String valuedCommunityMember_yes_string = ((valuedCommunityMember_yes_count/totalSurveys)*100) + "%";
+        String valuedCommunityMember_yes_string = "0%";
+        String valuedCommunityMember_no_string = "0%";
+        String independent_yes_string = "0%";
+        String independent_no_string = "0%";
+        String participateInEvents_yes_string = "0%";
+        String participateInEvents_no_string = "0%";
+        String interactSocially_yes_string = "0%";
+        String interactSocially_no_string = "0%";
+        String experienceDiscrimination_yes_string = "0%";
+        String experienceDiscrimination_no_string = "0%";
+
+        if(totalSurveys != 0){
+            valuedCommunityMember_yes_string = ((valuedCommunityMember_yes_count/totalSurveys)*100) + "%";
+            valuedCommunityMember_no_string = ((valuedCommunityMember_no_count/totalSurveys)*100) + "%";
+            independent_yes_string = ((independent_yes_count/totalSurveys)*100) + "%";
+            independent_no_string = ((independent_no_count/totalSurveys)*100) + "%";
+            participateInEvents_yes_string = ((participateInEvents_yes_count/totalSurveys)*100) + "%";
+            participateInEvents_no_string = ((participateInEvents_no_count/totalSurveys)*100) + "%";
+            interactSocially_yes_string = ((interactSocially_yes_count/totalSurveys)*100) + "%";
+            interactSocially_no_string = ((interactSocially_no_count/totalSurveys)*100) + "%";
+            experienceDiscrimination_yes_string = ((experienceDiscrimination_yes_count/totalSurveys)*100) + "%";
+            experienceDiscrimination_no_string = ((experienceDiscrimination_no_count/totalSurveys)*100) + "%";
+        }
+
         valuedCommunityMember_yes.setText(valuedCommunityMember_yes_string);
-        String valuedCommunityMember_no_string = ((valuedCommunityMember_no_count/totalSurveys)*100) + "%";
         valuedCommunityMember_no.setText(valuedCommunityMember_no_string);
-
-        String independent_yes_string = ((independent_yes_count/totalSurveys)*100) + "%";
         independent_yes.setText(independent_yes_string);
-        String independent_no_string = ((independent_no_count/totalSurveys)*100) + "%";
         independent_no.setText(independent_no_string);
-
-        String participateInEvents_yes_string = ((participateInEvents_yes_count/totalSurveys)*100) + "%";
         participateInEvents_yes.setText(participateInEvents_yes_string);
-        String participateInEvents_no_string = ((participateInEvents_no_count/totalSurveys)*100) + "%";
         participateInEvents_no.setText(participateInEvents_no_string);
-
-        String interactSocially_yes_string = ((interactSocially_yes_count/totalSurveys)*100) + "%";
         interactSocially_yes.setText(interactSocially_yes_string);
-        String interactSocially_no_string = ((interactSocially_no_count/totalSurveys)*100) + "%";
         interactSocially_no.setText(interactSocially_no_string);
-
-        String experienceDiscrimination_yes_string = ((experienceDiscrimination_yes_count/totalSurveys)*100) + "%";
         experienceDiscrimination_yes.setText(experienceDiscrimination_yes_string);
-        String experienceDiscrimination_no_string = ((experienceDiscrimination_no_count/totalSurveys)*100) + "%";
         experienceDiscrimination_no.setText(experienceDiscrimination_no_string);
     }
 
@@ -588,24 +673,33 @@ public class BaselineStatsFragment extends Fragment {
             totalSurveys++;
         }
 
-        String working_yes_string = ((working_yes_count/totalSurveys)*100) + "%";
+        String working_yes_string = "0%";
+        String working_no_string = "0%";
+        String financialNeeds_yes_string = "0%";
+        String financialNeeds_no_string = "0%";
+        String abilityToWork_yes_string = "0%";
+        String abilityToWork_no_string = "0%";
+        String wantToWork_yes_string = "0%";
+        String wantToWork_no_string = "0%";
+
+        if(totalSurveys != 0){
+            working_yes_string = ((working_yes_count/totalSurveys)*100) + "%";
+            working_no_string = ((working_no_count/totalSurveys)*100) + "%";
+            financialNeeds_yes_string = ((financialNeeds_yes_count/totalSurveys)*100) + "%";
+            financialNeeds_no_string = ((financialNeeds_no_count/totalSurveys)*100) + "%";
+            abilityToWork_yes_string = ((abilityToWork_yes_count/totalSurveys)*100) + "%";
+            abilityToWork_no_string = ((abilityToWork_no_count/totalSurveys)*100) + "%";
+            wantToWork_yes_string = ((wantToWork_yes_count/totalSurveys)*100) + "%";
+            wantToWork_no_string = ((wantToWork_no_count/totalSurveys)*100) + "%";
+        }
+
         working_yes.setText(working_yes_string);
-        String working_no_string = ((working_no_count/totalSurveys)*100) + "%";
         working_no.setText(working_no_string);
-
-        String financialNeeds_yes_string = ((financialNeeds_yes_count/totalSurveys)*100) + "%";
         financialNeeds_yes.setText(financialNeeds_yes_string);
-        String financialNeeds_no_string = ((financialNeeds_no_count/totalSurveys)*100) + "%";
         financialNeeds_no.setText(financialNeeds_no_string);
-
-        String abilityToWork_yes_string = ((abilityToWork_yes_count/totalSurveys)*100) + "%";
         abilityToWork_yes.setText(abilityToWork_yes_string);
-        String abilityToWork_no_string = ((abilityToWork_no_count/totalSurveys)*100) + "%";
         abilityToWork_no.setText(abilityToWork_no_string);
-
-        String wantToWork_yes_string = ((wantToWork_yes_count/totalSurveys)*100) + "%";
         wantToWork_yes.setText(wantToWork_yes_string);
-        String wantToWork_no_string = ((wantToWork_no_count/totalSurveys)*100) + "%";
         wantToWork_no.setText(wantToWork_no_string);
     }
 
@@ -622,10 +716,18 @@ public class BaselineStatsFragment extends Fragment {
             }else{
                 enoughFood_no_count++;
             }
+            totalSurveys++;
         }
-        String enoughFood_yes_string = ((enoughFood_yes_count/totalSurveys)*100) + "%";
+
+        String enoughFood_yes_string = "0%";
+        String enoughFood_no_string = "0%";
+
+        if(totalSurveys != 0){
+            enoughFood_yes_string = ((enoughFood_yes_count/totalSurveys)*100) + "%";
+            enoughFood_no_string = ((enoughFood_no_count/totalSurveys)*100) + "%";
+        }
+
         enoughFood_yes.setText(enoughFood_yes_string);
-        String enoughFood_no_string = ((enoughFood_no_count/totalSurveys)*100) + "%";
         enoughFood_no.setText(enoughFood_no_string);
     }
 
@@ -662,21 +764,30 @@ public class BaselineStatsFragment extends Fragment {
             }else{
                 influencePeople_no_count++;
             }
+            totalSurveys++;
         }
 
-        String assistPeople_yes_string = ((assistPeople_yes_count/totalSurveys)*100) + "%";
+        String assistPeople_yes_string = "0%";
+        String assistPeople_no_string = "0%";
+        String awareOfRights_yes_string = "0%";
+        String awareOfRights_no_string = "0%";
+        String influencePeople_yes_string = "0%";
+        String influencePeople_no_string = "0%";
+
+        if(totalSurveys != 0){
+            assistPeople_yes_string = ((assistPeople_yes_count/totalSurveys)*100) + "%";
+            assistPeople_no_string = ((assistPeople_no_count/totalSurveys)*100) + "%";
+            awareOfRights_yes_string = ((awareOfRights_yes_count/totalSurveys)*100) + "%";
+            awareOfRights_no_string = ((awareOfRights_no_count/totalSurveys)*100) + "%";
+            influencePeople_yes_string = ((influencePeople_yes_count/totalSurveys)*100) + "%";
+            influencePeople_no_string = ((influencePeople_no_count/totalSurveys)*100) + "%";
+        }
+
         assistPeople_yes.setText(assistPeople_yes_string);
-        String assistPeople_no_string = ((assistPeople_no_count/totalSurveys)*100) + "%";
         assistPeople_no.setText(assistPeople_no_string);
-
-        String awareOfRights_yes_string = ((awareOfRights_yes_count/totalSurveys)*100) + "%";
         awareOfRights_yes.setText(awareOfRights_yes_string);
-        String awareOfRights_no_string = ((awareOfRights_no_count/totalSurveys)*100) + "%";
         awareOfRights_no.setText(awareOfRights_no_string);
-
-        String influencePeople_yes_string = ((influencePeople_yes_count/totalSurveys)*100) + "%";
         influencePeople_yes.setText(influencePeople_yes_string);
-        String influencePeople_no_string = ((influencePeople_no_count/totalSurveys)*100) + "%";
         influencePeople_no.setText(influencePeople_no_string);
     }
 
@@ -703,15 +814,24 @@ public class BaselineStatsFragment extends Fragment {
             }else{
                 essentialItems_no_count++;
             }
+            totalSurveys++;
         }
 
-        String adequateShelter_yes_string = ((adequateShelter_yes_count/totalSurveys)*100) + "%";
+        String adequateShelter_yes_string = "0%";
+        String adequateShelter_no_string = "0%";
+        String essentialItems_yes_string = "0%";
+        String essentialItems_no_string = "0%";
+
+        if(totalSurveys != 0){
+            adequateShelter_yes_string = ((adequateShelter_yes_count/totalSurveys)*100) + "%";
+            adequateShelter_no_string = ((adequateShelter_no_count/totalSurveys)*100) + "%";
+            essentialItems_yes_string = ((essentialItems_yes_count/totalSurveys)*100) + "%";
+            essentialItems_no_string = ((essentialItems_no_count/totalSurveys)*100) + "%";
+        }
+
         adequateShelter_yes.setText(adequateShelter_yes_string);
-        String adequateShelter_no_string = ((adequateShelter_no_count/totalSurveys)*100) + "%";
         adequateShelter_no.setText(adequateShelter_no_string);
-        String essentialItems_yes_string = ((essentialItems_yes_count/totalSurveys)*100) + "%";
         essentialItems_yes.setText(essentialItems_yes_string);
-        String essentialItems_no_string = ((essentialItems_no_count/totalSurveys)*100) + "%";
         essentialItems_no.setText(essentialItems_no_string);
     }
 }

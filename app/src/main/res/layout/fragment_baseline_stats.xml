@@ -325,23 +325,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="If yes what grade?"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/grade"
-                            android:text="" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="If No, have you ever been to \nschool before?"
                             android:background="@drawable/table_border"/>
 
@@ -391,6 +374,20 @@
                             android:background="@drawable/table_border"/>
                     </TableRow>
                 </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Grade of Students"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_grades_graph"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -654,32 +651,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="If yes, what do you do?"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:gravity="center"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:gravity="center"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="Does this meet your \nfinancial needs?"
                             android:background="@drawable/table_border"/>
 
@@ -757,6 +728,20 @@
                             android:background="@drawable/table_border"/>
                     </TableRow>
                 </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Current Employment"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_workType_graph"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
