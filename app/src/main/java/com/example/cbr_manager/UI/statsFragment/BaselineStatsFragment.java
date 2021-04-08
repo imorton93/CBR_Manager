@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.Database.SurveyManager;
@@ -51,6 +52,10 @@ public class BaselineStatsFragment extends Fragment {
         surveyManager = SurveyManager.getInstance(statsActivity);
         View view = inflater.inflate(R.layout.fragment_baseline_stats, container, false);
         initializeGraphs(view);
+        setHealthTableValues(view);
+        setEducationTableValues(view);
+        setSocialTableValues(view);
+        setLivelihoodTableValues(view);
         return view;
     }
 
@@ -313,4 +318,292 @@ public class BaselineStatsFragment extends Fragment {
 
         return childConditionDataPoints;
     }
+
+    private void setHealthTableValues(View view){
+        TextView accessToRehab_yes = view.findViewById(R.id.accessToRehab_yes);
+        TextView accessToRehab_no = view.findViewById(R.id.accessToRehab_no);
+        TextView needAccessToRehab_yes = view.findViewById(R.id.needAccessToRehab_yes);
+        TextView needAccessToRehab_no = view.findViewById(R.id.needAccessToRehab_no);
+        TextView haveAssistiveDevice_yes = view.findViewById(R.id.haveAssistiveDevice_yes);
+        TextView haveAssistiveDevice_no = view.findViewById(R.id.haveAssistiveDevice_no);
+        TextView assistiveDeviceWorking_yes = view.findViewById(R.id.assistiveDeviceWorking_yes);
+        TextView assistiveDeviceWorking_no = view.findViewById(R.id.assistiveDeviceWorking_no);
+        TextView needAssistiveDevice_yes = view.findViewById(R.id.needAssistiveDevice_yes);
+        TextView needAssistiveDevice_no = view.findViewById(R.id.needAssistiveDevice_no);
+        int accessToRehab_yes_count = 0;
+        int accessToRehab_no_count = 0;
+        int needAccessToRehab_yes_count = 0;
+        int needAccessToRehab_no_count = 0;
+        int haveAssistiveDevice_yes_count = 0;
+        int haveAssistiveDevice_no_count = 0;
+        int assistiveDeviceWorking_yes_count = 0;
+        int assistiveDeviceWorking_no_count = 0;
+        int needAssistiveDevice_yes_count = 0;
+        int needAssistiveDevice_no_count = 0;
+        int totalSurveys = 0;
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            if(survey.isHave_rehab_access()){
+                accessToRehab_yes_count++;
+            }else{
+                accessToRehab_no_count++;
+            }
+
+            if(survey.isNeed_rehab_access()){
+                needAccessToRehab_yes_count++;
+            }else{
+                needAccessToRehab_no_count++;
+            }
+
+            if(survey.isHave_device()){
+                haveAssistiveDevice_yes_count++;
+            }else{
+                haveAssistiveDevice_no_count++;
+            }
+
+            if(survey.isDevice_condition()){
+                assistiveDeviceWorking_yes_count++;
+            }else{
+                assistiveDeviceWorking_no_count++;
+            }
+
+            if(survey.isDevice_condition()){
+                needAssistiveDevice_yes_count++;
+            }else{
+                needAssistiveDevice_no_count++;
+            }
+
+            totalSurveys++;
+        }
+
+        String accessToRehab_yes_string = ("" + (accessToRehab_yes_count/totalSurveys)*100) + "%";
+        accessToRehab_yes.setText(accessToRehab_yes_string);
+        String accessToRehab_no_string = ("" + (accessToRehab_no_count/totalSurveys)*100) + "%";
+        accessToRehab_no.setText(accessToRehab_no_string);
+
+        String needAccessToRehab_yes_string = ("" + (needAccessToRehab_yes_count/totalSurveys)*100) + "%";
+        needAccessToRehab_yes.setText(needAccessToRehab_yes_string);
+        String needAccessToRehab_no_string = ("" + (needAccessToRehab_no_count/totalSurveys)*100) + "%";
+        needAccessToRehab_no.setText(needAccessToRehab_no_string);
+
+        String haveAssistiveDevice_yes_string = ("" + (haveAssistiveDevice_yes_count/totalSurveys)*100) + "%";
+        haveAssistiveDevice_yes.setText(haveAssistiveDevice_yes_string);
+        String haveAssistiveDevice_no_string = ("" + (haveAssistiveDevice_no_count/totalSurveys)*100) + "%";
+        haveAssistiveDevice_no.setText(haveAssistiveDevice_no_string);
+
+        String assistiveDeviceWorking_yes_string = ("" + (assistiveDeviceWorking_yes_count/totalSurveys)*100) + "%";
+        assistiveDeviceWorking_yes.setText(assistiveDeviceWorking_yes_string);
+        String assistiveDeviceWorking_no_string = ("" + (assistiveDeviceWorking_no_count/totalSurveys)*100) + "%";
+        assistiveDeviceWorking_no.setText(assistiveDeviceWorking_no_string);
+
+        String needAssistiveDevice_yes_string = ("" + (needAssistiveDevice_yes_count/totalSurveys)*100) + "%";
+        needAssistiveDevice_yes.setText(needAssistiveDevice_yes_string);
+        String needAssistiveDevice_no_string = ("" + (needAssistiveDevice_no_count/totalSurveys)*100) + "%";
+        needAssistiveDevice_no.setText(needAssistiveDevice_no_string);
+    }
+
+    private void setEducationTableValues(View view){
+        TextView goToSchool_yes = view.findViewById(R.id.goToSchool_yes);
+        TextView goToSchool_no = view.findViewById(R.id.goToSchool_no);
+        TextView beenToSchoolBefore_yes = view.findViewById(R.id.beenToSchoolBefore_yes);
+        TextView beenToSchoolBefore_no = view.findViewById(R.id.beenToSchoolBefore_no);
+        TextView wantToGoToSchool_yes = view.findViewById(R.id.wantToGoToSchool_yes);
+        TextView wantToGoToSchool_no = view.findViewById(R.id.wantToGoToSchool_no);
+        int goToSchool_yes_count = 0;
+        int goToSchool_no_count = 0;
+        int beenToSchoolBefore_yes_count = 0;
+        int beenToSchoolBefore_no_count = 0;
+        int wantToGoToSchool_yes_count = 0;
+        int wantToGoToSchool_no_count = 0;
+        int totalSurveys = 0;
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            if(survey.isIs_student()){
+                goToSchool_yes_count++;
+            }else{
+                goToSchool_no_count++;
+            }
+
+            if(survey.isWas_student()){
+                beenToSchoolBefore_yes_count++;
+            }else{
+                beenToSchoolBefore_no_count++;
+            }
+
+            if(survey.isWant_school()){
+                wantToGoToSchool_yes_count++;
+            }else{
+                wantToGoToSchool_no_count++;
+            }
+
+            totalSurveys++;
+        }
+
+        String goToSchool_yes_string = ((goToSchool_yes_count/totalSurveys)*100) + "%";
+        goToSchool_yes.setText(goToSchool_yes_string);
+        String goToSchool_no_string = ((goToSchool_no_count/totalSurveys)*100) + "%";
+        goToSchool_no.setText(goToSchool_no_string);
+
+        String beenToSchoolBefore_yes_string = ((beenToSchoolBefore_yes_count/totalSurveys)*100) + "%";
+        beenToSchoolBefore_yes.setText(beenToSchoolBefore_yes_string);
+        String beenToSchoolBefore_no_string = ((beenToSchoolBefore_no_count/totalSurveys)*100) + "%";
+        beenToSchoolBefore_no.setText(beenToSchoolBefore_no_string);
+
+        String wantToGoToSchool_yes_string = ((wantToGoToSchool_yes_count/totalSurveys)*100) + "%";
+        wantToGoToSchool_yes.setText(wantToGoToSchool_yes_string);
+        String wantToGoToSchool_no_string = ((wantToGoToSchool_no_count/totalSurveys)*100) + "%";
+        wantToGoToSchool_no.setText(wantToGoToSchool_no_string);
+    }
+
+    private void setSocialTableValues(View view){
+        TextView valuedCommunityMember_yes = view.findViewById(R.id.valuedCommunityMember_yes);
+        TextView valuedCommunityMember_no = view.findViewById(R.id.valuedCommunityMember_no);
+        TextView independent_yes = view.findViewById(R.id.independent_yes);
+        TextView independent_no = view.findViewById(R.id.independent_no);
+        TextView participateInEvents_yes = view.findViewById(R.id.participateInEvents_yes);
+        TextView participateInEvents_no = view.findViewById(R.id.participateInEvents_no);
+        TextView interactSocially_yes = view.findViewById(R.id.interactSocially_yes);
+        TextView interactSocially_no = view.findViewById(R.id.interactSocially_no);
+        TextView experienceDiscrimination_yes = view.findViewById(R.id.experienceDiscrimination_yes);
+        TextView experienceDiscrimination_no = view.findViewById(R.id.experienceDiscrimination_no);
+        int valuedCommunityMember_yes_count = 0;
+        int valuedCommunityMember_no_count = 0;
+        int independent_yes_count = 0;
+        int independent_no_count = 0;
+        int participateInEvents_yes_count = 0;
+        int participateInEvents_no_count = 0;
+        int interactSocially_yes_count = 0;
+        int interactSocially_no_count = 0;
+        int experienceDiscrimination_yes_count = 0;
+        int experienceDiscrimination_no_count = 0;
+        int totalSurveys = 0;
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            if(survey.isIs_valued()){
+                valuedCommunityMember_yes_count++;
+            }else{
+                valuedCommunityMember_no_count++;
+            }
+
+            if(survey.isIs_independent()){
+                independent_yes_count++;
+            }else{
+                independent_no_count++;
+            }
+
+            if(survey.isIs_social()){
+                participateInEvents_yes_count++;
+            }else{
+                participateInEvents_no_count++;
+            }
+
+            if(survey.isIs_socially_affected()){
+                interactSocially_yes_count++;
+            }else{
+                interactSocially_no_count++;
+            }
+
+            if(survey.isWas_discriminated()){
+                experienceDiscrimination_yes_count++;
+            }else{
+                experienceDiscrimination_no_count++;
+            }
+
+            totalSurveys++;
+        }
+
+        String valuedCommunityMember_yes_string = ((valuedCommunityMember_yes_count/totalSurveys)*100) + "%";
+        valuedCommunityMember_yes.setText(valuedCommunityMember_yes_string);
+        String valuedCommunityMember_no_string = ((valuedCommunityMember_no_count/totalSurveys)*100) + "%";
+        valuedCommunityMember_no.setText(valuedCommunityMember_no_string);
+
+        String independent_yes_string = ((independent_yes_count/totalSurveys)*100) + "%";
+        independent_yes.setText(independent_yes_string);
+        String independent_no_string = ((independent_no_count/totalSurveys)*100) + "%";
+        independent_no.setText(independent_no_string);
+
+        String participateInEvents_yes_string = ((participateInEvents_yes_count/totalSurveys)*100) + "%";
+        participateInEvents_yes.setText(participateInEvents_yes_string);
+        String participateInEvents_no_string = ((participateInEvents_no_count/totalSurveys)*100) + "%";
+        participateInEvents_no.setText(participateInEvents_no_string);
+
+        String interactSocially_yes_string = ((interactSocially_yes_count/totalSurveys)*100) + "%";
+        interactSocially_yes.setText(interactSocially_yes_string);
+        String interactSocially_no_string = ((interactSocially_no_count/totalSurveys)*100) + "%";
+        interactSocially_no.setText(interactSocially_no_string);
+
+        String experienceDiscrimination_yes_string = ((experienceDiscrimination_yes_count/totalSurveys)*100) + "%";
+        experienceDiscrimination_yes.setText(experienceDiscrimination_yes_string);
+        String experienceDiscrimination_no_string = ((experienceDiscrimination_no_count/totalSurveys)*100) + "%";
+        experienceDiscrimination_no.setText(experienceDiscrimination_no_string);
+    }
+
+    private void setLivelihoodTableValues(View view) {
+        TextView working_yes = view.findViewById(R.id.working_yes);
+        TextView working_no = view.findViewById(R.id.working_no);
+        TextView financialNeeds_yes = view.findViewById(R.id.financialNeeds_yes);
+        TextView financialNeeds_no = view.findViewById(R.id.financialNeeds_no);
+        TextView abilityToWork_yes = view.findViewById(R.id.abilityToWork_yes);
+        TextView abilityToWork_no = view.findViewById(R.id.abilityToWork_no);
+        TextView wantToWork_yes = view.findViewById(R.id.wantToWork_yes);
+        TextView wantToWork_no = view.findViewById(R.id.wantToWork_no);
+        int working_yes_count = 0;
+        int working_no_count = 0;
+        int financialNeeds_yes_count = 0;
+        int financialNeeds_no_count = 0;
+        int abilityToWork_yes_count = 0;
+        int abilityToWork_no_count = 0;
+        int wantToWork_yes_count = 0;
+        int wantToWork_no_count = 0;
+        int totalSurveys = 0;
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            if(survey.isIs_working()){
+                working_yes_count++;
+            }else{
+                working_no_count++;
+            }
+
+            if(survey.isNeeds_met()){
+                financialNeeds_yes_count++;
+            }else{
+                financialNeeds_no_count++;
+            }
+
+            if(survey.isIs_work_affected()){
+                abilityToWork_yes_count++;
+            }else{
+                abilityToWork_no_count++;
+            }
+
+            if(survey.isWant_work()){
+                wantToWork_yes_count++;
+            }else{
+                wantToWork_no_count++;
+            }
+
+            totalSurveys++;
+        }
+
+        String working_yes_string = ((working_yes_count/totalSurveys)*100) + "%";
+        working_yes.setText(working_yes_string);
+        String working_no_string = ((working_no_count/totalSurveys)*100) + "%";
+        working_no.setText(working_no_string);
+
+        String financialNeeds_yes_string = ((financialNeeds_yes_count/totalSurveys)*100) + "%";
+        financialNeeds_yes.setText(financialNeeds_yes_string);
+        String financialNeeds_no_string = ((financialNeeds_no_count/totalSurveys)*100) + "%";
+        financialNeeds_no.setText(financialNeeds_no_string);
+
+        String abilityToWork_yes_string = ((abilityToWork_yes_count/totalSurveys)*100) + "%";
+        abilityToWork_yes.setText(abilityToWork_yes_string);
+        String abilityToWork_no_string = ((abilityToWork_no_count/totalSurveys)*100) + "%";
+        abilityToWork_no.setText(abilityToWork_no_string);
+
+        String wantToWork_yes_string = ((wantToWork_yes_count/totalSurveys)*100) + "%";
+        wantToWork_yes.setText(wantToWork_yes_string);
+        String wantToWork_no_string = ((wantToWork_no_count/totalSurveys)*100) + "%";
+        wantToWork_no.setText(wantToWork_no_string);
+    }
+
 }
