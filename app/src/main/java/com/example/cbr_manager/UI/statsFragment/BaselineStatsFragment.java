@@ -27,12 +27,7 @@ public class BaselineStatsFragment extends Fragment {
 
     private StatsActivity statsActivity;
     private SurveyManager surveyManager;
-    private static final ArrayList<String> DEVICE_TYPES = new ArrayList<String>();
-    private static final ArrayList<String> REASON_NOT_IN_SCHOOL = new ArrayList<String>();
-    private static final ArrayList<String> EMPLOYED = new ArrayList<String>();
-    private static final ArrayList<String> FOOD_SECURITY = new ArrayList<String>();
-    private static final ArrayList<String> QUALITY = new ArrayList<String>();
-    private static final ArrayList<String> CHILD_CONDITION = new ArrayList<String>();
+    private static final ArrayList<String> LABELS = new ArrayList<String>();
 
 
     public BaselineStatsFragment() {}
@@ -55,13 +50,7 @@ public class BaselineStatsFragment extends Fragment {
         this.statsActivity = (StatsActivity) getActivity();
         surveyManager = SurveyManager.getInstance(statsActivity);
         View view = inflater.inflate(R.layout.fragment_baseline_stats, container, false);
-        health_devicesType_DataPoints(view);
-        health_generalHealth_DataPoints(view);
-        health_satisfaction_DataPoints(view);
-        health_whyNotInSchool_DataPoints(view);
-        health_isEmployed_DataPoints(view);
-        health_foodSecurity_DataPoints(view);
-        health_childCondition_DataPoints(view);
+        initializeGraphs(view);
         return view;
     }
 
@@ -97,23 +86,49 @@ public class BaselineStatsFragment extends Fragment {
         graph.invalidate();
     }
 
-    private void health_devicesType_DataPoints(View view){
+    private void initializeGraphs(View view){
         PieChart graph = view.findViewById(R.id.baseline_health_device_graph);
-        ArrayList<Integer> deviceTypeDataPoints = getDeviceTypeDataPoints();
-        ArrayList<PieEntry> entries = new ArrayList<>();
+        ArrayList<Integer> dataPoints = getDeviceTypeDataPoints();
+        setDataPoints(graph, dataPoints);
 
+        graph = view.findViewById(R.id.baseline_generalHealth_graph);
+        dataPoints = getGeneralHealthDataPoints();
+        setDataPoints(graph, dataPoints);
+
+        graph = view.findViewById(R.id.baseline_health_satisfaction_graph);
+        dataPoints = getHealthSatisfactionDataPoints();
+        setDataPoints(graph, dataPoints);
+
+        graph = view.findViewById(R.id.baseline_whyDontTheyGoToSchool_graph);
+        dataPoints = getWhyNotInSchoolDataPoints();
+        setDataPoints(graph, dataPoints);
+
+        graph = view.findViewById(R.id.baseline_employed_graph);
+        dataPoints = getIsEmployedDataPoints();
+        setDataPoints(graph, dataPoints);
+
+        graph = view.findViewById(R.id.baseline_foodSecurity_graph);
+        dataPoints = getFoodSecurityDataPoints();
+        setDataPoints(graph, dataPoints);
+
+        graph = view.findViewById(R.id.baseline_isChild_graph);
+        dataPoints = getChildConditionDataPoints();
+        setDataPoints(graph, dataPoints);
+    }
+
+    private void setDataPoints(PieChart graph, ArrayList<Integer> deviceTypeDataPoints){
+        ArrayList<PieEntry> entries = new ArrayList<>();
         for(int i = 0; i < deviceTypeDataPoints.size(); i++){
-            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), DEVICE_TYPES.get(i));
+            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), LABELS.get(i));
             entries.add(pieEntry);
         }
-
         createPieChart(graph, entries);
     }
 
     private ArrayList<Integer> getDeviceTypeDataPoints(){
         HashMap<String, Integer> deviceTypeCount = new HashMap<>();
         ArrayList<Integer> deviceTypesDataPoints = new ArrayList<Integer>();
-        DEVICE_TYPES.clear();
+        LABELS.clear();
 
         for(Survey survey : surveyManager.getSurveyList()){
             String deviceType = survey.getDevice_type();
@@ -127,29 +142,16 @@ public class BaselineStatsFragment extends Fragment {
 
         for(Map.Entry<String, Integer> entry : deviceTypeCount.entrySet()){
             deviceTypesDataPoints.add(entry.getValue());
-            DEVICE_TYPES.add(entry.getKey());
+            LABELS.add(entry.getKey());
         }
 
         return deviceTypesDataPoints;
     }
 
-    private void health_generalHealth_DataPoints(View view){
-        PieChart graph = view.findViewById(R.id.baseline_generalHealth_graph);
-        ArrayList<Integer> deviceTypeDataPoints = getGeneralHealthDataPoints();
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
-            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), QUALITY.get(i));
-            entries.add(pieEntry);
-        }
-
-        createPieChart(graph, entries);
-    }
-
     private ArrayList<Integer> getGeneralHealthDataPoints(){
         HashMap<String, Integer> generalHealthCount = new HashMap<>();
         ArrayList<Integer> generalHealthDataPoints = new ArrayList<Integer>();
-        QUALITY.clear();
+        LABELS.clear();
 
         for(Survey survey : surveyManager.getSurveyList()){
             byte generalHealth = survey.getHealth_condition();
@@ -177,29 +179,16 @@ public class BaselineStatsFragment extends Fragment {
 
         for(Map.Entry<String, Integer> entry : generalHealthCount.entrySet()){
             generalHealthDataPoints.add(entry.getValue());
-            QUALITY.add(entry.getKey());
+            LABELS.add(entry.getKey());
         }
 
         return generalHealthDataPoints;
     }
 
-    private void health_satisfaction_DataPoints(View view){
-        PieChart graph = view.findViewById(R.id.baseline_health_satisfaction_graph);
-        ArrayList<Integer> deviceTypeDataPoints = getHealthSatisfactionDataPoints();
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
-            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), QUALITY.get(i));
-            entries.add(pieEntry);
-        }
-
-        createPieChart(graph, entries);
-    }
-
     private ArrayList<Integer> getHealthSatisfactionDataPoints(){
         HashMap<String, Integer> isSatisfiedCount = new HashMap<>();
         ArrayList<Integer> isSatisfiedDataPoints = new ArrayList<Integer>();
-        QUALITY.clear();
+        LABELS.clear();
 
         for(Survey survey : surveyManager.getSurveyList()){
             byte is_satisfied = survey.getIs_satisfied();
@@ -227,29 +216,16 @@ public class BaselineStatsFragment extends Fragment {
 
         for(Map.Entry<String, Integer> entry : isSatisfiedCount.entrySet()){
             isSatisfiedDataPoints.add(entry.getValue());
-            QUALITY.add(entry.getKey());
+            LABELS.add(entry.getKey());
         }
 
         return isSatisfiedDataPoints;
     }
 
-    private void health_whyNotInSchool_DataPoints(View view){
-        PieChart graph = view.findViewById(R.id.baseline_whyDontTheyGoToSchool_graph);
-        ArrayList<Integer> deviceTypeDataPoints = getWhyNotInSchoolDataPoints();
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
-            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), REASON_NOT_IN_SCHOOL.get(i));
-            entries.add(pieEntry);
-        }
-
-        createPieChart(graph, entries);
-    }
-
     private ArrayList<Integer> getWhyNotInSchoolDataPoints() {
         HashMap<String, Integer> reasonNotInSchoolCount = new HashMap<>();
         ArrayList<Integer> reasonNotInSchoolDataPoints = new ArrayList<Integer>();
-        REASON_NOT_IN_SCHOOL.clear();
+        LABELS.clear();
 
         for(Survey survey : surveyManager.getSurveyList()){
             String reasonNotInSchool = survey.getReason_no_school();
@@ -263,29 +239,16 @@ public class BaselineStatsFragment extends Fragment {
 
         for(Map.Entry<String, Integer> entry : reasonNotInSchoolCount.entrySet()){
             reasonNotInSchoolDataPoints.add(entry.getValue());
-            REASON_NOT_IN_SCHOOL.add(entry.getKey());
+            LABELS.add(entry.getKey());
         }
 
         return reasonNotInSchoolDataPoints;
     }
 
-    private void health_isEmployed_DataPoints(View view){
-        PieChart graph = view.findViewById(R.id.baseline_employed_graph);
-        ArrayList<Integer> deviceTypeDataPoints = getIsEmployedDataPoints();
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
-            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), EMPLOYED.get(i));
-            entries.add(pieEntry);
-        }
-
-        createPieChart(graph, entries);
-    }
-
     private ArrayList<Integer> getIsEmployedDataPoints() {
         HashMap<String, Integer> selfEmployedCount = new HashMap<>();
         ArrayList<Integer> selfEmployedDataPoints = new ArrayList<Integer>();
-        EMPLOYED.clear();
+        LABELS.clear();
 
         for(Survey survey : surveyManager.getSurveyList()){
             String selfEmployed = survey.getIs_self_employed();
@@ -299,29 +262,16 @@ public class BaselineStatsFragment extends Fragment {
 
         for(Map.Entry<String, Integer> entry : selfEmployedCount.entrySet()){
             selfEmployedDataPoints.add(entry.getValue());
-            EMPLOYED.add(entry.getKey());
+            LABELS.add(entry.getKey());
         }
 
         return selfEmployedDataPoints;
     }
 
-    private void health_foodSecurity_DataPoints(View view){
-        PieChart graph = view.findViewById(R.id.baseline_foodSecurity_graph);
-        ArrayList<Integer> deviceTypeDataPoints = getFoodSecurityDataPoints();
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
-            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), FOOD_SECURITY.get(i));
-            entries.add(pieEntry);
-        }
-
-        createPieChart(graph, entries);
-    }
-
     private ArrayList<Integer> getFoodSecurityDataPoints(){
         HashMap<String, Integer> foodSecurityCount = new HashMap<>();
         ArrayList<Integer> foodSecurityDataPoints = new ArrayList<Integer>();
-        FOOD_SECURITY.clear();
+        LABELS.clear();
 
         for(Survey survey : surveyManager.getSurveyList()){
             String foodSecurity = survey.getFood_security();
@@ -335,29 +285,16 @@ public class BaselineStatsFragment extends Fragment {
 
         for(Map.Entry<String, Integer> entry : foodSecurityCount.entrySet()){
             foodSecurityDataPoints.add(entry.getValue());
-            FOOD_SECURITY.add(entry.getKey());
+            LABELS.add(entry.getKey());
         }
 
         return foodSecurityDataPoints;
     }
 
-    private void health_childCondition_DataPoints(View view){
-        PieChart graph = view.findViewById(R.id.baseline_isChild_graph);
-        ArrayList<Integer> deviceTypeDataPoints = getChildConditionDataPoints();
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
-            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), CHILD_CONDITION.get(i));
-            entries.add(pieEntry);
-        }
-
-        createPieChart(graph, entries);
-    }
-
     private ArrayList<Integer> getChildConditionDataPoints(){
         HashMap<String, Integer> childConditionCount = new HashMap<>();
         ArrayList<Integer> childConditionDataPoints = new ArrayList<Integer>();
-        CHILD_CONDITION.clear();
+        LABELS.clear();
 
         for(Survey survey : surveyManager.getSurveyList()){
             String child_condition = survey.getChild_condition();
@@ -371,7 +308,7 @@ public class BaselineStatsFragment extends Fragment {
 
         for(Map.Entry<String, Integer> entry : childConditionCount.entrySet()){
             childConditionDataPoints.add(entry.getValue());
-            CHILD_CONDITION.add(entry.getKey());
+            LABELS.add(entry.getKey());
         }
 
         return childConditionDataPoints;
