@@ -258,7 +258,7 @@ public class Survey implements Serializable {
         this.work_type = work_type;
     }
 
-    public String isIs_self_employed() {
+    public String getIs_self_employed() {
         return is_self_employed;
     }
 

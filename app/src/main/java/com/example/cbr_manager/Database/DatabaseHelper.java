@@ -5,14 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-
-import static android.content.ContentValues.TAG;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "cbr.db";
@@ -477,7 +473,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(survey_was_discriminated, survey.isWas_discriminated());
         cv.put(survey_is_working, survey.isIs_working());
         cv.put(survey_work_type, survey.getWork_type());
-        cv.put(survey_is_self_employed, survey.isIs_self_employed());
+        cv.put(survey_is_self_employed, survey.getIs_self_employed());
         cv.put(survey_needs_met, survey.isNeeds_met());
         cv.put(survey_is_work_affected, survey.isIs_work_affected());
         cv.put(survey_want_work, survey.isWant_work());

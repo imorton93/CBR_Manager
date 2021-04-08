@@ -671,29 +671,22 @@
                             android:text="self-employed"
                             android:background="@drawable/table_border"/>
                     </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Are you employed or \nself-employed?"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
                 </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Employed versus self-employed"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_employed_graph"
+                    />
+
 
                 <TextView
                     android:layout_width="wrap_content"

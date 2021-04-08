@@ -9,26 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cbr_manager.Database.Client;
-import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.Database.SurveyManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.StatsActivity;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +29,7 @@ public class BaselineStatsFragment extends Fragment {
     private SurveyManager surveyManager;
     private static final ArrayList<String> DEVICE_TYPES = new ArrayList<String>();
     private static final ArrayList<String> REASON_NOT_IN_SCHOOL = new ArrayList<String>();
+    private static final ArrayList<String> EMPLOYED = new ArrayList<String>();
     private static final ArrayList<String> QUALITY = new ArrayList<String>();
 
 
@@ -67,6 +57,7 @@ public class BaselineStatsFragment extends Fragment {
         health_generalHealth_DataPoints(view);
         health_satisfaction_DataPoints(view);
         health_whyNotInSchool_DataPoints(view);
+        health_isEmployed_DataPoints(view);
         return view;
     }
 
@@ -244,7 +235,7 @@ public class BaselineStatsFragment extends Fragment {
         ArrayList<PieEntry> entries = new ArrayList<>();
 
         for(int i = 0; i < deviceTypeDataPoints.size(); i++){
-            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), QUALITY.get(i));
+            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), REASON_NOT_IN_SCHOOL.get(i));
             entries.add(pieEntry);
         }
 
@@ -272,5 +263,41 @@ public class BaselineStatsFragment extends Fragment {
         }
 
         return reasonNotInSchoolDataPoints;
+    }
+
+    private void health_isEmployed_DataPoints(View view){
+        PieChart graph = view.findViewById(R.id.baseline_employed_graph);
+        ArrayList<Integer> deviceTypeDataPoints = getIsEmployedDataPoints();
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
+            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), EMPLOYED.get(i));
+            entries.add(pieEntry);
+        }
+
+        createPieChart(graph, entries);
+    }
+
+    private ArrayList<Integer> getIsEmployedDataPoints() {
+        HashMap<String, Integer> selfEmployedCount = new HashMap<>();
+        ArrayList<Integer> selfEmployedDataPoints = new ArrayList<Integer>();
+        EMPLOYED.clear();
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            String selfEmployed = survey.getIs_self_employed();
+            if(selfEmployedCount.containsKey(selfEmployed)){
+                Integer count = selfEmployedCount.get(selfEmployed);
+                selfEmployedCount.put(selfEmployed, count+1);
+            }else{
+                selfEmployedCount.put(selfEmployed, 1);
+            }
+        }
+
+        for(Map.Entry<String, Integer> entry : selfEmployedCount.entrySet()){
+            selfEmployedDataPoints.add(entry.getValue());
+            EMPLOYED.add(entry.getKey());
+        }
+
+        return selfEmployedDataPoints;
     }
 }
