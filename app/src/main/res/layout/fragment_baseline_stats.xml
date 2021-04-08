@@ -343,73 +343,19 @@
                     </TableRow>
                 </TableLayout>
 
-                <HorizontalScrollView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Reason why they do not go to school"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TableLayout
-                        android:layout_marginTop="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:stretchColumns="*">
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Lack of funding"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="My disability stops me"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="other"
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="If no why do you not go to school?"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-                    </TableLayout>
-                </HorizontalScrollView>
+                    android:id="@+id/baseline_whyDontTheyGoToSchool_graph"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -39,6 +39,7 @@ public class BaselineStatsFragment extends Fragment {
     private StatsActivity statsActivity;
     private SurveyManager surveyManager;
     private static final ArrayList<String> DEVICE_TYPES = new ArrayList<String>();
+    private static final ArrayList<String> REASON_NOT_IN_SCHOOL = new ArrayList<String>();
     private static final ArrayList<String> QUALITY = new ArrayList<String>();
 
 
@@ -65,6 +66,7 @@ public class BaselineStatsFragment extends Fragment {
         health_devicesType_DataPoints(view);
         health_generalHealth_DataPoints(view);
         health_satisfaction_DataPoints(view);
+        health_whyNotInSchool_DataPoints(view);
         return view;
     }
 
@@ -234,5 +236,41 @@ public class BaselineStatsFragment extends Fragment {
         }
 
         return isSatisfiedDataPoints;
+    }
+
+    private void health_whyNotInSchool_DataPoints(View view){
+        PieChart graph = view.findViewById(R.id.baseline_whyDontTheyGoToSchool_graph);
+        ArrayList<Integer> deviceTypeDataPoints = getWhyNotInSchoolDataPoints();
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
+            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), QUALITY.get(i));
+            entries.add(pieEntry);
+        }
+
+        createPieChart(graph, entries);
+    }
+
+    private ArrayList<Integer> getWhyNotInSchoolDataPoints() {
+        HashMap<String, Integer> reasonNotInSchoolCount = new HashMap<>();
+        ArrayList<Integer> reasonNotInSchoolDataPoints = new ArrayList<Integer>();
+        REASON_NOT_IN_SCHOOL.clear();
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            String reasonNotInSchool = survey.getReason_no_school();
+            if(reasonNotInSchoolCount.containsKey(reasonNotInSchool)){
+                Integer count = reasonNotInSchoolCount.get(reasonNotInSchool);
+                reasonNotInSchoolCount.put(reasonNotInSchool, count+1);
+            }else{
+                reasonNotInSchoolCount.put(reasonNotInSchool, 1);
+            }
+        }
+
+        for(Map.Entry<String, Integer> entry : reasonNotInSchoolCount.entrySet()){
+            reasonNotInSchoolDataPoints.add(entry.getValue());
+            REASON_NOT_IN_SCHOOL.add(entry.getKey());
+        }
+
+        return reasonNotInSchoolDataPoints;
     }
 }
