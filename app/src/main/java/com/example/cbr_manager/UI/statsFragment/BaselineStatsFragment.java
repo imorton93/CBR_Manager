@@ -450,16 +450,35 @@ public class BaselineStatsFragment extends Fragment {
         String needAssistiveDevice_no_string = "0%";
 
         if(totalSurveys != 0){
-            accessToRehab_yes_string = ("" + (accessToRehab_yes_count/totalSurveys)*100) + "%";
-            accessToRehab_no_string = ("" + (accessToRehab_no_count/totalSurveys)*100) + "%";
-            needAccessToRehab_yes_string = ("" + (needAccessToRehab_yes_count/totalSurveys)*100) + "%";
-            needAccessToRehab_no_string = ("" + (needAccessToRehab_no_count/totalSurveys)*100) + "%";
-            haveAssistiveDevice_yes_string = ("" + (haveAssistiveDevice_yes_count/totalSurveys)*100) + "%";
-            haveAssistiveDevice_no_string = ("" + (haveAssistiveDevice_no_count/totalSurveys)*100) + "%";
-            assistiveDeviceWorking_yes_string = ("" + (assistiveDeviceWorking_yes_count/totalSurveys)*100) + "%";
-            assistiveDeviceWorking_no_string = ("" + (assistiveDeviceWorking_no_count/totalSurveys)*100) + "%";
-            needAssistiveDevice_yes_string = ("" + (needAssistiveDevice_yes_count/totalSurveys)*100) + "%";
-            needAssistiveDevice_no_string = ("" + (needAssistiveDevice_no_count/totalSurveys)*100) + "%";
+            int valuedCommunityMember_yes_percent = (int) Math.round(((double)accessToRehab_yes_count/totalSurveys)*100);
+            accessToRehab_yes_string = valuedCommunityMember_yes_percent + "%";
+
+            int accessToRehab_no_percent = (int) Math.round(((double)accessToRehab_no_count/totalSurveys)*100);
+            accessToRehab_no_string = accessToRehab_no_percent + "%";
+
+            int needAccessToRehab_yes_percent = (int) Math.round(((double)needAccessToRehab_yes_count/totalSurveys)*100);
+            needAccessToRehab_yes_string = needAccessToRehab_yes_percent + "%";
+
+            int needAccessToRehab_no_percent = (int) Math.round(((double)needAccessToRehab_no_count/totalSurveys)*100);
+            needAccessToRehab_no_string = needAccessToRehab_no_percent + "%";
+
+            int haveAssistiveDevice_yes_percent = (int) Math.round(((double)haveAssistiveDevice_yes_count/totalSurveys)*100);
+            haveAssistiveDevice_yes_string = haveAssistiveDevice_yes_percent + "%";
+
+            int haveAssistiveDevice_no_percent = (int) Math.round(((double)haveAssistiveDevice_no_count/totalSurveys)*100);
+            haveAssistiveDevice_no_string = haveAssistiveDevice_no_percent + "%";
+
+            int assistiveDeviceWorking_yes_percent = (int) Math.round(((double)assistiveDeviceWorking_yes_count/totalSurveys)*100);
+            assistiveDeviceWorking_yes_string = assistiveDeviceWorking_yes_percent + "%";
+
+            int assistiveDeviceWorking_no_percent = (int) Math.round(((double)assistiveDeviceWorking_no_count/totalSurveys)*100);
+            assistiveDeviceWorking_no_string = assistiveDeviceWorking_no_percent + "%";
+
+            int needAssistiveDevice_yes_percent = (int) Math.round(((double)needAssistiveDevice_yes_count/totalSurveys)*100);
+            needAssistiveDevice_yes_string = needAssistiveDevice_yes_percent + "%";
+
+            int needAssistiveDevice_no_percent = (int) Math.round(((double)needAssistiveDevice_no_count/totalSurveys)*100);
+            needAssistiveDevice_no_string = needAssistiveDevice_no_percent + "%";
         }
 
         accessToRehab_yes.setText(accessToRehab_yes_string);
@@ -519,12 +538,23 @@ public class BaselineStatsFragment extends Fragment {
         String wantToGoToSchool_no_string = "0%";
 
         if(totalSurveys != 0){
-            goToSchool_yes_string = ((goToSchool_yes_count/totalSurveys)*100) + "%";
-            goToSchool_no_string = ((goToSchool_no_count/totalSurveys)*100) + "%";
-            beenToSchoolBefore_yes_string = ((beenToSchoolBefore_yes_count/totalSurveys)*100) + "%";
-            beenToSchoolBefore_no_string = ((beenToSchoolBefore_no_count/totalSurveys)*100) + "%";
-            wantToGoToSchool_yes_string = ((wantToGoToSchool_yes_count/totalSurveys)*100) + "%";
-            wantToGoToSchool_no_string = ((wantToGoToSchool_no_count/totalSurveys)*100) + "%";
+            int goToSchool_yes_percent = (int) Math.round(((double)goToSchool_yes_count/totalSurveys)*100);
+            goToSchool_yes_string = goToSchool_yes_percent + "%";
+
+            int goToSchool_no_percent = (int) Math.round(((double)goToSchool_no_count/totalSurveys)*100);
+            goToSchool_no_string = goToSchool_no_percent + "%";
+
+            int beenToSchoolBefore_yes_percent = (int) Math.round(((double)beenToSchoolBefore_yes_count/totalSurveys)*100);
+            beenToSchoolBefore_yes_string = beenToSchoolBefore_yes_percent + "%";
+
+            int beenToSchoolBefore_no_percent = (int) Math.round(((double)beenToSchoolBefore_no_count/totalSurveys)*100);
+            beenToSchoolBefore_no_string = beenToSchoolBefore_no_percent + "%";
+
+            int wantToGoToSchool_yes_percent = (int) Math.round(((double)wantToGoToSchool_yes_count/totalSurveys)*100);
+            wantToGoToSchool_yes_string = wantToGoToSchool_yes_percent + "%";
+
+            int wantToGoToSchool_no_percent = (int) Math.round(((double)wantToGoToSchool_no_count/totalSurveys)*100);
+            wantToGoToSchool_no_string = wantToGoToSchool_no_percent + "%";
         }
 
         goToSchool_yes.setText(goToSchool_yes_string);
@@ -604,16 +634,35 @@ public class BaselineStatsFragment extends Fragment {
         String experienceDiscrimination_no_string = "0%";
 
         if(totalSurveys != 0){
-            valuedCommunityMember_yes_string = ((valuedCommunityMember_yes_count/totalSurveys)*100) + "%";
-            valuedCommunityMember_no_string = ((valuedCommunityMember_no_count/totalSurveys)*100) + "%";
-            independent_yes_string = ((independent_yes_count/totalSurveys)*100) + "%";
-            independent_no_string = ((independent_no_count/totalSurveys)*100) + "%";
-            participateInEvents_yes_string = ((participateInEvents_yes_count/totalSurveys)*100) + "%";
-            participateInEvents_no_string = ((participateInEvents_no_count/totalSurveys)*100) + "%";
-            interactSocially_yes_string = ((interactSocially_yes_count/totalSurveys)*100) + "%";
-            interactSocially_no_string = ((interactSocially_no_count/totalSurveys)*100) + "%";
-            experienceDiscrimination_yes_string = ((experienceDiscrimination_yes_count/totalSurveys)*100) + "%";
-            experienceDiscrimination_no_string = ((experienceDiscrimination_no_count/totalSurveys)*100) + "%";
+            int valuedCommunityMember_yes_percent = (int) Math.round(((double)valuedCommunityMember_yes_count/totalSurveys)*100);
+            valuedCommunityMember_yes_string = valuedCommunityMember_yes_percent + "%";
+
+            int valuedCommunityMember_no_percent = (int) Math.round(((double)valuedCommunityMember_no_count/totalSurveys)*100);
+            valuedCommunityMember_no_string = valuedCommunityMember_no_percent + "%";
+
+            int independent_yes_percent = (int) Math.round(((double)independent_yes_count/totalSurveys)*100);
+            independent_yes_string = independent_yes_percent + "%";
+
+            int independent_no_count_percent = (int) Math.round(((double)independent_no_count/totalSurveys)*100);
+            independent_no_string = independent_no_count_percent + "%";
+
+            int participateInEvents_yes_percent = (int) Math.round(((double)participateInEvents_yes_count/totalSurveys)*100);
+            participateInEvents_yes_string = participateInEvents_yes_percent + "%";
+
+            int participateInEvents_no_percent = (int) Math.round(((double)participateInEvents_no_count/totalSurveys)*100);
+            participateInEvents_no_string = participateInEvents_no_percent + "%";
+
+            int interactSocially_yes_percent = (int) Math.round(((double)interactSocially_yes_count/totalSurveys)*100);
+            interactSocially_yes_string = interactSocially_yes_percent + "%";
+
+            int interactSocially_no_percent = (int) Math.round(((double)interactSocially_no_count/totalSurveys)*100);
+            interactSocially_no_string = interactSocially_no_percent + "%";
+
+            int experienceDiscrimination_yes_percent = (int) Math.round(((double)experienceDiscrimination_yes_count/totalSurveys)*100);
+            experienceDiscrimination_yes_string = experienceDiscrimination_yes_percent + "%";
+
+            int experienceDiscrimination_no_percent = (int) Math.round(((double)experienceDiscrimination_no_count/totalSurveys)*100);
+            experienceDiscrimination_no_string = experienceDiscrimination_no_percent + "%";
         }
 
         valuedCommunityMember_yes.setText(valuedCommunityMember_yes_string);
@@ -685,14 +734,29 @@ public class BaselineStatsFragment extends Fragment {
         String wantToWork_no_string = "0%";
 
         if(totalSurveys != 0){
-            working_yes_string = ((working_yes_count/totalSurveys)*100) + "%";
-            working_no_string = ((working_no_count/totalSurveys)*100) + "%";
-            financialNeeds_yes_string = ((financialNeeds_yes_count/totalSurveys)*100) + "%";
-            financialNeeds_no_string = ((financialNeeds_no_count/totalSurveys)*100) + "%";
-            abilityToWork_yes_string = ((abilityToWork_yes_count/totalSurveys)*100) + "%";
-            abilityToWork_no_string = ((abilityToWork_no_count/totalSurveys)*100) + "%";
-            wantToWork_yes_string = ((wantToWork_yes_count/totalSurveys)*100) + "%";
-            wantToWork_no_string = ((wantToWork_no_count/totalSurveys)*100) + "%";
+            int working_yes_percent = (int) Math.round(((double)working_yes_count/totalSurveys)*100);
+            working_yes_string = working_yes_percent + "%";
+
+            int working_no_percent = (int) Math.round(((double)working_no_count/totalSurveys)*100);
+            working_no_string = working_no_percent + "%";
+
+            int financialNeeds_yes_percent = (int) Math.round(((double)financialNeeds_yes_count/totalSurveys)*100);
+            financialNeeds_yes_string = financialNeeds_yes_percent + "%";
+
+            int financialNeeds_no_percent = (int) Math.round(((double)financialNeeds_no_count/totalSurveys)*100);
+            financialNeeds_no_string = financialNeeds_no_percent + "%";
+
+            int abilityToWork_yes_percent = (int) Math.round(((double)abilityToWork_yes_count/totalSurveys)*100);
+            abilityToWork_yes_string = abilityToWork_yes_percent + "%";
+
+            int abilityToWork_no_percent = (int) Math.round(((double)abilityToWork_no_count/totalSurveys)*100);
+            abilityToWork_no_string = abilityToWork_no_percent + "%";
+
+            int wantToWork_yes_percent = (int) Math.round(((double)wantToWork_yes_count/totalSurveys)*100);
+            wantToWork_yes_string = wantToWork_yes_percent + "%";
+
+            int wantToWork_no_percent = (int) Math.round(((double)wantToWork_no_count/totalSurveys)*100);
+            wantToWork_no_string = wantToWork_no_percent + "%";
         }
 
         working_yes.setText(working_yes_string);
@@ -723,10 +787,12 @@ public class BaselineStatsFragment extends Fragment {
 
         String enoughFood_yes_string = "0%";
         String enoughFood_no_string = "0%";
-
+        System.out.println("TOTAL SURVEYS: " + totalSurveys);
         if(totalSurveys != 0){
-            enoughFood_yes_string = ((enoughFood_yes_count/totalSurveys)*100) + "%";
-            enoughFood_no_string = ((enoughFood_no_count/totalSurveys)*100) + "%";
+            int enoughFood_yes_percent = (int) Math.round(((double)enoughFood_yes_count/totalSurveys)*100);
+            enoughFood_yes_string = enoughFood_yes_percent + "%";
+            int enoughFood_no_percent = (int) Math.round(((double)enoughFood_no_count/totalSurveys)*100);
+            enoughFood_no_string = enoughFood_no_percent + "%";
         }
 
         enoughFood_yes.setText(enoughFood_yes_string);
@@ -777,12 +843,23 @@ public class BaselineStatsFragment extends Fragment {
         String influencePeople_no_string = "0%";
 
         if(totalSurveys != 0){
-            assistPeople_yes_string = ((assistPeople_yes_count/totalSurveys)*100) + "%";
-            assistPeople_no_string = ((assistPeople_no_count/totalSurveys)*100) + "%";
-            awareOfRights_yes_string = ((awareOfRights_yes_count/totalSurveys)*100) + "%";
-            awareOfRights_no_string = ((awareOfRights_no_count/totalSurveys)*100) + "%";
-            influencePeople_yes_string = ((influencePeople_yes_count/totalSurveys)*100) + "%";
-            influencePeople_no_string = ((influencePeople_no_count/totalSurveys)*100) + "%";
+            int assistPeople_yes_percent = (int) Math.round(((double)assistPeople_yes_count/totalSurveys)*100);
+            assistPeople_yes_string = assistPeople_yes_percent + "%";
+
+            int assistPeople_no_percent = (int) Math.round(((double)assistPeople_no_count/totalSurveys)*100);
+            assistPeople_no_string = assistPeople_no_percent + "%";
+
+            int awareOfRights_yes_percent = (int) Math.round(((double)awareOfRights_yes_count/totalSurveys)*100);
+            awareOfRights_yes_string = awareOfRights_yes_percent + "%";
+
+            int awareOfRights_no_percent = (int) Math.round(((double)awareOfRights_no_count/totalSurveys)*100);
+            awareOfRights_no_string = awareOfRights_no_percent + "%";
+
+            int influencePeople_yes_percent = (int) Math.round(((double)influencePeople_yes_count/totalSurveys)*100);
+            influencePeople_yes_string = influencePeople_yes_percent + "%";
+
+            int influencePeople_no_percent = (int) Math.round(((double)influencePeople_no_count/totalSurveys)*100);
+            influencePeople_no_string = influencePeople_no_percent + "%";
         }
 
         assistPeople_yes.setText(assistPeople_yes_string);
@@ -825,10 +902,17 @@ public class BaselineStatsFragment extends Fragment {
         String essentialItems_no_string = "0%";
 
         if(totalSurveys != 0){
-            adequateShelter_yes_string = ((adequateShelter_yes_count/totalSurveys)*100) + "%";
-            adequateShelter_no_string = ((adequateShelter_no_count/totalSurveys)*100) + "%";
-            essentialItems_yes_string = ((essentialItems_yes_count/totalSurveys)*100) + "%";
-            essentialItems_no_string = ((essentialItems_no_count/totalSurveys)*100) + "%";
+            int adequateShelter_yes_percent = (int) Math.round(((double)adequateShelter_yes_count/totalSurveys)*100);
+            adequateShelter_yes_string = adequateShelter_yes_percent + "%";
+
+            int adequateShelter_no_percent = (int) Math.round(((double)adequateShelter_no_count/totalSurveys)*100);
+            adequateShelter_no_string = adequateShelter_no_percent + "%";
+
+            int essentialItems_yes_percent = (int) Math.round(((double)essentialItems_yes_count/totalSurveys)*100);
+            essentialItems_yes_string = essentialItems_yes_percent + "%";
+
+            int essentialItems_no_percent = (int) Math.round(((double)essentialItems_no_count/totalSurveys)*100);
+            essentialItems_no_string = essentialItems_no_percent + "%";
         }
 
         adequateShelter_yes.setText(adequateShelter_yes_string);

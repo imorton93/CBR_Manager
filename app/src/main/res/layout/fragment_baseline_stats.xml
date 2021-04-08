@@ -139,7 +139,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/haveAssistiveDevice_yes"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -147,7 +147,7 @@
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/haveAssistiveDevice_no"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -330,7 +330,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/beenToSchoolBefore_yes"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -338,7 +338,7 @@
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/beenToSchoolBefore_no"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -451,7 +451,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/valuedCommunityMember_yes"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -459,7 +459,7 @@
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/valuedCommunityMember_no"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -507,7 +507,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/participateInEvents_yes"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -515,7 +515,7 @@
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/participateInEvents_no"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -535,7 +535,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/interactSocially_yes"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -543,7 +543,7 @@
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/interactSocially_no"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -563,7 +563,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/experienceDiscrimination_yes"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -571,7 +571,7 @@
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/experienceDiscrimination_no"
                             android:textAlignment="center"
                             android:gravity="center"
@@ -656,7 +656,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/financialNeeds_yes"
@@ -664,7 +664,7 @@
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/financialNeeds_no"
@@ -684,7 +684,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/abilityToWork_yes"
@@ -692,7 +692,7 @@
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/abilityToWork_no"
@@ -904,7 +904,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/assistPeople_yes"
@@ -913,7 +913,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/assistPeople_no"
@@ -934,7 +934,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/awareOfRights_yes"
@@ -943,7 +943,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/awareOfRights_no"
@@ -964,7 +964,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/influencePeople_yes"
@@ -973,7 +973,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/influencePeople_no"
@@ -1063,7 +1063,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/essentialItems_yes"
@@ -1072,7 +1072,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/essentialItems_no"
