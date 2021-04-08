@@ -7,8 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import com.example.cbr_manager.UI.NewReferralActivity;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -372,6 +375,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         cv.put(referral_id, referral.getId());
+        cv.put(referral_outcome, referral.getOutcome());
         cv.put(client_referral_id, referral.getClientID());
         cv.put(referral_photo, referral.getReferralPhoto());
 
@@ -756,5 +760,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
+    public void resolveReferral(long referralId){
+
+        String query = "UPDATE CLIENT_REFERRALS " +
+                "SET REFERRAL_OUTCOME = 'RESOLVED' " +
+                "WHERE ID = " + referralId;
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.execSQL(query);
+         }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
 }

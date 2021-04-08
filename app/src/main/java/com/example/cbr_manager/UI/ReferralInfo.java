@@ -150,5 +150,7 @@ public class ReferralInfo extends AppCompatActivity {
     }
 
     public void resolveReferral(View view) {
+        DatabaseHelper db = new DatabaseHelper(ReferralInfo.this);
+        db.resolveReferral(referral_id);
     }
 }
