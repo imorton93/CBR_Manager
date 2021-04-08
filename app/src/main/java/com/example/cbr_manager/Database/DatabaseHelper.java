@@ -774,4 +774,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void undoResolveReferral(long referralId) {
+        String query = "UPDATE CLIENT_REFERRALS " +
+                "SET REFERRAL_OUTCOME = 'UNRESOLVED' " +
+                "WHERE ID = " + referralId;
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.execSQL(query);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

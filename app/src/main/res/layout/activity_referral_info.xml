@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.ReferralInfo"
-    android:background="@drawable/backgroundgradient">
+    android:background="@drawable/backgroundgradient"
+    tools:context=".UI.ReferralInfo">
 
     <include
         android:id="@+id/toolbar"
@@ -123,6 +123,28 @@
             android:text="Resolve Referral"
             android:textColor="@color/black"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/OtherInformation"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="89dp"
+            android:layout_marginLeft="89dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="89dp"
+            android:layout_marginRight="89dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/login_buttons_rounded"
+            android:onClick="undoResolveReferral"
+            android:text="Undo Resolve"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+             />
 
     </RelativeLayout>
 

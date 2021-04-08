@@ -10,9 +10,11 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.Client;
@@ -50,6 +52,8 @@ public class ReferralInfo extends AppCompatActivity {
         setContentView(R.layout.activity_referral_info);
         extractIntent();
         ToolbarButtons();
+        View b = findViewById(R.id.button3);
+        b.setVisibility(View.INVISIBLE);
 
         AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(ReferralInfo.this);
         adminMessageManager.clear();
@@ -152,5 +156,21 @@ public class ReferralInfo extends AppCompatActivity {
     public void resolveReferral(View view) {
         DatabaseHelper db = new DatabaseHelper(ReferralInfo.this);
         db.resolveReferral(referral_id);
+        View b = findViewById(R.id.button2);
+        b.setVisibility(View.GONE);
+        View b1 = findViewById(R.id.button3);
+        b1.setVisibility(View.VISIBLE);
+        Toast.makeText(ReferralInfo.this, "Referral Resolved!", Toast.LENGTH_LONG).show();
+
+    }
+
+    public void undoResolveReferral(View view) {
+        DatabaseHelper db = new DatabaseHelper(ReferralInfo.this);
+        db.undoResolveReferral(referral_id);
+        View b = findViewById(R.id.button3);
+        b.setVisibility(View.GONE);
+        View b1 = findViewById(R.id.button2);
+        b1.setVisibility(View.VISIBLE);
+        Toast.makeText(ReferralInfo.this, "Changes Saved!", Toast.LENGTH_LONG).show();
     }
 }
