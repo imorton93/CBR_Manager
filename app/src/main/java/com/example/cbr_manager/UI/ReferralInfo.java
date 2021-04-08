@@ -32,15 +32,17 @@ public class ReferralInfo extends AppCompatActivity {
     private int position;
     public static final String R_REFERRAL_ID_PASSED_IN = "r_referral_id_passed_in";
     public static final String R_REFERRAL_POSITION_PASSED_IN = "r_referral_position_passed_in";
+    private View undoButton, resolveButton;
+    private DatabaseHelper myDb;
 
     public static Intent makeIntent(Context context, long id, int position) {
-        Intent intent =  new Intent(context, ReferralInfo.class);
+        Intent intent = new Intent(context, ReferralInfo.class);
         intent.putExtra(R_REFERRAL_ID_PASSED_IN, id);
         intent.putExtra(R_REFERRAL_POSITION_PASSED_IN, position);
         return intent;
     }
 
-    private void extractIntent(){
+    private void extractIntent() {
         Intent intent = getIntent();
         referral_id = intent.getLongExtra(R_REFERRAL_ID_PASSED_IN, 0);
         position = intent.getIntExtra(R_REFERRAL_POSITION_PASSED_IN, 0);
@@ -52,8 +54,14 @@ public class ReferralInfo extends AppCompatActivity {
         setContentView(R.layout.activity_referral_info);
         extractIntent();
         ToolbarButtons();
-        View b = findViewById(R.id.button3);
-        b.setVisibility(View.INVISIBLE);
+
+        myDb = new DatabaseHelper(ReferralInfo.this);
+        undoButton = findViewById(R.id.button3);
+        resolveButton = findViewById(R.id.button2);
+        if(myDb.isResolved(referral_id))
+            resolveButton.setVisibility(View.GONE);
+        else
+            undoButton.setVisibility(View.GONE);
 
         AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(ReferralInfo.this);
         adminMessageManager.clear();
@@ -65,7 +73,7 @@ public class ReferralInfo extends AppCompatActivity {
         getClientInfo();
     }
 
-    private void getClientInfo(){
+    private void getClientInfo() {
         ReferralManager referralManager = ReferralManager.getInstance(ReferralInfo.this);
         Referral currentReferral = referralManager.getReferralById(referral_id);
 
@@ -76,8 +84,8 @@ public class ReferralInfo extends AppCompatActivity {
         String otherInfo = concatOtherInformation(currentReferral);
         String service = "<b>Service Required:<b> " + currentReferral.getServiceReq();
 
-        if (currentReferral.getReferralPhoto() != null){
-            Bitmap bmp = BitmapFactory.decodeByteArray(currentReferral.getReferralPhoto(), 0 , currentReferral.getReferralPhoto().length);
+        if (currentReferral.getReferralPhoto() != null) {
+            Bitmap bmp = BitmapFactory.decodeByteArray(currentReferral.getReferralPhoto(), 0, currentReferral.getReferralPhoto().length);
             referralPic.setImageBitmap(bmp);
         }
 
@@ -85,29 +93,29 @@ public class ReferralInfo extends AppCompatActivity {
         otherInformation.setText(Html.fromHtml(otherInfo));
     }
 
-    private String concatOtherInformation(Referral ref){
+    private String concatOtherInformation(Referral ref) {
         String otherInformation = "";
-        if(ref.getServiceReq().equals("Physiotherapy")){
+        if (ref.getServiceReq().equals("Physiotherapy")) {
             otherInformation += "<b>Condition of client:<b> " + ref.getCondition() + "<br>";
-            if(ref.getCondition().equals("Other")){
+            if (ref.getCondition().equals("Other")) {
                 otherInformation += "<b>Condition Explanation:<b> " + ref.getConditionOtherExplanation() + "<br>";
             }
-        }else if(ref.getServiceReq().equals("Prosthetic") || ref.getServiceReq().equals("Orthotic")){
+        } else if (ref.getServiceReq().equals("Prosthetic") || ref.getServiceReq().equals("Orthotic")) {
             otherInformation += "<b>Injury location:<b> " + ref.getInjuryLocation() + "<br>";
-        }else if(ref.getServiceReq().equals("Wheelchair")){
+        } else if (ref.getServiceReq().equals("Wheelchair")) {
             otherInformation += "<b>User Status (Basic or Intermediate):<b> " + ref.getBasicOrInter() + "<br>";
             otherInformation += "<b>Clients hip width:<b> " + ref.getHipWidth() + "<br>";
             otherInformation += "<b>Does the Client have an existing wheelchair:<b> " + ref.getHasWheelchair() + "<br>";
-            if(ref.getHasWheelchair().equals("Yes")){
+            if (ref.getHasWheelchair().equals("Yes")) {
                 otherInformation += "<b>Is the clients wheelchair repairable:<b> " + ref.getWheelchairReparable() + "<br>";
             }
-        }else{
+        } else {
             otherInformation += "<b>Description of Condition:<b> " + ref.getOtherExplanation() + "<br>";
         }
         return otherInformation;
     }
 
-    private void ToolbarButtons(){
+    private void ToolbarButtons() {
         ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,21 +164,22 @@ public class ReferralInfo extends AppCompatActivity {
     public void resolveReferral(View view) {
         DatabaseHelper db = new DatabaseHelper(ReferralInfo.this);
         db.resolveReferral(referral_id);
-        View b = findViewById(R.id.button2);
-        b.setVisibility(View.GONE);
-        View b1 = findViewById(R.id.button3);
-        b1.setVisibility(View.VISIBLE);
+        resolveButton.setVisibility(View.GONE);
+        undoButton.setVisibility(View.VISIBLE);
         Toast.makeText(ReferralInfo.this, "Referral Resolved!", Toast.LENGTH_LONG).show();
-
+        //TODO: START THE REFERRAL FRAGMENT
+        //Intent intent = .makeIntent(ReferralInfo.this);
+        //startActivity(intent);
     }
 
     public void undoResolveReferral(View view) {
         DatabaseHelper db = new DatabaseHelper(ReferralInfo.this);
         db.undoResolveReferral(referral_id);
-        View b = findViewById(R.id.button3);
-        b.setVisibility(View.GONE);
-        View b1 = findViewById(R.id.button2);
-        b1.setVisibility(View.VISIBLE);
+        undoButton.setVisibility(View.GONE);
+        resolveButton.setVisibility(View.VISIBLE);
         Toast.makeText(ReferralInfo.this, "Changes Saved!", Toast.LENGTH_LONG).show();
+        //TODO: START THE REFERRAL FRAGMENT
+        //Intent intent = .makeIntent(ReferralInfo.this);
+        //startActivity(intent);
     }
 }

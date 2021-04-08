@@ -56,7 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String client_education_requirement = "EDUCATION_REQUIRE";
     private static final String client_education_goal = "EDUCATION_GOAL";
     private static final String client_social_rate = "SOCIAL_RATE";
-    private static final String client_social_requirement= "SOCIAL_REQUIREMENT";
+    private static final String client_social_requirement = "SOCIAL_REQUIREMENT";
     private static final String client_social_goal = "SOCIAL_GOAL";
     private static final String is_synced = "IS_SYNCED";
     private static final String client_worker_id = "WORKER_ID";
@@ -179,17 +179,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + client_consent + " BOOLEAN, " + client_date + " STRING, " + client_first_name + " TEXT, "
                 + client_last_name + " TEXT, " + client_age + " INTEGER, " + client_gender + " TEXT, "
 
-                + client_village_no + " INTEGER, "  + client_location + " TEXT, " + client_latitude + " DOUBLE, " + client_longitude + " DOUBLE, " + client_contact + " STRING, "+ client_caregiver_presence
-                + " BOOLEAN, " + client_caregiver_number +" STRING, " + client_photo + " BLOB, "+ client_disability + " TEXT, " + client_heath_rate
+                + client_village_no + " INTEGER, " + client_location + " TEXT, " + client_latitude + " DOUBLE, " + client_longitude + " DOUBLE, " + client_contact + " STRING, " + client_caregiver_presence
+                + " BOOLEAN, " + client_caregiver_number + " STRING, " + client_photo + " BLOB, " + client_disability + " TEXT, " + client_heath_rate
 
-                + " STRING, "+ client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate +" STRING, "
-                + client_education_requirement + " STRING, " + client_education_goal  + " STRING, " + client_social_rate + " STRING, "
-                + client_social_requirement + " STRING, " +  client_social_goal + " STRING, " + client_worker_id + " INTEGER DEFAULT -1, "+ is_synced + " INTEGER NOT NULL DEFAULT 0);";
+                + " STRING, " + client_health_requirement + " STRING, " + client_health_goal + " STRING, " + client_education_rate + " STRING, "
+                + client_education_requirement + " STRING, " + client_education_goal + " STRING, " + client_social_rate + " STRING, "
+                + client_social_requirement + " STRING, " + client_social_goal + " STRING, " + client_worker_id + " INTEGER DEFAULT -1, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_client_table);
 
         String create_visit_table = "CREATE TABLE "
                 + visit_table + " (" + visit_id + " INTEGER PRIMARY KEY, " + visit_date + " STRING, "
-                + visit_purpose + " STRING, " + if_cbr + " TEXT, " +  visit_location + " TEXT, " + visit_village_no + " INTEGER, "
+                + visit_purpose + " STRING, " + if_cbr + " TEXT, " + visit_location + " TEXT, " + visit_village_no + " INTEGER, "
                 + health_provided + " TEXT, " + health_goal_status + " TEXT, " + health_outcome + " STRING, "
                 + education_provided + " TEXT, " + edu_goal_status + " TEXT, " + education_outcome + " STRING, "
                 + social_provided + " TEXT, " + social_goal_status + " TEXT, " + social_outcome + " STRING, "
@@ -212,7 +212,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String create_survey_table = "CREATE TABLE " + survey_table + " (" + survey_id
                 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + survey_health_condition + " INTEGER, " + survey_have_rehab_access
-                + " BOOLEAN, " + survey_need_rehab_access + " BOOLEAN, " + survey_have_device+ " BOOLEAN, " + survey_device_condition
+                + " BOOLEAN, " + survey_need_rehab_access + " BOOLEAN, " + survey_have_device + " BOOLEAN, " + survey_device_condition
                 + " BOOLEAN, " + survey_need_device + " BOOLEAN, " + survey_device_type + " STRING, " + survey_is_satisfied
                 + " INTEGER, " + survey_is_student + " BOOLEAN, " + survey_grade_no + " INTEGER, " + survey_reason
                 + " STRING, " + survey_was_student + " BOOLEAN, " + survey_want_school + " BOOLEAN, " + survey_is_valued
@@ -230,12 +230,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME );
-        db.execSQL(" DROP TABLE IF EXISTS " + client_table_name );
-        db.execSQL(" DROP TABLE IF EXISTS " + visit_table );
-        db.execSQL(" DROP TABLE IF EXISTS " + referral_table );
-        db.execSQL(" DROP TABLE IF EXISTS " + admin_message_table );
-        db.execSQL(" DROP TABLE IF EXISTS " + survey_table );
+        db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL(" DROP TABLE IF EXISTS " + client_table_name);
+        db.execSQL(" DROP TABLE IF EXISTS " + visit_table);
+        db.execSQL(" DROP TABLE IF EXISTS " + referral_table);
+        db.execSQL(" DROP TABLE IF EXISTS " + admin_message_table);
+        db.execSQL(" DROP TABLE IF EXISTS " + survey_table);
 
         onCreate(db);
     }
@@ -333,7 +333,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String whereClause = client_id.concat(" = ");
         whereClause = whereClause.concat(Long.toString(id));
 
-        long result = db.update(client_table_name,cv,whereClause, null);
+        long result = db.update(client_table_name, cv, whereClause, null);
         if (result == -1)
             return false;
         else
@@ -363,7 +363,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(is_synced, visit.getIsSynced());
 
         long result = db.insert(visit_table, null, cv);
-        if (result == -1 )
+        if (result == -1)
             return false;
         else
             return true;
@@ -381,50 +381,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String serviceType = referral.getServiceReq();
 
-        if(serviceType.equals("Physiotherapy")){
+        if (serviceType.equals("Physiotherapy")) {
             cv.put(service_req, referral.getServiceReq());
             String condition = referral.getCondition();
-            if(condition.equals("Other")){
+            if (condition.equals("Other")) {
                 String explanation = referral.getConditionOtherExplanation();
                 cv.put(conditions, explanation);
-            }
-            else{
-                cv.put(conditions,condition);
+            } else {
+                cv.put(conditions, condition);
             }
             cv.put(has_wheelchair, false);
             cv.put(wheelchair_repairable, false);
             cv.put(bring_to_centre, false);
-        }
-        else if(serviceType.equals("Prosthetic")){
+        } else if (serviceType.equals("Prosthetic")) {
             cv.put(service_req, referral.getServiceReq());
             cv.put(injury_location_knee, referral.getInjuryLocation());
             cv.put(has_wheelchair, false);
             cv.put(wheelchair_repairable, false);
             cv.put(bring_to_centre, false);
-        }
-        else if(serviceType.equals("Orthotic")){
+        } else if (serviceType.equals("Orthotic")) {
             cv.put(service_req, referral.getServiceReq());
             cv.put(injury_location_elbow, referral.getInjuryLocation());
             cv.put(has_wheelchair, false);
             cv.put(wheelchair_repairable, false);
             cv.put(bring_to_centre, false);
-        }
-        else if(serviceType.equals("Wheelchair")){
+        } else if (serviceType.equals("Wheelchair")) {
             cv.put(service_req, referral.getServiceReq());
             cv.put(basic_or_inter, referral.getBasicOrInter());
             cv.put(hip_width, referral.getHipWidth());
             Boolean hasWheelchair = referral.getHasWheelchair();
             cv.put(has_wheelchair, hasWheelchair);
-            if(hasWheelchair){
+            if (hasWheelchair) {
                 cv.put(wheelchair_repairable, referral.getWheelchairReparable());
                 cv.put(bring_to_centre, referral.getBringToCentre());
-            }
-            else{
+            } else {
                 cv.put(wheelchair_repairable, false);
                 cv.put(bring_to_centre, false);
             }
-        }
-        else if(serviceType.equals("Other")){
+        } else if (serviceType.equals("Other")) {
             String otherExplanation = referral.getOtherExplanation();
             cv.put(service_req, otherExplanation);
             cv.put(has_wheelchair, false);
@@ -435,13 +429,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(is_synced, referral.getIsSynced());
 
         long result = db.insert(referral_table, null, cv);
-        if (result == -1 )
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean addMessage (AdminMessage message) {
+    public boolean addMessage(AdminMessage message) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -455,13 +449,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(is_synced, message.getIsSynced());
 
         long result = db.insert(admin_message_table, null, cv);
-        if (result == -1 )
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean addSurvey(Survey survey){
+    public boolean addSurvey(Survey survey) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -504,13 +498,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(survey_is_synced, survey.isIs_synced());
 
         long result = db.insert(survey_table, null, cv);
-        if (result == -1 )
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean checkUser(String email, String password){
+    public boolean checkUser(String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + email + "'";
 
@@ -534,20 +528,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public int getWorkerId(String username){
-        String query = "SELECT ID FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';" ;
+    public int getWorkerId(String username) {
+        String query = "SELECT ID FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
-        if(c!= null && c.getCount()>0) {
+        if (c != null && c.getCount() > 0) {
             c.moveToLast();
             return c.getInt(0);
-        }
-        else {
+        } else {
             return -1;
         }
     }
 
-    public Cursor getAllVisits(){
+    public Cursor getAllVisits() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_VISITS", null);
         if (c != null) {
@@ -556,7 +549,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor getVisits(long id){
+    public Cursor getVisits(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_VISITS WHERE CLIENT_ID = " + id, null);
         if (c != null) {
@@ -565,7 +558,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor getVisit(long visit_id){
+    public Cursor getVisit(long visit_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_VISITS WHERE ID = " + visit_id, null);
         if (c != null) {
@@ -574,7 +567,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor getAllReferrals(){
+    public Cursor getAllReferrals() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_REFERRALS", null);
         if (c != null) {
@@ -583,7 +576,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor executeQuery(String query){
+    public Cursor executeQuery(String query) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
         if (c != null) {
@@ -595,7 +588,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllRows() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM CLIENT_DATA", null);
+        Cursor c = db.rawQuery("SELECT rowid _id,* FROM CLIENT_DATA", null);
         if (c != null) {
             c.moveToFirst();
         }
@@ -604,17 +597,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllRowsOfCBR() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM WORKER_DATA", null);
+        Cursor c = db.rawQuery("SELECT rowid _id,* FROM WORKER_DATA", null);
         if (c != null) {
             c.moveToFirst();
         }
         return c;
     }
 
-    public Cursor getRow(long id){
+    public Cursor getRow(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c =  db.rawQuery( "SELECT rowid _id, * FROM CLIENT_DATA WHERE ID = "+ id, null);
-        if(c != null){
+        Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_DATA WHERE ID = " + id, null);
+        if (c != null) {
             c.moveToFirst();
         }
         return c;
@@ -623,7 +616,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getdata() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Select * from " + " CLIENT_DATA ";
-        Cursor data = db.rawQuery(query,null);
+        Cursor data = db.rawQuery(query, null);
         return data;
     }
 
@@ -633,7 +626,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         return data;
     }
-    public boolean isAdmin (String username ){
+
+    public boolean isAdmin(String username) {
         String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
@@ -647,7 +641,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllMessageInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM ADMIN_MESSAGES", null);
+        Cursor c = db.rawQuery("SELECT rowid _id,* FROM ADMIN_MESSAGES", null);
         if (c != null) {
             c.moveToFirst();
         }
@@ -656,74 +650,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllCBRWorkers() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM WORKER_DATA", null);
+        Cursor c = db.rawQuery("SELECT rowid _id,* FROM WORKER_DATA", null);
         if (c != null) {
             c.moveToFirst();
         }
         return c;
     }
 
-    public int numberOfClientsPerUser(int worker_id){
+    public int numberOfClientsPerUser(int worker_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT COUNT(ID) FROM " + client_table_name + " WHERE " + client_worker_id + " = " + worker_id + ";";
         Cursor c = db.rawQuery(query, null);
-        if(c!= null && c.getCount()>0) {
+        if (c != null && c.getCount() > 0) {
             c.moveToLast();
             return c.getInt(0);
-        }
-        else {
+        } else {
             return -1;
         }
     }
 
-    public int numberOfVisitsPerClient(long client_id){
+    public int numberOfVisitsPerClient(long client_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT COUNT(ID) FROM " + visit_table + " WHERE " + client_visit_id + " = " + client_id + ";";
         Cursor c = db.rawQuery(query, null);
-        if(c!= null && c.getCount()>0) {
+        if (c != null && c.getCount() > 0) {
             c.moveToLast();
             return c.getInt(0);
-        }
-        else {
+        } else {
             return -1;
         }
     }
 
-    public int numberOfReferralsPerClient(long client_id){
+    public int numberOfReferralsPerClient(long client_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT COUNT(ID) FROM " + referral_table + " WHERE " + client_referral_id + " = " + client_id + ";";
         Cursor c = db.rawQuery(query, null);
-        if(c!= null && c.getCount()>0) {
+        if (c != null && c.getCount() > 0) {
             c.moveToLast();
             return c.getInt(0);
-        }
-        else {
+        } else {
             return -1;
         }
     }
 
-    public int numberOfMessagesPerAdmin(long adminID){
+    public int numberOfMessagesPerAdmin(long adminID) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT COUNT(ID) FROM " + admin_message_table + " WHERE " + admin_id + " = " + adminID + ";";
         Cursor c = db.rawQuery(query, null);
-        if(c!= null && c.getCount()>0) {
+        if (c != null && c.getCount() > 0) {
             c.moveToLast();
             return c.getInt(0);
-        }
-        else {
+        } else {
             return -1;
         }
     }
 
-    public int numberOfUnreadMessages(){
+    public int numberOfUnreadMessages() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT COUNT(ID) FROM " + admin_message_table + " WHERE " + viewed_status + " = 0;";
         Cursor c = db.rawQuery(query, null);
-        if(c!= null && c.getCount()>0) {
+        if (c != null && c.getCount() > 0) {
             c.moveToLast();
             return c.getInt(0);
-        }
-        else {
+        } else {
             return -1;
         }
     }
@@ -733,7 +722,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + admin_message_table + " WHERE " + message_id + " = " + msgID + ";";
         Cursor c = db.rawQuery(query, null);
 
-        if(c!= null && c.getCount()>0) {
+        if (c != null && c.getCount() > 0) {
             c.moveToLast();
             c.close();
             db.close();
@@ -751,16 +740,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.executeQuery(query);
     }
 
-    public Cursor viewData(){
+    public Cursor viewData() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c =  db.rawQuery( "SELECT rowid _id, * FROM WORKER_DATA ", null);
-        if(c != null){
+        Cursor c = db.rawQuery("SELECT rowid _id, * FROM WORKER_DATA ", null);
+        if (c != null) {
             c.moveToFirst();
         }
         return c;
     }
 
-    public void resolveReferral(long referralId){
+    public void resolveReferral(long referralId) {
 
         String query = "UPDATE CLIENT_REFERRALS " +
                 "SET REFERRAL_OUTCOME = 'RESOLVED' " +
@@ -768,8 +757,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL(query);
-         }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -781,9 +769,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL(query);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public boolean isResolved(long referralId) {
+        String is_resolved = "";
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String query = "SELECT REFERRAL_OUTCOME FROM " + referral_table + " WHERE " + referral_id + " = " + referralId;
+            Cursor c = db.rawQuery(query, null);
+            c.moveToLast();
+            is_resolved = c.getString(0);
+            db.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return (is_resolved.equals("RESOLVED"));
     }
 }
