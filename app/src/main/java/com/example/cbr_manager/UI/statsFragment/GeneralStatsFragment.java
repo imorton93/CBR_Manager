@@ -117,7 +117,7 @@ public class GeneralStatsFragment extends Fragment {
             entries.add(entry);
         }
 
-        LineDataSet lineDataSet = new LineDataSet(entries, "Visits Health Goals Met");
+        LineDataSet lineDataSet = new LineDataSet(entries, "Clients added within the month");
         displayClientOverTimeGraph(graph, lineDataSet);
     }
 
@@ -125,7 +125,6 @@ public class GeneralStatsFragment extends Fragment {
     private ArrayList<Integer> getClientsOverTimeDataPoints(){
         ArrayList<Integer> clientsOverTimeDataPoints = new ArrayList<>();
         ArrayList<String> recentClients = getRecentClientDates();
-        System.out.println("recentClients.size: " + recentClients.size());
         if(!recentClients.isEmpty()) {
             int numberOfMissingClients = clientManager.getClients().size() - recentClients.size();
             getUniqueClientDates(recentClients);
