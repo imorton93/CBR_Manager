@@ -65,7 +65,7 @@ public class BaselineStatsFragment extends Fragment {
     private void createPieChart(PieChart graph, ArrayList<PieEntry> entries){
         PieDataSet pieDataSet = new PieDataSet(entries, "");
         pieDataSet.setColors(
-                Color.parseColor("#FFEC17"), // yellow
+                Color.parseColor("#C2BB00"), // yellow
                 Color.parseColor("#1BB300"), // green2
                 Color.parseColor("#B30003"), // red2
                 Color.parseColor("#FFBB86FC"), // purple_200
