@@ -11,6 +11,7 @@ public class SurveyManager {
     private static SurveyManager instance;
     private DatabaseHelper databaseHelper;
 
+    private static final String survey_id = "ID";
     private static final String survey_is_synced = "IS_SYNCED";
     private static final String survey_client_id = "CLIENT_ID";
 
@@ -81,6 +82,7 @@ public class SurveyManager {
     public void updateList() {
         Cursor c = databaseHelper.getAllRowsOfSurvey();
 
+        int survey_idI = c.getColumnIndex(survey_id);
         int health_conditionI = c.getColumnIndex(survey_health_condition);
         int have_rehab_accessI = c.getColumnIndex(survey_have_rehab_access);
         int need_rehab_accessI = c.getColumnIndex(survey_need_rehab_access);
@@ -120,6 +122,7 @@ public class SurveyManager {
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
 
+            long survey_id = c.getLong(survey_idI);
             byte health_condition = (byte) c.getInt(health_conditionI);
             boolean have_rehab_access = c.getInt(have_rehab_accessI) > 0;
             boolean need_rehab_access = c.getInt(need_rehab_accessI) > 0;
@@ -163,7 +166,7 @@ public class SurveyManager {
                     is_independent, is_social, is_socially_affected, was_discriminated, is_working,
                     work_type, is_self_employed, needs_met, is_work_affected, want_work, food_security,
                     is_diet_enough, child_condition, referral_required, is_member, organisation, is_aware,
-                    is_influence, is_shelter_adequate, items_access, client_id, is_synced);
+                    is_influence, is_shelter_adequate, items_access, client_id, is_synced, survey_id);
             surveyList.add(newSurvey);
 
         }

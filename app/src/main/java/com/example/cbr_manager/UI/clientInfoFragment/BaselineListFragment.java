@@ -84,8 +84,7 @@ public class BaselineListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 List<Survey> surveys = surveyManager.getSurveys(client_id);
                 Survey currentSurvey = surveys.get(position);
-                // TODO ask for currentSurvey.getID() in position
-                Intent intent = SurveyInfoActivity.makeIntent(getActivity(), 0, position);
+                Intent intent = SurveyInfoActivity.makeIntent(getActivity(), currentSurvey.getSurvey_id(), position);
                 startActivity(intent);
             }
         });
@@ -108,6 +107,9 @@ public class BaselineListFragment extends Fragment {
             List<Survey> surveys = surveyManager.getSurveys(client_id);
             Survey currentSurvey = surveys.get(position);
 
+            TextView outcome = view.findViewById(R.id.baselineNumber);
+            String outcomeS = "<b>Survey Number: </b> #" + (surveys.size() - position);
+            outcome.setText(Html.fromHtml(outcomeS));
 
             return view;
         }
