@@ -39,6 +39,8 @@ public class BaselineStatsFragment extends Fragment {
     private StatsActivity statsActivity;
     private SurveyManager surveyManager;
     private static final ArrayList<String> DEVICE_TYPES = new ArrayList<String>();
+    private static final ArrayList<String> QUALITY = new ArrayList<String>();
+
 
     public BaselineStatsFragment() {}
 
@@ -61,24 +63,12 @@ public class BaselineStatsFragment extends Fragment {
         surveyManager = SurveyManager.getInstance(statsActivity);
         View view = inflater.inflate(R.layout.fragment_baseline_stats, container, false);
         health_devicesType_DataPoints(view);
-
+        health_generalHealth_DataPoints(view);
+        health_satisfaction_DataPoints(view);
         return view;
     }
 
-    private void health_devicesType_DataPoints(View view){
-        PieChart graph = view.findViewById(R.id.baseline_health_device_graph);
-        ArrayList<Integer> deviceTypeDataPoints = getDeviceTypeDataPoints();
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
-            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), DEVICE_TYPES.get(i));
-            entries.add(pieEntry);
-        }
-//        R.color.purple_700, R.color.yellow,
-//                R.color.teal_700, R.color.green2,
-//                R.color.red, R.color.purple,
-//                R.color.red2, R.color.green, R.color.blue
-
+    private void createPieChart(PieChart graph, ArrayList<PieEntry> entries){
         PieDataSet pieDataSet = new PieDataSet(entries, "");
         pieDataSet.setColors(
                 Color.parseColor("#FFEC17"), // yellow
@@ -110,13 +100,26 @@ public class BaselineStatsFragment extends Fragment {
         graph.invalidate();
     }
 
+    private void health_devicesType_DataPoints(View view){
+        PieChart graph = view.findViewById(R.id.baseline_health_device_graph);
+        ArrayList<Integer> deviceTypeDataPoints = getDeviceTypeDataPoints();
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
+            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), DEVICE_TYPES.get(i));
+            entries.add(pieEntry);
+        }
+
+        createPieChart(graph, entries);
+    }
+
     private ArrayList<Integer> getDeviceTypeDataPoints(){
         HashMap<String, Integer> deviceTypeCount = new HashMap<>();
         ArrayList<Integer> deviceTypesDataPoints = new ArrayList<Integer>();
+        DEVICE_TYPES.clear();
 
         for(Survey survey : surveyManager.getSurveyList()){
             String deviceType = survey.getDevice_type();
-            System.out.println("Device Type: " + deviceType);
             if(deviceTypeCount.containsKey(deviceType)){
                 Integer count = deviceTypeCount.get(deviceType);
                 deviceTypeCount.put(deviceType, count+1);
@@ -131,5 +134,105 @@ public class BaselineStatsFragment extends Fragment {
         }
 
         return deviceTypesDataPoints;
+    }
+
+    private void health_generalHealth_DataPoints(View view){
+        PieChart graph = view.findViewById(R.id.baseline_generalHealth_graph);
+        ArrayList<Integer> deviceTypeDataPoints = getGeneralHealthDataPoints();
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
+            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), QUALITY.get(i));
+            entries.add(pieEntry);
+        }
+
+        createPieChart(graph, entries);
+    }
+
+    private ArrayList<Integer> getGeneralHealthDataPoints(){
+        HashMap<String, Integer> generalHealthCount = new HashMap<>();
+        ArrayList<Integer> generalHealthDataPoints = new ArrayList<Integer>();
+        QUALITY.clear();
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            byte generalHealth = survey.getHealth_condition();
+            String generalHealthString = "";
+
+            if(generalHealth == 1){
+                generalHealthString = "Very Poor";
+            }else if(generalHealth == 2){
+                generalHealthString = "Poor";
+            }else if(generalHealth == 3){
+                generalHealthString = "Fine";
+            }else if(generalHealth == 4){
+                generalHealthString = "Good";
+            }
+
+            if(!generalHealthString.equals("")) {
+                if (generalHealthCount.containsKey(generalHealthString)) {
+                    Integer count = generalHealthCount.get(generalHealthString);
+                    generalHealthCount.put(generalHealthString, count + 1);
+                } else {
+                    generalHealthCount.put(generalHealthString, 1);
+                }
+            }
+        }
+
+        for(Map.Entry<String, Integer> entry : generalHealthCount.entrySet()){
+            generalHealthDataPoints.add(entry.getValue());
+            QUALITY.add(entry.getKey());
+        }
+
+        return generalHealthDataPoints;
+    }
+
+    private void health_satisfaction_DataPoints(View view){
+        PieChart graph = view.findViewById(R.id.baseline_health_satisfaction_graph);
+        ArrayList<Integer> deviceTypeDataPoints = getHealthSatisfactionDataPoints();
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(int i = 0; i < deviceTypeDataPoints.size(); i++){
+            PieEntry pieEntry = new PieEntry(deviceTypeDataPoints.get(i), QUALITY.get(i));
+            entries.add(pieEntry);
+        }
+
+        createPieChart(graph, entries);
+    }
+
+    private ArrayList<Integer> getHealthSatisfactionDataPoints(){
+        HashMap<String, Integer> isSatisfiedCount = new HashMap<>();
+        ArrayList<Integer> isSatisfiedDataPoints = new ArrayList<Integer>();
+        QUALITY.clear();
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            byte is_satisfied = survey.getIs_satisfied();
+            String is_satisfiedString = "";
+
+            if(is_satisfied == 1){
+                is_satisfiedString = "Very Poor";
+            }else if(is_satisfied == 2){
+                is_satisfiedString = "Poor";
+            }else if(is_satisfied == 3){
+                is_satisfiedString = "Fine";
+            }else if(is_satisfied == 4){
+                is_satisfiedString = "Good";
+            }
+
+            if(!is_satisfiedString.equals("")) {
+                if (isSatisfiedCount.containsKey(is_satisfiedString)) {
+                    Integer count = isSatisfiedCount.get(is_satisfiedString);
+                    isSatisfiedCount.put(is_satisfiedString, count + 1);
+                } else {
+                    isSatisfiedCount.put(is_satisfiedString, 1);
+                }
+            }
+        }
+
+        for(Map.Entry<String, Integer> entry : isSatisfiedCount.entrySet()){
+            isSatisfiedDataPoints.add(entry.getValue());
+            QUALITY.add(entry.getKey());
+        }
+
+        return isSatisfiedDataPoints;
     }
 }

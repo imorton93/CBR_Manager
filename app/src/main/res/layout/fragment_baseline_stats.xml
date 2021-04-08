@@ -182,114 +182,33 @@
                     </TableRow>
                 </TableLayout>
 
-                <TableLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="General Health"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:stretchColumns="*">
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
+                    android:id="@+id/baseline_generalHealth_graph"
+                    />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  v poor  "
-                            android:background="@drawable/table_border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Are you satisfied with the health services provided?"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  poor  "/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  fine  "/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  good  "
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="General Health "
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Are you satisfied with the\nhealth services provided?"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-                </TableLayout>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_health_satisfaction_graph"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -298,7 +217,6 @@
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="Assistive Devices Needed"/>
-
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:layout_height="250dp"
