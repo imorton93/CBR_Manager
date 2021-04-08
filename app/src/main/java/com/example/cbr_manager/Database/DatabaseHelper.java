@@ -481,7 +481,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(survey_was_discriminated, survey.isWas_discriminated());
         cv.put(survey_is_working, survey.isIs_working());
         cv.put(survey_work_type, survey.getWork_type());
-        cv.put(survey_is_self_employed, survey.isIs_self_employed());
+        cv.put(survey_is_self_employed, survey.getIs_self_employed());
         cv.put(survey_needs_met, survey.isNeeds_met());
         cv.put(survey_is_work_affected, survey.isIs_work_affected());
         cv.put(survey_want_work, survey.isWant_work());
