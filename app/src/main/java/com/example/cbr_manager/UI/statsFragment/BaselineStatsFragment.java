@@ -56,6 +56,9 @@ public class BaselineStatsFragment extends Fragment {
         setEducationTableValues(view);
         setSocialTableValues(view);
         setLivelihoodTableValues(view);
+        setFoodSecurityTableValues(view);
+        setEmpowermentTableValues(view);
+        setShelterAndCareTableValues(view);
         return view;
     }
 
@@ -606,4 +609,109 @@ public class BaselineStatsFragment extends Fragment {
         wantToWork_no.setText(wantToWork_no_string);
     }
 
+    private void setFoodSecurityTableValues(View view){
+        TextView enoughFood_yes = view.findViewById(R.id.enoughFood_yes);
+        TextView enoughFood_no = view.findViewById(R.id.enoughFood_no);
+        int enoughFood_yes_count = 0;
+        int enoughFood_no_count = 0;
+        int totalSurveys = 0;
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            if(survey.isIs_diet_enough()){
+                enoughFood_yes_count++;
+            }else{
+                enoughFood_no_count++;
+            }
+        }
+        String enoughFood_yes_string = ((enoughFood_yes_count/totalSurveys)*100) + "%";
+        enoughFood_yes.setText(enoughFood_yes_string);
+        String enoughFood_no_string = ((enoughFood_no_count/totalSurveys)*100) + "%";
+        enoughFood_no.setText(enoughFood_no_string);
+    }
+
+    private void setEmpowermentTableValues(View view){
+        TextView assistPeople_yes = view.findViewById(R.id.assistPeople_yes);
+        TextView assistPeople_no = view.findViewById(R.id.assistPeople_no);
+        TextView awareOfRights_yes = view.findViewById(R.id.awareOfRights_yes);
+        TextView awareOfRights_no = view.findViewById(R.id.awareOfRights_no);
+        TextView influencePeople_yes = view.findViewById(R.id.influencePeople_yes);
+        TextView influencePeople_no = view.findViewById(R.id.influencePeople_no);
+        int assistPeople_yes_count = 0;
+        int assistPeople_no_count = 0;
+        int awareOfRights_yes_count = 0;
+        int awareOfRights_no_count = 0;
+        int influencePeople_yes_count = 0;
+        int influencePeople_no_count = 0;
+        int totalSurveys = 0;
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            if(survey.isIs_member()){
+                assistPeople_yes_count++;
+            }else{
+                assistPeople_no_count++;
+            }
+
+            if(survey.isIs_aware()){
+                awareOfRights_yes_count++;
+            }else{
+                awareOfRights_no_count++;
+            }
+
+            if(survey.isIs_influence()){
+                influencePeople_yes_count++;
+            }else{
+                influencePeople_no_count++;
+            }
+        }
+
+        String assistPeople_yes_string = ((assistPeople_yes_count/totalSurveys)*100) + "%";
+        assistPeople_yes.setText(assistPeople_yes_string);
+        String assistPeople_no_string = ((assistPeople_no_count/totalSurveys)*100) + "%";
+        assistPeople_no.setText(assistPeople_no_string);
+
+        String awareOfRights_yes_string = ((awareOfRights_yes_count/totalSurveys)*100) + "%";
+        awareOfRights_yes.setText(awareOfRights_yes_string);
+        String awareOfRights_no_string = ((awareOfRights_no_count/totalSurveys)*100) + "%";
+        awareOfRights_no.setText(awareOfRights_no_string);
+
+        String influencePeople_yes_string = ((influencePeople_yes_count/totalSurveys)*100) + "%";
+        influencePeople_yes.setText(influencePeople_yes_string);
+        String influencePeople_no_string = ((influencePeople_no_count/totalSurveys)*100) + "%";
+        influencePeople_no.setText(influencePeople_no_string);
+    }
+
+    private void setShelterAndCareTableValues(View view){
+        TextView adequateShelter_yes = view.findViewById(R.id.adequateShelter_yes);
+        TextView adequateShelter_no = view.findViewById(R.id.adequateShelter_no);
+        TextView essentialItems_yes = view.findViewById(R.id.essentialItems_yes);
+        TextView essentialItems_no = view.findViewById(R.id.essentialItems_no);
+        int adequateShelter_yes_count = 0;
+        int adequateShelter_no_count = 0;
+        int essentialItems_yes_count = 0;
+        int essentialItems_no_count = 0;
+        int totalSurveys = 0;
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            if(survey.isIs_shelter_adequate()){
+                adequateShelter_yes_count++;
+            }else{
+                adequateShelter_no_count++;
+            }
+
+            if(survey.isItems_access()){
+                essentialItems_yes_count++;
+            }else{
+                essentialItems_no_count++;
+            }
+        }
+
+        String adequateShelter_yes_string = ((adequateShelter_yes_count/totalSurveys)*100) + "%";
+        adequateShelter_yes.setText(adequateShelter_yes_string);
+        String adequateShelter_no_string = ((adequateShelter_no_count/totalSurveys)*100) + "%";
+        adequateShelter_no.setText(adequateShelter_no_string);
+        String essentialItems_yes_string = ((essentialItems_yes_count/totalSurveys)*100) + "%";
+        essentialItems_yes.setText(essentialItems_yes_string);
+        String essentialItems_no_string = ((essentialItems_no_count/totalSurveys)*100) + "%";
+        essentialItems_no.setText(essentialItems_no_string);
+    }
 }
