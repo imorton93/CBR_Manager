@@ -649,28 +649,6 @@
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Employed"
-                            android:background="@drawable/table_border"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="self-employed"
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
                 </TableLayout>
 
                 <TextView
@@ -696,85 +674,19 @@
                     android:textStyle="bold"
                     android:text="Food and Nutrition"/>
 
-                <HorizontalScrollView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Food Security"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:stretchColumns="*">
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  v poor  "
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  poor  "
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  fine  "
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  good  "
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Food security?"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-                    </TableLayout>
-                </HorizontalScrollView>
+                    android:id="@+id/baseline_foodSecurity_graph"
+                    />
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -830,75 +742,19 @@
                     </TableRow>
                 </TableLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="If Child, childs condition"/>
 
-                <HorizontalScrollView
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:stretchColumns="*">
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Malnourished"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Undernourished"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Well nourished"
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="If child, is the child?"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-                    </TableLayout>
-                </HorizontalScrollView>
+                    android:id="@+id/baseline_isChild_graph"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
