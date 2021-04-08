@@ -148,4 +148,7 @@ public class ReferralInfo extends AppCompatActivity {
             }
         }
     }
+
+    public void resolveReferral(View view) {
+    }
 }
