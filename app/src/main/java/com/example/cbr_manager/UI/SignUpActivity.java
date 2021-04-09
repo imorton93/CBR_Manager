@@ -21,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.CBRWorker;
-import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.R;
@@ -33,8 +32,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-
-import static com.example.cbr_manager.UI.LoginActivity.username;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -57,9 +54,10 @@ public class SignUpActivity extends AppCompatActivity {
 
         syncService = new SyncService(SignUpActivity.this);
 
-        firstNameTextBox = findViewById(R.id.titleTextBox);
-        lastNameTextBox = findViewById(R.id.dateTextBox);
-        emailTextBox = findViewById(R.id.locationTextBox);
+        firstNameTextBox = findViewById(R.id.firstTextBox);
+        lastNameTextBox = findViewById(R.id.lastTextBox);
+        emailTextBox = findViewById(R.id.usernameTextBox);
+
         zoneTextBox = findViewById(R.id.zoneTextBox);
         password1TextBox = findViewById(R.id.password1TextBox);
         password2TextBox = findViewById(R.id.messageTextBox);
@@ -133,12 +131,7 @@ public class SignUpActivity extends AppCompatActivity {
         //Reference: https://developer.android.com/training/monitoring-device-state/connectivity-status-type
         ConnectivityManager connectManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectManager.getActiveNetworkInfo();
-
-        if ((activeNetwork != null) && (activeNetwork.isConnectedOrConnecting())) {
-            return true;
-        } else {
-            return false;
-        }
+        return (activeNetwork != null) && (activeNetwork.isConnectedOrConnecting());
     }
 
 }
