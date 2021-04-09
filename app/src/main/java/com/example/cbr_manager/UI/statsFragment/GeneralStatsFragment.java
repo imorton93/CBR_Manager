@@ -1,46 +1,43 @@
 package com.example.cbr_manager.UI.statsFragment;
 
-import android.content.Intent;
+import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.Database.SurveyManager;
-import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
-import com.example.cbr_manager.UI.ClientInfoActivity;
-import com.example.cbr_manager.UI.NewClientActivity;
 import com.example.cbr_manager.UI.StatsActivity;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.opencsv.CSVWriter;
 
-import java.sql.Array;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +80,6 @@ public class GeneralStatsFragment extends Fragment {
         clientsOverTimeGraph(view);
 
         downloadButton(view);
-        buildBaselineString(view);
         return view;
     }
 
@@ -226,14 +222,31 @@ public class GeneralStatsFragment extends Fragment {
     private void downloadButton(View v) {
         ImageView downloadButton = v.findViewById(R.id.download);
         downloadButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                //TODO download
+                try {
+                    writeToCSV();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    private void buildBaselineString(View view) {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void writeToCSV() throws IOException {
+        File baseDir = android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        File file = new File(baseDir, "baseline-survey-data.csv");
+        try (FileWriter fileWriter = new FileWriter(file)){
+            StringBuilder baselineDate = buildBaselineString();
+            fileWriter.append(baselineDate);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private StringBuilder buildBaselineString() {
         StringBuilder baselineData = new StringBuilder();
         baselineData.append("Health\n");
         writeHealthPercentages(baselineData);
@@ -255,7 +268,8 @@ public class GeneralStatsFragment extends Fragment {
 
         baselineData.append("\nShelter and Care\n");
         writeShelterAndCarePercentages(baselineData);
-        System.out.println(baselineData);
+//        System.out.println(baselineData);
+        return baselineData;
     }
 
     private void writeHealthPercentages(StringBuilder baselineData) {
