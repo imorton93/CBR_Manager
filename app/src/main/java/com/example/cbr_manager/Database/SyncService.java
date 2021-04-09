@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cbr_manager.UI.BaselineSurvey.EmpowermentandShelterSurveyActivity;
 import com.example.cbr_manager.UI.SignUpActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
 import com.example.cbr_manager.UI.dashboardFragment.NewMsgActivity;
@@ -419,6 +420,59 @@ public class SyncService extends Service {
         requestQueue.add(requestToServer);
     }
 
+    public void syncSurveyTable() {
+        String query = "SELECT * FROM CLIENT_SURVEYS WHERE IS_SYNCED = 0;" ; //get only data that is not synced
+        Cursor c = mydb.executeQuery(query);
+        JSONArray localDataJSON = cur2Json(c);
+
+        String dataToSend =  localDataJSON.toString();
+
+        String URL = "https://mycbr-server.herokuapp.com/surveys";
+
+        //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
+        StringRequest requestToServer = new StringRequest(
+                Request.Method.POST,
+                URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            //Deleting local data
+                            String deleteClients = "DELETE FROM CLIENT_SURVEYS";
+                            mydb.executeQuery(deleteClients);
+
+                            JSONArray serverData = new JSONArray(response);
+
+                            for (int i = 0; i < serverData.length(); i++) {
+                                mydb.addSurvey(jsonToSurvey(serverData.getJSONObject(i)));
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError e) {
+                Toast.makeText(context, "Sync failed.", Toast.LENGTH_LONG).show();
+            }
+        })
+        {
+            @Override
+            public String getBodyContentType() { return "application/json; charset=utf-8"; }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return dataToSend == null ? null : dataToSend.getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    return null;
+                }
+            }
+        };
+
+        requestQueue.add(requestToServer);
+    }
+
     CBRWorker jsonToWorker (JSONObject object) throws JSONException {
         CBRWorker worker = new CBRWorker();
 
@@ -569,6 +623,89 @@ public class SyncService extends Service {
         message.setIsSynced(Integer.parseInt((String) object.get("IS_SYNCED")));
 
         return message;
+    }
+
+    public Survey jsonToSurvey (JSONObject object) throws JSONException {
+        Survey survey = new Survey();
+        Integer value;
+
+        //health
+        survey.setId(Long.parseLong((String) object.get("ID")));
+
+        value = Integer.parseInt((String) object.get("HEALTH_CONDITION"));
+        survey.setHealth_condition(value.byteValue());
+
+        survey.setHave_rehab_access(strToBool((String) object.get("HAVE_REHAB_ACCESS")));
+        survey.setNeed_rehab_access(strToBool((String) object.get("NEED_REHAB_ACCESS")));
+        survey.setHave_device(strToBool((String) object.get("HAVE_DEVICE")));
+        survey.setDevice_condition(strToBool((String) object.get("DEVICE_CONDITION")));
+        survey.setNeed_device(strToBool((String) object.get("NEED_DEVICE")));
+        survey.setDevice_type((String) object.get("DEVICE_TYPE"));
+
+        value = Integer.parseInt((String) object.get("IS_SATISFIED"));
+        survey.setIs_satisfied(value.byteValue());
+
+        //education
+        survey.setIs_student(strToBool((String) object.get("IS_STUDENT")));
+
+        value = Integer.parseInt((String) object.get("GRADE_NO"));
+        survey.setGrade_no(value.byteValue());
+
+        if (!object.isNull("REASON")) {
+            survey.setReason_no_school((String) object.get("REASON"));
+        }
+
+        survey.setWas_student(strToBool((String) object.get("WAS_STUDENT")));
+        survey.setWant_school(strToBool((String) object.get("WANT_SCHOOL")));
+
+        //social
+        survey.setIs_valued(strToBool((String) object.get("IS_VALUED")));
+        survey.setIs_independent(strToBool((String) object.get("IS_INDEPENDENT")));
+        survey.setIs_social(strToBool((String) object.get("IS_SOCIAL")));
+        survey.setIs_socially_affected(strToBool((String) object.get("IS_SOCIALLY_AFFECTED")));
+        survey.setWas_discriminated(strToBool((String) object.get("WAS_DISCRIMINATED")));
+
+        //livelihood
+        survey.setIs_working(strToBool((String) object.get("IS_WORKING")));
+
+        if (!object.isNull("WORK_TYPE")) {
+            survey.setWork_type((String) object.get("IS_WORKING"));
+        }
+
+        survey.setIs_self_employed((String) object.get("IS_SELF_EMPLOYED"));
+        survey.setNeeds_met(strToBool((String) object.get("NEEDS_MET")));
+        survey.setIs_work_affected(strToBool((String) object.get("IS_WORK_AFFECTED")));
+        survey.setWant_work(strToBool((String) object.get("WANT_WORK")));
+
+        //food and nutrition
+        survey.setFood_security((String) object.get("FOOD_SECURITY"));
+        survey.setIs_diet_enough(strToBool((String) object.get("IS_DIET_ENOUGH")));
+
+        if (!object.isNull("CHILD_CONDITION")) {
+            survey.setChild_condition((String) object.get("CHILD_CONDITION"));
+        }
+
+        survey.setReferral_required(strToBool((String) object.get("REFERRAL_REQUIRED")));
+
+        //empowerment
+        survey.setIs_member(strToBool((String) object.get("IS_MEMBER")));
+
+        if (!object.isNull("ORGANISATION")) {
+            survey.setOrganisation((String) object.get("ORGANISATION"));
+        }
+
+        survey.setIs_aware(strToBool((String) object.get("IS_AWARE")));
+        survey.setIs_influence(strToBool((String) object.get("IS_INFLUENCE")));
+
+        //shelter and care
+        survey.setIs_shelter_adequate(strToBool((String) object.get("IS_SHELTER_ADEQUATE")));
+        survey.setItems_access(strToBool((String) object.get("ITEMS_ACCESS")));
+
+        //sync
+        survey.setClient_id(Long.parseLong((String) object.get("CLIENT_ID")));
+        survey.setIs_synced(true);
+
+        return survey;
     }
 
     public JSONArray cur2Json(Cursor cursor) {
