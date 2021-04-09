@@ -93,10 +93,65 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String referral_outcome = "REFERRAL_OUTCOME";
     private static final String client_referral_id = "CLIENT_ID";
 
+    //Baseline Survey Table
+    private static final String survey_table = "CLIENT_SURVEYS";
+    private static final String survey_id = "ID";
+    private static final String survey_is_synced = "IS_SYNCED";
+    private static final String survey_client_id = "CLIENT_ID";
+
+    //Part I - Health
+    private static final String survey_health_condition = "HEALTH_CONDITION";
+    private static final String survey_have_rehab_access = "HAVE_REHAB_ACCESS";
+    private static final String survey_need_rehab_access = "NEED_REHAB_ACCESS";
+    private static final String survey_have_device = "HAVE_DEVICE";
+    private static final String survey_device_condition = "DEVICE_CONDITION";
+    private static final String survey_need_device = "NEED_DEVICE";
+    private static final String survey_device_type = "DEVICE_TYPE";
+    private static final String survey_is_satisfied = "IS_SATISFIED";
+
+    //Part II - Education
+    private static final String survey_is_student = "IS_STUDENT";
+    private static final String survey_grade_no = "GRADE_NO";
+    private static final String survey_reason = "REASON";
+    private static final String survey_was_student = "WAS_STUDENT";
+    private static final String survey_want_school = "WANT_SCHOOL";
+
+    //Part III
+    private static final String survey_is_valued = "IS_VALUED";
+    private static final String survey_is_independent = "IS_INDEPENDENT";
+    private static final String survey_is_social = "IS_SOCIAL";
+    private static final String survey_is_socially_affected = "IS_SOCIALLY_AFFECTED";
+    private static final String survey_was_discriminated = "WAS_DISCRIMINATED";
+
+    //Part IV
+    private static final String survey_is_working = "IS_WORKING";
+    private static final String survey_work_type = "WORK_TYPE";
+    private static final String survey_is_self_employed = "IS_SELF_EMPLOYED";
+    private static final String survey_needs_met = "NEEDS_MET";
+    private static final String survey_is_work_affected = "IS_WORK_AFFECTED";
+    private static final String survey_want_work = "WANT_WORK";
+
+    //Part V
+    private static final String survey_food_security = "FOOD_SECURITY";
+    private static final String survey_is_diet_enough = "IS_DIET_ENOUGH";
+    private static final String survey_child_condition = "CHILD_CONDITION";
+    private static final String survey_referral_required = "REFERRAL_REQUIRED";
+
+    //Part VI
+    private static final String survey_is_member = "IS_MEMBER";
+    private static final String survey_organisation = "ORGANISATION";
+    private static final String survey_is_aware = "IS_AWARE";
+    private static final String survey_is_influence = "IS_INFLUENCE";
+
+    //Part VII
+    private static final String survey_is_shelter_adequate = "IS_SHELTER_ADEQUATE";
+    private static final String survey_items_access = "ITEMS_ACCESS";
+
     //Admin messages table
     //WORKER ID COLUMN
     private static final String admin_message_table = "ADMIN_MESSAGES";
     private static final String admin_id = "ADMIN_ID";
+    private static final String message_id = "ID";
     private static final String message_title = "TITLE";
     private static final String message_date = "DATE";
     private static final String message_location = "LOCATION";
@@ -145,10 +200,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(create_referral_table);
 
         String create_adminMessage_table = "CREATE TABLE "
-                + admin_message_table + " (" + admin_id + " INTEGER PRIMARY KEY, " + message_title + " STRING, "
-                + message_date + " STRING, " + message_location + " STRING, " + admin_message + " STRING, "
+                + admin_message_table + " (" + message_id + " INTEGER PRIMARY KEY, " + message_title + " STRING, "
+                + message_date + " STRING, " + message_location + " STRING, " + admin_message + " STRING, " + admin_id + " INTEGER, "
                 + viewed_status + " INTEGER NOT NULL DEFAULT 0, " + is_synced + " INTEGER NOT NULL DEFAULT 0);";
         db.execSQL(create_adminMessage_table);
+
+        String create_survey_table = "CREATE TABLE " + survey_table + " (" + survey_id
+                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + survey_health_condition + " INTEGER, " + survey_have_rehab_access
+                + " BOOLEAN, " + survey_need_rehab_access + " BOOLEAN, " + survey_have_device+ " BOOLEAN, " + survey_device_condition
+                + " BOOLEAN, " + survey_need_device + " BOOLEAN, " + survey_device_type + " STRING, " + survey_is_satisfied
+                + " INTEGER, " + survey_is_student + " BOOLEAN, " + survey_grade_no + " INTEGER, " + survey_reason
+                + " STRING, " + survey_was_student + " BOOLEAN, " + survey_want_school + " BOOLEAN, " + survey_is_valued
+                + " BOOLEAN, " + survey_is_independent + " BOOLEAN, " + survey_is_social + " BOOLEAN, " + survey_is_socially_affected
+                + " BOOLEAN, " + survey_was_discriminated + " BOOLEAN, " + survey_is_working + " BOOLEAN, " + survey_work_type
+                + " STRING, " + survey_is_self_employed + " STRING, " + survey_needs_met + " BOOLEAN, " + survey_is_work_affected
+                + " BOOLEAN, " + survey_want_work + " BOOLEAN, " + survey_food_security + " STRING, " + survey_is_diet_enough
+                + " BOOLEAN, " + survey_child_condition + " STRING, " + survey_referral_required + " BOOLEAN, " + survey_is_member
+                + " BOOLEAN, " + survey_organisation + " STRING, " + survey_is_aware + " BOOLEAN, " + survey_is_influence
+                + " BOOLEAN, " + survey_is_shelter_adequate + " BOOLEAN, " + survey_items_access + " BOOLEAN, " + survey_client_id
+                + " INTEGER, " + survey_is_synced + " BOOLEAN NOT NULL DEFAULT 0);";
+        db.execSQL(create_survey_table);
+
     }
 
     @Override
@@ -158,6 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(" DROP TABLE IF EXISTS " + visit_table );
         db.execSQL(" DROP TABLE IF EXISTS " + referral_table );
         db.execSQL(" DROP TABLE IF EXISTS " + admin_message_table );
+        db.execSQL(" DROP TABLE IF EXISTS " + survey_table );
 
         onCreate(db);
     }
@@ -171,7 +244,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_7, cbrWorker.getZone());
         cv.put(COL_4, cbrWorker.getPassword());
+        cv.put(COL_6, cbrWorker.getIs_admin());
         cv.put(COL_8, cbrWorker.getPhoto());
+
 
         long result = db.insert(TABLE_NAME, null, cv);
         return result != -1;
@@ -370,15 +445,66 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        cv.put(message_id, message.getId());
         cv.put(message_title, message.getTitle());
         cv.put(message_date, message.getDate());
         cv.put(message_location, message.getLocation());
         cv.put(admin_message, message.getMessage());
+        cv.put(admin_id, message.getAdminID());
         cv.put(viewed_status, message.getViewedStatus());
         cv.put(is_synced, message.getIsSynced());
 
         long result = db.insert(admin_message_table, null, cv);
         return result != -1;
+    }
+
+    public boolean addSurvey(Survey survey){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(survey_health_condition, survey.getHealth_condition());
+        cv.put(survey_have_rehab_access, survey.isHave_rehab_access());
+        cv.put(survey_need_rehab_access, survey.isNeed_rehab_access());
+        cv.put(survey_have_device, survey.isHave_device());
+        cv.put(survey_device_condition, survey.isDevice_condition());
+        cv.put(survey_need_device, survey.isNeed_device());
+        cv.put(survey_device_type, survey.getDevice_type());
+        cv.put(survey_is_satisfied, survey.getIs_satisfied());
+        cv.put(survey_is_student, survey.isIs_student());
+        cv.put(survey_grade_no, survey.getGrade_no());
+        cv.put(survey_reason, survey.getReason_no_school());
+        cv.put(survey_was_student, survey.isWas_student());
+        cv.put(survey_want_school, survey.isWant_school());
+        cv.put(survey_is_valued, survey.isIs_valued());
+        cv.put(survey_is_independent, survey.isIs_independent());
+        cv.put(survey_is_social, survey.isIs_social());
+        cv.put(survey_is_socially_affected, survey.isIs_socially_affected());
+        cv.put(survey_was_discriminated, survey.isWas_discriminated());
+        cv.put(survey_is_working, survey.isIs_working());
+        cv.put(survey_work_type, survey.getWork_type());
+        cv.put(survey_is_self_employed, survey.getIs_self_employed());
+        cv.put(survey_needs_met, survey.isNeeds_met());
+        cv.put(survey_is_work_affected, survey.isIs_work_affected());
+        cv.put(survey_want_work, survey.isWant_work());
+        cv.put(survey_food_security, survey.getFood_security());
+        cv.put(survey_is_diet_enough, survey.isIs_diet_enough());
+        cv.put(survey_child_condition, survey.getChild_condition());
+        cv.put(survey_referral_required, survey.isReferral_required());
+        cv.put(survey_is_member, survey.isIs_member());
+        cv.put(survey_organisation, survey.getOrganisation());
+        cv.put(survey_is_aware, survey.isIs_aware());
+        cv.put(survey_is_influence, survey.isIs_influence());
+        cv.put(survey_is_shelter_adequate, survey.isIs_shelter_adequate());
+        cv.put(survey_items_access, survey.isItems_access());
+        cv.put(survey_is_member, survey.isIs_member());
+        cv.put(survey_client_id, survey.getClient_id());
+        cv.put(survey_is_synced, survey.isIs_synced());
+
+        long result = db.insert(survey_table, null, cv);
+        if (result == -1 )
+            return false;
+        else
+            return true;
     }
 
     public boolean checkUser(String email, String password){
@@ -427,24 +553,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor getVisits(long id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_VISITS WHERE CLIENT_ID = " + id, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
-    public Cursor getVisit(long visit_id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_VISITS WHERE ID = " + visit_id, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
     public Cursor getAllReferrals(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_REFERRALS", null);
@@ -460,6 +568,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c != null) {
             c.moveToFirst();
         }
+
         return c;
     }
 
@@ -481,6 +590,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
+    public Cursor getAllRowsOfSurvey() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM CLIENT_SURVEYS", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
     public Cursor getRow(long id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c =  db.rawQuery( "SELECT rowid _id, * FROM CLIENT_DATA WHERE ID = "+ id, null);
@@ -490,19 +608,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor getdata() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select * from " + " CLIENT_DATA ";
-        Cursor data = db.rawQuery(query,null);
-        return data;
-    }
-
-    public Cursor getItemId(String name) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select * from " + " CLIENT_DATA " + " Where Name" + " = '" + name + "'";
-        Cursor data = db.rawQuery(query, null);
-        return data;
-    }
     public boolean isAdmin (String username ){
         String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -518,15 +623,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllMessageInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM ADMIN_MESSAGES", null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
-    public Cursor getAllCBRWorkers() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM WORKER_DATA", null);
         if (c != null) {
             c.moveToFirst();
         }
@@ -571,6 +667,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return -1;
         }
     }
+
+
+    public int numberOfMessagesPerAdmin(long adminID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(ID) FROM " + admin_message_table + " WHERE " + admin_id + " = " + adminID + ";";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int numberOfUnreadMessages(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(ID) FROM " + admin_message_table + " WHERE " + viewed_status + " = 0;";
+        Cursor c = db.rawQuery(query, null);
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            return c.getInt(0);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public boolean msgAlreadyExists(Long msgID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + admin_message_table + " WHERE " + message_id + " = " + msgID + ";";
+        Cursor c = db.rawQuery(query, null);
+
+        if(c!= null && c.getCount()>0) {
+            c.moveToLast();
+            c.close();
+            db.close();
+
+            return true;
+        }
+
+        c.close();
+        db.close();
+        return false;
+    }
+
+    public void setStatusToRead() {
+        String query = "UPDATE " + admin_message_table + " SET " + viewed_status + " = 1;";
+        this.executeQuery(query);
+    }
+
 
     public Cursor viewData(){
         SQLiteDatabase db = this.getReadableDatabase();

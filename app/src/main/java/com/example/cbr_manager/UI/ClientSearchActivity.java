@@ -2,10 +2,12 @@ package com.example.cbr_manager.UI;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.BaselineSurvey.HealthSurveyActivity;
 
 import java.util.List;
 
@@ -70,6 +73,9 @@ public class ClientSearchActivity extends AppCompatActivity {
             case 2:
                 clickNewReferral();
                 break;
+            case 3:
+                clickNewBaseline();
+                break;
         }
 
         searchBoxes();
@@ -83,6 +89,7 @@ public class ClientSearchActivity extends AppCompatActivity {
         EditText village_num_text = findViewById(R.id.filter_villageNum_clientSearch);
         ImageButton search_button = findViewById(R.id.search_button_clientSearch);
         search_button.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 String first_name = first_name_text.getText().toString().trim();
@@ -145,6 +152,17 @@ public class ClientSearchActivity extends AppCompatActivity {
         });
     }
 
+    private void clickNewBaseline() {
+        ListView list = findViewById(R.id.search_client_list);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = HealthSurveyActivity.makeIntent(ClientSearchActivity.this, position, searched_clients.get(position).getId());
+                startActivity(intent);
+            }
+        });
+    }
+
     private void ToolbarButtons(){
         ImageButton homeBtn = findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +193,7 @@ public class ClientSearchActivity extends AppCompatActivity {
     }
 
     private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
-        int size = adminMessageManager.size();
+        int size = adminMessageManager.numUnread();
 
         if (badge != null) {
             if (size == 0) {

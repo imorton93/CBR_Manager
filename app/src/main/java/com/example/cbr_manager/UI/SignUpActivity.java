@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.R;
 
 import org.json.JSONArray;
@@ -39,6 +40,8 @@ public class SignUpActivity extends AppCompatActivity {
     private DatabaseHelper mydb;
     private CBRWorker cbrWorker;
 
+    private SyncService syncService;
+
     public static Intent makeIntent(Context context) {
         Intent intent =  new Intent(context, SignUpActivity.class);
         return intent;
@@ -49,9 +52,12 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        firstNameTextBox = findViewById(R.id.firstTextBox);
-        lastNameTextBox = findViewById(R.id.lastTextBox);
-        emailTextBox = findViewById(R.id.userTextBox);
+        syncService = new SyncService(SignUpActivity.this);
+
+        firstNameTextBox = findViewById(R.id.titleTextBox);
+        lastNameTextBox = findViewById(R.id.dateTextBox);
+        emailTextBox = findViewById(R.id.locationTextBox);
+
         zoneTextBox = findViewById(R.id.zoneTextBox);
         password1TextBox = findViewById(R.id.password1TextBox);
         password2TextBox = findViewById(R.id.messageTextBox);
@@ -78,7 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
                             boolean success = mydb.registerWorker(cbrWorker);
                             if(success) {
                                 cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
-                                syncLoginData();
+                                syncService.syncLoginData(cbrWorker);
 
                                 Intent intent = LoginActivity.makeIntent(SignUpActivity.this);
                                 startActivity(intent);
@@ -128,99 +134,4 @@ public class SignUpActivity extends AppCompatActivity {
         return (activeNetwork != null) && (activeNetwork.isConnectedOrConnecting());
     }
 
-    private void syncLoginData() {
-        RequestQueue requestQueue = Volley.newRequestQueue(SignUpActivity.this);
-
-        String query = "SELECT * FROM WORKER_DATA WHERE ID = " + cbrWorker.getId();
-        Cursor c = mydb.executeQuery(query);
-        JSONArray localDataJSON = cur2Json(c);
-
-        String dataToSend = localDataJSON.toString();
-
-        String URL = "https://mycbr-server.herokuapp.com/workers";
-
-        //Reference: https://www.youtube.com/watch?v=V8MWUYpwoTQ&&ab_channel=MijasSiklodi
-        StringRequest requestToServer = new StringRequest(
-                Request.Method.POST,
-                URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            //Deleting local data
-                            String deleteWorkers = "DELETE FROM WORKER_DATA";
-                            mydb.executeQuery(deleteWorkers);
-
-                            JSONArray serverData = new JSONArray(response);
-                            JSONObject object = new JSONObject();
-                            CBRWorker worker = new CBRWorker();
-
-                            for (int i = 0; i < serverData.length(); i++) {
-                                object = serverData.getJSONObject(i);
-
-                                worker.setFirstName((String) object.get("FIRST_NAME"));
-                                worker.setLastName((String) object.get("LAST_NAME"));
-                                worker.setUsername((String) object.get("USERNAME"));
-                                worker.setPassword((String) object.get("PASSWORD"));
-                                worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
-                                worker.setIs_admin("1".equals((String) object.get("IS_ADMIN")));
-
-                                mydb.registerWorker(worker);
-                            }
-
-                            Toast.makeText(SignUpActivity.this, "Sign up successful!", Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            Toast.makeText(SignUpActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse (VolleyError e) {
-                if (e.networkResponse.statusCode == 409) { //409 CONFLICT: email already exists on server
-                    Toast.makeText(SignUpActivity.this, "Email is already taken. Try again.", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(SignUpActivity.this, "Sign up failed.", Toast.LENGTH_LONG).show();
-                }
-            }
-        })
-        {
-            @Override
-            public String getBodyContentType() { return "application/json; charset=utf-8"; }
-
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                try {
-                    return dataToSend == null ? null : dataToSend.getBytes("utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    return null;
-                }
-            }
-        };
-
-        requestQueue.add(requestToServer);
-    }
-
-    public JSONArray cur2Json(Cursor cursor) {
-        JSONArray resultSet = new JSONArray();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            int totalColumn = cursor.getColumnCount();
-            JSONObject rowObject = new JSONObject();
-            for (int i = 0; i < totalColumn; i++) {
-                if (cursor.getColumnName(i) != null) {
-                    try {
-                        rowObject.put(cursor.getColumnName(i),
-                                cursor.getString(i));
-                    } catch (Exception e) {
-                        Toast.makeText(SignUpActivity.this, "Exception Error", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-            resultSet.put(rowObject);
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return resultSet;
-    }
 }
