@@ -10,8 +10,8 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical" >
@@ -84,11 +84,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/accessToRehab_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/accessToRehab_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -106,11 +112,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/needAccessToRehab_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/needAccessToRehab_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -127,12 +139,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/haveAssistiveDevice_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/haveAssistiveDevice_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -150,11 +168,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/assistiveDeviceWorking_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/assistiveDeviceWorking_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -172,265 +196,63 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/needAssistiveDevice_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/needAssistiveDevice_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
                 </TableLayout>
 
-                <TableLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="General Health"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:stretchColumns="*">
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
+                    android:id="@+id/baseline_generalHealth_graph"
+                    />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  v poor  "
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  poor  "/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  fine  "/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  good  "
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="General Health "
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Are you satisfied with the\nhealth services provided?"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-                </TableLayout>
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <TableLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Are you satisfied with the health services provided?"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:stretchColumns="*">
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
+                    android:id="@+id/baseline_health_satisfaction_graph"
+                    />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Wheelchair"
-                            android:background="@drawable/table_border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Assistive Devices Needed"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Prosthetic"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Orthotic"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Crutch"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Walking Stick"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hearing aid"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Glasses"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Standing frame"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Corner seat"
-                            android:background="@drawable/table_border"/>
-
-                    </TableRow>
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="What assistive device do you need?"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                    </TableRow>
-                </TableLayout>
-                </HorizontalScrollView>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_health_device_graph"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -481,11 +303,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/goToSchool_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/goToSchool_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -497,33 +325,23 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="If yes what grade?"
+                            android:text="If No, have you ever been to \nschool before?"
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="If No, have you ever been to school before?"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/beenToSchoolBefore_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/beenToSchoolBefore_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -541,83 +359,49 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/wantToGoToSchool_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/wantToGoToSchool_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
                 </TableLayout>
 
-                <HorizontalScrollView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Grade of Students"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TableLayout
-                        android:layout_marginTop="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:stretchColumns="*">
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
+                    android:id="@+id/baseline_grades_graph"
+                    />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Lack of funding"
-                                android:background="@drawable/table_border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Reason why they do not go to school"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="My disability stops me"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="other"
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="If no why do you not go to school?"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-                    </TableLayout>
-                </HorizontalScrollView>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_whyDontTheyGoToSchool_graph"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -667,12 +451,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/valuedCommunityMember_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/valuedCommunityMember_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -690,11 +480,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/independent_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/independent_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -711,12 +507,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/participateInEvents_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/participateInEvents_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -733,12 +535,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/interactSocially_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/interactSocially_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -755,12 +563,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/experienceDiscrimination_yes"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/experienceDiscrimination_no"
+                            android:textAlignment="center"
+                            android:gravity="center"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -815,33 +629,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/working_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="If yes, what do you do?"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/working_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -858,12 +656,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/financialNeeds_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/financialNeeds_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -880,12 +684,18 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/abilityToWork_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/abilityToWork_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -903,55 +713,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/wantToWork_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Employed"
-                            android:background="@drawable/table_border"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="self-employed"
-                            android:background="@drawable/table_border"/>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Are you employed or \nself-employed?"
-                            android:background="@drawable/table_border"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/wantToWork_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -961,89 +733,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Current Employment"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_workType_graph"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Employed versus self-employed"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_employed_graph"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Food and Nutrition"/>
 
-                <HorizontalScrollView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Food Security"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:stretchColumns="*">
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  v poor  "
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  poor  "
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  fine  "
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  good  "
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Food security?"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-                    </TableLayout>
-                </HorizontalScrollView>
+                    android:id="@+id/baseline_foodSecurity_graph"
+                    />
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -1088,86 +823,36 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/enoughFood_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/enoughFood_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
                 </TableLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="If Child, Child's Condition"/>
 
-                <HorizontalScrollView
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:stretchColumns="*">
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_weight="1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Malnourished"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Undernourished"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Well nourished"
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/table_border">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="If child, is the child?"
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:background="@drawable/table_border"/>
-                        </TableRow>
-                    </TableLayout>
-                </HorizontalScrollView>
+                    android:id="@+id/baseline_isChild_graph"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -1219,13 +904,19 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/assistPeople_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/assistPeople_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -1243,13 +934,19 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/awareOfRights_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/awareOfRights_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -1267,13 +964,19 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/influencePeople_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/influencePeople_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -1330,12 +1033,18 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/adequateShelter_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/adequateShelter_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -1354,13 +1063,19 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/essentialItems_yes"
                             android:text=""
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:id="@+id/essentialItems_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
