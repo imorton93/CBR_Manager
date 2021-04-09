@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,10 +29,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.CBRWorker;
+import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
 import com.google.android.material.dialog.MaterialDialogs;
@@ -57,12 +60,20 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private boolean hasImageChange = false;
     Bitmap thumbnail;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
+    private String TAG = "ERROR";
+
+    private DatabaseHelper mydb;
+    private CBRWorker cbrWorker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ToolbarButtons();
+
+        mydb = new DatabaseHelper(ProfileActivity.this);
+        CBRWorkerManager manager = CBRWorkerManager.getInstance(this);
+        cbrWorker = manager.getCBRByUsernameAndPassword(currentCBRWorker.getUsername());
 
         AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(ProfileActivity.this);
         adminMessageManager.clear();
@@ -107,6 +118,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         });
 
     }
+
     private void saveProfilePicture(){
             profilePictureImageView.setDrawingCacheEnabled(true);
             profilePictureImageView.buildDrawingCache();
@@ -114,7 +126,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             ByteArrayOutputStream boas = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, boas);
             byte[] data = boas.toByteArray();
-            DatabaseHelper.saveCBRPhoto(data);
+            cbrWorker.setPhoto(data);
+            cbrWorker.setLastName("TEST");
+            boolean success = mydb.updateWorker(cbrWorker);
+
+            if(success) {
+                Toast.makeText(ProfileActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(ProfileActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
+            }
     }
 
     public void onClick(final View view) {
@@ -144,7 +164,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                             }
                         })
                         .show();
-
                 break;
         }
     }
@@ -224,7 +243,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         //set profile picture from camera
         profilePictureImageView.setMaxWidth(226); // TODO REMOVE?
         profilePictureImageView.setImageBitmap(thumbnail);
+
+        saveProfilePicture();
     }
+
     private void ToolbarButtons(){
         ImageButton homeBtn = (ImageButton) findViewById(R.id.homeButton);
         homeBtn.setOnClickListener(new View.OnClickListener() {
