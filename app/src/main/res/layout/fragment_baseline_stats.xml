@@ -6,11 +6,21 @@
     tools:context=".UI.statsFragment.BaselineStatsFragment"
     android:background="@drawable/backgroundgradient">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:text="Baseline Survey Stats"/>
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="65dp"
         android:layout_marginBottom="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
