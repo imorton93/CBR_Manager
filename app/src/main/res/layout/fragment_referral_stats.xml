@@ -50,6 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="25dp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:text="Resources Requested"/>
 
@@ -72,6 +73,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  Total  "
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -83,6 +85,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Wheel Chairs"
                             android:background="@drawable/table_border"/>
 
@@ -90,6 +93,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_wheelchair_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -103,6 +107,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Wheel Chair Repairs"
                             android:background="@drawable/table_border"/>
 
@@ -110,6 +115,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_wheelchairRepair_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -123,6 +129,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Prosthetics"
                             android:background="@drawable/table_border"/>
 
@@ -130,6 +137,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_prosthetics_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -143,6 +151,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Orthotic"
                             android:background="@drawable/table_border"/>
 
@@ -150,6 +159,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_orthotics_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -163,6 +173,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Physiotherapy"
                             android:background="@drawable/table_border"/>
 
@@ -170,6 +181,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_physiotherapy_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -183,6 +195,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Amputee"
                             android:background="@drawable/table_border"/>
 
@@ -190,6 +203,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_amputee_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -203,6 +217,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Polio"
                             android:background="@drawable/table_border"/>
 
@@ -210,6 +225,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_polio_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -223,6 +239,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Spinal cord injury"
                             android:background="@drawable/table_border"/>
 
@@ -230,6 +247,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_spinalCord_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -243,6 +261,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Cerebral palsy"
                             android:background="@drawable/table_border"/>
 
@@ -250,6 +269,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_cerebralPalsy_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -263,6 +283,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Spina bifida"
                             android:background="@drawable/table_border"/>
 
@@ -270,6 +291,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_spinaBifida_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -283,6 +305,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Hydrocephalus"
                             android:background="@drawable/table_border"/>
 
@@ -290,6 +313,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_hydrocephalus_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -303,6 +327,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Visual Impairment"
                             android:background="@drawable/table_border"/>
 
@@ -310,6 +335,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_visualImpairment_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -323,6 +349,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Hearing Impairment"
                             android:background="@drawable/table_border"/>
 
@@ -330,6 +357,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_hearingImpairment_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -343,6 +371,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Other"
                             android:background="@drawable/table_border"/>
 
@@ -350,6 +379,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/referral_other_stats"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
                             android:text=""
@@ -361,6 +391,7 @@
                     android:layout_width="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Unresolved Referrals"/>

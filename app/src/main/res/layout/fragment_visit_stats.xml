@@ -48,6 +48,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Health Goals Met" />
@@ -64,6 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Education Goals Met"/>
@@ -79,6 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Social Status Goals Met"/>
@@ -94,6 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Number of Visits Per Zone"/>
