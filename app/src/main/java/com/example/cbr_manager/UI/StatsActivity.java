@@ -120,7 +120,7 @@ public class StatsActivity extends AppCompatActivity {
                     return ClientStatsFragment.newInstance();
                 }
                 case 2: {
-                    return BaselineStatsFragment.newInstance("Test");
+                    return BaselineStatsFragment.newInstance();
                 }
                 case 3: {
                     return ReferralStatsFragment.newInstance();
