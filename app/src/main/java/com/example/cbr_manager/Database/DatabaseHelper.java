@@ -481,7 +481,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(survey_was_discriminated, survey.isWas_discriminated());
         cv.put(survey_is_working, survey.isIs_working());
         cv.put(survey_work_type, survey.getWork_type());
-        cv.put(survey_is_self_employed, survey.isIs_self_employed());
+        cv.put(survey_is_self_employed, survey.getIs_self_employed());
         cv.put(survey_needs_met, survey.isNeeds_met());
         cv.put(survey_is_work_affected, survey.isIs_work_affected());
         cv.put(survey_want_work, survey.isWant_work());
@@ -552,24 +552,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor getVisits(long id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_VISITS WHERE CLIENT_ID = " + id, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
-    public Cursor getVisit(long visit_id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_VISITS WHERE ID = " + visit_id, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
     public Cursor getAllReferrals(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT rowid _id, * FROM CLIENT_REFERRALS", null);
@@ -607,6 +589,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
+    public Cursor getAllRowsOfSurvey() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM CLIENT_SURVEYS", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
     public Cursor getRow(long id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c =  db.rawQuery( "SELECT rowid _id, * FROM CLIENT_DATA WHERE ID = "+ id, null);
@@ -616,19 +607,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor getdata() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select * from " + " CLIENT_DATA ";
-        Cursor data = db.rawQuery(query,null);
-        return data;
-    }
-
-    public Cursor getItemId(String name) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "Select * from " + " CLIENT_DATA " + " Where Name" + " = '" + name + "'";
-        Cursor data = db.rawQuery(query, null);
-        return data;
-    }
     public boolean isAdmin (String username ){
         String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -644,15 +622,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllMessageInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM ADMIN_MESSAGES", null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
-    public Cursor getAllCBRWorkers() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c =  db.rawQuery( "SELECT rowid _id,* FROM WORKER_DATA", null);
         if (c != null) {
             c.moveToFirst();
         }
