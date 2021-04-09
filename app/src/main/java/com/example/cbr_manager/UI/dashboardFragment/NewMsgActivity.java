@@ -6,51 +6,19 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
-import android.util.Base64;
-import android.util.Log;
->>>>>>> master
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.cbr_manager.Database.AdminMessage;
-<<<<<<< HEAD
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.R;
-=======
-import com.example.cbr_manager.Database.AdminMessageManager;
-import com.example.cbr_manager.Database.CBRWorker;
-import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.SyncService;
-import com.example.cbr_manager.Forms.TextQuestion;
-import com.example.cbr_manager.R;
-import com.example.cbr_manager.UI.ClientInfoActivity;
-import com.example.cbr_manager.UI.DashboardActivity;
-import com.example.cbr_manager.UI.LoginActivity;
-import com.example.cbr_manager.UI.NewClientActivity;
-import com.example.cbr_manager.UI.NewVisitActivity;
-import com.example.cbr_manager.UI.SignUpActivity;
->>>>>>> master
+
 import com.example.cbr_manager.UI.TaskViewActivity;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 
 public class NewMsgActivity extends AppCompatActivity {
