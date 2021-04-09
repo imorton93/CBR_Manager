@@ -117,6 +117,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        Button editButton = findViewById(R.id.editBtn);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = EditCBRActivity.makeIntent(ProfileActivity.this);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void saveProfilePicture(){
