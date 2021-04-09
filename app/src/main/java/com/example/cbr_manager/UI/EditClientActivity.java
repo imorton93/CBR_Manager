@@ -255,7 +255,6 @@ public class EditClientActivity extends AppCompatActivity {
 
         ImageView picButton = new ImageView(this);
         picButton.setImageResource(R.drawable.camera_icon);
-        picButton.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(200, 200);
         params.gravity = Gravity.CENTER;
         picButton.setLayoutParams(params);
