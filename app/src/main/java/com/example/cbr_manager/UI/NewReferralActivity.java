@@ -898,6 +898,8 @@ public class NewReferralActivity extends AppCompatActivity {
 
 
     private void insertReferral() {
+        referral.setOutcome("UNRESOLVED");//default case
+
         boolean success = mydb.addReferral(referral);
 
         if(success) {

@@ -25,6 +25,7 @@
         <activity android:name=".UI.clientInfoFragment.SurveyInfoActivity"></activity>
         <activity android:name=".UI.StatsActivity" />
         <activity android:name=".UI.ReferralInfo" />
+        <activity android:name=".UI.EditCBRActivity"></activity>
         <activity android:name=".UI.MapsActivity" />
         <activity android:name=".UI.dashboardFragment.NewMsgActivity" />
         <activity android:name=".UI.BaselineSurvey.EmpowermentandShelterSurveyActivity" />
@@ -70,8 +71,10 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".UI.ProfileActivity" />
         <activity android:name=".UI.TaskViewActivity" />
+
         <activity android:name=".UI.EditClientActivity"/>
         <service android:name=".Database.SyncService"></service>
+
 
     </application>
 
