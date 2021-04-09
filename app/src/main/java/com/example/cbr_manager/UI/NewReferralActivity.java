@@ -132,6 +132,9 @@ public class NewReferralActivity extends AppCompatActivity {
 
         createNewReferralForm();
 
+        //temporary pageCount filler
+        //the number of pages depends on choice of the type of referral
+        //variable is changed in function getSelectedForm()
         pageCount = 5;
 
         DisplayFormPage.displayPage(serviceRequirePage, form, this, 0, 0);

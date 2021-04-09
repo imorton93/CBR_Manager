@@ -195,7 +195,7 @@ public class EditClientActivity extends AppCompatActivity {
         back.setBackgroundColor(Color.DKGRAY);
 
 
-        //Permission for camera
+        //Permission for camera use
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
         }
@@ -217,8 +217,7 @@ public class EditClientActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.position = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
         this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
-        //GET RID OF PRINT!!
-        System.out.println("Id is " + this.id);
+
     }
 
     private void getClientInfo(){
