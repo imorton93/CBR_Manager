@@ -6,9 +6,19 @@ public class CBRWorker {
     private String username;
     private String zone;
     private String password;
+    private byte[] photo;
     private int id;
     private boolean is_admin;
 
+    public CBRWorker(String firstName, String lastName, String username, String zone, String password,  byte[] photo) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.zone = zone;
+        this.password = password;
+        this.photo = photo;
+        is_admin = false;
+    }
     public CBRWorker(String firstName, String lastName, String username, String zone, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,6 +35,8 @@ public class CBRWorker {
         this.password = password;
         this.is_admin = is_admin;
     }
+
+
 
     public CBRWorker(){
     }
@@ -87,5 +99,13 @@ public class CBRWorker {
 
     public void setZone(String zone) {
         this.zone = zone;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 }

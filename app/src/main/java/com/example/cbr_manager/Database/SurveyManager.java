@@ -11,6 +11,7 @@ public class SurveyManager {
     private static SurveyManager instance;
     private DatabaseHelper databaseHelper;
 
+    private static final String survey_id = "ID";
     private static final String survey_is_synced = "IS_SYNCED";
     private static final String survey_client_id = "CLIENT_ID";
 
@@ -81,6 +82,7 @@ public class SurveyManager {
     public void updateList() {
         Cursor c = databaseHelper.getAllRowsOfSurvey();
 
+        int survey_idI = c.getColumnIndex(survey_id);
         int health_conditionI = c.getColumnIndex(survey_health_condition);
         int have_rehab_accessI = c.getColumnIndex(survey_have_rehab_access);
         int need_rehab_accessI = c.getColumnIndex(survey_need_rehab_access);
@@ -120,6 +122,7 @@ public class SurveyManager {
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
 
+            long survey_id = c.getLong(survey_idI);
             byte health_condition = (byte) c.getInt(health_conditionI);
             boolean have_rehab_access = c.getInt(have_rehab_accessI) > 0;
             boolean need_rehab_access = c.getInt(need_rehab_accessI) > 0;
@@ -157,7 +160,7 @@ public class SurveyManager {
             long client_id = c.getLong(client_idI);
             boolean is_synced = c.getInt(is_syncedI) > 0;
 
-            Survey newSurvey = new Survey(health_condition, have_rehab_access, need_rehab_access,
+            Survey newSurvey = new Survey(survey_id, health_condition, have_rehab_access, need_rehab_access,
                     have_device, device_condition, need_device, device_type, is_satisfied,
                     is_student, grade_no, reason_no_school, was_student, want_school, is_valued,
                     is_independent, is_social, is_socially_affected, was_discriminated, is_working,
@@ -175,5 +178,16 @@ public class SurveyManager {
 
     public int size() {
         return surveyList.size();
+    }
+
+    public List<Survey> getSurveys(long id) {
+        List<Survey> finalSurveys = new ArrayList<>();
+
+        for (Survey currentSurvey : this.surveyList) {
+            if(currentSurvey.getClient_id() == id) {
+                finalSurveys.add(currentSurvey);
+            }
+        }
+        return finalSurveys;
     }
 }

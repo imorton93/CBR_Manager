@@ -31,6 +31,7 @@ public class CBRWorkerManager {
     private static final String cbr_email = "USERNAME";
     private static final String cbr_zone ="ZONE";
     private static final String cbr_password = "PASSWORD";
+    private static final String cbr_photo = "PHOTO";
 
 
     public CBRWorkerManager(Context context) {
@@ -78,6 +79,7 @@ public class CBRWorkerManager {
         int emailI = c.getColumnIndex(cbr_email);
         int zoneI = c.getColumnIndex(cbr_zone);
         int passwordI = c.getColumnIndex(cbr_password);
+        int photoI = c.getColumnIndex(cbr_photo);
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
 
@@ -86,8 +88,9 @@ public class CBRWorkerManager {
             String email = c.getString(emailI);
             String zone = c.getString(zoneI);
             String password = c.getString(passwordI);
+            byte[] photo = c.getBlob(photoI);
 
-            CBRWorker cbrWorker = new CBRWorker(firstName, lastName, email, zone, password);
+            CBRWorker cbrWorker = new CBRWorker(firstName, lastName, email, zone, password, photo);
             cbrWorkers.add(cbrWorker);
         }
     }

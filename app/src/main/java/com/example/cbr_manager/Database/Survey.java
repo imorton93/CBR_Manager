@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Survey implements Serializable {
 
+    private Long id;
+
     //health
     private byte health_condition; // stored as values in 1-4
     private boolean have_rehab_access;
@@ -59,7 +61,8 @@ public class Survey implements Serializable {
     public Survey() {
     }
 
-    public Survey(byte health_condition, boolean have_rehab_access, boolean need_rehab_access, boolean have_device, boolean device_condition, boolean need_device, String device_type, byte is_satisfied, boolean is_student, byte grade_no, String reason_no_school, boolean was_student, boolean want_school, boolean is_valued, boolean is_independent, boolean is_social, boolean is_socially_affected, boolean was_discriminated, boolean is_working, String work_type, String is_self_employed, boolean needs_met, boolean is_work_affected, boolean want_work, String food_security, boolean is_diet_enough, String child_condition, boolean referral_required, boolean is_member, String organisation, boolean is_aware, boolean is_influence, boolean is_shelter_adequate, boolean items_access,long client_id, boolean is_synced) {
+    public Survey(Long id, byte health_condition, boolean have_rehab_access, boolean need_rehab_access, boolean have_device, boolean device_condition, boolean need_device, String device_type, byte is_satisfied, boolean is_student, byte grade_no, String reason_no_school, boolean was_student, boolean want_school, boolean is_valued, boolean is_independent, boolean is_social, boolean is_socially_affected, boolean was_discriminated, boolean is_working, String work_type, String is_self_employed, boolean needs_met, boolean is_work_affected, boolean want_work, String food_security, boolean is_diet_enough, String child_condition, boolean referral_required, boolean is_member, String organisation, boolean is_aware, boolean is_influence, boolean is_shelter_adequate, boolean items_access, long client_id, boolean is_synced) {
+        this.id = id;
         this.health_condition = health_condition;
         this.have_rehab_access = have_rehab_access;
         this.need_rehab_access = need_rehab_access;
@@ -96,6 +99,14 @@ public class Survey implements Serializable {
         this.items_access = items_access;
         this.client_id = client_id;
         this.is_synced = is_synced;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public byte getHealth_condition() {
