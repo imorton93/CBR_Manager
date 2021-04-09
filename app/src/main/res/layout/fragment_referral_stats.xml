@@ -1,58 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.statsFragment.ReferralStatsFragment"
     android:background="@drawable/backgroundgradient">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:text="Referral Stats"/>
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="65dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/loginpageroundstyle"
-        android:orientation="horizontal"
-        android:radius="100dp">
-
-        <ScrollView
+        <TextView
+            android:id="@+id/textView9"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Referral Stats"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/loginpageroundstyle"
+            android:orientation="horizontal"
+            android:radius="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentTop="true"
                 android:layout_marginLeft="10dp"
-                android:orientation="vertical" >
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
+                    android:text="Resources Requested"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:text="Resources Requested"/>
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -63,345 +69,388 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:background="@drawable/table_border"
+                            android:text="" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="  Total  "
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Wheel Chairs"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_wheelchair_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Wheel Chair Repairs"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_wheelchairRepair_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border" />
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Prosthetics"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_prosthetics_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Orthotic"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_orthotics_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Physiotherapy"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_physiotherapy_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Amputee"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_amputee_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Polio"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_polio_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Spinal cord injury"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_spinalCord_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Cerebral palsy"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_cerebralPalsy_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Spina bifida"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_spinaBifida_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Hydrocephalus"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_hydrocephalus_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Visual Impairment"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/referral_visualImpairment_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:background="@drawable/table_border"
                             android:text="Hearing Impairment"
-                            android:background="@drawable/table_border"/>
+                            android:textColor="@color/black" />
 
                         <TextView
+                            android:id="@+id/referral_hearingImpairment_stats"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/referral_hearingImpairment_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/table_border">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Other"
-                            android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
+                            android:text="Other"
+                            android:textColor="@color/black" />
+
+                        <TextView
                             android:id="@+id/referral_other_stats"
-                            android:textColor="@color/black"
-                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/table_border"
                             android:gravity="center_horizontal"
                             android:text=""
-                            android:background="@drawable/table_border"/>
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
                     </TableRow>
                 </TableLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    android:text="Unresolved Referrals"/>
-
-                <ListView
-                    android:id="@+id/UnresolvedReferralList"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp" />
-
             </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/unresolvedReferralText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="Unresolved Referrals"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+
+        <TextView
+            android:id="@+id/unresolvedReferralTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/unresolvedReferralText"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+        <ListView
+            android:id="@+id/UnresolvedReferralList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/unresolvedReferralText"
+            app:layout_constraintVertical_bias="0.744"></ListView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

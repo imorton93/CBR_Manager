@@ -92,6 +92,20 @@ public class ReferralManager implements Iterable<Referral>{
     }
 
 
+    public List<Referral> getUnresolvedReferrals(){
+        List<Referral> finalReferrals = new ArrayList<>();
+
+        for (Referral currentReferral : this.referrals) {
+            if(currentReferral.getOutcome() != null) {
+                if (currentReferral.getOutcome().equals("UNRESOLVED")) {
+                    finalReferrals.add(currentReferral);
+                }
+            }
+        }
+
+        return finalReferrals;
+    }
+
     public Referral getReferralById(long id){
         Referral referral = new Referral();
         for(Referral ref : referrals){

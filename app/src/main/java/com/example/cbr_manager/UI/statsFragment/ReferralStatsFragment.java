@@ -1,19 +1,33 @@
 package com.example.cbr_manager.UI.statsFragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Referral;
 import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.ClientInfoActivity;
+import com.example.cbr_manager.UI.ReferralInfo;
 import com.example.cbr_manager.UI.StatsActivity;
+import com.example.cbr_manager.UI.clientInfoFragment.ReferralListFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +55,6 @@ public class ReferralStatsFragment extends Fragment {
 
 
 
-
     public ReferralStatsFragment() {}
 
     public static ReferralStatsFragment newInstance() {
@@ -66,6 +79,8 @@ public class ReferralStatsFragment extends Fragment {
         findCounts();
         setCounts(view);
         setPhysioCounts(view);
+        populateListViewFromList(view);
+        clickReferral(view);
         return view;
     }
 
@@ -151,5 +166,72 @@ public class ReferralStatsFragment extends Fragment {
         visualImpairment.setText(String.valueOf(visualImpairment_count));
         hearingImpairment.setText(String.valueOf(hearingImpairment_count));
         other.setText(String.valueOf(other_count));
+    }
+
+    private void populateListViewFromList(View V) {
+        this.referralManager = ReferralManager.getInstance(statsActivity);
+        ListView list = V.findViewById(R.id.UnresolvedReferralList);
+        TextView textview =  V.findViewById(R.id.unresolvedReferralTotal);
+        List<Referral> unresolved = referralManager.getUnresolvedReferrals();
+        ArrayAdapter<Referral> adapter = new ReferralStatsFragment.MyListAdapter(unresolved);
+        int unresolved_num = referralManager.getUnresolvedReferrals().size();
+        int total_referrals = referralManager.getReferrals().size();
+        String numberOfResolved = unresolved_num + "/" + total_referrals;
+        textview.setText(numberOfResolved);
+        list.setAdapter(adapter);
+    }
+
+    private void clickReferral(View V) {
+        ListView list = V.findViewById(R.id.UnresolvedReferralList);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                List<Referral> referrals = referralManager.getUnresolvedReferrals();
+                Referral currentReferral = referrals.get(position);
+                Intent intent = ReferralInfo.makeIntent(getActivity(), currentReferral.getId(), position);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private class MyListAdapter extends ArrayAdapter<Referral> {
+        public MyListAdapter(List<Referral> referrals) {
+            super(statsActivity, R.layout.referral_lists, referrals);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View view = convertView;
+
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.referral_lists, parent, false);
+            }
+
+            List<Referral> referrals = referralManager.getUnresolvedReferrals();
+            Referral currentReferral = referrals.get(position);
+
+            ImageView referralPhoto = view.findViewById(R.id.referral_image);
+            TextView serviceReq = view.findViewById(R.id.serviceReq);
+            TextView outcome = view.findViewById(R.id.referralNumber);
+
+            View resolved = view.findViewById(R.id.resolvedTextView);
+            DatabaseHelper myDb = new DatabaseHelper(getActivity());
+            if(myDb.isResolved(currentReferral.getId()))
+                resolved.setVisibility(View.VISIBLE);
+
+            String serviceReqS = "<b>Service Required: </b> " + currentReferral.getServiceReq();
+            String outcomeS = "<b>Referral Number: </b> #" + (referrals.size() - position);
+
+            if (currentReferral.getReferralPhoto() != null) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(currentReferral.getReferralPhoto(), 0, currentReferral.getReferralPhoto().length);
+                referralPhoto.setImageBitmap(bmp);
+            }
+            serviceReq.setText(Html.fromHtml(serviceReqS));
+            outcome.setText(Html.fromHtml(outcomeS));
+
+            return view;
+        }
+
     }
 }
