@@ -84,12 +84,14 @@
                             android:text="Do they have access to rehabilitation? " />
 
                         <TextView
+                            android:id="@+id/health1yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -108,12 +110,14 @@
                             android:text="Do they need access to rehabilitation? " />
 
                         <TextView
+                            android:id="@+id/health2yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health2no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -132,12 +136,14 @@
                             android:text="Do they have an assistive device? \n(e.g. wheelchair, crutches, prosthetic..." />
 
                         <TextView
+                            android:id="@+id/health3yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health3no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -156,12 +162,14 @@
                             android:text="Is your assistive device working well?" />
 
                         <TextView
+                            android:id="@+id/health4yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health4no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -180,12 +188,14 @@
                             android:text="Do you need an assistive device?" />
 
                         <TextView
+                            android:id="@+id/health5yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health5no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -245,24 +255,28 @@
                             android:text="General Health " />
 
                         <TextView
+                            android:id="@+id/health6VeryPoor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health6poor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health6fine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health6good"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -281,24 +295,28 @@
                             android:text="Are you satisfied with the\nhealth services provided?" />
 
                         <TextView
+                            android:id="@+id/health7VeryPoor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/heath7poor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health7fine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/health7good"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
