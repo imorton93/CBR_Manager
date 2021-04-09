@@ -63,8 +63,8 @@ public class ClientStatsFragment extends Fragment {
 
 
         criticalRiskDataPoints(view);
-//        educationDataPoints(view);
-//        socialDataPoints(view);
+        highRiskDataPoints(view);
+        mediumRiskDataPoints(view);
         return view;
     }
 
@@ -114,6 +114,123 @@ public class ClientStatsFragment extends Fragment {
         criticalRiskDataPoints.add(getSocialDataPoints().get(critical_social_count));
         return criticalRiskDataPoints;
     }
+    private void highRiskDataPoints(View view) {
+        BarChart graph = view.findViewById(R.id.client_high_graph);
+        ArrayList<Integer> highRiskDataPoints = getHighDataPoints();
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+        for (int i = 0; i < highRiskDataPoints.size(); i++) {
+            BarEntry barEntry = new BarEntry(i, highRiskDataPoints.get(i));
+            entries.add(barEntry);
+        }
+
+        BarDataSet barDataSet = new BarDataSet(entries, "Client High Risk Levels");
+        BarData data = new BarData(barDataSet);
+        graph.setData(data);
+        XAxis xaxis = graph.getXAxis();
+        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xaxis.setDrawGridLines(false);
+        xaxis.setLabelCount(3);
+        xaxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return GOAL.get((int) value);
+            }
+        });
+        graph.invalidate();
+
+    }
+
+    private ArrayList<Integer> getHighDataPoints() {
+        ArrayList<Integer> highRiskDataPoints = new ArrayList<>();
+        int high_health_count = 0;
+        int high_education_count = 0;
+        int high_social_count = 0;
+
+        getHealthDataPoints();
+        getEducationDataPoints();
+        getSocialDataPoints();
+
+        getHealthDataPoints().get(high_health_count);
+        getEducationDataPoints().get(high_education_count);
+        getSocialDataPoints().get(high_social_count);
+
+        highRiskDataPoints.add(getHealthDataPoints().get(high_health_count));
+        highRiskDataPoints.add(getEducationDataPoints().get(high_education_count));
+        highRiskDataPoints.add(getSocialDataPoints().get(high_social_count));
+        return highRiskDataPoints;
+    }
+
+    private void mediumRiskDataPoints(View view) {
+        BarChart graph = view.findViewById(R.id.client_medium_graph);
+        ArrayList<Integer> mediumRiskDataPoints = getMediumDataPoints();
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+        for (int i = 0; i < mediumRiskDataPoints.size(); i++) {
+            BarEntry barEntry = new BarEntry(i, mediumRiskDataPoints.get(i));
+            entries.add(barEntry);
+        }
+
+        BarDataSet barDataSet = new BarDataSet(entries, "Client Medium Risk Levels");
+        BarData data = new BarData(barDataSet);
+        graph.setData(data);
+        XAxis xaxis = graph.getXAxis();
+        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xaxis.setDrawGridLines(false);
+        xaxis.setLabelCount(3);
+        xaxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return GOAL.get((int) value);
+            }
+        });
+        graph.invalidate();
+
+    }
+
+    private ArrayList<Integer> getMediumDataPoints() {
+        ArrayList<Integer> mediumRiskDataPoints = new ArrayList<>();
+        int medium_health_count = 0;
+        int medium_education_count = 0;
+        int medium_social_count = 0;
+
+        getHealthDataPoints();
+        getEducationDataPoints();
+        getSocialDataPoints();
+
+        getHealthDataPoints().get(medium_health_count);
+        getEducationDataPoints().get(medium_education_count);
+        getSocialDataPoints().get(medium_social_count);
+
+        mediumRiskDataPoints.add(getHealthDataPoints().get(medium_health_count));
+        mediumRiskDataPoints.add(getEducationDataPoints().get(medium_education_count));
+        mediumRiskDataPoints.add(getSocialDataPoints().get(medium_social_count));
+        return mediumRiskDataPoints;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //
 //    private void healthDataPoints(View view){
