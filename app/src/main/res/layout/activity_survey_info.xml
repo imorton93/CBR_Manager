@@ -8,8 +8,8 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="363dp"
-        android:layout_height="751dp"
+        android:layout_width="wrap_content"
+        android:layout_height="1346dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
@@ -22,7 +22,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="652dp"
+            android:layout_height="641dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp">
 
@@ -302,7 +302,7 @@
                             android:text="" />
 
                         <TextView
-                            android:id="@+id/heath7poor"
+                            android:id="@+id/health7poor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -413,54 +413,63 @@
                                 android:text="What assistive device do you need?" />
 
                             <TextView
+                                android:id="@+id/health8Wheelchair"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/health8Prosthetic"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/health8Orthotic"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/health8Crutch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/health8WalkingStick"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/health8Hearing"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/health8Glasses"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/health8Standing"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/health8Corner"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
@@ -520,12 +529,14 @@
                             android:text="Do you go to school?" />
 
                         <TextView
+                            android:id="@+id/education1yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/education1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -544,6 +555,7 @@
                             android:text="If yes what grade?" />
 
                         <TextView
+                            android:id="@+id/education2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="" />
@@ -561,12 +573,14 @@
                             android:text="If No, have you ever been to school before?" />
 
                         <TextView
+                            android:id="@+id/education3yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/education3no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -585,12 +599,14 @@
                             android:text="Do you want to go to school?" />
 
                         <TextView
+                            android:id="@+id/education4yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/education4no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -650,18 +666,21 @@
                                 android:text="If no why do you not go to school?" />
 
                             <TextView
+                                android:id="@+id/education5lack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/education5disability"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/education5other"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
@@ -720,12 +739,14 @@
                             android:text="Do you feel valued as a \nmember of your community?" />
 
                         <TextView
+                            android:id="@+id/social1yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/social1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -744,12 +765,14 @@
                             android:text="Do you feel independent?" />
 
                         <TextView
+                            android:id="@+id/social2yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/social2no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -768,12 +791,14 @@
                             android:text="Are you able to participate\n in community/Social events?" />
 
                         <TextView
+                            android:id="@+id/social3yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/social3no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -792,12 +817,14 @@
                             android:text="Does your disability affect \nyour ability to interact socially?" />
 
                         <TextView
+                            android:id="@+id/social4yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/social4no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -816,12 +843,14 @@
                             android:text="Have you experienced discrimination \nbecause of your disability?" />
 
                         <TextView
+                            android:id="@+id/social5yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/social5no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -879,12 +908,14 @@
                             android:text="Are you working?" />
 
                         <TextView
+                            android:id="@+id/live1yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/live1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -903,16 +934,12 @@
                             android:text="If yes, what do you do?" />
 
                         <TextView
+                            android:id="@+id/live2yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
                             android:text="" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/table_border"
-                            android:text="" />
                     </TableRow>
 
                     <TableRow
@@ -927,12 +954,14 @@
                             android:text="Does this meet your \nfinancial needs?" />
 
                         <TextView
+                            android:id="@+id/live3yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/live3no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -951,12 +980,14 @@
                             android:text="Does your disability affect\nyour ability to go to work?" />
 
                         <TextView
+                            android:id="@+id/live4yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/live4no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -975,12 +1006,14 @@
                             android:text="Do you want to work?" />
 
                         <TextView
+                            android:id="@+id/live5yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/live5no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -1000,7 +1033,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
                             android:text="Employed" />
 
@@ -1023,12 +1056,14 @@
                             android:text="Are you employed or \nself-employed?" />
 
                         <TextView
+                            android:id="@+id/live6employed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/live6selfEmployed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -1102,24 +1137,28 @@
                                 android:text="Food security?" />
 
                             <TextView
+                                android:id="@+id/food1VeryPoor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/food1poor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/food1fine"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/food1good"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
@@ -1172,12 +1211,14 @@
                             android:text="Do you have enough food every month?" />
 
                         <TextView
+                            android:id="@+id/food2yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/food2no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -1239,18 +1280,21 @@
                                 android:text="If child, is the child?" />
 
                             <TextView
+                                android:id="@+id/food3malnourished"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/food3undernourished"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
                                 android:text="" />
 
                             <TextView
+                                android:id="@+id/food3wellnourished"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
@@ -1311,12 +1355,14 @@
                             android:text="Are you member of an organisations\n which assist people with disabilities?" />
 
                         <TextView
+                            android:id="@+id/empower1yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/empower1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -1336,12 +1382,14 @@
                             android:text="Are you aware of your rights as a\n citizen living with disability?" />
 
                         <TextView
+                            android:id="@+id/empower2yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/empower2no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -1361,12 +1409,14 @@
                             android:text="Do you feel like you are able to\n influence people around you?" />
 
                         <TextView
+                            android:id="@+id/empower3yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/empower3no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -1426,12 +1476,14 @@
                             android:text="Do you have adequate shelter?" />
 
                         <TextView
+                            android:id="@+id/shelter1yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/shelter1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
@@ -1452,12 +1504,14 @@
                             android:text="Do you have access to \nessential items for your household?" />
 
                         <TextView
+                            android:id="@+id/shelter2yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
+                            android:id="@+id/shelter2no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
