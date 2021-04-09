@@ -11,11 +11,14 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,6 +46,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import static com.example.cbr_manager.UI.LoginActivity.currentCBRWorker;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -60,7 +65,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private boolean hasImageChange = false;
     Bitmap thumbnail;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
-    private String TAG = "ERROR";
 
     private DatabaseHelper mydb;
     private CBRWorker cbrWorker;
@@ -88,17 +92,21 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         lastNameTextView = findViewById(R.id.profileLname);
         emailTextView = findViewById(R.id.profileUsername);
         zoneTextView = findViewById(R.id.profileZone);
+        profilePictureImageView = findViewById(R.id.profilePicture);
+        uploadPhoto = findViewById(R.id.uploadButton);
 
         firstNameTextView.setText(currentCBRWorker.getFirstName());
         lastNameTextView.setText(currentCBRWorker.getLastName());
         emailTextView.setText(currentCBRWorker.getUsername());
         zoneTextView.setText(currentCBRWorker.getZone());
 
-        profilePictureImageView = findViewById(R.id.profilePicture);
-        uploadPhoto = findViewById(R.id.uploadButton);
+        if (currentCBRWorker.getPhoto() != null){
+            Bitmap bmp = BitmapFactory.decodeByteArray(currentCBRWorker.getPhoto(), 0 , currentCBRWorker.getPhoto().length);
+            profilePictureImageView.setImageBitmap(bmp);
+        }
 
         uploadPhoto.setOnClickListener(this);
-// COME BACK TOOOO
+
         if(ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             profilePictureImageView.setEnabled(false);
             ActivityCompat.requestPermissions(ProfileActivity.this, new String[] {Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
@@ -136,14 +144,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, boas);
             byte[] data = boas.toByteArray();
             cbrWorker.setPhoto(data);
-            cbrWorker.setLastName("TEST");
-            boolean success = mydb.updateWorker(cbrWorker);
-
-            if(success) {
-                Toast.makeText(ProfileActivity.this, "Entry Successful!", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(ProfileActivity.this, "Entry failed.", Toast.LENGTH_LONG).show();
-            }
     }
 
     public void onClick(final View view) {
@@ -167,7 +167,30 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                         startActivityForResult(intent, CAPTURE_PHOTO);
                                         break;
                                     case 2:
-                                        profilePictureImageView.setImageResource(R.drawable.ic_launcher_background);
+                                        profilePictureImageView.setImageResource(R.drawable.stockprofileimage);
+                                        if (!connectedToInternet()) {
+                                            Toast.makeText(ProfileActivity.this, "Please connect to the internet and try again!", Toast.LENGTH_LONG).show();
+                                        } else {
+                                            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("DATA", Context.MODE_PRIVATE);
+                                            String curr_username = sharedPref.getString("username", null);
+
+                                            cbrWorker.setWorkerId(mydb.getWorkerId(curr_username));
+                                            cbrWorker.setFirstName(currentCBRWorker.getFirstName());
+                                            cbrWorker.setLastName(currentCBRWorker.getLastName());
+                                            cbrWorker.setUsername(currentCBRWorker.getUsername());
+                                            cbrWorker.setZone(currentCBRWorker.getZone());
+                                            cbrWorker.setPassword(BCrypt.withDefaults().hashToString(12, currentCBRWorker.getPassword().toCharArray()));
+
+                                            cbrWorker.setPhoto(null);
+
+                                            boolean success = mydb.updateWorker(cbrWorker);
+                                            if (success) {
+                                                cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
+                                                sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
+                                            } else {
+                                                Toast.makeText(ProfileActivity.this, "Error Occurred." + success, Toast.LENGTH_LONG).show();
+                                            }
+                                        }
                                         break;
                                 }
                             }
@@ -246,14 +269,43 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void onCaptureImageResult(Intent data){
+    private void onCaptureImageResult(Intent data) {
         thumbnail = (Bitmap) data.getExtras().get("data");
         setProgressBar();
+
         //set profile picture from camera
-        profilePictureImageView.setMaxWidth(226); // TODO REMOVE?
         profilePictureImageView.setImageBitmap(thumbnail);
 
-        saveProfilePicture();
+        if (!connectedToInternet()) {
+            Toast.makeText(ProfileActivity.this, "Please connect to the internet and try again!", Toast.LENGTH_LONG).show();
+        } else {
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("DATA", Context.MODE_PRIVATE);
+            String curr_username = sharedPref.getString("username", null);
+
+            cbrWorker.setWorkerId(mydb.getWorkerId(curr_username));
+            cbrWorker.setFirstName(currentCBRWorker.getFirstName());
+            cbrWorker.setLastName(currentCBRWorker.getLastName());
+            cbrWorker.setUsername(currentCBRWorker.getUsername());
+            cbrWorker.setZone(currentCBRWorker.getZone());
+            cbrWorker.setPassword(BCrypt.withDefaults().hashToString(12, currentCBRWorker.getPassword().toCharArray()));
+
+            saveProfilePicture();
+
+            boolean success = mydb.updateWorker(cbrWorker);
+            if (success) {
+                cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
+                sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
+            } else {
+                Toast.makeText(ProfileActivity.this, "Error Occurred." + success, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private boolean connectedToInternet () {
+        //Reference: https://developer.android.com/training/monitoring-device-state/connectivity-status-type
+        ConnectivityManager connectManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectManager.getActiveNetworkInfo();
+        return (activeNetwork != null) && (activeNetwork.isConnectedOrConnecting());
     }
 
     private void ToolbarButtons(){

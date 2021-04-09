@@ -105,8 +105,7 @@ public class EditCBRActivity extends AppCompatActivity {
                         if(success) {
                             cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
                             sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
-//                            syncLoginData();
-                            Intent intent = LoginActivity.makeIntent(EditCBRActivity.this);
+                            Intent intent = ProfileActivity.makeIntent(EditCBRActivity.this);
                             startActivity(intent);
                         } else
                             Toast.makeText(EditCBRActivity.this, "Error Occurred." + success, Toast.LENGTH_LONG).show();

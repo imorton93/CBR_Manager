@@ -172,7 +172,6 @@
             android:bottomRightRadius="100dp"
             android:topLeftRadius="30dp"
             android:topRightRadius="30dp"
-            android:background="@drawable/ic_launcher_background"
             app:srcCompat="@drawable/stockprofileimage" />
 
     </RelativeLayout>

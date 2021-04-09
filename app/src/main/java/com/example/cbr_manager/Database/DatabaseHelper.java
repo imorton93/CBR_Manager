@@ -184,9 +184,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_1, cbrWorker.getFirstName());
         cv.put(COL_2, cbrWorker.getLastName());
         cv.put(COL_3, cbrWorker.getUsername());
-        cv.put(COL_4, cbrWorker.getPassword());
-        cv.put(COL_6, cbrWorker.getIs_admin());
         cv.put(COL_7, cbrWorker.getZone());
+        cv.put(COL_4, cbrWorker.getPassword());
         cv.put(COL_8, cbrWorker.getPhoto());
 
         long id = cbrWorker.getId();
@@ -196,7 +195,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.update(TABLE_NAME, cv, whereClause,null);
         return result != -1;
     }
-
 
     public boolean registerClient(Client client) {
         SQLiteDatabase db = this.getWritableDatabase();
