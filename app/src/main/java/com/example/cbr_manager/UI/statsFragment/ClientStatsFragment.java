@@ -1,5 +1,6 @@
 package com.example.cbr_manager.UI.statsFragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,8 +19,13 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -61,7 +67,6 @@ public class ClientStatsFragment extends Fragment {
         GOAL.add("Education");
         GOAL.add("Social");
 
-
         criticalRiskDataPoints(view);
         highRiskDataPoints(view);
         mediumRiskDataPoints(view);
@@ -83,6 +88,13 @@ public class ClientStatsFragment extends Fragment {
         BarDataSet barDataSet = new BarDataSet(entries, "Client Critical Risk Levels");
         BarData data = new BarData(barDataSet);
         graph.setData(data);
+
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+
+        graph.setFitBars(true);
+        graph.animateY(2000);
+
         XAxis xaxis = graph.getXAxis();
         xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xaxis.setDrawGridLines(false);
@@ -94,6 +106,7 @@ public class ClientStatsFragment extends Fragment {
             }
         });
         graph.invalidate();
+        graph.getDescription().setEnabled(false);
 
     }
 
@@ -106,10 +119,6 @@ public class ClientStatsFragment extends Fragment {
         getHealthDataPoints();
         getEducationDataPoints();
         getSocialDataPoints();
-
-        getHealthDataPoints().get(critical_health_count);
-        getEducationDataPoints().get(critical_education_count);
-        getSocialDataPoints().get(critical_social_count);
 
         criticalRiskDataPoints.add(getHealthDataPoints().get(critical_health_count));
         criticalRiskDataPoints.add(getEducationDataPoints().get(critical_education_count));
@@ -129,6 +138,12 @@ public class ClientStatsFragment extends Fragment {
         BarDataSet barDataSet = new BarDataSet(entries, "Client High Risk Levels");
         BarData data = new BarData(barDataSet);
         graph.setData(data);
+
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+
+        graph.setFitBars(true);
+        graph.animateY(2000);
         XAxis xaxis = graph.getXAxis();
         xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xaxis.setDrawGridLines(false);
@@ -140,6 +155,7 @@ public class ClientStatsFragment extends Fragment {
             }
         });
         graph.invalidate();
+        graph.getDescription().setEnabled(false);
 
     }
 
@@ -152,10 +168,6 @@ public class ClientStatsFragment extends Fragment {
         getHealthDataPoints();
         getEducationDataPoints();
         getSocialDataPoints();
-
-        getHealthDataPoints().get(high_health_count);
-        getEducationDataPoints().get(high_education_count);
-        getSocialDataPoints().get(high_social_count);
 
         highRiskDataPoints.add(getHealthDataPoints().get(high_health_count));
         highRiskDataPoints.add(getEducationDataPoints().get(high_education_count));
@@ -176,6 +188,11 @@ public class ClientStatsFragment extends Fragment {
         BarDataSet barDataSet = new BarDataSet(entries, "Client Medium Risk Levels");
         BarData data = new BarData(barDataSet);
         graph.setData(data);
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+
+        graph.setFitBars(true);
+        graph.animateY(2000);
         XAxis xaxis = graph.getXAxis();
         xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xaxis.setDrawGridLines(false);
@@ -187,6 +204,7 @@ public class ClientStatsFragment extends Fragment {
             }
         });
         graph.invalidate();
+        graph.getDescription().setEnabled(false);
 
     }
 
@@ -199,10 +217,6 @@ public class ClientStatsFragment extends Fragment {
         getHealthDataPoints();
         getEducationDataPoints();
         getSocialDataPoints();
-
-        getHealthDataPoints().get(medium_health_count);
-        getEducationDataPoints().get(medium_education_count);
-        getSocialDataPoints().get(medium_social_count);
 
         mediumRiskDataPoints.add(getHealthDataPoints().get(medium_health_count));
         mediumRiskDataPoints.add(getEducationDataPoints().get(medium_education_count));
@@ -225,6 +239,11 @@ public class ClientStatsFragment extends Fragment {
         BarDataSet barDataSet = new BarDataSet(entries, "Client Low Risk Levels");
         BarData data = new BarData(barDataSet);
         graph.setData(data);
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+
+        graph.setFitBars(true);
+        graph.animateY(2000);
         XAxis xaxis = graph.getXAxis();
         xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xaxis.setDrawGridLines(false);
@@ -236,6 +255,7 @@ public class ClientStatsFragment extends Fragment {
             }
         });
         graph.invalidate();
+        graph.getDescription().setEnabled(false);
 
     }
 
@@ -249,9 +269,6 @@ public class ClientStatsFragment extends Fragment {
         getEducationDataPoints();
         getSocialDataPoints();
 
-        getHealthDataPoints().get(low_health_count);
-        getEducationDataPoints().get(low_education_count);
-        getSocialDataPoints().get(low_social_count);
 
         lowRiskDataPoints.add(getHealthDataPoints().get(low_health_count));
         lowRiskDataPoints.add(getEducationDataPoints().get(low_education_count));
@@ -259,52 +276,6 @@ public class ClientStatsFragment extends Fragment {
         return lowRiskDataPoints;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//    private void healthDataPoints(View view){
-//        BarChart graph = view.findViewById(R.id.client_critical_graph);
-//        ArrayList<Integer>  healthRiskDataPoints = getHealthDataPoints();
-//        ArrayList<BarEntry> entries = new ArrayList<>();
-//
-//        for(int i = 0; i < healthRiskDataPoints.size(); i++){
-//            BarEntry barEntry = new BarEntry(i, healthRiskDataPoints.get(i));
-//            entries.add(barEntry);
-//        }
-//
-//        BarDataSet barDataSet = new BarDataSet(entries, "Client Health Risk Levels");
-//        BarData data = new BarData(barDataSet);
-//        graph.setData(data);
-//        XAxis xaxis = graph.getXAxis();
-//        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xaxis.setDrawGridLines(false);
-//        xaxis.setLabelCount(4);
-//        xaxis.setValueFormatter(new IAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-//                return RISK_LEVEL.get((int)value);
-//            }
-//        });
-//        graph.invalidate();
-//    }
 
         private ArrayList<Integer> getHealthDataPoints () {
             ArrayList<Integer> healthRiskDataPoints = new ArrayList<>();
@@ -332,31 +303,6 @@ public class ClientStatsFragment extends Fragment {
             return healthRiskDataPoints;
         }
 
-//    private void educationDataPoints(View view){
-//        BarChart graph = view.findViewById(R.id.client_high_graph);
-//        ArrayList<Integer>  educationRiskDataPoints = getEducationDataPoints();
-//        ArrayList<BarEntry> entries = new ArrayList<>();
-//
-//        for(int i = 0; i < educationRiskDataPoints.size(); i++){
-//            BarEntry barEntry = new BarEntry(i, educationRiskDataPoints.get(i));
-//            entries.add(barEntry);
-//        }
-//
-//        BarDataSet barDataSet = new BarDataSet(entries, "Client Education Risk Levels");
-//        BarData data = new BarData(barDataSet);
-//        graph.setData(data);
-//        XAxis xaxis = graph.getXAxis();
-//        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xaxis.setDrawGridLines(false);
-//        xaxis.setLabelCount(4);
-//        xaxis.setValueFormatter(new IAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-//                return RISK_LEVEL.get((int)value);
-//            }
-//        });
-//        graph.invalidate();
-//    }
 
     private ArrayList<Integer> getEducationDataPoints(){
         ArrayList<Integer> educationRiskDataPoints = new ArrayList<>();
@@ -384,31 +330,6 @@ public class ClientStatsFragment extends Fragment {
         return educationRiskDataPoints;
     }
 
-//    private void socialDataPoints(View view){
-//        BarChart graph = view.findViewById(R.id.client_medium_graph);
-//        ArrayList<Integer>  socialRiskDataPoints = getSocialDataPoints();
-//        ArrayList<BarEntry> entries = new ArrayList<>();
-//
-//        for(int i = 0; i < socialRiskDataPoints.size(); i++){
-//            BarEntry barEntry = new BarEntry(i, socialRiskDataPoints.get(i));
-//            entries.add(barEntry);
-//        }
-//
-//        BarDataSet barDataSet = new BarDataSet(entries, "Client Social Status Risk Levels");
-//        BarData data = new BarData(barDataSet);
-//        graph.setData(data);
-//        XAxis xaxis = graph.getXAxis();
-//        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xaxis.setDrawGridLines(false);
-//        xaxis.setLabelCount(4);
-//        xaxis.setValueFormatter(new IAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-//                return RISK_LEVEL.get((int)value);
-//            }
-//        });
-//        graph.invalidate();
-//    }
 
     private ArrayList<Integer> getSocialDataPoints(){
         ArrayList<Integer> socialRiskDataPoints = new ArrayList<>();
@@ -436,5 +357,4 @@ public class ClientStatsFragment extends Fragment {
         return socialRiskDataPoints;
     }
 }
-
 
