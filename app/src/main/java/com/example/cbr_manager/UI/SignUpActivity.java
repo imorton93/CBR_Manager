@@ -56,7 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         firstNameTextBox = findViewById(R.id.firstTextBox);
         lastNameTextBox = findViewById(R.id.lastTextBox);
-        emailTextBox = findViewById(R.id.usernameTextBox);
+        emailTextBox = findViewById(R.id.userTextBox);
 
         zoneTextBox = findViewById(R.id.zoneTextBox);
         password1TextBox = findViewById(R.id.password1TextBox);
