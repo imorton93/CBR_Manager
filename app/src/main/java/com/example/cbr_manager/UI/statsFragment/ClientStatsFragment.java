@@ -65,6 +65,8 @@ public class ClientStatsFragment extends Fragment {
         criticalRiskDataPoints(view);
         highRiskDataPoints(view);
         mediumRiskDataPoints(view);
+        lowRiskDataPoints(view);
+
         return view;
     }
 
@@ -210,7 +212,52 @@ public class ClientStatsFragment extends Fragment {
 
 
 
+    private void lowRiskDataPoints(View view) {
+        BarChart graph = view.findViewById(R.id.client_low_graph);
+        ArrayList<Integer> lowRiskDataPoints = getLowDataPoints();
+        ArrayList<BarEntry> entries = new ArrayList<>();
 
+        for (int i = 0; i < lowRiskDataPoints.size(); i++) {
+            BarEntry barEntry = new BarEntry(i, lowRiskDataPoints.get(i));
+            entries.add(barEntry);
+        }
+
+        BarDataSet barDataSet = new BarDataSet(entries, "Client Low Risk Levels");
+        BarData data = new BarData(barDataSet);
+        graph.setData(data);
+        XAxis xaxis = graph.getXAxis();
+        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xaxis.setDrawGridLines(false);
+        xaxis.setLabelCount(3);
+        xaxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return GOAL.get((int) value);
+            }
+        });
+        graph.invalidate();
+
+    }
+
+    private ArrayList<Integer> getLowDataPoints() {
+        ArrayList<Integer> lowRiskDataPoints = new ArrayList<>();
+        int low_health_count = 0;
+        int low_education_count = 0;
+        int low_social_count = 0;
+
+        getHealthDataPoints();
+        getEducationDataPoints();
+        getSocialDataPoints();
+
+        getHealthDataPoints().get(low_health_count);
+        getEducationDataPoints().get(low_education_count);
+        getSocialDataPoints().get(low_social_count);
+
+        lowRiskDataPoints.add(getHealthDataPoints().get(low_health_count));
+        lowRiskDataPoints.add(getEducationDataPoints().get(low_education_count));
+        lowRiskDataPoints.add(getSocialDataPoints().get(low_social_count));
+        return lowRiskDataPoints;
+    }
 
 
 
