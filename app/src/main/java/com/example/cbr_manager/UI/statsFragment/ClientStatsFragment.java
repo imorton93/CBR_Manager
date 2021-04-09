@@ -112,13 +112,10 @@ public class ClientStatsFragment extends Fragment {
 
     private ArrayList<Integer> getCriticalDataPoints() {
         ArrayList<Integer> criticalRiskDataPoints = new ArrayList<>();
-        int critical_health_count = 0;
-        int critical_education_count = 0;
-        int critical_social_count = 0;
+        int critical_health_count = 3;
+        int critical_education_count = 3;
+        int critical_social_count = 3;
 
-        getHealthDataPoints();
-        getEducationDataPoints();
-        getSocialDataPoints();
 
         criticalRiskDataPoints.add(getHealthDataPoints().get(critical_health_count));
         criticalRiskDataPoints.add(getEducationDataPoints().get(critical_education_count));
@@ -161,13 +158,9 @@ public class ClientStatsFragment extends Fragment {
 
     private ArrayList<Integer> getHighDataPoints() {
         ArrayList<Integer> highRiskDataPoints = new ArrayList<>();
-        int high_health_count = 0;
-        int high_education_count = 0;
-        int high_social_count = 0;
-
-        getHealthDataPoints();
-        getEducationDataPoints();
-        getSocialDataPoints();
+        int high_health_count = 2;
+        int high_education_count = 2;
+        int high_social_count = 2;
 
         highRiskDataPoints.add(getHealthDataPoints().get(high_health_count));
         highRiskDataPoints.add(getEducationDataPoints().get(high_education_count));
@@ -210,13 +203,10 @@ public class ClientStatsFragment extends Fragment {
 
     private ArrayList<Integer> getMediumDataPoints() {
         ArrayList<Integer> mediumRiskDataPoints = new ArrayList<>();
-        int medium_health_count = 0;
-        int medium_education_count = 0;
-        int medium_social_count = 0;
+        int medium_health_count = 1;
+        int medium_education_count = 1;
+        int medium_social_count = 1;
 
-        getHealthDataPoints();
-        getEducationDataPoints();
-        getSocialDataPoints();
 
         mediumRiskDataPoints.add(getHealthDataPoints().get(medium_health_count));
         mediumRiskDataPoints.add(getEducationDataPoints().get(medium_education_count));
@@ -264,10 +254,6 @@ public class ClientStatsFragment extends Fragment {
         int low_health_count = 0;
         int low_education_count = 0;
         int low_social_count = 0;
-
-        getHealthDataPoints();
-        getEducationDataPoints();
-        getSocialDataPoints();
 
 
         lowRiskDataPoints.add(getHealthDataPoints().get(low_health_count));
