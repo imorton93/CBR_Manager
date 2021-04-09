@@ -54,9 +54,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         syncService = new SyncService(SignUpActivity.this);
 
-        firstNameTextBox = findViewById(R.id.titleTextBox);
-        lastNameTextBox = findViewById(R.id.dateTextBox);
-        emailTextBox = findViewById(R.id.locationTextBox);
+        firstNameTextBox = findViewById(R.id.firstTextBox);
+        lastNameTextBox = findViewById(R.id.lastTextBox);
+        emailTextBox = findViewById(R.id.usernameTextBox);
 
         zoneTextBox = findViewById(R.id.zoneTextBox);
         password1TextBox = findViewById(R.id.password1TextBox);
