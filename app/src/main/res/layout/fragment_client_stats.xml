@@ -38,7 +38,7 @@
                 <com.github.mikephil.charting.charts.BarChart
                     android:layout_height="300dp"
                     android:layout_width="match_parent"
-                    android:id="@+id/client_health_graph"
+                    android:id="@+id/client_critical_graph"
                     android:background="@color/white"
                     />
 
@@ -46,14 +46,21 @@
                     android:layout_height="300dp"
                     android:layout_marginTop="50dp"
                     android:layout_width="match_parent"
-                    android:id="@+id/client_education_graph"
+                    android:id="@+id/client_high_graph"
                     />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:layout_height="300dp"
                     android:layout_marginTop="50dp"
                     android:layout_width="match_parent"
-                    android:id="@+id/client_Social_graph"
+                    android:id="@+id/client_medium_graph"
+                    />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:layout_height="300dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/client_low_graph"
                     />
 
             </LinearLayout>
