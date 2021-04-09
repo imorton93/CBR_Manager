@@ -72,6 +72,8 @@ public class NewMsgActivity extends AppCompatActivity {
 
                 if(success) {
                     syncService.sendMsgToServer(adminMessage);
+                    databaseHelper.setStatusToRead();
+                    Toast.makeText(NewMsgActivity.this, "Message sent!", Toast.LENGTH_LONG).show();
                     Intent intent = TaskViewActivity.makeIntent(NewMsgActivity.this);
                     startActivity(intent);
                 }
