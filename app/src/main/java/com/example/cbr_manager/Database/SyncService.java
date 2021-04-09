@@ -550,8 +550,13 @@ public class SyncService extends Service {
         referral.setClientID(Long.parseLong((String) object.get("CLIENT_ID")));
         referral.setIsSynced(1);
 
-        /*referral.setStatus((String) object.get("REFERRAL_STATUS"));
-        referral.setOutcome((String) object.get("REFERRAL_OUTCOME"));*/
+        if (!object.isNull("REFERRAL_STATUS")) {
+            referral.setStatus((String) object.get("REFERRAL_STATUS"));
+        }
+
+        if (!object.isNull("REFERRAL_OUTCOME")) {
+            referral.setOutcome((String) object.get("REFERRAL_OUTCOME"));
+        }
 
         return referral;
     }
