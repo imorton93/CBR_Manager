@@ -89,6 +89,7 @@ public class SyncService extends Service {
         handler = new Handler();
         mydb = new DatabaseHelper(getApplicationContext());
         requestQueue = Volley.newRequestQueue(getApplicationContext());
+        adminMessageManager = AdminMessageManager.getInstance(context);
 
         handler.post(autoSync);
     }
