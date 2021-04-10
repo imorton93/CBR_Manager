@@ -138,24 +138,6 @@ public class TaskViewActivity extends AppCompatActivity {
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
                 }
-
-                ClientManager clientManager = ClientManager.getInstance(TaskViewActivity.this);
-                clientManager.clear();
-                clientManager.updateList();
-
-                VisitManager visitManager = VisitManager.getInstance(TaskViewActivity.this);
-                visitManager.clear();
-                visitManager.updateList();
-
-                ReferralManager referralManager = ReferralManager.getInstance(TaskViewActivity.this);
-                referralManager.clear();
-                referralManager.updateList();
-
-                AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
-                adminMessageManager.clear();
-                adminMessageManager.updateList();
-
-                badgeNotification(adminMessageManager, badge);
             }
         });
 

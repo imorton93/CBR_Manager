@@ -105,18 +105,23 @@ public class EditCBRActivity extends AppCompatActivity {
                         cbrWorker.setZone(zone.getText().toString());
                         cbrWorker.setPassword(BCrypt.withDefaults().hashToString(12, currentCBRWorker.getPassword().toCharArray()));
 
-                        boolean success = mydb.updateWorker(cbrWorker);
-                        if(success) {
-                            cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
-                            sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
-                            currentCBRWorker.setUsername(cbrWorker.getUsername());
+                        if ((mydb.getWorkerId(cbrWorker.getUsername()) == cbrWorker.getId())
+                            || (mydb.getWorkerId(cbrWorker.getUsername()) == -1)) {
+                            boolean success = mydb.updateWorker(cbrWorker);
+                            if (success) {
+                                cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
+                                sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
+                                currentCBRWorker.setUsername(cbrWorker.getUsername());
 
-                            syncService.sendWorkerToServer(cbrWorker);
+                                syncService.sendWorkerToServer(cbrWorker);
 
-                            Intent intent = ProfileActivity.makeIntent(EditCBRActivity.this);
-                            startActivity(intent);
-                        } else
-                            Toast.makeText(EditCBRActivity.this, "Error Occurred." + success, Toast.LENGTH_LONG).show();
+                                Intent intent = ProfileActivity.makeIntent(EditCBRActivity.this);
+                                startActivity(intent);
+                            } else
+                                Toast.makeText(EditCBRActivity.this, "Error Occurred." + success, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditCBRActivity.this, "Username is already registered in the database.", Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         Toast.makeText(EditCBRActivity.this, "Please enter all the details", Toast.LENGTH_SHORT).show();
                     }

@@ -45,6 +45,12 @@ public class SyncService extends Service {
     private RequestQueue requestQueue;
     private Context context;
 
+    private CBRWorkerManager cbrWorkerManager;
+    private ClientManager clientManager;
+    private VisitManager visitManager;
+    private ReferralManager referralManager;
+    private AdminMessageManager adminMessageManager;
+
     public SyncService() {
     }
 
@@ -52,6 +58,12 @@ public class SyncService extends Service {
         mydb = new DatabaseHelper(context);
         requestQueue = Volley.newRequestQueue(context);
         this.context = context;
+
+        cbrWorkerManager = CBRWorkerManager.getInstance(context);
+        clientManager = ClientManager.getInstance(context);
+        visitManager = VisitManager.getInstance(context);
+        referralManager = ReferralManager.getInstance(context);
+        adminMessageManager = AdminMessageManager.getInstance(context);
     }
 
     private Runnable autoSync = new Runnable() {
@@ -95,9 +107,6 @@ public class SyncService extends Service {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            /*String deleteWorkers = "DELETE FROM ADMIN_MESSAGES";
-                            mydb.executeQuery(deleteWorkers);*/
-
                             JSONArray serverData = new JSONArray(response);
                             Long msgID;
 
@@ -106,6 +115,9 @@ public class SyncService extends Service {
                                 if (!mydb.msgAlreadyExists(msgID)) {
                                     mydb.addMessage(jsonToMessage(serverData.getJSONObject(i)));
                                 }
+
+                                adminMessageManager.clear();
+                                adminMessageManager.updateList();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -196,6 +208,8 @@ public class SyncService extends Service {
                             }
 
                             Toast.makeText(context, "Sign up successful!", Toast.LENGTH_LONG).show();
+                            cbrWorkerManager.clear();
+                            cbrWorkerManager.updateList();
                         } catch (JSONException e) {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                         }
@@ -245,6 +259,9 @@ public class SyncService extends Service {
                             for (int i = 0; i < serverData.length(); i++) {
                                 mydb.registerWorker(jsonToWorker(serverData.getJSONObject(i)));
                             }
+
+                            cbrWorkerManager.clear();
+                            cbrWorkerManager.updateList();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -268,11 +285,8 @@ public class SyncService extends Service {
         Cursor c = mydb.executeQuery(query);
         JSONArray localDataJSON = cur2Json(c);
 
-
         String workerArr = localDataJSON.toString();
         String dataToSend = workerArr.substring(1, workerArr.length() - 1);
-
-        Toast.makeText(context, dataToSend, Toast.LENGTH_LONG).show();
 
         String URL = "https://mycbr-server.herokuapp.com/update-worker/" + cbrWorker.getId();
 
@@ -296,7 +310,9 @@ public class SyncService extends Service {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse (VolleyError e) {
-
+                if (e.networkResponse.statusCode == 409) { //409 CONFLICT: email already exists on server
+                    Toast.makeText(context, "Username is already taken. Try again.", Toast.LENGTH_LONG).show();
+                }
             }
         })
         {
@@ -351,6 +367,9 @@ public class SyncService extends Service {
                             for (int i = 0; i < serverData.length(); i++) {
                                 mydb.registerClient(jsonToClient(serverData.getJSONObject(i)));
                             }
+
+                            clientManager.clear();
+                            clientManager.updateList();
                         } catch (JSONException e) {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                         }
@@ -404,6 +423,9 @@ public class SyncService extends Service {
                             for (int i = 0; i < serverData.length(); i++) {
                                 mydb.addVisit(jsonToVisit(serverData.getJSONObject(i)));
                             }
+
+                            visitManager.clear();
+                            visitManager.updateList();
                         } catch (JSONException e) {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                         }
@@ -457,6 +479,9 @@ public class SyncService extends Service {
                             for (int i = 0; i < serverData.length(); i++) {
                                 mydb.addReferral(jsonToReferral(serverData.getJSONObject(i)));
                             }
+
+                            referralManager.clear();
+                            referralManager.updateList();
                         } catch (JSONException e) {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                         }
