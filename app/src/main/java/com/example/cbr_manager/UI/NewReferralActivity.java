@@ -779,8 +779,14 @@ public class NewReferralActivity extends AppCompatActivity {
 
         if(serviceType.equals("Physiotherapy")){
             String condition = referral.getCondition();
+            String otherCondition = referral.getConditionOtherExplanation();
             TextView conditionView = new TextView(this);
-            conditionView.setText("Condition: " + condition);
+            if(condition.equalsIgnoreCase("Other")){
+                conditionView.setText("Condition: " + otherCondition);
+            }
+            else{
+                conditionView.setText("Condition: " + condition);
+            }
             conditionView.setTextSize(txtSize);
             layout.addView(conditionView);
         }

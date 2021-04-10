@@ -302,7 +302,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(serviceType.equals("Physiotherapy")){
             cv.put(service_req, referral.getServiceReq());
             String condition = referral.getCondition();
-            if(condition.equals("Other")){
+            if(condition.equalsIgnoreCase("Other")){
                 String explanation = referral.getConditionOtherExplanation();
                 cv.put(conditions, explanation);
             }
