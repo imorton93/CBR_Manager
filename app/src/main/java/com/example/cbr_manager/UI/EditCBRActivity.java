@@ -78,8 +78,7 @@ public class EditCBRActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = LoginActivity.makeIntent(EditCBRActivity.this);
-                startActivity(intent);
+                finish();
             }
         });
 
