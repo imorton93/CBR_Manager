@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Survey;
+import com.example.cbr_manager.Database.SurveyManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
@@ -81,6 +82,8 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                     setUniqueSurveyId();
                     boolean success = db.addSurvey(survey);
                     if (success) {
+                        SurveyManager surveyManager = SurveyManager.getInstance(EmpowermentandShelterSurveyActivity.this);
+                        surveyManager.addSurvey(survey);
                         Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Thanks for taking the survey!", Toast.LENGTH_LONG).show();
                         Intent intent = TaskViewActivity.makeIntent(EmpowermentandShelterSurveyActivity.this);
                         startActivity(intent);
