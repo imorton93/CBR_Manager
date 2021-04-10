@@ -170,7 +170,7 @@ public class SocialSurveyActivity extends AppCompatActivity {
     }
 
     private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
-        int size = adminMessageManager.numUnread();
+        int size = adminMessageManager.size();
 
         if (badge != null) {
             if (size == 0) {

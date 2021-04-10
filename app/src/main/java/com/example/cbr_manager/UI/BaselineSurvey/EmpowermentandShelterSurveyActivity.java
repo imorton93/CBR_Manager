@@ -82,7 +82,6 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                 else {
                     storeSurveyInput();
                     DatabaseHelper db = new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
-                    setUniqueSurveyId();
                     boolean success = db.addSurvey(survey);
                     if (success) {
                         SurveyManager surveyManager = SurveyManager.getInstance(EmpowermentandShelterSurveyActivity.this);
@@ -91,7 +90,7 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                         Intent intent = TaskViewActivity.makeIntent(EmpowermentandShelterSurveyActivity.this);
                         startActivity(intent);
                     } else {
-                        //Toast.makeText(EmpowermentandShelterSurveyActivity.this, String.valueOf(survey.getId()), Toast.LENGTH_LONG).show();
+                        Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Try Again!", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -215,7 +214,7 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
     }
 
     private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
-        int size = adminMessageManager.numUnread();
+        int size = adminMessageManager.size();
 
         if (badge != null) {
             if (size == 0) {
@@ -229,20 +228,5 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    private void setUniqueSurveyId(){
-        DatabaseHelper db =  new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
-
-        int survey_no = db.numberOfSurveysPerClient(survey.getClient_id());
-        survey_no++;//next available survey id
-
-        // Concatenate both strings
-        String uniqueID = String.valueOf(survey.getClient_id()) + String.valueOf(survey_no);
-
-        // Convert the concatenated string to integer
-        long uniqueID_long = Long.parseLong(uniqueID);
-
-        survey.setId(uniqueID_long);
     }
 }
