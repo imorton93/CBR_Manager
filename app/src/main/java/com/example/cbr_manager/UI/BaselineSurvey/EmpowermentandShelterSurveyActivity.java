@@ -20,6 +20,7 @@ import com.example.cbr_manager.Database.Survey;
 import com.example.cbr_manager.Database.SurveyManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
+import com.example.cbr_manager.UI.NewVisitActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
 import com.google.android.gms.tasks.Task;
@@ -54,6 +55,8 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
         organisationName = findViewById(R.id.editTextOrganisation);
 
         survey = (Survey) getIntent().getSerializableExtra("Survey");
+
+        setUniqueSurveyId();
 
         submitButton = findViewById(R.id.submitButtonEmpowermentSurvey);
         backButton = findViewById(R.id.backButtonEmpowermentSurvey);
@@ -158,6 +161,21 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void setUniqueSurveyId(){
+        DatabaseHelper db =  new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
+
+        int survey_no = db.numberOfSurveysPerClient(survey.getClient_id());
+        survey_no++;//next available visit id
+
+        // Concatenate both strings
+        String uniqueID = String.valueOf(survey.getClient_id()) + String.valueOf(survey_no);
+
+        // Convert the concatenated string to integer
+        long uniqueID_long = Long.parseLong(uniqueID);
+
+        survey.setId(uniqueID_long);
     }
 
 

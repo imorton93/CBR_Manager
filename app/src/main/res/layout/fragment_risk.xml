@@ -113,8 +113,8 @@
             android:id="@+id/EducationDot"
             android:layout_width="37dp"
             android:layout_height="37dp"
-            android:layout_alignTop="@+id/education"
-            android:layout_alignBottom="@+id/education"
+            android:layout_alignTop="@+id/education1no"
+            android:layout_alignBottom="@+id/education1no"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="-5dp"
@@ -123,7 +123,7 @@
             android:layout_marginBottom="1dp" />
 
         <TextView
-            android:id="@+id/education"
+            android:id="@+id/education1no"
             android:layout_width="121dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -150,8 +150,8 @@
             android:layout_marginBottom="-2dp"
             android:layout_toStartOf="@+id/EducationDot"
             android:layout_toLeftOf="@+id/EducationDot"
-            android:layout_toEndOf="@+id/education"
-            android:layout_toRightOf="@+id/education"
+            android:layout_toEndOf="@+id/education1no"
+            android:layout_toRightOf="@+id/education1no"
             android:gravity="center"
             android:text="Education Risk Level" />
 

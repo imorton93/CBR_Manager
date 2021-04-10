@@ -78,7 +78,6 @@ public class ClientInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.position = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
         this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
-        System.out.println("Id is " + this.id);
     }
 
     private void navbar(){
