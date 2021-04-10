@@ -686,7 +686,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int numberOfSurveysPerClient(long client_id){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT COUNT(ID) FROM " + survey_table + " WHERE " + survey_client_id + " = " + client_id + ";";
+        String query = "SELECT COUNT(ID) FROM " + survey_table + " WHERE " + survey_id + " = " + client_id + ";";
         Cursor c = db.rawQuery(query, null);
         if(c!= null && c.getCount()>0) {
             c.moveToLast();
