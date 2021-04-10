@@ -82,7 +82,7 @@ public class ReferralInfo extends AppCompatActivity {
         TextView otherInformation = findViewById(R.id.OtherInformation);
 
         String otherInfo = concatOtherInformation(currentReferral);
-        String service = "<b>Service Required:<b> " + currentReferral.getServiceReq();
+        String service = "<b>Service Required:</b> " + currentReferral.getServiceReq();
 
         if (currentReferral.getReferralPhoto() != null) {
             Bitmap bmp = BitmapFactory.decodeByteArray(currentReferral.getReferralPhoto(), 0, currentReferral.getReferralPhoto().length);
@@ -96,21 +96,21 @@ public class ReferralInfo extends AppCompatActivity {
     private String concatOtherInformation(Referral ref) {
         String otherInformation = "";
         if (ref.getServiceReq().equals("Physiotherapy")) {
-            otherInformation += "<b>Condition of client:<b> " + ref.getCondition() + "<br>";
+            otherInformation += "<b>Condition of client:</b> " + ref.getCondition() + "<br>";
             if (ref.getCondition().equals("Other")) {
-                otherInformation += "<b>Condition Explanation:<b> " + ref.getConditionOtherExplanation() + "<br>";
+                otherInformation += "<b>Condition Explanation:</b> " + ref.getConditionOtherExplanation() + "<br>";
             }
         } else if (ref.getServiceReq().equals("Prosthetic") || ref.getServiceReq().equals("Orthotic")) {
-            otherInformation += "<b>Injury location:<b> " + ref.getInjuryLocation() + "<br>";
+            otherInformation += "<b>Injury location:</b> " + ref.getInjuryLocation() + "<br>";
         } else if (ref.getServiceReq().equals("Wheelchair")) {
-            otherInformation += "<b>User Status (Basic or Intermediate):<b> " + ref.getBasicOrInter() + "<br>";
-            otherInformation += "<b>Clients hip width:<b> " + ref.getHipWidth() + "<br>";
-            otherInformation += "<b>Does the Client have an existing wheelchair:<b> " + ref.getHasWheelchair() + "<br>";
+            otherInformation += "<b>User Status (Basic or Intermediate):</b> " + ref.getBasicOrInter() + "<br>";
+            otherInformation += "<b>Clients hip width:</b> " + ref.getHipWidth() + "<br>";
+            otherInformation += "<b>Does the Client have an existing wheelchair:</b> " + ref.getHasWheelchair() + "<br>";
             if (ref.getHasWheelchair().equals("Yes")) {
-                otherInformation += "<b>Is the clients wheelchair repairable:<b> " + ref.getWheelchairReparable() + "<br>";
+                otherInformation += "<b>Is the clients wheelchair repairable:</b> " + ref.getWheelchairReparable() + "<br>";
             }
         } else {
-            otherInformation += "<b>Description of Condition:<b> " + ref.getOtherExplanation() + "<br>";
+            otherInformation += "<b>Description of Condition:</b> " + ref.getOtherExplanation() + "<br>";
         }
         return otherInformation;
     }
