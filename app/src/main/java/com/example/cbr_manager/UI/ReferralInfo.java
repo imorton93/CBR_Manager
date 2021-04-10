@@ -166,6 +166,7 @@ public class ReferralInfo extends AppCompatActivity {
     public void resolveReferral(View view) {
         DatabaseHelper db = new DatabaseHelper(ReferralInfo.this);
         db.resolveReferral(referral_id);
+        db.setRefferalToNotSynced(referral_id);
         resolveButton.setVisibility(View.GONE);
         undoButton.setVisibility(View.VISIBLE);
         Toast.makeText(ReferralInfo.this, "Referral Resolved!", Toast.LENGTH_LONG).show();
@@ -177,6 +178,7 @@ public class ReferralInfo extends AppCompatActivity {
     public void undoResolveReferral(View view) {
         DatabaseHelper db = new DatabaseHelper(ReferralInfo.this);
         db.undoResolveReferral(referral_id);
+        db.setRefferalToNotSynced(referral_id);
         undoButton.setVisibility(View.GONE);
         resolveButton.setVisibility(View.VISIBLE);
         Toast.makeText(ReferralInfo.this, "Changes Saved!", Toast.LENGTH_LONG).show();

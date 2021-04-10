@@ -792,4 +792,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return (is_resolved.equals("RESOLVED"));
     }
+
+    public void setRefferalToNotSynced (long referralID) {
+        String query = "UPDATE CLIENT_REFERRALS " +
+                "SET IS_SYNCED = 0 " +
+                "WHERE ID = " + referralID;
+
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.execSQL(query);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
