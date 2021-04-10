@@ -33,7 +33,6 @@ public class CBRWorkerManager {
     private static final String cbr_password = "PASSWORD";
     private static final String cbr_photo = "PHOTO";
 
-
     public CBRWorkerManager(Context context) {
         this.databaseHelper = new DatabaseHelper(context);
     }
