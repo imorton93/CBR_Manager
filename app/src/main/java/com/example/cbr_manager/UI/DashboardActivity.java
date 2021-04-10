@@ -60,7 +60,7 @@ public class DashboardActivity extends AppCompatActivity {
         adminMessageManager.updateList();
 
         TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
-        badgeNotification(adminMessageManager, badgeOnToolBar);
+        badgeOnToolBar.setVisibility(View.GONE);
 
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabs);
@@ -96,23 +96,6 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
-        int size = adminMessageManager.numUnread();
-
-        if (badge != null) {
-            if (size == 0) {
-                if (badge.getVisibility() != View.GONE) {
-                    badge.setVisibility(View.GONE);
-                }
-            } else {
-                badge.setText(String.valueOf(Math.min(size, 99)));
-                if (badge.getVisibility() != View.VISIBLE) {
-                    badge.setVisibility(View.VISIBLE);
-                }
-            }
-        }
     }
 
     public class ViewPagerAdapter extends FragmentStateAdapter {
