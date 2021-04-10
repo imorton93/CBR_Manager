@@ -135,9 +135,6 @@ public class NewReferralActivity extends AppCompatActivity {
 
         createNewReferralForm();
 
-        //temporary pageCount filler
-        //the number of pages depends on choice of the type of referral
-        //variable is changed in function getSelectedForm()
         pageCount = 5;
 
         DisplayFormPage.displayPage(serviceRequirePage, form, this, 0, 0);
@@ -160,6 +157,8 @@ public class NewReferralActivity extends AppCompatActivity {
                     pageCount = selectedForm.size() + 2;
                     back.setClickable(true);
                     back.setVisibility(View.VISIBLE);
+                    back.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
+                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
                     savePage(serviceRequirePage);
                 }
                 else{
@@ -256,6 +255,7 @@ public class NewReferralActivity extends AppCompatActivity {
 
         ImageView picButton = new ImageView(this);
         picButton.setImageResource(R.drawable.camera_icon);
+        picButton.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(200, 200);
         params.gravity = Gravity.CENTER;
         picButton.setLayoutParams(params);
@@ -803,14 +803,8 @@ public class NewReferralActivity extends AppCompatActivity {
 
         if(serviceType.equals("Physiotherapy")){
             String condition = referral.getCondition();
-            String otherCondition = referral.getConditionOtherExplanation();
             TextView conditionView = new TextView(this);
-            if(condition.equalsIgnoreCase("Other")){
-                conditionView.setText("Condition: " + otherCondition);
-            }
-            else{
-                conditionView.setText("Condition: " + condition);
-            }
+            conditionView.setText("Condition: " + condition);
             conditionView.setTextSize(txtSize);
             layout.addView(conditionView);
         }
