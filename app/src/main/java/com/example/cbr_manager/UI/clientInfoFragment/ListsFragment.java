@@ -23,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.cbr_manager.Database.Referral;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
 import com.example.cbr_manager.R;
@@ -92,8 +93,10 @@ public class ListsFragment extends Fragment {
                     return VisitListFragment.newInstance(client_id);
                 case 1:
                     return ReferralListFragment.newInstance(client_id);
+                case 2:
+                    return BaselineListFragment.newInstance(client_id);
                 default:
-                    return ReferralListFragment.newInstance(client_id);
+                    return VisitListFragment.newInstance(client_id);
             }
         }
 

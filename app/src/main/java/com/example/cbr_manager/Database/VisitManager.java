@@ -110,7 +110,7 @@ public class VisitManager implements Iterable<Visit>{
     }
 
     public void addVisit(Visit visit){
-        visits.add(visit);
+        visits.add(0, visit);
     }
 
 

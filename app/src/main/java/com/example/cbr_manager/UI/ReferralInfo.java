@@ -100,9 +100,11 @@ public class ReferralInfo extends AppCompatActivity {
             if (ref.getCondition().equals("Other")) {
                 otherInformation += "<b>Condition Explanation:<b> " + ref.getConditionOtherExplanation() + "<br>";
             }
-        } else if (ref.getServiceReq().equals("Prosthetic") || ref.getServiceReq().equals("Orthotic")) {
-            otherInformation += "<b>Injury location:<b> " + ref.getInjuryLocation() + "<br>";
-        } else if (ref.getServiceReq().equals("Wheelchair")) {
+        }else if(ref.getServiceReq().equals("Prosthetic")){
+            otherInformation += "<b>Injury location(above or below the knee):<b> " + ref.getInjuryLocation() + "<br>";
+        }else if(ref.getServiceReq().equals("Orthotic")){
+            otherInformation += "<b>Injury location(above or below the elbow):<b> " + ref.getInjuryLocation() + "<br>";
+        }else if(ref.getServiceReq().equals("Wheelchair")){
             otherInformation += "<b>User Status (Basic or Intermediate):<b> " + ref.getBasicOrInter() + "<br>";
             otherInformation += "<b>Clients hip width:<b> " + ref.getHipWidth() + "<br>";
             otherInformation += "<b>Does the Client have an existing wheelchair:<b> " + ref.getHasWheelchair() + "<br>";

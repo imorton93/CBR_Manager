@@ -6,291 +6,305 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-        android:background="#1A0FDBFB"
-        tools:context=".UI.BaselineSurvey.LivelihoodSurveyActivity">
+    android:background="@color/LightBlue"
+    tools:context=".UI.BaselineSurvey.LivelihoodSurveyActivity">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/activity_tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/backButtonLivelihoodSurvey"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_form_buttons"
+        android:text="Back"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood7" />
 
-        <TextView
-            android:id="@+id/textViewlivelihood1"
+    <Button
+        android:id="@+id/nextButtonLivelihoodSurvey"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/rounded_form_buttons"
+        android:text="Next"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backButtonLivelihoodSurvey" />
+
+    <RadioGroup
+        android:id="@+id/livelihoodSurveyRadioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewlivelihood3">
+
+        <RadioButton
+            android:id="@+id/livelihoodSurveyYesRadio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Part IV: Livelihood"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/purple"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/yes">
 
-        <TextView
-            android:id="@+id/textViewlivelihood2"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="30dp"
-            android:text="1. Are you working?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood1" />
+        </RadioButton>
 
-        <TextView
-            android:id="@+id/textViewlivelihood3"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="2. What do you do?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood2" />
-
-        <TextView
-            android:id="@+id/textViewlivelihood4"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="3. Are you employed or self-employed?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood3" />
-
-        <TextView
-            android:id="@+id/textViewlivelihood5"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="4. Does this meet your financial needs? "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood4" />
-
-        <TextView
-            android:id="@+id/textViewlivelihood6"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="5. Does your disability affect your ability to go to work?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood5" />
-
-        <TextView
-            android:id="@+id/textViewlivelihood7"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="6. Do you want to work?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood6" />
-
-        <Spinner
-            android:id="@+id/livelihoodSurveySpinner1"
-            android:layout_width="103dp"
-            android:layout_height="41dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/SpinnerGrey"
-            android:popupBackground="@color/SpinnerGrey"
-            android:scrollbarThumbHorizontal="@color/SpinnerGrey"
-            android:scrollbarThumbVertical="@color/SpinnerGrey"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood4" />
-
-
-
-        <RadioGroup
-            android:id="@+id/livelihoodSurveyRadioGroup3"
+        <RadioButton
+            android:id="@+id/livelihoodSurveyNoRadio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood5">
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/no">
 
-            <RadioButton
-                android:id="@+id/livelihoodSurveyYesRadio3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/yes">
+        </RadioButton>
 
-            </RadioButton>
+    </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/livelihoodSurveyNoRadio3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/no">
+    <RadioGroup
+        android:id="@+id/livelihoodSurveyRadioGroup3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewlivelihood4">
 
-            </RadioButton>
-
-        </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/livelihoodSurveyRadioGroup1"
+        <RadioButton
+            android:id="@+id/livelihoodSurveyYesRadio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood2">
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/yes">
 
-            <RadioButton
-                android:id="@+id/livelihoodSurveyYesRadio1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/yes">
+        </RadioButton>
 
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/livelihoodSurveyNoRadio1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/no">
-
-            </RadioButton>
-
-        </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/livelihoodSurveyRadioGroup4"
+        <RadioButton
+            android:id="@+id/livelihoodSurveyNoRadio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood6">
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/no">
 
-            <RadioButton
-                android:id="@+id/livelihoodSurveyYesRadio4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/yes">
+        </RadioButton>
 
-            </RadioButton>
+    </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/livelihoodSurveyNoRadio4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/no">
+    <RadioGroup
+        android:id="@+id/livelihoodSurveyRadioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewlivelihood2">
 
-            </RadioButton>
-
-        </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/livelihoodSurveyRadioGroup5"
+        <RadioButton
+            android:id="@+id/livelihoodSurveyYesRadio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewlivelihood7">
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/yes">
 
-            <RadioButton
-                android:id="@+id/livelihoodSurveyYesRadio5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/yes">
+        </RadioButton>
 
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/livelihoodSurveyNoRadio5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/no">
-
-            </RadioButton>
-
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/backButtonLivelihoodSurvey"
-            android:layout_width="125dp"
+        <RadioButton
+            android:id="@+id/livelihoodSurveyNoRadio1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="16dp"
-            android:text="Back"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:background="@drawable/baseline_survey_buttons"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood7" />
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/no">
 
-        <Button
-            android:id="@+id/nextButtonLivelihoodSurvey"
-            android:layout_width="125dp"
+        </RadioButton>
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/livelihoodSurveyRadioGroup4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewlivelihood6">
+
+        <RadioButton
+            android:id="@+id/livelihoodSurveyYesRadio4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:text="Next"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:background="@drawable/baseline_survey_buttons"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/backButtonLivelihoodSurvey"/>
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/yes">
 
-    <EditText
-        android:id="@+id/livelihoodSurveyEditText1"
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/livelihoodSurveyNoRadio4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/no">
+
+        </RadioButton>
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/livelihoodSurveyRadioGroup5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewlivelihood7">
+
+        <RadioButton
+            android:id="@+id/livelihoodSurveyYesRadio5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/yes">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/livelihoodSurveyNoRadio5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/no">
+
+        </RadioButton>
+
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/livelihoodSurveySpinner1"
         android:layout_width="103dp"
         android:layout_height="41dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:hint="Work"
-        android:inputType="textPersonName"
+        android:background="@color/SpinnerGrey"
+        android:popupBackground="@color/SpinnerGrey"
+        android:scrollbarThumbHorizontal="@color/SpinnerGrey"
+        android:scrollbarThumbVertical="@color/SpinnerGrey"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewlivelihood3" />
+        app:layout_constraintTop_toTopOf="@+id/textViewlivelihood5" />
 
+    <TextView
+        android:id="@+id/textViewlivelihood1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Part IV: Livelihood"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/purple"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textViewlivelihood2"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:text="1. Are you working?"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood1" />
+
+    <TextView
+        android:id="@+id/textViewlivelihood3"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:text="2. What do you do?"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood2" />
+
+    <TextView
+        android:id="@+id/textViewlivelihood4"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:text="3. Are you employed or self-employed?"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood3" />
+
+    <TextView
+        android:id="@+id/textViewlivelihood5"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:text="4. Does this meet your financial needs? "
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood4" />
+
+    <TextView
+        android:id="@+id/textViewlivelihood6"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:text="5. Does your disability affect your ability to go to work?"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood5" />
+
+    <TextView
+        android:id="@+id/textViewlivelihood7"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:text="6. Do you want to work?"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlivelihood6" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

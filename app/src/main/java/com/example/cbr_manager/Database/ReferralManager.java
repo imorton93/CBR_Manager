@@ -75,7 +75,13 @@ public class ReferralManager implements Iterable<Referral>{
             Boolean wheelchairReparable = c.getInt(wheelchairReparableI) > 0;
             Boolean bringToCentre = c.getInt(bringToCentreI) > 0;
             String condition = c.getString(conditionI);
-            String injuryLocation = c.getString(injuryLocationKneeI) + c.getString(injuryLocationElbowI);
+            String injuryLocation;
+            if(serviceReq.equalsIgnoreCase("Prosthetic")){
+                injuryLocation = c.getString(injuryLocationKneeI);
+            }
+            else{
+                injuryLocation = c.getString(injuryLocationElbowI);
+            }
             String status = c.getString(statusI);
             String outcome = c.getString(outcomeI);
             Long clientID = c.getLong(clientIDI);
@@ -88,9 +94,23 @@ public class ReferralManager implements Iterable<Referral>{
     }
 
     public void addReferral(Referral referral){
-        referrals.add(referral);
+        referrals.add(0, referral);
     }
 
+
+    public List<Referral> getUnresolvedReferrals(){
+        List<Referral> finalReferrals = new ArrayList<>();
+
+        for (Referral currentReferral : this.referrals) {
+            if(currentReferral.getOutcome() != null) {
+                if (currentReferral.getOutcome().equals("UNRESOLVED")) {
+                    finalReferrals.add(currentReferral);
+                }
+            }
+        }
+
+        return finalReferrals;
+    }
 
     public Referral getReferralById(long id){
         Referral referral = new Referral();
