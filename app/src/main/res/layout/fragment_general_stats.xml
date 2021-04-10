@@ -19,7 +19,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="376dp"
+        android:layout_width="match_parent"
         android:layout_height="447dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
@@ -44,12 +44,12 @@
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/general_clientsOverTime_graph"
-            android:layout_width="346dp"
-            android:layout_height="279dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@color/white" />
 
