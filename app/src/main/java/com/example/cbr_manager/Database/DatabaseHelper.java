@@ -265,7 +265,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_7, cbrWorker.getZone());
         cv.put(COL_4, cbrWorker.getPassword());
 
-        if (cbrWorker.getPhoto() != null) {
+        if ((cbrWorker.getPhoto() != null) && (cbrWorker.getPhoto().length != 0)) {
             cv.put(COL_8, cbrWorker.getPhoto());
         }
 
@@ -307,7 +307,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_social_requirement, client.getSocialStatusRequire());
         cv.put(is_synced, client.getIsSynced());
 
-        if (client.getPhoto().length != 0) {
+        if ((client.getPhoto() != null) && (client.getPhoto().length != 0)) {
             cv.put(client_photo, client.getPhoto());
         }
 
@@ -347,7 +347,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_social_requirement, client.getSocialStatusRequire());
         cv.put(is_synced, client.getIsSynced());
 
-        if (client.getPhoto().length != 0) {
+        if ((client.getPhoto() != null) && (client.getPhoto().length != 0)) {
             cv.put(client_photo, client.getPhoto());
         }
 
@@ -395,7 +395,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(referral_outcome, referral.getOutcome());
         cv.put(client_referral_id, referral.getClientID());
 
-        if (referral.getReferralPhoto().length != 0) {
+        if ((referral.getReferralPhoto() != null) && (referral.getReferralPhoto().length != 0)) {
             cv.put(referral_photo, referral.getReferralPhoto());
         }
 
