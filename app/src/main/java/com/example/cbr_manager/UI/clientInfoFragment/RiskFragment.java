@@ -72,9 +72,9 @@ public class RiskFragment extends Fragment {
         ImageView educationDot = v.findViewById(R.id.EducationDot);
         ImageView healthDot = v.findViewById(R.id.healthDot);
 
-        riskDot(currentClient.getHealthRate(), v, socialDot);
+        riskDot(currentClient.getHealthRate(), v, healthDot);
         riskDot(currentClient.getEducationRate(), v, educationDot);
-        riskDot(currentClient.getSocialStatusRate(), v, healthDot);
+        riskDot(currentClient.getSocialStatusRate(), v, socialDot);
     }
 
     public void riskDot(String rate, View v, ImageView imageView) {
