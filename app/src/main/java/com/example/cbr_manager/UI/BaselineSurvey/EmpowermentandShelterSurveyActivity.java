@@ -17,8 +17,10 @@ import android.widget.Toast;
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Survey;
+import com.example.cbr_manager.Database.SurveyManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
+import com.example.cbr_manager.UI.NewVisitActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
 import com.google.android.gms.tasks.Task;
@@ -54,6 +56,8 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
 
         survey = (Survey) getIntent().getSerializableExtra("Survey");
 
+        setUniqueSurveyId();
+
         submitButton = findViewById(R.id.submitButtonEmpowermentSurvey);
         backButton = findViewById(R.id.backButtonEmpowermentSurvey);
 
@@ -80,6 +84,8 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                     DatabaseHelper db = new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
                     boolean success = db.addSurvey(survey);
                     if (success) {
+                        SurveyManager surveyManager = SurveyManager.getInstance(EmpowermentandShelterSurveyActivity.this);
+                        surveyManager.addSurvey(survey);
                         Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Thanks for taking the survey!", Toast.LENGTH_LONG).show();
                         Intent intent = TaskViewActivity.makeIntent(EmpowermentandShelterSurveyActivity.this);
                         startActivity(intent);
@@ -155,6 +161,21 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void setUniqueSurveyId(){
+        DatabaseHelper db =  new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
+
+        int survey_no = db.numberOfSurveysPerClient(survey.getClient_id());
+        survey_no++;//next available visit id
+
+        // Concatenate both strings
+        String uniqueID = String.valueOf(survey.getClient_id()) + String.valueOf(survey_no);
+
+        // Convert the concatenated string to integer
+        long uniqueID_long = Long.parseLong(uniqueID);
+
+        survey.setId(uniqueID_long);
     }
 
 

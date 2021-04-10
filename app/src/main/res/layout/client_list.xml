@@ -9,9 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clientListBackground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
+        android:layout_width="362dp"
+        android:layout_height="96dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
@@ -19,6 +18,7 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/loginpageroundstyle"
         android:orientation="horizontal"
+        android:padding="15dp"
         android:radius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -29,21 +29,18 @@
             android:id="@+id/nameStatic_clist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:text="Name:"
-            android:textStyle="bold"
+            android:text="Name: "
             android:textColor="@color/black"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/name_clist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="151dp"
+            android:layout_height="24dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:text="Name"
@@ -68,10 +65,8 @@
 
         <TextView
             android:id="@+id/Village_clist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="261dp"
+            android:layout_height="24dp"
             android:layout_marginTop="10dp"
             android:text="Village"
             android:textColor="@color/black"
@@ -83,29 +78,24 @@
             android:id="@+id/villageNumStatic_clist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:text="Village #: "
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/Village_clist"
-            app:layout_constraintTop_toBottomOf="@+id/name_clist" />
+            app:layout_constraintStart_toEndOf="@+id/name_clist"
+            app:layout_constraintTop_toTopOf="@+id/name_clist" />
 
         <TextView
             android:id="@+id/VillageNum_clist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:text="##"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/villageNumStatic_clist"
-            app:layout_constraintTop_toBottomOf="@+id/name_clist" />
+            app:layout_constraintTop_toTopOf="@+id/villageNumStatic_clist" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,11 +6,21 @@
     tools:context=".UI.statsFragment.BaselineStatsFragment"
     android:background="@drawable/backgroundgradient">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:text="Baseline Survey Stats"/>
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="65dp"
         android:layout_marginBottom="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
@@ -38,6 +48,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Health "/>
@@ -61,12 +72,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  Yes  "
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  No  "
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -78,6 +91,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do they have access to rehabilitation? "
                             android:background="@drawable/table_border"/>
 
@@ -87,6 +101,7 @@
                             android:id="@+id/accessToRehab_yes"
                             android:textAlignment="center"
                             android:gravity="center"
+                            android:textColor="@color/black"
                             android:text=""
                             android:background="@drawable/table_border"/>
                         <TextView
@@ -95,6 +110,7 @@
                             android:id="@+id/accessToRehab_no"
                             android:textAlignment="center"
                             android:gravity="center"
+                            android:textColor="@color/black"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -106,6 +122,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do they need access to rehabilitation? "
                             android:background="@drawable/table_border"/>
 
@@ -113,6 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/needAccessToRehab_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -121,6 +139,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/needAccessToRehab_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -134,6 +153,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do they have an assistive device? \n(e.g. wheelchair, crutches, prosthetic..."
                             android:background="@drawable/table_border"/>
 
@@ -141,6 +161,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/haveAssistiveDevice_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -149,6 +170,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/haveAssistiveDevice_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -162,6 +184,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Is your assistive device working well?"
                             android:background="@drawable/table_border"/>
 
@@ -169,6 +192,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/assistiveDeviceWorking_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -177,6 +201,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/assistiveDeviceWorking_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -190,6 +215,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you need an assistive device?"
                             android:background="@drawable/table_border"/>
 
@@ -197,6 +223,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/needAssistiveDevice_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -205,6 +232,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/needAssistiveDevice_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -216,6 +244,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="General Health"/>
@@ -230,6 +259,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="Are you satisfied with the health services provided?"/>
@@ -244,6 +274,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="Assistive Devices Needed"/>
@@ -258,6 +289,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Education (under 18) "/>
@@ -280,12 +312,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  Yes  "
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  No  "
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -297,6 +331,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you go to school?"
                             android:background="@drawable/table_border"/>
 
@@ -304,6 +339,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/goToSchool_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -312,6 +348,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/goToSchool_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -325,6 +362,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="If No, have you ever been to \nschool before?"
                             android:background="@drawable/table_border"/>
 
@@ -332,6 +370,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/beenToSchoolBefore_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -340,6 +379,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/beenToSchoolBefore_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -353,6 +393,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you want to go to school?"
                             android:background="@drawable/table_border"/>
 
@@ -360,6 +401,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/wantToGoToSchool_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -368,6 +410,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/wantToGoToSchool_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -379,6 +422,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="Grade of Students"/>
@@ -393,6 +437,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="Reason why they do not go to school"/>
@@ -407,6 +452,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Social"/>
@@ -429,12 +475,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  Yes  "
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  No  "
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -446,6 +494,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you feel valued as a \nmember of your community?"
                             android:background="@drawable/table_border"/>
 
@@ -453,6 +502,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/valuedCommunityMember_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -461,6 +511,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/valuedCommunityMember_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -474,6 +525,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you feel independent?"
                             android:background="@drawable/table_border"/>
 
@@ -481,6 +533,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/independent_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -489,6 +542,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/independent_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -502,6 +556,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Are you able to participate\n in community/Social events?"
                             android:background="@drawable/table_border"/>
 
@@ -509,6 +564,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/participateInEvents_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -517,6 +573,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/participateInEvents_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -530,6 +587,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Does your disability affect \nyour ability to interact socially?"
                             android:background="@drawable/table_border"/>
 
@@ -537,6 +595,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/interactSocially_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -545,6 +604,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/interactSocially_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -558,6 +618,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Have you experienced discrimination \nbecause of your disability?"
                             android:background="@drawable/table_border"/>
 
@@ -565,6 +626,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/experienceDiscrimination_yes"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -573,6 +635,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:id="@+id/experienceDiscrimination_no"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:text=""
@@ -584,6 +647,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Livelihood (over 16)"/>
@@ -606,12 +670,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  Yes  "
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  No  "
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -623,6 +689,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Are you working?"
                             android:background="@drawable/table_border"/>
 
@@ -630,6 +697,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/working_yes"
                             android:text=""
@@ -638,6 +706,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/working_no"
                             android:text=""
@@ -651,12 +720,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Does this meet your \nfinancial needs?"
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/financialNeeds_yes"
@@ -665,6 +736,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/financialNeeds_no"
@@ -679,12 +751,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Does your disability affect\nyour ability to go to work?"
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/abilityToWork_yes"
@@ -693,6 +767,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/abilityToWork_no"
@@ -707,12 +782,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you want to work?"
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/wantToWork_yes"
@@ -721,6 +798,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/wantToWork_no"
@@ -733,6 +811,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="Current Employment"/>
@@ -747,6 +826,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="Employed versus self-employed"/>
@@ -762,6 +842,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Food and Nutrition"/>
@@ -770,6 +851,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="Food Security"/>
@@ -799,12 +881,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  Yes  "
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  No  "
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -817,6 +901,7 @@
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you have enough food every month?"
                             android:background="@drawable/table_border"/>
 
@@ -824,6 +909,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/enoughFood_yes"
                             android:text=""
@@ -833,6 +919,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/enoughFood_no"
                             android:text=""
@@ -844,6 +931,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:text="If Child, Child's Condition"/>
@@ -858,6 +946,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:text="Empowerment"/>
@@ -881,12 +970,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  Yes  "
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  No  "
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -899,6 +990,7 @@
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Are you member of an organisations\n which assist people with disabilities?"
                             android:background="@drawable/table_border"/>
 
@@ -906,6 +998,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/assistPeople_yes"
                             android:text=""
@@ -915,6 +1008,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/assistPeople_no"
                             android:text=""
@@ -929,6 +1023,7 @@
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Are you aware of your rights as a\n citizen living with disability?"
                             android:background="@drawable/table_border"/>
 
@@ -936,6 +1031,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/awareOfRights_yes"
                             android:text=""
@@ -945,6 +1041,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/awareOfRights_no"
                             android:text=""
@@ -959,6 +1056,7 @@
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you feel like you are able to\n influence people around you?"
                             android:background="@drawable/table_border"/>
 
@@ -966,6 +1064,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/influencePeople_yes"
                             android:text=""
@@ -975,12 +1074,27 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAlignment="center"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             android:id="@+id/influencePeople_no"
                             android:text=""
                             android:background="@drawable/table_border"/>
                     </TableRow>
                 </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Member of Organization"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_height="250dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/baseline_Organisation_graph"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -1009,12 +1123,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  Yes  "
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="  No  "
                             android:background="@drawable/table_border"/>
                     </TableRow>
@@ -1027,12 +1143,14 @@
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you have adequate shelter?"
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/adequateShelter_yes"
@@ -1042,6 +1160,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/adequateShelter_no"
@@ -1058,12 +1177,14 @@
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Do you have access to \nessential items for your household?"
                             android:background="@drawable/table_border"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/essentialItems_yes"
@@ -1073,6 +1194,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textColor="@color/black"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:id="@+id/essentialItems_no"

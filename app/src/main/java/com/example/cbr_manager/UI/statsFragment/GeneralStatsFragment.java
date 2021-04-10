@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cbr_manager.Database.Client;
 import com.example.cbr_manager.Database.ClientManager;
@@ -224,8 +225,10 @@ public class GeneralStatsFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     writeToCSV();
+                    Toast.makeText(v.getContext(), "Downloaded baseline survey data to documents folder", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Toast.makeText(v.getContext(), "Unable to download Baseline survey data.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -245,27 +248,26 @@ public class GeneralStatsFragment extends Fragment {
 
     private StringBuilder buildBaselineString() {
         StringBuilder baselineData = new StringBuilder();
-        baselineData.append("Health\n");
+        baselineData.append("Health");
         writeHealthPercentages(baselineData);
 
-        baselineData.append("\nEducation\n");
+        baselineData.append("\n\n\nEducation");
         writeEducationPercentages(baselineData);
 
-        baselineData.append("\nSocial Status\n");
+        baselineData.append("\n\n\nSocial Status");
         writeSocialPercentages(baselineData);
 
-        baselineData.append("\nLivelihood\n");
+        baselineData.append("\n\n\nLivelihood");
         writeLivelihoodPercentages(baselineData);
 
-        baselineData.append("\nFood and Nutrition\n");
+        baselineData.append("\n\n\nFood and Nutrition");
         writeFoodAndNutritionPercentages(baselineData);
 
-        baselineData.append("\nEmpowerment\n");
+        baselineData.append("\n\n\nEmpowerment");
         writeEmpowermentPercentages(baselineData);
 
-        baselineData.append("\nShelter and Care\n");
+        baselineData.append("\n\n\nShelter and Care");
         writeShelterAndCarePercentages(baselineData);
-//        System.out.println(baselineData);
         return baselineData;
     }
 
@@ -383,8 +385,8 @@ public class GeneralStatsFragment extends Fragment {
         calculateHealthPercentages(baselineData, (totalSurveys - goToSchool_yes_count), totalSurveys);
 
         StringBuilder firstRow = new StringBuilder(",");
-        StringBuilder secondRow = new StringBuilder("");
-        baselineData.append("\nIf yes what grade?\n");
+        StringBuilder secondRow = new StringBuilder(",");
+        baselineData.append("\nIf yes what grade?");
         for(Map.Entry<String, Integer> entry : grade_count.entrySet()){
             firstRow.append(entry.getKey()).append(",");
             calculateHealthPercentages(secondRow, entry.getValue(), grade_count.size());
@@ -397,7 +399,7 @@ public class GeneralStatsFragment extends Fragment {
         calculateHealthPercentages(baselineData, reasonNotInSchool_count.get("My Disability Stops Me"), totalSurveys);
         calculateHealthPercentages(baselineData, reasonNotInSchool_count.get("Other"), totalSurveys);
 
-        baselineData.append("\n,Yes,No,\nIf no, have you ever been to school before?,");
+        baselineData.append("\n,Yes,No,\nIf no have you ever been to school before?,");
         calculateHealthPercentages(baselineData, beenToSchoolBefore_yes_count, totalSurveys);
         calculateHealthPercentages(baselineData, (totalSurveys - beenToSchoolBefore_yes_count), totalSurveys);
 
@@ -496,8 +498,8 @@ public class GeneralStatsFragment extends Fragment {
         calculateHealthPercentages(baselineData, (totalSurveys - working_yes_count), totalSurveys);
 
         StringBuilder firstRow = new StringBuilder(",");
-        StringBuilder secondRow = new StringBuilder("");
-        baselineData.append("\nIf yes what do you do?\n");
+        StringBuilder secondRow = new StringBuilder(",");
+        baselineData.append("\nIf yes what do you do?");
         for(Map.Entry<String, Integer> entry : work_count.entrySet()){
             firstRow.append(entry.getKey()).append(",");
             calculateHealthPercentages(secondRow, entry.getValue(), work_count.size());
@@ -544,11 +546,11 @@ public class GeneralStatsFragment extends Fragment {
         calculateHealthPercentages(baselineData, foodSecurity_count.get("Fine"), totalSurveys);
         calculateHealthPercentages(baselineData, foodSecurity_count.get("Good"), totalSurveys);
 
-        baselineData.append("\nDo you have enough food every month?,");
+        baselineData.append("\n,Yes,No,\nDo you have enough food every month?,");
         calculateHealthPercentages(baselineData, enoughFood_yes_count, totalSurveys);
         calculateHealthPercentages(baselineData, (totalSurveys - enoughFood_yes_count), totalSurveys);
 
-        baselineData.append(",Malnourished,Undernourished,Well nourished,\nChild's condition,");
+        baselineData.append("\n,Malnourished,Undernourished,Well nourished,\nChild's condition,");
         calculateHealthPercentages(baselineData, childNutrition_count.get("Malnourished"), totalSurveys);
         calculateHealthPercentages(baselineData, childNutrition_count.get("Undernourished"), totalSurveys);
         calculateHealthPercentages(baselineData, childNutrition_count.get("Well Nourished"), totalSurveys);
@@ -582,8 +584,8 @@ public class GeneralStatsFragment extends Fragment {
         calculateHealthPercentages(baselineData, (totalSurveys - assistPeople_yes_count), totalSurveys);
 
         StringBuilder firstRow = new StringBuilder(",");
-        StringBuilder secondRow = new StringBuilder("");
-        baselineData.append("\nOrganizations\n");
+        StringBuilder secondRow = new StringBuilder(",");
+        baselineData.append("\nOrganizations");
         for(Map.Entry<String, Integer> entry : organization_count.entrySet()){
             firstRow.append(entry.getKey()).append(",");
             calculateHealthPercentages(secondRow, entry.getValue(), organization_count.size());
