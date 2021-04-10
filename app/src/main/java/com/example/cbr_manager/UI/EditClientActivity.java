@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -217,14 +219,16 @@ public class EditClientActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.position = intent.getIntExtra(R_CLIENT_POS_PASSED_IN, 0);
         this.id = intent.getLongExtra(R_CLIENT_ID_PASSED_IN, 0);
-        //GET RID OF PRINT!!
-        System.out.println("Id is " + this.id);
     }
 
     private void getClientInfo(){
         ClientManager manager = ClientManager.getInstance(this);
         client = manager.getClientById(id);
+        byte[] bitmapdata = client.getPhoto();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+        imageView.setImageBitmap(bitmap);
     }
+
 
     private void editClient() {
         client.setIsSynced(0);
