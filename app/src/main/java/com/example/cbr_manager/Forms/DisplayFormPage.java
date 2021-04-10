@@ -89,7 +89,6 @@ public class DisplayFormPage {
         form.addView(questionText);
     }
 
-
     private static void displayQuestionHeading(String questionString, LinearLayout form, android.content.Context context){
         TextView questionText = new TextView(context);
         questionText.setText(questionString);
@@ -198,7 +197,7 @@ public class DisplayFormPage {
 
         Spinner spinner = new Spinner(context);
         String[] answers = question.getAnswers();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, answers);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, answers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setTag(question.getQuestionTag());

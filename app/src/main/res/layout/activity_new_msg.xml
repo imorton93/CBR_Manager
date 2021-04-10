@@ -4,26 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.dashboardFragment.NewMsgActivity"
-    android:background="@drawable/backgroundgradient">
-
-    <TextView
-        android:id="@+id/NewMessageTextBox"
-        android:layout_width="326dp"
-        android:layout_height="79dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:text="New Message"
-        android:textColor="#9D1BEC"
-        android:textColorHighlight="#FFFFFF"
-        android:textColorLink="#FFFFFF"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HopeHealthActionImage" />
+    android:background="@color/LightBlue"
+    tools:context=".UI.dashboardFragment.NewMsgActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -40,63 +22,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NewMessageTextBox">
-
-        <EditText
-            android:id="@+id/first"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
-            android:hint="Title"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497" />
-
-        <EditText
-            android:id="@+id/last"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="80dp"
-            android:clickable="false"
-            android:editable="false"
-            android:ems="10"
-            android:hint="Date"
-            android:inputType="none" />
-
-        <EditText
-            android:id="@+id/user"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="132dp"
-            android:ems="10"
-            android:hint="Location"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/last" />
-
-
-        <EditText
-            android:id="@+id/messageTextBox"
-            android:layout_width="276dp"
-            android:layout_height="283dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="192dp"
-            android:ems="10"
-            android:gravity="bottom"
-            android:hint="Message"
-            android:inputType="textMultiLine|text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/submitButton"
@@ -116,5 +41,80 @@
             app:layout_constraintHorizontal_bias="0.309"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <EditText
+            android:id="@+id/dateTextBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="80dp"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:hint="Date"
+            android:inputType="none" />
+
+        <EditText
+            android:id="@+id/locationTextBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="132dp"
+            android:ems="10"
+            android:hint="Location"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateTextBox" />
+
+
+        <EditText
+            android:id="@+id/messageTextBox"
+            android:layout_width="276dp"
+            android:layout_height="283dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="192dp"
+            android:ems="10"
+            android:gravity="bottom"
+            android:hint="Message"
+            android:inputType="textMultiLine|text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/titleTextBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="Title"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497" />
+
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/NewMessageTextBox"
+        android:layout_width="326dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="New Message"
+        android:textColor="#9D1BEC"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorLink="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HopeHealthActionImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/LightBlue"
     tools:context=".UI.VisitInfoActivity">
+
+    <Button
+        android:id="@+id/edit2"
+        android:layout_width="67dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/rounded_form_buttons"
+        android:text="@string/edit"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"
@@ -39,4 +53,10 @@
             android:layout_height="wrap_content"
             android:text="Goals" />
     </com.google.android.material.tabs.TabLayout>
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar"
+        android:layout_width="416dp"
+        android:layout_height="57dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
