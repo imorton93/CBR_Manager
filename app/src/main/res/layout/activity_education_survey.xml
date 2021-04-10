@@ -211,14 +211,11 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_form_buttons"
         android:text="Back"
-        android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewEducation6">
-    </Button>
+        app:layout_constraintTop_toBottomOf="@id/textViewEducation6"></Button>
 
     <Button
         android:id="@+id/nextButtonEducationSurvey"
@@ -229,13 +226,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
+        android:background="@drawable/rounded_form_buttons"
         android:text="Next"
-        android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:backgroundTint="@color/purple"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backButtonEducationSurvey">
-    </Button>
+        app:layout_constraintTop_toTopOf="@+id/backButtonEducationSurvey"></Button>
 
     <EditText
         android:id="@+id/educationSurveyEditNo"

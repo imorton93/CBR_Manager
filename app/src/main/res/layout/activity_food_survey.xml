@@ -183,26 +183,24 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_form_buttons"
         android:text="Back"
-        android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:backgroundTint="@color/purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewfood5" />
 
-        <Button
-            android:id="@+id/nextButtonFoodSurvey"
-            android:layout_width="125dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:text="Next"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:backgroundTint="@color/purple"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/backButtonFoodSurvey"/>
+    <Button
+        android:id="@+id/nextButtonFoodSurvey"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/rounded_form_buttons"
+        android:text="Next"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backButtonFoodSurvey" />
     </androidx.constraintlayout.widget.ConstraintLayout>
