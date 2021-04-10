@@ -32,6 +32,7 @@ import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Referral;
 import com.example.cbr_manager.Database.ReferralManager;
+import com.example.cbr_manager.Database.SurveyManager;
 import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
@@ -154,6 +155,10 @@ public class TaskViewActivity extends AppCompatActivity {
                 AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
                 adminMessageManager.clear();
                 adminMessageManager.updateList();
+
+                SurveyManager surveyManager = SurveyManager.getInstance(TaskViewActivity.this);
+                surveyManager.clear();
+                surveyManager.updateList();
 
                 badgeNotification(adminMessageManager, badge);
             }

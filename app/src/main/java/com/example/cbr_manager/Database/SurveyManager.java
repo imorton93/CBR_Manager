@@ -194,4 +194,13 @@ public class SurveyManager {
         }
         return finalSurveys;
     }
+
+    public Survey getSurveyById(long id) {
+        for (Survey survey: surveyList) {
+            if(survey.getId() == id) {
+                return survey;
+            }
+        }
+        return new Survey();
+    }
 }
