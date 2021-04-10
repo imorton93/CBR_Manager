@@ -25,6 +25,7 @@ import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.R;
 
 import org.json.JSONArray;
@@ -43,6 +44,8 @@ public class EditCBRActivity extends AppCompatActivity {
     private DatabaseHelper mydb;
     private CBRWorker cbrWorker;
 
+    private SyncService syncService;
+
     public static Intent makeIntent(Context context) {
         return new Intent(context, EditCBRActivity.class);
     }
@@ -52,6 +55,7 @@ public class EditCBRActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_c_b_r);
 
+        syncService = new SyncService(EditCBRActivity.this);
         mydb = new DatabaseHelper(EditCBRActivity.this);
 
         CBRWorkerManager manager = CBRWorkerManager.getInstance(this);
@@ -78,7 +82,8 @@ public class EditCBRActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = LoginActivity.makeIntent(EditCBRActivity.this);
+                startActivity(intent);
             }
         });
 
@@ -100,14 +105,23 @@ public class EditCBRActivity extends AppCompatActivity {
                         cbrWorker.setZone(zone.getText().toString());
                         cbrWorker.setPassword(BCrypt.withDefaults().hashToString(12, currentCBRWorker.getPassword().toCharArray()));
 
-                        boolean success = mydb.updateWorker(cbrWorker);
-                        if(success) {
-                            cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
-                            sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
-                            Intent intent = ProfileActivity.makeIntent(EditCBRActivity.this);
-                            startActivity(intent);
-                        } else
-                            Toast.makeText(EditCBRActivity.this, "Error Occurred." + success, Toast.LENGTH_LONG).show();
+                        if ((mydb.getWorkerId(cbrWorker.getUsername()) == cbrWorker.getId())
+                                || (mydb.getWorkerId(cbrWorker.getUsername()) == -1)) {
+                            boolean success = mydb.updateWorker(cbrWorker);
+                            if (success) {
+                                cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
+                                sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
+                                currentCBRWorker.setUsername(cbrWorker.getUsername());
+
+                                syncService.sendWorkerToServer(cbrWorker);
+
+                                Intent intent = ProfileActivity.makeIntent(EditCBRActivity.this);
+                                startActivity(intent);
+                            } else
+                                Toast.makeText(EditCBRActivity.this, "Error Occurred." + success, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditCBRActivity.this, "Username is already registered in the database.", Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         Toast.makeText(EditCBRActivity.this, "Please enter all the details", Toast.LENGTH_SHORT).show();
                     }

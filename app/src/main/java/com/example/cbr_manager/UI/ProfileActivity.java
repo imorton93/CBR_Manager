@@ -77,7 +77,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         mydb = new DatabaseHelper(ProfileActivity.this);
         CBRWorkerManager manager = CBRWorkerManager.getInstance(this);
-        cbrWorker = manager.getCBRByUsernameAndPassword(currentCBRWorker.getUsername());
+
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("DATA", Context.MODE_PRIVATE);
+        String username = sharedPref.getString("username", null);
+
+        cbrWorker = manager.getCBRByUsernameAndPassword(username);
 
         AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(ProfileActivity.this);
         adminMessageManager.clear();
@@ -137,13 +141,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void saveProfilePicture(){
-            profilePictureImageView.setDrawingCacheEnabled(true);
-            profilePictureImageView.buildDrawingCache();
-            Bitmap bitmap = profilePictureImageView.getDrawingCache();
-            ByteArrayOutputStream boas = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, boas);
-            byte[] data = boas.toByteArray();
-            cbrWorker.setPhoto(data);
+        profilePictureImageView.setDrawingCacheEnabled(true);
+        profilePictureImageView.buildDrawingCache();
+        Bitmap bitmap = profilePictureImageView.getDrawingCache();
+        ByteArrayOutputStream boas = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, boas);
+        byte[] data = boas.toByteArray();
+        cbrWorker.setPhoto(data);
     }
 
     public void onClick(final View view) {
