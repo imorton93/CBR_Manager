@@ -18,6 +18,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.R;
+import com.example.cbr_manager.UI.BaselineSurvey.HealthSurveyActivity;
 import com.example.cbr_manager.UI.clientInfoFragment.InfoFragment;
 import com.example.cbr_manager.UI.clientInfoFragment.RiskFragment;
 import com.example.cbr_manager.UI.clientInfoFragment.ListsFragment;
@@ -31,7 +32,7 @@ public class ClientInfoActivity extends AppCompatActivity {
     private long id;
     private int position;
 
-    private String[] titles = new String[]{"Information", "Visits", "Risk Level"};
+    private String[] titles = new String[]{"Information", "Records", "Risk Level"};
     public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
     public static final String R_CLIENT_POS_PASSED_IN = "r_client_POS_passed_in";
 
@@ -84,6 +85,18 @@ public class ClientInfoActivity extends AppCompatActivity {
         newVisitButton();
         newReferralButton();
         editButton();
+        newBaselineButton();
+    }
+
+    private void newBaselineButton() {
+        ImageButton newBaseline = findViewById(R.id.CI_newBaseline);
+        newBaseline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = HealthSurveyActivity.makeIntent(ClientInfoActivity.this, position, id);
+                startActivity(intent);
+            }
+        });
     }
 
     private void newClientButton() {
@@ -129,6 +142,7 @@ public class ClientInfoActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public class ViewPagerAdapter extends FragmentStateAdapter {
         private static final int CARD_ITEM_SIZE = 3;
