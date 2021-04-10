@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -223,6 +225,9 @@ public class EditClientActivity extends AppCompatActivity {
     private void getClientInfo(){
         ClientManager manager = ClientManager.getInstance(this);
         client = manager.getClientById(id);
+        byte[] bitmapdata = client.getPhoto();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+        imageView.setImageBitmap(bitmap);
     }
 
     private void editClient() {
