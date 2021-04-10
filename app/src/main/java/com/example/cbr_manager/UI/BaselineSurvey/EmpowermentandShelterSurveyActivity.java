@@ -164,22 +164,6 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
         });
     }
 
-    private void setUniqueSurveyId(){
-        DatabaseHelper db =  new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
-
-        int survey_no = db.numberOfSurveysPerClient(survey.getClient_id());
-        survey_no++;//next available visit id
-
-        // Concatenate both strings
-        String uniqueID = String.valueOf(survey.getClient_id()) + String.valueOf(survey_no);
-
-        // Convert the concatenated string to integer
-        long uniqueID_long = Long.parseLong(uniqueID);
-
-        survey.setId(uniqueID_long);
-    }
-
-
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
