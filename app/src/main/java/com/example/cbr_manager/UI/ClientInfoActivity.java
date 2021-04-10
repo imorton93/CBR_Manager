@@ -32,7 +32,7 @@ public class ClientInfoActivity extends AppCompatActivity {
     private long id;
     private int position;
 
-    private String[] titles = new String[]{"Information", "Visits", "Risk Level"};
+    private String[] titles = new String[]{"Information", "Records", "Risk Level"};
     public static final String R_CLIENT_ID_PASSED_IN = "r_client_id_passed_in";
     public static final String R_CLIENT_POS_PASSED_IN = "r_client_POS_passed_in";
 
