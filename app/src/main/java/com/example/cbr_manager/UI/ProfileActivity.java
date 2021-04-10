@@ -77,6 +77,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         mydb = new DatabaseHelper(ProfileActivity.this);
         CBRWorkerManager manager = CBRWorkerManager.getInstance(this);
+        manager.clear(); manager.updateList();
         cbrWorker = manager.getCBRByUsernameAndPassword(currentCBRWorker.getUsername());
 
         AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(ProfileActivity.this);
