@@ -12,7 +12,7 @@
         android:id="@+id/signoutButton"
         android:layout_width="129dp"
         android:layout_height="54dp"
-        android:background="@drawable/login_buttons_rounded"
+        android:background="@drawable/rounded_form_buttons"
         android:text="Signout"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -27,7 +27,7 @@
         android:id="@+id/editBtn"
         android:layout_width="129dp"
         android:layout_height="54dp"
-        android:background="@drawable/login_buttons_rounded"
+        android:background="@drawable/rounded_form_buttons"
         android:text="Edit"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,9 +69,8 @@
             android:layout_marginEnd="118dp"
             android:layout_marginRight="118dp"
             android:layout_marginBottom="61dp"
-            android:background="@drawable/purple_rounded_button"
+            android:background="@drawable/rounded_form_buttons"
             android:text="Upload"
-            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <ImageView
