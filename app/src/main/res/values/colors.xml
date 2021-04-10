@@ -12,4 +12,8 @@
     <color name="purple">#863B8F</color>
     <color name="LightBlue">#B2F6FF</color>
     <color name="SpinnerGrey">#EBEBEB</color>
+    <color name="red">#FC0032</color>
+    <color name="green2">#1BB300</color>
+    <color name="red2">#B30003</color>
+    <color name="yellow">#FFEC17</color>
 </resources>

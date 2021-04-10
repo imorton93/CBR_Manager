@@ -1,6 +1,7 @@
 package com.example.cbr_manager.UI.dashboardFragment;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.example.cbr_manager.Database.AdminMessage;
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
 import com.example.cbr_manager.UI.LoginActivity;
@@ -31,6 +33,8 @@ public class NotificationFragment extends Fragment {
     private String current_username;
     private DashboardActivity dashboardActivity;
     private AdminMessageManager adminMessageManager;
+
+    private SyncService syncService;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -56,9 +60,11 @@ public class NotificationFragment extends Fragment {
 
         this.dashboardActivity = (DashboardActivity)getActivity();
         mydb = new DatabaseHelper(dashboardActivity);
+        mydb.setStatusToRead();
         this.current_username = LoginActivity.username;
 
         newMsg(V);
+        refreshMessages(V);
 
         adminMessageManager = AdminMessageManager.getInstance(dashboardActivity);
 
@@ -84,6 +90,24 @@ public class NotificationFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void refreshMessages(View view) {
+        ImageView syncButton = view.findViewById(R.id.syncMsg);
+        syncService = new SyncService(getContext());
+
+        syncButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syncService.getMessagesFromServer();
+
+                adminMessageManager.clear();
+                adminMessageManager.updateList();
+
+                List<AdminMessage> messageList = adminMessageManager.getMessages();
+                populateList(messageList, view);
+            }
+        });
     }
 
     private void populateList(List<AdminMessage> messageList, View v) {

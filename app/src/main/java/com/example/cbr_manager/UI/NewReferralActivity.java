@@ -690,7 +690,7 @@ public class NewReferralActivity extends AppCompatActivity {
     }
 
     private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
-        int size = adminMessageManager.size();
+        int size = adminMessageManager.numUnread();
 
         if (badge != null) {
             if (size == 0) {
@@ -898,6 +898,8 @@ public class NewReferralActivity extends AppCompatActivity {
 
 
     private void insertReferral() {
+        referral.setOutcome("UNRESOLVED");//default case
+
         boolean success = mydb.addReferral(referral);
 
         if(success) {

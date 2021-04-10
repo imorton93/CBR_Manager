@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Referral;
 import com.example.cbr_manager.Database.ReferralManager;
 import com.example.cbr_manager.R;
@@ -35,7 +36,8 @@ public class ReferralListFragment extends Fragment {
     private ClientInfoActivity infoActivity;
     private ReferralManager referralManager;
 
-    public ReferralListFragment() { }
+    public ReferralListFragment() {
+    }
 
     public static ReferralListFragment newInstance(long client_id) {
         ReferralListFragment fragment = new ReferralListFragment();
@@ -56,7 +58,7 @@ public class ReferralListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.infoActivity = (ClientInfoActivity)getActivity();
+        this.infoActivity = (ClientInfoActivity) getActivity();
         Bundle args = getArguments();
         this.client_id = args.getLong("client_id", 0);
         this.referralManager = ReferralManager.getInstance(infoActivity);
@@ -107,11 +109,16 @@ public class ReferralListFragment extends Fragment {
             TextView serviceReq = view.findViewById(R.id.serviceReq);
             TextView outcome = view.findViewById(R.id.referralNumber);
 
+            View resolved = view.findViewById(R.id.resolvedTextView);
+            DatabaseHelper myDb = new DatabaseHelper(getActivity());
+            if(myDb.isResolved(currentReferral.getId()))
+                resolved.setVisibility(View.VISIBLE);
+
             String serviceReqS = "<b>Service Required: </b> " + currentReferral.getServiceReq();
             String outcomeS = "<b>Referral Number: </b> #" + (referrals.size() - position);
 
-            if (currentReferral.getReferralPhoto() != null){
-                Bitmap bmp = BitmapFactory.decodeByteArray(currentReferral.getReferralPhoto(), 0 , currentReferral.getReferralPhoto().length);
+            if (currentReferral.getReferralPhoto() != null) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(currentReferral.getReferralPhoto(), 0, currentReferral.getReferralPhoto().length);
                 referralPhoto.setImageBitmap(bmp);
             }
             serviceReq.setText(Html.fromHtml(serviceReqS));
