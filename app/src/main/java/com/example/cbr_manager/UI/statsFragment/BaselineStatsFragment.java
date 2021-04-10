@@ -130,6 +130,10 @@ public class BaselineStatsFragment extends Fragment {
         graph = view.findViewById(R.id.baseline_workType_graph);
         dataPoints = getWorkTypeDataPoints();
         setDataPoints(graph, dataPoints);
+
+        graph = view.findViewById(R.id.baseline_Organisation_graph);
+        dataPoints = getOrganisationDataPoints();
+        setDataPoints(graph, dataPoints);
     }
 
     private void setDataPoints(PieChart graph, ArrayList<Integer> deviceTypeDataPoints){
@@ -379,6 +383,31 @@ public class BaselineStatsFragment extends Fragment {
         }
 
         return gradeDataPoints;
+    }
+
+    private ArrayList<Integer> getOrganisationDataPoints(){
+        HashMap<String, Integer> organisationCount = new HashMap<>();
+        ArrayList<Integer> organisationDataPoints = new ArrayList<Integer>();
+        LABELS.clear();
+
+        for(Survey survey : surveyManager.getSurveyList()){
+            String organisation = survey.getOrganisation();
+            if(organisation != null){
+                if (organisationCount.containsKey(organisation)) {
+                    Integer count = organisationCount.get(organisation);
+                    organisationCount.put(organisation, count + 1);
+                } else {
+                    organisationCount.put(organisation, 1);
+                }
+            }
+        }
+
+        for(Map.Entry<String, Integer> entry : organisationCount.entrySet()){
+            organisationDataPoints.add(entry.getValue());
+            LABELS.add(entry.getKey());
+        }
+
+        return organisationDataPoints;
     }
 
     private void setHealthTableValues(View view){
