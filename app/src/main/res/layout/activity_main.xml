@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:background="@color/LightBlue"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".GoogleMaps.MainActivity">
@@ -26,12 +27,13 @@
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
         android:visibility="gone" />
+
     <TextView
         android:id="@+id/textLatLong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold" />

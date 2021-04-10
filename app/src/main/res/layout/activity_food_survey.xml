@@ -1,177 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-        android:background="#1A0FDBFB"
-        tools:context=".UI.BaselineSurvey.FoodSurveyActivity">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/activity_tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewfood1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="Part V: Food and Nutrition"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/purple"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-        <TextView
-            android:id="@+id/textViewfood2"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="30dp"
-            android:text="1. Food security"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewfood1" />
-
-        <TextView
-            android:id="@+id/textViewfood3"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="2. Do you have enough food every month?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewfood2" />
-
-        <TextView
-            android:id="@+id/textViewfood4"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="3. Is client a child?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewfood3" />
-
-        <TextView
-            android:id="@+id/textViewfood5"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="4. Condition of child."
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewfood4" />
-
-        <Spinner
-            android:id="@+id/foodSurveySpinner1"
-            android:layout_width="103dp"
-            android:layout_height="41dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/SpinnerGrey"
-            android:popupBackground="@color/SpinnerGrey"
-            android:scrollbarThumbHorizontal="@color/SpinnerGrey"
-            android:scrollbarThumbVertical="@color/SpinnerGrey"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewfood2" />
-
-        <Spinner
-            android:id="@+id/foodSurveySpinner2"
-            android:layout_width="103dp"
-            android:layout_height="41dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/SpinnerGrey"
-            android:popupBackground="@color/SpinnerGrey"
-            android:scrollbarThumbHorizontal="@color/SpinnerGrey"
-            android:scrollbarThumbVertical="@color/SpinnerGrey"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewfood5" />
-
-        <RadioGroup
-            android:id="@+id/foodSurveyRadioGroup1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewfood3">
-
-            <RadioButton
-                android:id="@+id/foodSurveyYesRadio1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/yes">
-
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/foodSurveyNoRadio1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/no">
-
-            </RadioButton>
-
-        </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/foodSurveyRadioGroup2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewfood4">
-
-            <RadioButton
-                android:id="@+id/foodSurveyYesRadio2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/yes">
-
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/foodSurveyNoRadio2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/no">
-
-            </RadioButton>
-
-        </RadioGroup>
+    android:background="@color/LightBlue"
+    tools:context=".UI.BaselineSurvey.FoodSurveyActivity">
 
     <Button
         android:id="@+id/backButtonFoodSurvey"
@@ -203,4 +38,168 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backButtonFoodSurvey" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RadioGroup
+        android:id="@+id/foodSurveyRadioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewfood3">
+
+        <RadioButton
+            android:id="@+id/foodSurveyYesRadio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/yes">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/foodSurveyNoRadio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/no">
+
+        </RadioButton>
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/foodSurveyRadioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewfood4">
+
+        <RadioButton
+            android:id="@+id/foodSurveyYesRadio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/yes">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/foodSurveyNoRadio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/no">
+
+        </RadioButton>
+
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/foodSurveySpinner1"
+        android:layout_width="103dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/SpinnerGrey"
+        android:popupBackground="@color/SpinnerGrey"
+        android:scrollbarThumbHorizontal="@color/SpinnerGrey"
+        android:scrollbarThumbVertical="@color/SpinnerGrey"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewfood2" />
+
+    <Spinner
+        android:id="@+id/foodSurveySpinner2"
+        android:layout_width="103dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/SpinnerGrey"
+        android:popupBackground="@color/SpinnerGrey"
+        android:scrollbarThumbHorizontal="@color/SpinnerGrey"
+        android:scrollbarThumbVertical="@color/SpinnerGrey"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewfood5" />
+
+    <TextView
+        android:id="@+id/textViewfood1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Part V: Food and Nutrition"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/purple"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textViewfood2"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:text="1. Food security"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewfood1" />
+
+    <TextView
+        android:id="@+id/textViewfood3"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:text="2. Do you have enough food every month?"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewfood2" />
+
+    <TextView
+        android:id="@+id/textViewfood4"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:text="3. Is client a child?"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewfood3" />
+
+    <TextView
+        android:id="@+id/textViewfood5"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
+        android:text="4. Condition of child."
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewfood4" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

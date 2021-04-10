@@ -9,112 +9,41 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#1A0FDBFB"
+        android:background="@color/LightBlue"
         tools:context=".UI.BaselineSurvey.EmpowermentandShelterSurveyActivity">
 
-        <TextView
-            android:id="@+id/textViewempowerment8"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/backButtonEmpowermentSurvey"
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginTop="40dp"
-            android:text="Part VII: Shelter and Care"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/purple"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_form_buttons"
+            android:text="Back"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment7" />
+
+        <Button
+            android:id="@+id/submitButtonEmpowermentSurvey"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/rounded_form_buttons"
+            android:text="Submit"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment5" />
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/activity_tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewempowerment1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="Part VI: Empowerment"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/purple"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.506"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-        <TextView
-            android:id="@+id/textViewempowerment3"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="1. Are you member of any organisations which assist people with disabilities?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment1" />
-
-        <TextView
-            android:id="@+id/textViewempowerment4"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="2. Are you aware of your rights as a citizen living with disabilities? "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment3" />
-
-        <TextView
-            android:id="@+id/textViewempowerment5"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="3. Do you feel like you are able to influence people around you?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment4" />
-
-        <TextView
-            android:id="@+id/textViewempowerment6"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="1. Do you have adequate shelter? "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment8" />
-
-        <TextView
-            android:id="@+id/textViewempowerment7"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="40dp"
-            android:text="2. Do you have access to essential items for your household?"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment6" />
+            app:layout_constraintTop_toTopOf="@+id/backButtonEmpowermentSurvey" />
 
         <RadioGroup
             android:id="@+id/empowermentSurveyRadioGroup1"
@@ -266,37 +195,108 @@
 
         </RadioGroup>
 
-        <Button
-            android:id="@+id/backButtonEmpowermentSurvey"
-            android:layout_width="125dp"
+        <TextView
+            android:id="@+id/textViewempowerment8"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="40dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/rounded_form_buttons"
-            android:text="Back"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment7" />
-
-        <Button
-            android:id="@+id/submitButtonEmpowermentSurvey"
-            android:layout_width="125dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:background="@drawable/rounded_form_buttons"
-            android:text="Submit"
-            android:textSize="18sp"
+            android:text="Part VII: Shelter and Care"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/purple"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/backButtonEmpowermentSurvey" />
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment5" />
+
+        <TextView
+            android:id="@+id/textViewempowerment1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Part VI: Empowerment"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/purple"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <TextView
+            android:id="@+id/textViewempowerment3"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="40dp"
+            android:text="1. Are you member of any organisations which assist people with disabilities?"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment1" />
+
+        <TextView
+            android:id="@+id/textViewempowerment4"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="40dp"
+            android:text="2. Are you aware of your rights as a citizen living with disabilities? "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment3" />
+
+        <TextView
+            android:id="@+id/textViewempowerment5"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="40dp"
+            android:text="3. Do you feel like you are able to influence people around you?"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment4" />
+
+        <TextView
+            android:id="@+id/textViewempowerment6"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="40dp"
+            android:text="1. Do you have adequate shelter? "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment8" />
+
+        <TextView
+            android:id="@+id/textViewempowerment7"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="40dp"
+            android:text="2. Do you have access to essential items for your household?"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewempowerment6" />
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/activity_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

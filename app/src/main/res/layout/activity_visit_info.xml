@@ -4,16 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/LightBlue"
     tools:context=".UI.VisitInfoActivity">
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout2" />
 
     <Button
         android:id="@+id/edit2"
@@ -28,11 +20,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/activity_tool_bar"
-        android:layout_width="416dp"
-        android:layout_height="57dp" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout2" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout2"
@@ -53,4 +48,10 @@
             android:layout_height="wrap_content"
             android:text="Goals" />
     </com.google.android.material.tabs.TabLayout>
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar"
+        android:layout_width="416dp"
+        android:layout_height="57dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
