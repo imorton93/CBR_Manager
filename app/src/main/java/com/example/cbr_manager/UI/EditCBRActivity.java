@@ -25,6 +25,7 @@ import com.example.cbr_manager.Database.CBRWorker;
 import com.example.cbr_manager.Database.CBRWorkerManager;
 import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
+import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.R;
 
 import org.json.JSONArray;
@@ -43,6 +44,8 @@ public class EditCBRActivity extends AppCompatActivity {
     private DatabaseHelper mydb;
     private CBRWorker cbrWorker;
 
+    private SyncService syncService;
+
     public static Intent makeIntent(Context context) {
         return new Intent(context, EditCBRActivity.class);
     }
@@ -52,6 +55,7 @@ public class EditCBRActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_c_b_r);
 
+        syncService = new SyncService(EditCBRActivity.this);
         mydb = new DatabaseHelper(EditCBRActivity.this);
 
         CBRWorkerManager manager = CBRWorkerManager.getInstance(this);
@@ -105,6 +109,10 @@ public class EditCBRActivity extends AppCompatActivity {
                         if(success) {
                             cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
                             sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
+                            currentCBRWorker.setUsername(cbrWorker.getUsername());
+
+                            syncService.sendWorkerToServer(cbrWorker);
+
                             Intent intent = ProfileActivity.makeIntent(EditCBRActivity.this);
                             startActivity(intent);
                         } else

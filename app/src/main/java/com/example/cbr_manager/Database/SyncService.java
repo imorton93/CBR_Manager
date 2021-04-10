@@ -33,7 +33,9 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -261,6 +263,68 @@ public class SyncService extends Service {
         requestQueue.add(requestToServer);
     }
 
+    public void sendWorkerToServer (CBRWorker cbrWorker) {
+        String query = "SELECT * FROM WORKER_DATA WHERE ID = " + cbrWorker.getId();
+        Cursor c = mydb.executeQuery(query);
+        JSONArray localDataJSON = cur2Json(c);
+
+
+        String workerArr = localDataJSON.toString();
+        String dataToSend = workerArr.substring(1, workerArr.length() - 1);
+
+        Toast.makeText(context, dataToSend, Toast.LENGTH_LONG).show();
+
+        String URL = "https://mycbr-server.herokuapp.com/update-worker/" + cbrWorker.getId();
+
+        StringRequest requestToServer = new StringRequest(
+                Request.Method.POST,
+                URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray serverData = new JSONArray(response);
+
+                            for (int i = 0; i < serverData.length(); i++) {
+                                mydb.registerWorker(jsonToWorker(serverData.getJSONObject(i)));
+                            }
+
+                        } catch (JSONException e) {
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError e) {
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", String.valueOf(cbrWorker.getId()));
+
+                return params;
+            }
+
+            @Override
+            public String getBodyContentType() { return "application/json; charset=utf-8"; }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return dataToSend == null ? null : dataToSend.getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    return null;
+                }
+            }
+        };
+
+        requestQueue.add(requestToServer);
+
+    }
+
     public void syncClientsTable() {
         String query = "SELECT * FROM CLIENT_DATA WHERE is_synced = 0;" ; //get only data that is not synced
         Cursor c = mydb.executeQuery(query);
@@ -484,7 +548,10 @@ public class SyncService extends Service {
             worker.setZone((String) object.get("ZONE"));
         }
 
-        //worker.setPhoto((String) object.get("PHOTO")); - Uncomment out once worker photos are implemented, surround with a null check
+        if (!object.isNull("PHOTO"))  {
+            worker.setPhoto(strToByteArr((String) object.get("PHOTO")));
+        }
+
         worker.setPassword((String) object.get("PASSWORD"));
         worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
         worker.setIs_admin("1".equals((String) object.get("IS_ADMIN")));
