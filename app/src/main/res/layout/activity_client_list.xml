@@ -4,18 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LightBlue"
-    tools:context=".UI.ClientListActivity">
+    tools:context=".UI.ClientListActivity"
+    android:background="@drawable/backgroundgradient">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="390dp"
-        android:layout_height="667dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab"
-        app:layout_constraintVertical_bias="0.0" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab"
@@ -41,9 +35,15 @@
             android:text="Wednesday" />
     </com.google.android.material.tabs.TabLayout>
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/activity_tool_bar" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="390dp"
+        android:layout_height="667dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

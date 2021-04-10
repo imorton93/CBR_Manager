@@ -75,13 +75,7 @@ public class ReferralManager implements Iterable<Referral>{
             Boolean wheelchairReparable = c.getInt(wheelchairReparableI) > 0;
             Boolean bringToCentre = c.getInt(bringToCentreI) > 0;
             String condition = c.getString(conditionI);
-            String injuryLocation;
-            if(serviceReq.equalsIgnoreCase("Prosthetic")){
-                injuryLocation = c.getString(injuryLocationKneeI);
-            }
-            else{
-                injuryLocation = c.getString(injuryLocationElbowI);
-            }
+            String injuryLocation = c.getString(injuryLocationKneeI) + c.getString(injuryLocationElbowI);
             String status = c.getString(statusI);
             String outcome = c.getString(outcomeI);
             Long clientID = c.getLong(clientIDI);

@@ -300,6 +300,8 @@ public class NewClientActivity extends AppCompatActivity {
         LinearLayout.LayoutParams imageViewLayoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageViewHeight);
         imageView.setLayoutParams(imageViewLayoutParams1);
 
+
+
         ArrayList<Question> questions = page.getQuestions();
         TextQuestion picQuestion = (TextQuestion) questions.get(0);
         TextView questionText = new TextView(this);
@@ -308,6 +310,7 @@ public class NewClientActivity extends AppCompatActivity {
 
         ImageView picButton = new ImageView(this);
         picButton.setImageResource(R.drawable.camera_icon);
+        picButton.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(200, 200);
         params.gravity = Gravity.CENTER;
         picButton.setLayoutParams(params);

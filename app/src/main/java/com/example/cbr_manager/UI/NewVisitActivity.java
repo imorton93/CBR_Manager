@@ -118,7 +118,7 @@ public class NewVisitActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentPage == pageCount) {
+                if (currentPage == 10) {
                     insertVisit();
                 }
 
