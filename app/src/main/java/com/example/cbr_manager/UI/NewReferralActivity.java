@@ -157,8 +157,6 @@ public class NewReferralActivity extends AppCompatActivity {
                     pageCount = selectedForm.size() + 2;
                     back.setClickable(true);
                     back.setVisibility(View.VISIBLE);
-                    back.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
-                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
                     savePage(serviceRequirePage);
                 }
                 else{
