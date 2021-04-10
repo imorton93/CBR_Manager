@@ -1,12 +1,15 @@
 package com.example.cbr_manager.UI.statsFragment;
 
+import android.Manifest;
 import android.content.ContextWrapper;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
@@ -49,6 +52,11 @@ public class GeneralStatsFragment extends Fragment {
     private static final ArrayList<String> DATES = new ArrayList<String>();
     private static final ArrayList<Integer> DATES_DAYS = new ArrayList<Integer>();
     private final int NUMBER_OF_POINTS = 4;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
 
     public GeneralStatsFragment() {
@@ -238,9 +246,19 @@ public class GeneralStatsFragment extends Fragment {
     private void writeToCSV() throws IOException {
         File baseDir = android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File file = new File(baseDir, "baseline-survey-data.csv");
-        try (FileWriter fileWriter = new FileWriter(file)){
-            StringBuilder baselineDate = buildBaselineString();
-            fileWriter.append(baselineDate);
+        try {
+            int permission = ActivityCompat.checkSelfPermission(this.statsActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if(permission != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(
+                        this.statsActivity,
+                        PERMISSIONS_STORAGE,
+                        REQUEST_EXTERNAL_STORAGE
+                );
+            }
+            FileWriter fileWriter = new FileWriter(file);
+            StringBuilder baselineData = buildBaselineString();
+            fileWriter.append(baselineData);
+            fileWriter.close();
         }catch (IOException e){
             e.printStackTrace();
         }
