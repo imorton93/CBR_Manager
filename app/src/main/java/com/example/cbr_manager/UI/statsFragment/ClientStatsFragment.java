@@ -91,6 +91,7 @@ public class ClientStatsFragment extends Fragment {
         mediumRiskDataPoints(view);
         lowRiskDataPoints(view);
         criticalRiskPerZone(view);
+        highRiskPerZone(view);
 
         return view;
     }
@@ -453,6 +454,105 @@ public class ClientStatsFragment extends Fragment {
                     && (riskLevelEducation.equals(RISK_LEVEL.get(3))
                     || riskLevelHealth.equals(RISK_LEVEL.get(3))
                     || riskLevelSocial.equals((RISK_LEVEL.get(3))))){
+                zone_count[8]++;
+            }
+        }
+
+        for(int i =0; i < 9; i++){
+            riskPerZoneDataPoints.add(zone_count[i]);
+        }
+        return riskPerZoneDataPoints;
+    }
+
+    private void highRiskPerZone(View view){
+        BarChart graph = view.findViewById(R.id.client_zoneHigh_graph);
+        ArrayList<Integer> highRiskDataPoints = getHighClientsPerZone();
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+        for (int i = 0; i < highRiskDataPoints.size(); i++) {
+            BarEntry barEntry = new BarEntry(i, highRiskDataPoints.get(i));
+            entries.add(barEntry);
+        }
+
+        BarDataSet barDataSet = new BarDataSet(entries, "High Risk Levels Per Zone");
+        BarData data = new BarData(barDataSet);
+        graph.setData(data);
+
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+
+        graph.setFitBars(true);
+        graph.animateY(2000);
+
+        XAxis xaxis = graph.getXAxis();
+        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xaxis.setDrawGridLines(false);
+        xaxis.setLabelCount(9);
+        xaxis.setLabelRotationAngle(-80);
+        xaxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return ZONES.get((int) value);
+            }
+        });
+        graph.invalidate();
+        graph.getDescription().setEnabled(false);
+    }
+
+    private ArrayList<Integer> getHighClientsPerZone(){
+        ArrayList<Integer> riskPerZoneDataPoints = new ArrayList<>();
+        int [] zone_count = new int[9];
+
+        for(Client client : clientManager.getClients()){
+            String location = client.getLocation();
+            String riskLevelHealth = client.getHealthRate();
+            String riskLevelEducation = client.getEducationRate();
+            String riskLevelSocial = client.getSocialStatusRate();
+
+            if(location.equals(ZONES.get(0))
+                    && (riskLevelEducation.equals(RISK_LEVEL.get(2))
+                    || riskLevelHealth.equals(RISK_LEVEL.get(2))
+                    || riskLevelSocial.equals((RISK_LEVEL.get(2))))){
+                zone_count[0]++;
+            }else if(location.equals(ZONES.get(1))
+                    && (riskLevelEducation.equals(RISK_LEVEL.get(2))
+                    || riskLevelHealth.equals(RISK_LEVEL.get(2))
+                    || riskLevelSocial.equals((RISK_LEVEL.get(2))))){
+                zone_count[1]++;
+            }else if(location.equals(ZONES.get(2))
+                    && (riskLevelEducation.equals(RISK_LEVEL.get(2))
+                    || riskLevelHealth.equals(RISK_LEVEL.get(2))
+                    || riskLevelSocial.equals((RISK_LEVEL.get(2))))){
+                zone_count[2]++;
+            }else if(location.equals(ZONES.get(3))
+                    && (riskLevelEducation.equals(RISK_LEVEL.get(2))
+                    || riskLevelHealth.equals(RISK_LEVEL.get(2))
+                    || riskLevelSocial.equals((RISK_LEVEL.get(2))))){
+                zone_count[3]++;
+            }else if(location.equals(ZONES.get(4))
+                    && (riskLevelEducation.equals(RISK_LEVEL.get(2))
+                    || riskLevelHealth.equals(RISK_LEVEL.get(2))
+                    || riskLevelSocial.equals((RISK_LEVEL.get(2))))){
+                zone_count[4]++;
+            }else if(location.equals(ZONES.get(5))
+                    && (riskLevelEducation.equals(RISK_LEVEL.get(2))
+                    || riskLevelHealth.equals(RISK_LEVEL.get(2))
+                    || riskLevelSocial.equals((RISK_LEVEL.get(2))))){
+                zone_count[5]++;
+            }else if(location.equals(ZONES.get(6))
+                    && (riskLevelEducation.equals(RISK_LEVEL.get(2))
+                    || riskLevelHealth.equals(RISK_LEVEL.get(2))
+                    || riskLevelSocial.equals((RISK_LEVEL.get(2))))){
+                zone_count[6]++;
+            }else if(location.equals(ZONES.get(7))
+                    && (riskLevelEducation.equals(RISK_LEVEL.get(2))
+                    || riskLevelHealth.equals(RISK_LEVEL.get(2))
+                    || riskLevelSocial.equals((RISK_LEVEL.get(2))))){
+                zone_count[7]++;
+            }else if(location.equals(ZONES.get(8))
+                    && (riskLevelEducation.equals(RISK_LEVEL.get(2))
+                    || riskLevelHealth.equals(RISK_LEVEL.get(2))
+                    || riskLevelSocial.equals((RISK_LEVEL.get(2))))){
                 zone_count[8]++;
             }
         }
