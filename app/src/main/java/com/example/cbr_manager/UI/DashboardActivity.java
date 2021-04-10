@@ -60,7 +60,7 @@ public class DashboardActivity extends AppCompatActivity {
         adminMessageManager.updateList();
 
         TextView badgeOnToolBar = findViewById(R.id.cart_badge2);
-        badgeNotification(adminMessageManager, badgeOnToolBar);
+        badgeOnToolBar.setVisibility(View.GONE);
 
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabs);

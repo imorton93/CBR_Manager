@@ -33,7 +33,9 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -43,6 +45,12 @@ public class SyncService extends Service {
     private RequestQueue requestQueue;
     private Context context;
 
+    private CBRWorkerManager cbrWorkerManager;
+    private ClientManager clientManager;
+    private VisitManager visitManager;
+    private ReferralManager referralManager;
+    private AdminMessageManager adminMessageManager;
+
     public SyncService() {
     }
 
@@ -50,6 +58,12 @@ public class SyncService extends Service {
         mydb = new DatabaseHelper(context);
         requestQueue = Volley.newRequestQueue(context);
         this.context = context;
+
+        cbrWorkerManager = CBRWorkerManager.getInstance(context);
+        clientManager = ClientManager.getInstance(context);
+        visitManager = VisitManager.getInstance(context);
+        referralManager = ReferralManager.getInstance(context);
+        adminMessageManager = AdminMessageManager.getInstance(context);
     }
 
     private Runnable autoSync = new Runnable() {
@@ -93,9 +107,6 @@ public class SyncService extends Service {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            /*String deleteWorkers = "DELETE FROM ADMIN_MESSAGES";
-                            mydb.executeQuery(deleteWorkers);*/
-
                             JSONArray serverData = new JSONArray(response);
                             Long msgID;
 
@@ -104,6 +115,9 @@ public class SyncService extends Service {
                                 if (!mydb.msgAlreadyExists(msgID)) {
                                     mydb.addMessage(jsonToMessage(serverData.getJSONObject(i)));
                                 }
+
+                                adminMessageManager.clear();
+                                adminMessageManager.updateList();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -194,6 +208,8 @@ public class SyncService extends Service {
                             }
 
                             Toast.makeText(context, "Sign up successful!", Toast.LENGTH_LONG).show();
+                            cbrWorkerManager.clear();
+                            cbrWorkerManager.updateList();
                         } catch (JSONException e) {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                         }
@@ -243,6 +259,9 @@ public class SyncService extends Service {
                             for (int i = 0; i < serverData.length(); i++) {
                                 mydb.registerWorker(jsonToWorker(serverData.getJSONObject(i)));
                             }
+
+                            cbrWorkerManager.clear();
+                            cbrWorkerManager.updateList();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -259,6 +278,67 @@ public class SyncService extends Service {
         };
 
         requestQueue.add(requestToServer);
+    }
+
+    public void sendWorkerToServer (CBRWorker cbrWorker) {
+        String query = "SELECT * FROM WORKER_DATA WHERE ID = " + cbrWorker.getId();
+        Cursor c = mydb.executeQuery(query);
+        JSONArray localDataJSON = cur2Json(c);
+
+        String workerArr = localDataJSON.toString();
+        String dataToSend = workerArr.substring(1, workerArr.length() - 1);
+
+        String URL = "https://mycbr-server.herokuapp.com/update-worker/" + cbrWorker.getId();
+
+        StringRequest requestToServer = new StringRequest(
+                Request.Method.POST,
+                URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray serverData = new JSONArray(response);
+
+                            for (int i = 0; i < serverData.length(); i++) {
+                                mydb.registerWorker(jsonToWorker(serverData.getJSONObject(i)));
+                            }
+
+                        } catch (JSONException e) {
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError e) {
+                if (e.networkResponse.statusCode == 409) { //409 CONFLICT: email already exists on server
+                    Toast.makeText(context, "Username is already taken. Try again.", Toast.LENGTH_LONG).show();
+                }
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", String.valueOf(cbrWorker.getId()));
+
+                return params;
+            }
+
+            @Override
+            public String getBodyContentType() { return "application/json; charset=utf-8"; }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return dataToSend == null ? null : dataToSend.getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    return null;
+                }
+            }
+        };
+
+        requestQueue.add(requestToServer);
+
     }
 
     public void syncClientsTable() {
@@ -287,6 +367,9 @@ public class SyncService extends Service {
                             for (int i = 0; i < serverData.length(); i++) {
                                 mydb.registerClient(jsonToClient(serverData.getJSONObject(i)));
                             }
+
+                            clientManager.clear();
+                            clientManager.updateList();
                         } catch (JSONException e) {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                         }
@@ -340,6 +423,9 @@ public class SyncService extends Service {
                             for (int i = 0; i < serverData.length(); i++) {
                                 mydb.addVisit(jsonToVisit(serverData.getJSONObject(i)));
                             }
+
+                            visitManager.clear();
+                            visitManager.updateList();
                         } catch (JSONException e) {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                         }
@@ -393,6 +479,9 @@ public class SyncService extends Service {
                             for (int i = 0; i < serverData.length(); i++) {
                                 mydb.addReferral(jsonToReferral(serverData.getJSONObject(i)));
                             }
+
+                            referralManager.clear();
+                            referralManager.updateList();
                         } catch (JSONException e) {
                             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                         }
@@ -484,7 +573,10 @@ public class SyncService extends Service {
             worker.setZone((String) object.get("ZONE"));
         }
 
-        //worker.setPhoto((String) object.get("PHOTO")); - Uncomment out once worker photos are implemented, surround with a null check
+        if (!object.isNull("PHOTO"))  {
+            worker.setPhoto(strToByteArr((String) object.get("PHOTO")));
+        }
+
         worker.setPassword((String) object.get("PASSWORD"));
         worker.setWorkerId(Integer.parseInt((String) object.get("ID")));
         worker.setIs_admin("1".equals((String) object.get("IS_ADMIN")));
