@@ -694,6 +694,7 @@ public class SyncService extends Service {
 
         else {
             referral.setOtherExplanation(referral.getServiceReq());
+            referral.setServiceReq("Other");
         }
 
         referral.setHasWheelchair(strToBool((String) object.get("HAS_WHEELCHAIR")));
