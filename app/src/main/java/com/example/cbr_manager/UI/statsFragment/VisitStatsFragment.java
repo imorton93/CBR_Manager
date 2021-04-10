@@ -1,5 +1,6 @@
 package com.example.cbr_manager.UI.statsFragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
@@ -67,6 +69,10 @@ public class VisitStatsFragment extends Fragment {
     private void displayGoalGraph(BarChart graph, BarDataSet barDataSet){
         BarData data = new BarData(barDataSet);
         graph.setData(data);
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+        graph.setFitBars(true);
+        graph.animateY(2000);
         XAxis xaxis = graph.getXAxis();
         xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xaxis.setDrawGridLines(false);
@@ -84,6 +90,10 @@ public class VisitStatsFragment extends Fragment {
     private void displayZoneGraph(BarChart graph, BarDataSet barDataSet){
         BarData data = new BarData(barDataSet);
         graph.setData(data);
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+        graph.setFitBars(true);
+        graph.animateY(2000);
         XAxis xaxis = graph.getXAxis();
         xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xaxis.setDrawGridLines(false);
