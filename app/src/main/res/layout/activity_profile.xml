@@ -4,14 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundgradient"
+    android:background="@color/LightBlue"
     tools:context=".UI.ProfileActivity">
 
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/activity_tool_bar" />
+    <Button
+        android:id="@+id/signoutButton"
+        android:layout_width="129dp"
+        android:layout_height="54dp"
+        android:background="@drawable/rounded_form_buttons"
+        android:text="Signout"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.854"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
+
+    <Button
+        android:id="@+id/editBtn"
+        android:layout_width="129dp"
+        android:layout_height="54dp"
+        android:background="@drawable/rounded_form_buttons"
+        android:text="Edit"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/signoutButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -31,60 +53,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginPageTextBox">
 
-        <TextView
-            android:id="@+id/profileFname"
-            android:layout_width="164dp"
-            android:layout_height="30dp"
+        <Button
+            android:id="@+id/button"
+            android:layout_width="129dp"
+            android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="9dp"
-            android:layout_marginLeft="9dp"
-            android:layout_marginTop="248dp"
-            android:layout_marginEnd="201dp"
-            android:layout_marginRight="201dp"
-            android:layout_marginBottom="220dp"
-            android:background="@drawable/login_buttons_rounded"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:text="Worker First Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:backgroundTint="#02FDDF" />
+            android:layout_marginStart="127dp"
+            android:layout_marginLeft="127dp"
+            android:layout_marginTop="413dp"
+            android:layout_marginEnd="118dp"
+            android:layout_marginRight="118dp"
+            android:layout_marginBottom="61dp"
+            android:background="@drawable/rounded_form_buttons"
+            android:text="Upload"
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/profileLname"
-            android:layout_width="165dp"
-            android:layout_height="30dp"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="226dp"
+            android:layout_height="221dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="191dp"
-            android:layout_marginLeft="191dp"
-            android:layout_marginTop="248dp"
-            android:layout_marginEnd="23dp"
-            android:layout_marginRight="23dp"
-            android:layout_marginBottom="220dp"
-            android:background="@drawable/login_buttons_rounded"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:text="Worker Last Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:backgroundTint="#02FDDF" />
+            android:layout_marginStart="75dp"
+            android:layout_marginLeft="75dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="75dp"
+            android:layout_marginRight="73dp"
+            android:layout_marginBottom="294dp"
+            android:bottomLeftRadius="100dp"
+            android:bottomRightRadius="100dp"
+            android:topLeftRadius="30dp"
+            android:topRightRadius="30dp"
+            app:srcCompat="@drawable/stockprofileimage" />
 
         <TextView
             android:id="@+id/profileUsername"
             android:layout_width="165dp"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -109,19 +123,19 @@
         <TextView
             android:id="@+id/profileZone"
             android:layout_width="165dp"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="194dp"
-            android:layout_marginLeft="194dp"
-            android:layout_marginTop="314dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="146dp"
+            android:layout_marginStart="203dp"
+            android:layout_marginLeft="203dp"
+            android:layout_marginTop="315dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginBottom="147dp"
             android:background="@drawable/login_buttons_rounded"
             android:fontFamily="sans-serif"
             android:gravity="center"
@@ -131,64 +145,57 @@
             android:textSize="20sp"
             app:backgroundTint="#02FDDF" />
 
-        <Button
-            android:id="@+id/uploadButton"
-            android:layout_width="129dp"
-            android:layout_height="50dp"
+        <TextView
+            android:id="@+id/profileFname"
+            android:layout_width="165dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="127dp"
-            android:layout_marginLeft="127dp"
-            android:layout_marginTop="413dp"
-            android:layout_marginEnd="118dp"
-            android:layout_marginRight="118dp"
-            android:layout_marginBottom="61dp"
-            android:background="@drawable/purple_rounded_button"
-            android:text="Upload"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:layout_marginStart="9dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="244dp"
+            android:layout_marginEnd="201dp"
+            android:layout_marginRight="201dp"
+            android:layout_marginBottom="215dp"
+            android:background="@drawable/login_buttons_rounded"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="Worker First Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:backgroundTint="#02FDDF" />
 
-        <ImageView
-            android:id="@+id/profilePicture"
-            android:layout_width="226dp"
-            android:layout_height="221dp"
+        <TextView
+            android:id="@+id/profileLname"
+            android:layout_width="165dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="75dp"
-            android:layout_marginLeft="75dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="75dp"
-            android:layout_marginRight="73dp"
-            android:layout_marginBottom="294dp"
-            android:bottomLeftRadius="100dp"
-            android:bottomRightRadius="100dp"
-            android:topLeftRadius="30dp"
-            android:topRightRadius="30dp"
-            app:srcCompat="@drawable/stockprofileimage" />
+            android:layout_marginStart="203dp"
+            android:layout_marginLeft="203dp"
+            android:layout_marginTop="248dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:layout_marginBottom="220dp"
+            android:background="@drawable/login_buttons_rounded"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="Worker Last Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:backgroundTint="#02FDDF" />
 
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/signoutButton"
-        android:layout_width="129dp"
-        android:layout_height="54dp"
-        android:text="Signout"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:background="@drawable/login_buttons_rounded"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.854"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <TextView
         android:id="@+id/textView7"
@@ -203,17 +210,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <Button
-        android:id="@+id/editBtn"
-        android:layout_width="129dp"
-        android:layout_height="54dp"
-        android:text="Edit"
-        android:textSize="16sp"
-        android:background="@drawable/login_buttons_rounded"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/signoutButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/activity_tool_bar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
