@@ -17,10 +17,8 @@ import android.widget.Toast;
 import com.example.cbr_manager.Database.AdminMessageManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Survey;
-import com.example.cbr_manager.Database.SurveyManager;
 import com.example.cbr_manager.R;
 import com.example.cbr_manager.UI.DashboardActivity;
-import com.example.cbr_manager.UI.NewVisitActivity;
 import com.example.cbr_manager.UI.ProfileActivity;
 import com.example.cbr_manager.UI.TaskViewActivity;
 import com.google.android.gms.tasks.Task;
@@ -56,8 +54,6 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
 
         survey = (Survey) getIntent().getSerializableExtra("Survey");
 
-        setUniqueSurveyId();
-
         submitButton = findViewById(R.id.submitButtonEmpowermentSurvey);
         backButton = findViewById(R.id.backButtonEmpowermentSurvey);
 
@@ -82,15 +78,14 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
                 else {
                     storeSurveyInput();
                     DatabaseHelper db = new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
+                    setUniqueSurveyId();
                     boolean success = db.addSurvey(survey);
                     if (success) {
-                        SurveyManager surveyManager = SurveyManager.getInstance(EmpowermentandShelterSurveyActivity.this);
-                        surveyManager.addSurvey(survey);
                         Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Thanks for taking the survey!", Toast.LENGTH_LONG).show();
                         Intent intent = TaskViewActivity.makeIntent(EmpowermentandShelterSurveyActivity.this);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(EmpowermentandShelterSurveyActivity.this, "Try Again!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(EmpowermentandShelterSurveyActivity.this, String.valueOf(survey.getId()), Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -163,6 +158,7 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
         });
     }
 
+
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -214,7 +210,7 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
     }
 
     private void badgeNotification(AdminMessageManager adminMessageManager, TextView badge) {
-        int size = adminMessageManager.size();
+        int size = adminMessageManager.numUnread();
 
         if (badge != null) {
             if (size == 0) {
@@ -230,7 +226,7 @@ public class EmpowermentandShelterSurveyActivity extends AppCompatActivity {
         }
     }
 
-    private void setUniqueSurveyId() {
+    private void setUniqueSurveyId(){
         DatabaseHelper db =  new DatabaseHelper(EmpowermentandShelterSurveyActivity.this);
 
         int survey_no = db.numberOfSurveysPerClient(survey.getClient_id());
