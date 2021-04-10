@@ -42,6 +42,7 @@ public class LivelihoodSurveyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_livelihood_survey);
 
+
         nextButton = findViewById(R.id.nextButtonLivelihoodSurvey);
         backButton = findViewById(R.id.backButtonLivelihoodSurvey);
         radio1 = findViewById(R.id.livelihoodSurveyRadioGroup1);
