@@ -148,7 +148,7 @@ public class ClientManager implements Iterable<Client>{
     }
 
     public void addClient(Client client){
-        clients.add(client);
+        clients.add(0, client);
     }
 
     @NonNull

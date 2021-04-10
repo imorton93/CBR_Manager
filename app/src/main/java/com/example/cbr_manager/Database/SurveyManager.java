@@ -172,6 +172,10 @@ public class SurveyManager {
         }
     }
 
+    public void addSurvey(Survey survey){
+        surveyList.add(0, survey);
+    }
+
     public void clear() {
         surveyList.clear();
     }
