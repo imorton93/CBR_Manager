@@ -8,73 +8,112 @@ import javax.persistence.*;
 public class CBRWorker {
     @Column
     @JsonProperty("FIRST_NAME")
-    private String FIRST_NAME;
+    private String firstName;
 
     @Column
     @JsonProperty("LAST_NAME")
-    private String LAST_NAME;
+    private String lastName;
 
     @Column
     @JsonProperty("USERNAME")
-    private String USERNAME;
+    private String username;
+
+    @Column
+    @JsonProperty("ZONE")
+    private String zone;
+
+    @Column(length = 10485760)
+    @JsonProperty("PHOTO")
+    private String photo;
 
     @Column
     @JsonProperty("PASSWORD")
-    private String PASSWORD;
+    private String password;
 
     @Id
     @Column
     @JsonProperty("ID")
-    private String ID;
+    private String id;
 
-    public CBRWorker(String ID, String FIRST_NAME, String LAST_NAME, String USERNAME, String PASSWORD) {
-        this.ID = ID;
-        this.FIRST_NAME = FIRST_NAME;
-        this.LAST_NAME = LAST_NAME;
-        this.USERNAME = USERNAME;
-        this.PASSWORD = PASSWORD;
+    @Column
+    @JsonProperty("IS_ADMIN")
+    private String isAdmin;
+
+    public CBRWorker() {
     }
 
-    public CBRWorker(){
+    public CBRWorker(String firstName, String lastName, String username, String zone, String photo, String password, String id, String isAdmin) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.zone = zone;
+        this.photo = photo;
+        this.password = password;
+        this.id = id;
+        this.isAdmin = isAdmin;
     }
 
-    public String getFIRST_NAME() {
-        return FIRST_NAME;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFIRST_NAME(String FIRST_NAME) {
-        this.FIRST_NAME = FIRST_NAME;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLAST_NAME() {
-        return LAST_NAME;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLAST_NAME(String LAST_NAME) {
-        this.LAST_NAME = LAST_NAME;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getUSERNAME() {
-        return USERNAME;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUSERNAME(String USERNAME) {
-        this.USERNAME = USERNAME;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPASSWORD() {
-        return PASSWORD;
+    public String getZone() {
+        return zone;
     }
 
-    public void setPASSWORD(String PASSWORD) {
-        this.PASSWORD = PASSWORD;
+    public void setZone(String zone) {
+        this.zone = zone;
     }
 
-    public String getID() {
-        return ID;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(String isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }

@@ -10,59 +10,59 @@ public class Referral {
     @Id
     @Column
     @JsonProperty("ID")
-    private Long ID;
+    private String id;
 
     @Column
-    @JsonProperty("SERVICE_REQ")
-    private String SERVICE_REQ;
+    @JsonProperty("SERVICE_REQUIRED")
+    private String serviceReq;
 
-    @Column
+    @Column(length = 10485760)
     @JsonProperty("REFERRAL_PHOTO")
-    private byte[] REFERRAL_PHOTO;
+    private String referralPhoto;
 
     @Column
-    @JsonProperty("BASIC_OR_INTER")
-    private String BASIC_OR_INTER;
+    @JsonProperty("BASIC_OR_INTERMEDIATE")
+    private String basicOrInter;
 
     @Column
     @JsonProperty("HIP_WIDTH")
-    private double HIP_WIDTH;
+    private String hipWidth;
 
     @Column
-    @JsonProperty("HAS_WHEEL_CHAIR")
-    private Boolean HAS_WHEEL_CHAIR;
+    @JsonProperty("HAS_WHEELCHAIR")
+    private String hasWheelChair;
 
     @Column
-    @JsonProperty("WHEEL_CHAIR_REPARABLE")
-    private Boolean WHEEL_CHAIR_REPARABLE;
+    @JsonProperty("WHEELCHAIR_REPAIRABLE")
+    private String wheelchairRepairable;
 
     @Column
     @JsonProperty("BRING_TO_CENTRE")
-    private Boolean BRING_TO_CENTRE;
+    private String bringToCentre;
 
     @Column
     @JsonProperty("CONDITIONS")
-    private ArrayList<String> CONDITIONS = new ArrayList<>();
+    private String conditions;
 
     @Column
     @JsonProperty("INJURY_LOCATION_KNEE")
-    private String INJURY_LOCATION_KNEE;
+    private String injuryLocationKnee;
 
     @Column
     @JsonProperty("INJURY_LOCATION_ELBOW")
-    private String INJURY_LOCATION_ELBOW;
+    private String injuryLocationElbow;
 
     @Column
-    @JsonProperty("STATUS")
-    private String STATUS;
+    @JsonProperty("REFERRAL_STATUS")
+    private String status;
 
     @Column
-    @JsonProperty("OUTCOME")
-    private String OUTCOME;
+    @JsonProperty("REFERRAL_OUTCOME")
+    private String outcome;
 
     @Column
     @JsonProperty("CLIENT_ID")
-    private String CLIENT_ID;
+    private String clientID;
 
     @Column
     @JsonProperty("IS_SYNCED")
@@ -72,124 +72,141 @@ public class Referral {
 
     }
 
-    public Referral(String SERVICE_REQ, byte[] REFERRAL_PHOTO, String BASIC_OR_INTER, double HIP_WIDTH, Boolean HAS_WHEEL_CHAIR, Boolean WHEEL_CHAIR_REPARABLE, Boolean BRING_TO_CENTRE, ArrayList<String> CONDITIONS, String INJURY_LOCATION_KNEE, String INJURY_LOCATION_ELBOW, String STATUS, String OUTCOME, String CLIENT_ID, String isSynced) {
-        this.SERVICE_REQ = SERVICE_REQ;
-        this.REFERRAL_PHOTO = REFERRAL_PHOTO;
-        this.BASIC_OR_INTER = BASIC_OR_INTER;
-        this.HIP_WIDTH = HIP_WIDTH;
-        this.HAS_WHEEL_CHAIR = HAS_WHEEL_CHAIR;
-        this.WHEEL_CHAIR_REPARABLE = WHEEL_CHAIR_REPARABLE;
-        this.BRING_TO_CENTRE = BRING_TO_CENTRE;
-        this.CONDITIONS = CONDITIONS;
-        this.INJURY_LOCATION_KNEE = INJURY_LOCATION_KNEE;
-        this.INJURY_LOCATION_ELBOW = INJURY_LOCATION_ELBOW;
-        this.STATUS = STATUS;
-        this.OUTCOME = OUTCOME;
-        this.CLIENT_ID = CLIENT_ID;
+    public Referral(String id, String serviceReq, String referralPhoto, String basicOrInter, String hipWidth, String hasWheelChair, String wheelchairRepairable, String bringToCentre, String conditions, String injuryLocationKnee, String injuryLocationElbow, String status, String outcome, String clientID, String isSynced) {
+        this.id = id;
+        this.serviceReq = serviceReq;
+        this.referralPhoto = referralPhoto;
+        this.basicOrInter = basicOrInter;
+        this.hipWidth = hipWidth;
+        this.hasWheelChair = hasWheelChair;
+        this.wheelchairRepairable = wheelchairRepairable;
+        this.bringToCentre = bringToCentre;
+        this.conditions = conditions;
+        this.injuryLocationKnee = injuryLocationKnee;
+        this.injuryLocationElbow = injuryLocationElbow;
+        this.status = status;
+        this.outcome = outcome;
+        this.clientID = clientID;
         this.isSynced = isSynced;
     }
 
-    public String getSERVICE_REQ() {
-        return SERVICE_REQ;
+    public String getId() {
+        return id;
     }
 
-    public void setSERVICE_REQ(String SERVICE_REQ) {
-        this.SERVICE_REQ = SERVICE_REQ;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public byte[] getREFERRAL_PHOTO() {
-        return REFERRAL_PHOTO;
+    public String getServiceReq() {
+        return serviceReq;
     }
 
-    public void setREFERRAL_PHOTO(byte[] REFERRAL_PHOTO) {
-        this.REFERRAL_PHOTO = REFERRAL_PHOTO;
+    public void setServiceReq(String serviceReq) {
+        this.serviceReq = serviceReq;
     }
 
-    public String getBASIC_OR_INTER() {
-        return BASIC_OR_INTER;
+    public String getReferralPhoto() {
+        return referralPhoto;
     }
 
-    public void setBASIC_OR_INTER(String BASIC_OR_INTER) {
-        this.BASIC_OR_INTER = BASIC_OR_INTER;
+    public void setReferralPhoto(String referralPhoto) {
+        this.referralPhoto = referralPhoto;
     }
 
-    public double getHIP_WIDTH() {
-        return HIP_WIDTH;
+    public String getBasicOrInter() {
+        return basicOrInter;
     }
 
-    public void setHIP_WIDTH(double HIP_WIDTH) {
-        this.HIP_WIDTH = HIP_WIDTH;
+    public void setBasicOrInter(String basicOrInter) {
+        this.basicOrInter = basicOrInter;
     }
 
-    public Boolean getHAS_WHEEL_CHAIR() {
-        return HAS_WHEEL_CHAIR;
+    public String getHipWidth() {
+        return hipWidth;
     }
 
-    public void setHAS_WHEEL_CHAIR(Boolean HAS_WHEEL_CHAIR) {
-        this.HAS_WHEEL_CHAIR = HAS_WHEEL_CHAIR;
+    public void setHipWidth(String hipWidth) {
+        this.hipWidth = hipWidth;
     }
 
-    public Boolean getWHEEL_CHAIR_REPARABLE() {
-        return WHEEL_CHAIR_REPARABLE;
+    public String getHasWheelChair() {
+        return hasWheelChair;
     }
 
-    public void setWHEEL_CHAIR_REPARABLE(Boolean WHEEL_CHAIR_REPARABLE) {
-        this.WHEEL_CHAIR_REPARABLE = WHEEL_CHAIR_REPARABLE;
+    public void setHasWheelChair(String hasWheelChair) {
+        this.hasWheelChair = hasWheelChair;
     }
 
-    public Boolean getBRING_TO_CENTRE() {
-        return BRING_TO_CENTRE;
+    public String getWheelchairRepairable() {
+        return wheelchairRepairable;
     }
 
-    public void setBRING_TO_CENTRE(Boolean BRING_TO_CENTRE) {
-        this.BRING_TO_CENTRE = BRING_TO_CENTRE;
+    public void setWheelchairRepairable(String wheelchairRepairable) {
+        this.wheelchairRepairable = wheelchairRepairable;
     }
 
-    public ArrayList<String> getCONDITIONS() {
-        return CONDITIONS;
+    public String getBringToCentre() {
+        return bringToCentre;
     }
 
-    public void setCONDITIONS(ArrayList<String> CONDITIONS) {
-        this.CONDITIONS = CONDITIONS;
+    public void setBringToCentre(String bringToCentre) {
+        this.bringToCentre = bringToCentre;
     }
 
-    public String getINJURY_LOCATION_KNEE() {
-        return INJURY_LOCATION_KNEE;
+    public String getConditions() {
+        return conditions;
     }
 
-    public void setINJURY_LOCATION_KNEE(String INJURY_LOCATION_KNEE) {
-        this.INJURY_LOCATION_KNEE = INJURY_LOCATION_KNEE;
+    public void setConditions(String conditions) {
+        this.conditions = conditions;
     }
 
-    public String getINJURY_LOCATION_ELBOW() {
-        return INJURY_LOCATION_ELBOW;
+    public String getInjuryLocationKnee() {
+        return injuryLocationKnee;
     }
 
-    public void setINJURY_LOCATION_ELBOW(String INJURY_LOCATION_ELBOW) {
-        this.INJURY_LOCATION_ELBOW = INJURY_LOCATION_ELBOW;
+    public void setInjuryLocationKnee(String injuryLocationKnee) {
+        this.injuryLocationKnee = injuryLocationKnee;
     }
 
-    public String getSTATUS() {
-        return STATUS;
+    public String getInjuryLocationElbow() {
+        return injuryLocationElbow;
     }
 
-    public void setSTATUS(String STATUS) {
-        this.STATUS = STATUS;
+    public void setInjuryLocationElbow(String injuryLocationElbow) {
+        this.injuryLocationElbow = injuryLocationElbow;
     }
 
-    public String getOUTCOME() {
-        return OUTCOME;
+    public String getStatus() {
+        return status;
     }
 
-    public void setOUTCOME(String OUTCOME) {
-        this.OUTCOME = OUTCOME;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getCLIENT_ID() {
-        return CLIENT_ID;
+    public String getOutcome() {
+        return outcome;
     }
 
-    public void setCLIENT_ID(String CLIENT_ID) {
-        this.CLIENT_ID = CLIENT_ID;
+    public void setOutcome(String outcome) {
+        this.outcome = outcome;
+    }
+
+    public String getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(String clientID) {
+        this.clientID = clientID;
+    }
+
+    public String getIsSynced() {
+        return isSynced;
+    }
+
+    public void setIsSynced(String isSynced) {
+        this.isSynced = isSynced;
     }
 }
