@@ -111,7 +111,8 @@ public class EditCBRActivity extends AppCompatActivity {
                             if (success) {
                                 cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
                                 sharedPref.edit().putString("username", cbrWorker.getUsername()).apply();
-                                currentCBRWorker.setUsername(cbrWorker.getUsername());
+
+                                currentCBRWorker = cbrWorker;
 
                                 syncService.sendWorkerToServer(cbrWorker);
 
