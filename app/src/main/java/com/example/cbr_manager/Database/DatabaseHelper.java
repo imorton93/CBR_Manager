@@ -5,31 +5,24 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.example.cbr_manager.UI.NewReferralActivity;
-
 import at.favre.lib.crypto.bcrypt.BCrypt;
-
-import static com.example.cbr_manager.UI.LoginActivity.currentCBRWorker;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "cbr.db";
 
     //Worker Table
-    private static final String TABLE_NAME = "WORKER_DATA";
-    private static final String COL_1 = "FIRST_NAME";
-    private static final String COL_2 = "LAST_NAME";
-    private static final String COL_3 = "USERNAME";
-    private static final String COL_7 = "ZONE";
-    private static final String COL_4 = "PASSWORD";
-    private static final String COL_5 = "ID";
-    private static final String COL_6 = "IS_ADMIN";
-    private static final String COL_8 = "PHOTO";
+    private static final String cbr_table = "WORKER_DATA";
+    private static final String cbr_first_name = "FIRST_NAME";
+    private static final String cbr_last_name = "LAST_NAME";
+    private static final String cbr_username = "USERNAME";
+    private static final String cbr_zone = "ZONE";
+    private static final String cbr_password = "PASSWORD";
+    private static final String cbr_id = "ID";
+    private static final String cbr_is_admin = "IS_ADMIN";
+    private static final String cbr_photo = "PHOTO";
 
     //Client Table
     private static final String client_table_name = "CLIENT_DATA";
@@ -170,9 +163,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create_worker_table = "CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " TEXT, " + COL_2 + " TEXT, " + COL_3
-                + " TEXT UNIQUE NOT NULL, " + COL_7 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " INTEGER PRIMARY KEY , "
-                + COL_6 + " BOOLEAN NOT NULL DEFAULT 0, " + COL_8 + " BLOB);";
+        String create_worker_table = "CREATE TABLE " + cbr_table + " (" + cbr_first_name + " TEXT, " + cbr_last_name + " TEXT, " + cbr_username
+                + " TEXT UNIQUE NOT NULL, " + cbr_zone + " TEXT, " + cbr_password + " TEXT, " + cbr_id + " INTEGER PRIMARY KEY , "
+                + cbr_is_admin + " BOOLEAN NOT NULL DEFAULT 0, " + cbr_photo + " BLOB);";
         db.execSQL(create_worker_table);
 
         String create_client_table = "CREATE TABLE " + client_table_name + " (" + client_id + " INTEGER PRIMARY KEY , "
@@ -230,7 +223,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL(" DROP TABLE IF EXISTS " + cbr_table);
         db.execSQL(" DROP TABLE IF EXISTS " + client_table_name);
         db.execSQL(" DROP TABLE IF EXISTS " + visit_table);
         db.execSQL(" DROP TABLE IF EXISTS " + referral_table);
@@ -244,14 +237,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COL_1, cbrWorker.getFirstName());
-        cv.put(COL_2, cbrWorker.getLastName());
-        cv.put(COL_3, cbrWorker.getUsername());
-        cv.put(COL_7, cbrWorker.getZone());
-        cv.put(COL_4, cbrWorker.getPassword());
-        cv.put(COL_6, cbrWorker.getIs_admin());
+        cv.put(cbr_first_name, cbrWorker.getFirstName());
+        cv.put(cbr_last_name, cbrWorker.getLastName());
+        cv.put(cbr_username, cbrWorker.getUsername());
+        cv.put(cbr_zone, cbrWorker.getZone());
+        cv.put(cbr_password, cbrWorker.getPassword());
+        cv.put(cbr_is_admin, cbrWorker.getIs_admin());
 
-        long result = db.insert(TABLE_NAME, null, cv);
+        long result = db.insert(cbr_table, null, cv);
         return result != -1;
     }
 
@@ -259,21 +252,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COL_1, cbrWorker.getFirstName());
-        cv.put(COL_2, cbrWorker.getLastName());
-        cv.put(COL_3, cbrWorker.getUsername());
-        cv.put(COL_7, cbrWorker.getZone());
-        cv.put(COL_4, cbrWorker.getPassword());
+        cv.put(cbr_first_name, cbrWorker.getFirstName());
+        cv.put(cbr_last_name, cbrWorker.getLastName());
+        cv.put(cbr_username, cbrWorker.getUsername());
+        cv.put(cbr_zone, cbrWorker.getZone());
+        cv.put(cbr_password, cbrWorker.getPassword());
 
         if ((cbrWorker.getPhoto() != null) && (cbrWorker.getPhoto().length != 0)) {
-            cv.put(COL_8, cbrWorker.getPhoto());
+            cv.put(cbr_photo, cbrWorker.getPhoto());
         }
 
         long id = cbrWorker.getId();
-        String whereClause = COL_5.concat(" = ");
+        String whereClause = cbr_id.concat(" = ");
         whereClause = whereClause.concat(Long.toString(id));
 
-        long result = db.update(TABLE_NAME, cv, whereClause,null);
+        long result = db.update(cbr_table, cv, whereClause,null);
         return result != -1;
     }
 
@@ -527,14 +520,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean checkUser(String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + email + "'";
+        String query = "SELECT * FROM " + cbr_table + " WHERE " + cbr_username + " = '" + email + "'";
 
         Cursor cursor = db.rawQuery(query, null);
         int count = cursor.getCount();
 
         if (count > 0) {
             cursor.moveToFirst();
-            String curPw = cursor.getString(cursor.getColumnIndex(COL_4));
+            String curPw = cursor.getString(cursor.getColumnIndex(cbr_password));
             BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), curPw);
 
             if (result.verified) {
@@ -550,7 +543,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public int getWorkerId(String username) {
-        String query = "SELECT ID FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
+        String query = "SELECT ID FROM " + cbr_table + " WHERE " + cbr_username + " = '" + username + "';";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
         if (c != null && c.getCount() > 0) {
@@ -626,7 +619,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean isAdmin (String username ){
-        String query = "SELECT IS_ADMIN FROM " + TABLE_NAME + " WHERE " + COL_3 + " = '" + username + "';";
+        String query = "SELECT IS_ADMIN FROM " + cbr_table + " WHERE " + cbr_username + " = '" + username + "';";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
         if (c != null && c.getCount() > 0) {
