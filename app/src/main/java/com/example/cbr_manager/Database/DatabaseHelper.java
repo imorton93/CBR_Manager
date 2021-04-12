@@ -237,6 +237,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        cv.put(cbr_id, cbrWorker.getId());
         cv.put(cbr_first_name, cbrWorker.getFirstName());
         cv.put(cbr_last_name, cbrWorker.getLastName());
         cv.put(cbr_username, cbrWorker.getUsername());
@@ -704,6 +705,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int numberOfUnreadMessages() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT COUNT(ID) FROM " + admin_message_table + " WHERE " + viewed_status + " = 0;";
+        Cursor c = db.rawQuery(query, null);
+        if (c != null && c.getCount() > 0) {
+            c.moveToLast();
+            return c.getInt(0);
+        } else {
+            return -1;
+        }
+    }
+
+    public int numberOfWorkers() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT COUNT(*) FROM " + cbr_table + ";";
         Cursor c = db.rawQuery(query, null);
         if (c != null && c.getCount() > 0) {
             c.moveToLast();
