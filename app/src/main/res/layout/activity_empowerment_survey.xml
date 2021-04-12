@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#1A0FDBFB"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#1A0FDBFB"
         tools:context=".UI.BaselineSurvey.EmpowermentandShelterSurveyActivity">
 
         <TextView
