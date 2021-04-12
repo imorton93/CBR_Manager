@@ -346,9 +346,8 @@
             android:layout_marginTop="40dp"
             android:layout_marginBottom="16dp"
             android:text="Back"
-            android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:background="@drawable/baseline_survey_buttons"
+            android:background="@drawable/rounded_form_buttons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewhealth9"/>
@@ -362,9 +361,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
-            android:background="@drawable/baseline_survey_buttons"
+            android:background="@drawable/rounded_form_buttons"
             android:text="Next"
-            android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/backButtonHealthSurvey" />

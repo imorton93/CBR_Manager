@@ -250,8 +250,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_7, cbrWorker.getZone());
         cv.put(COL_4, cbrWorker.getPassword());
         cv.put(COL_6, cbrWorker.getIs_admin());
-        cv.put(COL_8, cbrWorker.getPhoto());
-
 
         long result = db.insert(TABLE_NAME, null, cv);
         return result != -1;
@@ -266,7 +264,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COL_3, cbrWorker.getUsername());
         cv.put(COL_7, cbrWorker.getZone());
         cv.put(COL_4, cbrWorker.getPassword());
-        cv.put(COL_8, cbrWorker.getPhoto());
+
+        if ((cbrWorker.getPhoto() != null) && (cbrWorker.getPhoto().length != 0)) {
+            cv.put(COL_8, cbrWorker.getPhoto());
+        }
 
         long id = cbrWorker.getId();
         String whereClause = COL_5.concat(" = ");
@@ -305,7 +306,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_social_goal, client.getSocialStatusIndividualGoal());
         cv.put(client_social_requirement, client.getSocialStatusRequire());
         cv.put(is_synced, client.getIsSynced());
-        cv.put(client_photo, client.getPhoto());
+
+        if ((client.getPhoto() != null) && (client.getPhoto().length != 0)) {
+            cv.put(client_photo, client.getPhoto());
+        }
+
         cv.put(client_worker_id, client.getClient_worker_id());
 
         long result = db.insert(client_table_name, null, cv);
@@ -341,7 +346,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(client_social_goal, client.getSocialStatusIndividualGoal());
         cv.put(client_social_requirement, client.getSocialStatusRequire());
         cv.put(is_synced, client.getIsSynced());
-        cv.put(client_photo, client.getPhoto());
+
+        if ((client.getPhoto() != null) && (client.getPhoto().length != 0)) {
+            cv.put(client_photo, client.getPhoto());
+        }
+
         cv.put(client_worker_id, client.getClient_worker_id());
 
         long id = client.getId();
@@ -382,11 +391,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-
         cv.put(referral_id, referral.getId());
         cv.put(referral_outcome, referral.getOutcome());
         cv.put(client_referral_id, referral.getClientID());
-        cv.put(referral_photo, referral.getReferralPhoto());
+
+        if ((referral.getReferralPhoto() != null) && (referral.getReferralPhoto().length != 0)) {
+            cv.put(referral_photo, referral.getReferralPhoto());
+        }
 
         String serviceType = referral.getServiceReq();
 
@@ -394,7 +405,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             case "Physiotherapy":
                 cv.put(service_req, referral.getServiceReq());
                 String condition = referral.getCondition();
-                if (condition.equals("Other")) {
+                if (condition.equalsIgnoreCase("Other")) {
                     String explanation = referral.getConditionOtherExplanation();
                     cv.put(conditions, explanation);
                 } else {
@@ -686,7 +697,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int numberOfSurveysPerClient(long client_id){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT COUNT(ID) FROM " + survey_table + " WHERE " + survey_id + " = " + client_id + ";";
+        String query = "SELECT COUNT(ID) FROM " + survey_table + " WHERE " + survey_client_id + " = " + client_id + ";";
         Cursor c = db.rawQuery(query, null);
         if(c!= null && c.getCount()>0) {
             c.moveToLast();
@@ -780,5 +791,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             System.out.println(e.getMessage());
         }
         return (is_resolved.equals("RESOLVED"));
+    }
+
+    public void setRefferalToNotSynced (long referralID) {
+        String query = "UPDATE CLIENT_REFERRALS " +
+                "SET IS_SYNCED = 0 " +
+                "WHERE ID = " + referralID;
+
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.execSQL(query);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

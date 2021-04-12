@@ -241,24 +241,22 @@ public class VisitStatsFragment extends Fragment {
             String location = visit.getLocation();
             if(location.equals(ZONES.get(0))){
                 zone_count[0]++;
-            }else if(location.equals(GOAL_MET.get(1))){
+            }else if(location.equals(ZONES.get(1))){
                 zone_count[1]++;
-            }else if(location.equals(GOAL_MET.get(2))){
+            }else if(location.equals(ZONES.get(2))){
                 zone_count[2]++;
-            }else if(location.equals(GOAL_MET.get(3))){
+            }else if(location.equals(ZONES.get(3))){
                 zone_count[3]++;
-            }else if(location.equals(GOAL_MET.get(4))){
+            }else if(location.equals(ZONES.get(4))){
                 zone_count[4]++;
-            }else if(location.equals(GOAL_MET.get(5))){
+            }else if(location.equals(ZONES.get(5))){
                 zone_count[5]++;
-            }else if(location.equals(GOAL_MET.get(6))){
+            }else if(location.equals(ZONES.get(6))){
                 zone_count[6]++;
-            }else if(location.equals(GOAL_MET.get(7))){
+            }else if(location.equals(ZONES.get(7))){
                 zone_count[7]++;
-            }else if(location.equals(GOAL_MET.get(8))){
+            }else if(location.equals(ZONES.get(8))){
                 zone_count[8]++;
-            }else if(location.equals(GOAL_MET.get(9))){
-                zone_count[9]++;
             }
         }
 

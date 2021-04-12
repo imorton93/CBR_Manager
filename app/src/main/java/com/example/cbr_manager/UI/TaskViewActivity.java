@@ -32,7 +32,6 @@ import com.example.cbr_manager.Database.ClientManager;
 import com.example.cbr_manager.Database.DatabaseHelper;
 import com.example.cbr_manager.Database.Referral;
 import com.example.cbr_manager.Database.ReferralManager;
-import com.example.cbr_manager.Database.SurveyManager;
 import com.example.cbr_manager.Database.SyncService;
 import com.example.cbr_manager.Database.Visit;
 import com.example.cbr_manager.Database.VisitManager;
@@ -139,28 +138,6 @@ public class TaskViewActivity extends AppCompatActivity {
 
                     Toast.makeText(TaskViewActivity.this, "Sync Successful!", Toast.LENGTH_LONG).show();
                 }
-
-                ClientManager clientManager = ClientManager.getInstance(TaskViewActivity.this);
-                clientManager.clear();
-                clientManager.updateList();
-
-                VisitManager visitManager = VisitManager.getInstance(TaskViewActivity.this);
-                visitManager.clear();
-                visitManager.updateList();
-
-                ReferralManager referralManager = ReferralManager.getInstance(TaskViewActivity.this);
-                referralManager.clear();
-                referralManager.updateList();
-
-                AdminMessageManager adminMessageManager = AdminMessageManager.getInstance(TaskViewActivity.this);
-                adminMessageManager.clear();
-                adminMessageManager.updateList();
-
-                SurveyManager surveyManager = SurveyManager.getInstance(TaskViewActivity.this);
-                surveyManager.clear();
-                surveyManager.updateList();
-
-                badgeNotification(adminMessageManager, badge);
             }
         });
 

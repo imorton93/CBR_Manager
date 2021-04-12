@@ -6,14 +6,22 @@
     tools:context=".UI.clientInfoFragment.SurveyInfoActivity"
     android:background="@drawable/backgroundgradient">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:text="Baseline Survey Information"/>
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
-        android:layout_height="1346dp"
-        android:layout_marginStart="20dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="65dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/loginpageroundstyle"
@@ -38,9 +46,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Health "
+                    android:textColor="@color/black"
                     android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:text="Health "/>
 
                 <TableLayout
                     android:layout_width="match_parent"
@@ -63,13 +72,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  Yes  " />
+                            android:text="  Yes  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  No  " />
+                            android:text="  No  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -81,6 +96,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do they have access to rehabilitation? " />
 
                         <TextView
@@ -88,14 +104,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -107,6 +129,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do they need access to rehabilitation? " />
 
                         <TextView
@@ -114,14 +137,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health2no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -133,21 +162,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do they have an assistive device? \n(e.g. wheelchair, crutches, prosthetic..." />
 
                         <TextView
                             android:id="@+id/health3yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health3no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -159,6 +195,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Is your assistive device working well?" />
 
                         <TextView
@@ -166,14 +203,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health4no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -185,6 +228,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you need an assistive device?" />
 
                         <TextView
@@ -192,14 +236,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health5no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
                 </TableLayout>
 
@@ -224,23 +274,35 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  v poor  " />
+                            android:text="  v poor  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  poor  " />
+                            android:text="  poor  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  fine  " />
+                            android:text="  fine  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  good  " />
+                            android:text="  good  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -252,6 +314,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="General Health " />
 
                         <TextView
@@ -259,28 +322,40 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health6poor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health6fine"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health6good"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -292,35 +367,45 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Are you satisfied with the\nhealth services provided?" />
 
                         <TextView
                             android:id="@+id/health7VeryPoor"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
                             android:text="" />
 
                         <TextView
                             android:id="@+id/health7poor"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health7fine"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/health7good"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
                 </TableLayout>
 
@@ -349,55 +434,82 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Wheelchair" />
+                                android:text="Wheelchair"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Prosthetic" />
+                                android:text="Prosthetic"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Orthotic" />
+                                android:text="Orthotic"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Crutch" />
+                                android:text="Crutch"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Walking Stick" />
+                                android:text="Walking Stick"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Hearing aid" />
+                                android:text="Hearing aid"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Glasses" />
+                                android:text="Glasses"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Standing frame" />
+                                android:text="Standing frame"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Corner seat" />
+                                android:text="Corner seat"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                         </TableRow>
 
@@ -410,6 +522,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
+                                android:textColor="@color/black"
                                 android:text="What assistive device do you need?" />
 
                             <TextView
@@ -417,63 +530,90 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/health8Prosthetic"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/health8Orthotic"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/health8Crutch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/health8WalkingStick"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/health8Hearing"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/health8Glasses"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/health8Standing"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/health8Corner"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                         </TableRow>
                     </TableLayout>
@@ -484,6 +624,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="Education (under 18) "
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold" />
 
@@ -508,13 +649,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  Yes  " />
+                            android:text="  Yes  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  No  " />
+                            android:text="  No  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -526,6 +673,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you go to school?" />
 
                         <TextView
@@ -533,14 +681,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/education1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -552,13 +706,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="If yes what grade?" />
 
                         <TextView
                             android:id="@+id/education2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -570,6 +728,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="If No, have you ever been to school before?" />
 
                         <TextView
@@ -577,14 +736,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/education3no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -596,6 +761,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you want to go to school?" />
 
                         <TextView
@@ -603,14 +769,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/education4no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
                 </TableLayout>
 
@@ -639,19 +811,28 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Lack of funding" />
+                                android:text="Lack of funding"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="My disability stops me" />
+                                android:text="My disability stops me"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="other" />
+                                android:text="other"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
                         </TableRow>
 
                         <TableRow
@@ -663,28 +844,38 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="If no why do you not go to school?" />
+                                android:text="If no why do you not go to school?"
+                                android:textColor="@color/black" />
 
                             <TextView
                                 android:id="@+id/education5lack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/education5disability"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/education5other"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
                         </TableRow>
                     </TableLayout>
                 </HorizontalScrollView>
@@ -695,6 +886,7 @@
                     android:layout_marginTop="20dp"
                     android:text="Social"
                     android:textSize="25dp"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TableLayout
@@ -718,13 +910,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  Yes  " />
+                            android:text="  Yes  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  No  " />
+                            android:text="  No  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -736,21 +934,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you feel valued as a \nmember of your community?" />
 
                         <TextView
                             android:id="@+id/social1yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/social1no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -762,6 +967,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you feel independent?" />
 
                         <TextView
@@ -769,14 +975,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/social2no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -788,21 +1000,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Are you able to participate\n in community/Social events?" />
 
                         <TextView
                             android:id="@+id/social3yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/social3no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -814,21 +1033,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Does your disability affect \nyour ability to interact socially?" />
 
                         <TextView
                             android:id="@+id/social4yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/social4no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -840,21 +1066,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Have you experienced discrimination \nbecause of your disability?" />
 
                         <TextView
                             android:id="@+id/social5yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/social5no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
                 </TableLayout>
 
@@ -862,6 +1095,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:text="Livelihood (over 16)"
                     android:textSize="25dp"
                     android:textStyle="bold" />
@@ -887,13 +1121,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  Yes  " />
+                            android:text="  Yes  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  No  " />
+                            android:text="  No  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -905,6 +1145,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Are you working?" />
 
                         <TextView
@@ -912,14 +1153,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/live1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -931,6 +1178,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="If yes, what do you do?" />
 
                         <TextView
@@ -938,7 +1186,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                     </TableRow>
 
@@ -951,21 +1202,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Does this meet your \nfinancial needs?" />
 
                         <TextView
                             android:id="@+id/live3yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/live3no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -977,21 +1235,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Does your disability affect\nyour ability to go to work?" />
 
                         <TextView
                             android:id="@+id/live4yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/live4no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -1003,6 +1268,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you want to work?" />
 
                         <TextView
@@ -1010,14 +1276,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/live5no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -1035,13 +1307,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="Employed" />
+                            android:text="Employed"
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="self-employed" />
+                            android:text="self-employed"
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -1053,21 +1331,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Are you employed or \nself-employed?" />
 
                         <TextView
                             android:id="@+id/live6employed"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/live6selfEmployed"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
                 </TableLayout>
 
@@ -1076,6 +1361,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="Food and Nutrition"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold" />
 
@@ -1104,25 +1390,37 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="  v poor  " />
+                                android:text="  v poor  "
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="  poor  " />
+                                android:text="  poor  "
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="  fine  " />
+                                android:text="  fine  "
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="  good  " />
+                                android:text="  good  "
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
                         </TableRow>
 
                         <TableRow
@@ -1134,6 +1432,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
+                                android:textColor="@color/black"
                                 android:text="Food security?" />
 
                             <TextView
@@ -1141,28 +1440,40 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/food1poor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/food1fine"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/food1good"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
                         </TableRow>
                     </TableLayout>
                 </HorizontalScrollView>
@@ -1189,13 +1500,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  Yes  " />
+                            android:text="  Yes  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  No  " />
+                            android:text="  No  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -1208,6 +1525,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you have enough food every month?" />
 
                         <TextView
@@ -1215,14 +1533,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/food2no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
                 </TableLayout>
 
@@ -1253,19 +1577,28 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Malnourished" />
+                                android:text="Malnourished"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Undernourished" />
+                                android:text="Undernourished"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="Well nourished" />
+                                android:text="Well nourished"
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
                         </TableRow>
 
                         <TableRow
@@ -1277,6 +1610,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
+                                android:textColor="@color/black"
                                 android:text="If child, is the child?" />
 
                             <TextView
@@ -1284,21 +1618,30 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/food3undernourished"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:id="@+id/food3wellnourished"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/table_border"
-                                android:text="" />
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
                         </TableRow>
                     </TableLayout>
                 </HorizontalScrollView>
@@ -1307,6 +1650,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
                     android:text="Empowerment"
                     android:textSize="25dp"
                     android:textStyle="bold" />
@@ -1333,13 +1677,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  Yes  " />
+                            android:text="  Yes  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  No  " />
+                            android:text="  No  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -1352,21 +1702,28 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Are you member of an organisations\n which assist people with disabilities?" />
 
                         <TextView
                             android:id="@+id/empower1yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/empower1no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -1379,21 +1736,28 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Are you aware of your rights as a\n citizen living with disability?" />
 
                         <TextView
                             android:id="@+id/empower2yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/empower2no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -1406,21 +1770,28 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you feel like you are able to\n influence people around you?" />
 
                         <TextView
                             android:id="@+id/empower3yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/empower3no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
                 </TableLayout>
 
@@ -1429,6 +1800,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="Shelter and Care"
+                    android:textColor="@color/black"
                     android:textSize="25dp"
                     android:textStyle="bold" />
 
@@ -1454,13 +1826,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  Yes  " />
+                            android:text="  Yes  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="  No  " />
+                            android:text="  No  "
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -1473,6 +1851,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you have adequate shelter?" />
 
                         <TextView
@@ -1480,14 +1859,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/shelter1no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
 
                     <TableRow
@@ -1501,21 +1886,28 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/table_border"
+                            android:textColor="@color/black"
                             android:text="Do you have access to \nessential items for your household?" />
 
                         <TextView
                             android:id="@+id/shelter2yes"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
 
                         <TextView
                             android:id="@+id/shelter2no"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="@drawable/table_border"
-                            android:text="" />
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
                     </TableRow>
                 </TableLayout>
             </LinearLayout>

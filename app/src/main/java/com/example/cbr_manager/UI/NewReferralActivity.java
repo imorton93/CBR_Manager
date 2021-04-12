@@ -157,8 +157,6 @@ public class NewReferralActivity extends AppCompatActivity {
                     pageCount = selectedForm.size() + 2;
                     back.setClickable(true);
                     back.setVisibility(View.VISIBLE);
-                    back.setBackground(ContextCompat.getDrawable(this, R.drawable.rounded_form_buttons));
-                    back.setBackgroundColor(Color.parseColor("#6661ED24"));
                     savePage(serviceRequirePage);
                 }
                 else{
@@ -803,8 +801,14 @@ public class NewReferralActivity extends AppCompatActivity {
 
         if(serviceType.equals("Physiotherapy")){
             String condition = referral.getCondition();
+            String otherCondition = referral.getConditionOtherExplanation();
             TextView conditionView = new TextView(this);
-            conditionView.setText("Condition: " + condition);
+            if(condition.equalsIgnoreCase("Other")){
+                conditionView.setText("Condition: " + otherCondition);
+            }
+            else{
+                conditionView.setText("Condition: " + condition);
+            }
             conditionView.setTextSize(txtSize);
             layout.addView(conditionView);
         }

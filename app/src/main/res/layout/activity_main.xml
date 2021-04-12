@@ -7,7 +7,7 @@
     android:animateLayoutChanges="true"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".GoogleMaps.MainActivity">
+   >
 
 
     <Button
