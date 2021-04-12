@@ -60,6 +60,7 @@ public class EditCBRActivity extends AppCompatActivity {
 
         CBRWorkerManager manager = CBRWorkerManager.getInstance(this);
         cbrWorker = manager.getCBRByUsernameAndPassword(currentCBRWorker.getUsername());
+        syncService.syncWorkerTable();
 
         setText();
         buttons();
@@ -143,5 +144,4 @@ public class EditCBRActivity extends AppCompatActivity {
         NetworkInfo activeNetwork = connectManager.getActiveNetworkInfo();
         return (activeNetwork != null) && (activeNetwork.isConnectedOrConnecting());
     }
-
 }

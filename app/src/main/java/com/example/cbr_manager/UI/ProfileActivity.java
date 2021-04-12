@@ -133,8 +133,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = EditCBRActivity.makeIntent(ProfileActivity.this);
-                startActivity(intent);
+                if (!connectedToInternet()) {
+                    Toast.makeText(ProfileActivity.this, "Please connect to the internet and try again!", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = EditCBRActivity.makeIntent(ProfileActivity.this);
+                    startActivity(intent);
+                }
             }
         });
 
