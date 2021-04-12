@@ -81,6 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                         if (validatePasswords()) {
                             cbrWorker = new CBRWorker(firstNameTextBox.getText().toString(), lastNameTextBox.getText().toString(),
                                     emailTextBox.getText().toString(), zoneTextBox.getText().toString(), BCrypt.withDefaults().hashToString(12, password1TextBox.getText().toString().toCharArray()));
+                            cbrWorker.setWorkerId(mydb.numberOfWorkers() + 1);
                             boolean success = mydb.registerWorker(cbrWorker);
                             if(success) {
                                 cbrWorker.setWorkerId((mydb.getWorkerId(cbrWorker.getUsername())));
