@@ -30,7 +30,7 @@
         <item>Ongoing</item>
         <item>Concluded</item>
     </array>
-    <string name="app_name">CBR_Manager</string>
+    <string name="app_name">MyCBR</string>
     <string name="community_based_rehab_manager">Community Based Rehab Manager</string>
     <string name="enter_username">Enter Username</string>
     <string name="enter_password">Enter Password</string>
